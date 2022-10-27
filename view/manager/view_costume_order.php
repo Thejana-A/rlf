@@ -2,39 +2,43 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add costume order</title>
+        <title>View costume order</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
     </head>
 
     <body>
         <?php include 'header.php';?>
-
         <div id="page-body">
+            
             <?php include 'leftnav.php';?>
 
             <div id="page-content">
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Costume orders </a> > Create a costume order
+                    <a href="#">Manager </a> >
+                    <a href="#">Costume orders </a> > View
                 </div>
 
                 <div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>Add costume order(onsite)</h2>
+                            <h2>View costume order</h2>
                         </center>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Order ID : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>0001</option>
-                                    <option>0002</option>
-                                    <option>0004</option>
-                                </select>
+                                <input type="text" name="" id="" disabled />
                             </div>
                         </div>
                         <div class="form-row">
@@ -71,6 +75,22 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Merchandiser ID : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Merchandiser name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 <b>ID - Design name</b>
                             </div>
                             <div class="form-row-data">
@@ -81,7 +101,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-S
+                                0005 - Black T-shirt-S
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -91,7 +111,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-L
+                                0008 - Black T-shirt-L
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -101,7 +121,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-XXL
+                                0010 - Black T-shirt-XXL
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -127,21 +147,20 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="" id="" />
                             </div>
                         </div>
-                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <b>Advance payment (LKR) :</b>
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Quotation issued on :
@@ -158,7 +177,89 @@
                                 <input type="date" name="" id="" disabled />
                             </div>
                         </div>
-                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Acceptance (By merchandiser) :
+                            </div>
+                            <div class="form-row-data">
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id="" /> Accept
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id="" /> Reject
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Acceptance description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="" name="" rows="4" cols="40"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Product status :
+                            </div>
+                            <div class="form-row-data">
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="product_status" class="input-radio" id="" /> Incomplete
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="product_status" class="input-radio" id="" /> Complete
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Quality (By manager) :
+                            </div>
+                            <div class="form-row-data">
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="quality" class="input-radio" id="" /> Good
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="quality" class="input-radio" id="" /> Bad
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Quality description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="" name="" rows="4" cols="40"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <b>Balance payment (LKR) :</b>
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Dispatched date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />

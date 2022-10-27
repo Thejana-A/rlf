@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add costume order</title>
+        <title>Add employee</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
     </head>
 
@@ -16,118 +16,19 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Costume orders </a> > Create a costume order
-                </div>
+                    <a href="#">Manager </a> >
+                    <a href="#">Employees </a> > Add new employee
+                </div> 
 
-                <div id="form-box">
+                <div id="form-box-small">
                     <form method="post" action="">
                         <center>
-                            <h2>Add costume order(onsite)</h2>
+                            <h2>Add employees</h2>
                         </center>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>0001</option>
-                                    <option>0002</option>
-                                    <option>0004</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer name : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer contact no : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer email : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>ID - Design name</b>
-                            </div>
-                            <div class="form-row-data">
-                                <span><b>Quantity</b></span>
-                                <span><b>Unit price(LKR)</b></span>
-                                <span><b>Price(LKR)</b></span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Black T-shirt-S
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Black T-shirt-L
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Black T-shirt-XXL
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Total items :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Total price (LKR) :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
+                                Name : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -135,30 +36,105 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Expected delivery date :
+                                User name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="" id="" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Email : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Contact number : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                User type : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="">
+                                    <option>Fashion designer</option>
+                                    <option>Merchandiser</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Address line 1 : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Address line 2 : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Address line 3 : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Date of birth : 
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="" id="" />
                             </div>
                         </div>
-                        
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation issued on :
+                                Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <input type="date" name="" id="" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation valid till :
+                                User active status :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="active_status" class="input-radio" id="" /> Enable
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="active_status" class="input-radio" id="" /> Disable
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                        
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />
@@ -168,7 +144,9 @@
                             </div>
                         </div> 
                     </form>
-                </div>   
+                </div>  
+                
+
             </div> 
         </div> 
 

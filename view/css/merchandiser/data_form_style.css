@@ -37,6 +37,43 @@
     color:#330099;
     font-family:sans-serif;
   }
+
+  #form-box-small{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:15px;
+    margin:30px;
+    clear:inherit;
+    font-family:sans-serif;
+    width:160%;
+  }
+  #form-box-small h2{
+    color:#330099;
+    font-family:sans-serif;
+  }
+  @media (max-width: 1200px) {
+    #form-box-small {
+      width: 80%;
+    }
+  }
+  #form-box-ultra-small{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:15px;
+    margin:30px;
+    clear:inherit;
+    font-family:sans-serif;
+    width:130%;
+  }
+  #form-box-ultra-small h2{
+    color:#330099;
+    font-family:sans-serif;
+  }
+  @media (max-width: 1200px) {
+    #form-box-ultra-small {
+      width: 80%;
+    }
+  }
   .form-row {
     display: flex;
     flex-wrap: wrap;
@@ -64,6 +101,9 @@
   .form-row-data input{
     width:85%;
   }
+  .form-row-data select{
+    width:85%;
+  }
   @media (max-width: 800px) {
     .form-row-theme, .form-row-data {
       flex: 100%;
@@ -71,6 +111,10 @@
   }
   .form-row-data .input-radio{
     width:15%;
+    
+  }
+  .form-row-data .input-checkbox{
+    width:10%;
     
   }
   .form-row-submit {
@@ -85,10 +129,22 @@
     flex: 50%;
     box-sizing: border-box;
   }
-  .form-row-submit input{
-    width:70%;font-weight:bold;margin:10px;font-size:15px;
+  .form-row-center-button{
+    padding: 10px;
+    text-align:center;
+    flex: 100%;
+    box-sizing: border-box;
   }
-  .form-row-reset input{
-    width:70%;font-weight:bold;margin:10px;font-size:15px;
+  .form-row-center-button input{
+    width:50%;font-weight:bold;margin:10px;font-size:15px;padding:5px;
+  }
+  .form-row-submit input, .form-row-reset input{
+    width:70%;font-weight:bold;margin:10px;font-size:15px;padding:5px;
+  }
+  .form-row-data .design-view{
+    width:200px;
+  }
+  .form-row-data .material-image{
+    width:150px;
   }
   /*content data form end*/

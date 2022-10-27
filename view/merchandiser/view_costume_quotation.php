@@ -2,14 +2,14 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add costume order</title>
+        <title>View costume quotation</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
     </head>
 
     <body>
         <?php include 'header.php';?>
-
         <div id="page-body">
+            
             <?php include 'leftnav.php';?>
 
             <div id="page-content">
@@ -17,24 +17,21 @@
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
                     <a href="#">Merchandiser </a> >
-                    <a href="#">Costume orders </a> > Create a costume order
+                    <a href="#">Costume designs quotation </a> > View
                 </div>
 
                 <div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>Add costume order(onsite)</h2>
+                            <h2>View costume quotation</h2>
                         </center>
+                    
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>0001</option>
-                                    <option>0002</option>
-                                    <option>0004</option>
-                                </select>
+                                <input type="text" name="" id="" disabled />
                             </div>
                         </div>
                         <div class="form-row">
@@ -42,7 +39,11 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <select name="" id="">
+                                    <option>0001 - John Doe</option>
+                                    <option>0002 - Harry Potter</option>
+                                    <option>0004 - John A</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -81,31 +82,31 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-S
+                                0005 - Black T-shirt-small
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
                                 <input type="text" name="" id="" class="column-textfield" disabled />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-L
+                                0008 - Black T-shirt-large
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
                                 <input type="text" name="" id="" class="column-textfield" disabled />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-XXL
+                                0010 - Black T-shirt-XXL
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
                                 <input type="text" name="" id="" class="column-textfield" disabled />
                             </div>
                         </div>
@@ -127,15 +128,15 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
+                                Quotation issuing date :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="date" name="" id="" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Expected delivery date :
+                                Quotation Valid till :
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="" id="" />
@@ -144,18 +145,27 @@
                         
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation issued on :
+                                Approval (By manager) :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id="" disabled /> Approve
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id="" disabled /> Reject
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation valid till :
+                                Approval description :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <textarea id="" name="" rows="4" cols="40" disabled></textarea>
                             </div>
                         </div>
                         

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add costume order</title>
+        <title>Delete costume design</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
     </head>
 
@@ -16,30 +16,111 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Costume orders </a> > Create a costume order
+                    <a href="#">Manager </a> >
+                    <a href="#">View costume designs </a> > Delete
                 </div>
 
                 <div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>Add costume order(onsite)</h2>
+                            <h2>Delete costume design</h2>
                         </center>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Quotation ID : 
+                                Design ID : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>0001</option>
-                                    <option>0002</option>
-                                    <option>0004</option>
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Design name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Size : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="" disabled>
+                                    <option>S</option>
+                                    <option>M</option>
+                                    <option>L</option>
+                                    <option>XL</option>
+                                    <option>XXL</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Customer ID : 
+                                Raw materials : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="" multiple size="2" disabled>
+                                    <option disabled>ID - Material name</option>
+                                    <option>0004 - Black Thread-S</option>
+                                    <option>0014 - Blue Thread-S</option>
+                                    <option>0022 - Red anchor button-L</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Description
+                            </div>
+                            <div class="form-row-data">
+                                <textarea rows="4" cols="40" name="" id="" disabled></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Fashion designer : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="" disabled>
+                                    <option disabled>Designer ID - Designer name</option>
+                                    <option>0001-John A</option>
+                                    <option>0004-John B</option>
+                                    <option>0010-John C</option>
+                                    <option>0011-John D</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Merchandiser : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="" disabled>
+                                    <option disabled>Merchandiser ID - Merchandiser name</option>
+                                    <option>0001-John A</option>
+                                    <option>0004-John B</option>
+                                    <option>0010-John C</option>
+                                    <option>0011-John D</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-center-button">
+                                <input type="submit" value="Delete" />
+                            </div>
+                        </div> 
+                    </form>
+                </div>   
+
+                <div id="form-box">
+                    <form method="post" action="">
+                        <center>
+                            <h2>Price description</h2>
+                        </center>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Design ID : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" disabled />
@@ -47,31 +128,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Customer name : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer contact no : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Customer email : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>ID - Design name</b>
+                                <b>ID - Material name (unit)</b>
                             </div>
                             <div class="form-row-data">
                                 <span><b>Quantity</b></span>
@@ -81,7 +138,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-S
+                                0002-Anchor button(units)
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -91,7 +148,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-L
+                                0010-Blue poplin clothe(m)
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -101,7 +158,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-XXL
+                                0010-Black thick clothe(m)
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -111,7 +168,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Total items :
+                                Total material price (LKR) :
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" disabled />
@@ -119,54 +176,48 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Total price (LKR) :
+                                <b>Final price (LKR) :</b>
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" disabled />
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
+                                <b>Approval for material price (By manager) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="product_status" class="input-radio" id="" disabled /> Approved
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="product_status" class="input-radio" id="" disabled /> Rejected
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Approval description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea rows="4" cols="40" name="" id="" disabled></textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Expected delivery date :
+                                Publish status :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" />
+                                <input type="checkbox" name="" id="" class="input-checkbox" disabled /> Published
                             </div>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quotation issued on :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quotation valid till :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
-                            <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
-                            </div>
-                        </div> 
                     </form>
                 </div>   
             </div> 

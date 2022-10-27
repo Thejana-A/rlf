@@ -16,7 +16,7 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
+                    <a href="#">Manager </a> >
                     <a href="#">Costume orders </a> > Create a costume order
                 </div>
 
@@ -71,6 +71,22 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Merchandiser ID : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Merchandiser name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" disabled />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 <b>ID - Design name</b>
                             </div>
                             <div class="form-row-data">
@@ -81,7 +97,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-S
+                                Black T-shirt-small
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
@@ -91,7 +107,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-L
+                                Black T-shirt-large
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" disabled />
