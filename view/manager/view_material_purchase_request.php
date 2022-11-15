@@ -196,7 +196,7 @@
                 <div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>View material purchase requests</h2>
+                            <h2>Goods received notice</h2>
                         </center>
                     
                         <div class="form-row">

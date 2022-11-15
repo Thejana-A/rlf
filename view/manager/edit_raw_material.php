@@ -99,7 +99,7 @@
                                 Requester's ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -107,7 +107,7 @@
                                 Requester's name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -115,7 +115,7 @@
                                 Requester's role : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" />
                             </div>
                         </div>
 

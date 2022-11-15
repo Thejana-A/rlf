@@ -46,8 +46,8 @@
                             <span>John Doe</span>
                             <span>Piliyandala</span>
                             <span>0777762043</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
+                            <a href="#" class="red">Edit</a>
+                            <a href="#" class="red">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
@@ -64,8 +64,8 @@
                             <span>John B</span>
                             <span>Galle</span>
                             <span>0777762044</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
+                            <a href="#" class="green">Edit</a>
+                            <a href="#" class="green">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
@@ -82,8 +82,8 @@
                             <span>Harry P</span>
                             <span>Jaffna</span>
                             <span>0777762049</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
+                            <a href="#" class="green">Edit</a>
+                            <a href="#" class="green">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                     </div>

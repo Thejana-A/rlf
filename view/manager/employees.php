@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Customers</title>
@@ -41,11 +42,34 @@
                             <b>Contact no</b>
                             <hr class="manager-long-hr" style="width:99%" />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT employee_id, name, user_type, contact_no FROM employee";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["employee_id"]."</span><span>".$row["name"]."</span><span>".$row["user_type"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<a href=./edit_employee.php?employee_id=".$row["employee_id"]." class='grey'>Edit</a>";
+                                        echo "<a href='./delete_employee.php' class='grey'>Delete</a>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span class="manager-ID-column">0003</span>
                             <span>John Doe</span>
                             <span>Merchandiser</span>
-                            <span>0777762043</span>
+                            <span>94 777 762 043</span>
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
@@ -85,7 +109,7 @@
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
-                        </div>
+                        </div>-->
                     </div>
 
 

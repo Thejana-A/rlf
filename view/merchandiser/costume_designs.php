@@ -20,7 +20,7 @@
                     <a href="#">Merchandiser </a> > View costume designs
                 </div>
                 
-                <div id="list-box">
+                <div id="list-box-small">
                     <center>
                         <h2>Costume designs</h2>
                     </center>

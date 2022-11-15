@@ -17,12 +17,12 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Manager </a> > Material purchase requests
+                    <a href="#">Manager </a> > Raw material purchase requests
                 </div>
                 
                 <div id="list-box-small">
                     <center>
-                        <h2>Material purchase requests</h2>
+                        <h2>Raw material purchase requests</h2>
                     </center>
 
                     <form method="post" action="" class="search-panel">

@@ -51,7 +51,7 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Supplier ID</b>
+                            <b>Quotation ID</b>
                             <b>Supplier name</b>
                             <b>Issued date</b>
                             <b>Valid till</b>

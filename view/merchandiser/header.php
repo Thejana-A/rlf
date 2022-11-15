@@ -5,7 +5,11 @@
         <center><a href="#"><img src="../icons/rlf_logo.png" /></a></center>
     </span> 
     <span id="logout-button-span">
-        <a href="./login.php" id="logout-button">Logout</a>
+        <form method="post" action="../RouteHandler.php">
+            <input type="text" hidden="true" name="framework_controller" value="employee/logout" />
+            <input type="submit" id="logout-button" value="Logout" />
+        </form>
+        <!--<a href="../RouteHandler.php?method=post?name=framework_controller?value=employee/logout" id="logout-button">Logout</a>-->
     </span>  
 </div>
 

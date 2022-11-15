@@ -23,7 +23,7 @@
                 <div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>Costume Orders</h2>
+                            <h2>View costume order</h2>
                         </center>
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -147,6 +147,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Advance payment date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Quotation issued on :
                             </div>
                             <div class="form-row-data">
@@ -163,7 +171,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Acceptance (By merchandiser) :
+                                Order acceptance :
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">

@@ -20,10 +20,10 @@
                     <a href="#">Merchandiser </a> > Costume orders
                 </div>
                 
-                <div class="link-row">
+                <div class="link-row-small">
                     <a href="#" class="right-button">Add new costume order</a>
                 </div>
-                <div id="list-box">
+                <div id="list-box-small">
                     <center>
                         <h2>Costume orders</h2>
                     </center>

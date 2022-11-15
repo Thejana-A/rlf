@@ -4,6 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit supplier</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <script>
+            function addCode() {
+            document.getElementById("form_body").innerHTML += 
+            "<div class='form-row'><div class='form-row-theme'><select id=''><option disabled>ID - Material name</option><option>0004 - Black Thread-S</option><option>0014 - Blue Thread-S</option><option>0022 - Red anchor button-L</option></select></div><div class='form-row-data'><input type='text' class='column-textfield' disabled />&nbsp<input type='text' class='column-textfield' disabled />&nbsp<input type='text' class='column-textfield' /></div></div>";
+            }
+        </script>
     </head>
 
     <body>
@@ -36,7 +42,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Supplier name : 
+                                First name : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -44,7 +50,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Contact number : 
+                                Last name : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -52,7 +58,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                User name : 
+                                NIC : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -66,6 +72,16 @@
                                 <input type="text" name="" id="" />
                             </div>
                         </div>
+                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Contact number : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 City : 
@@ -80,7 +96,7 @@
                                 Raw materials : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="" multiple size="2">
+                                <select name="" id="" multiple size="3">
                                     <option disabled>ID - Material name</option>
                                     <option>0004 - Black Thread-S</option>
                                     <option>0014 - Blue Thread-S</option>
@@ -140,51 +156,25 @@
                                 <span><b>Quantity</b></span>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <select name="" id="">
-                                    <option disabled>ID - Material name</option>
-                                    <option>0004 - Black Thread-S</option>
-                                    <option>0014 - Blue Thread-S</option>
-                                    <option>0022 - Red anchor button-L</option>
-                                </select>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <select name="" id="">
-                                    <option disabled>ID - Material name</option>
-                                    <option>0004 - Black Thread-S</option>
-                                    <option>0014 - Blue Thread-S</option>
-                                    <option>0022 - Red anchor button-L</option>
-                                </select>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" />
+                        <div id="form_body">
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    <select name="" id="">
+                                        <option disabled>ID - Material name</option>
+                                        <option>0004 - Black Thread-S</option>
+                                        <option>0014 - Blue Thread-S</option>
+                                        <option>0022 - Red anchor button-L</option>
+                                    </select>
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="" id="" class="column-textfield" disabled />
+                                    <input type="text" name="" id="" class="column-textfield" disabled />
+                                    <input type="text" name="" id="" class="column-textfield" />
+                                    <button onclick="addCode()"> + </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <select name="" id="">
-                                    <option disabled>ID - Material name</option>
-                                    <option>0004 - Black Thread-S</option>
-                                    <option>0014 - Blue Thread-S</option>
-                                    <option>0022 - Red anchor button-L</option>
-                                </select> 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" />
-                            </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Expected delivery date :

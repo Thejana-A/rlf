@@ -22,7 +22,7 @@
                 <div id="form-box-small">
                     <form method="post" action="">
                         <center>
-                            <h2>Edit profile</h2>
+                            <h2>Edit self profile</h2>
                         </center>
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Name : 
+                                First name : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -42,7 +42,15 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                User name : 
+                                Last name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -79,6 +87,14 @@
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Date of birth : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Joined date : 
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="" id="" />

@@ -21,7 +21,8 @@
                 </div>
 
                 <div id="form-box-ultra-small">
-                    <form method="post" action="">
+                    <form method="post" name="rawMaterialForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                         <center>
                             <h2>Add raw material</h2>
                         </center>
@@ -31,7 +32,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="name" id="name" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,7 +40,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
+                                <select name="size" id="size">
                                     <option>S</option>
                                     <option>M</option>
                                     <option>L</option>
@@ -53,22 +54,13 @@
                                 Measuring unit : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
+                                <select name="measuring_unit" id="measuring_unit">
                                     <option>Units</option>
                                     <option>m</option>
                                     <option>yards</option>
                                     <option>reels</option>
                                     <option>m^2</option>
                                 </select>
-                            </div>
-                        </div>
-                    
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Description :
-                            </div>
-                            <div class="form-row-data">
-                                <textarea id="" name="" rows="4" cols="40"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -81,16 +73,25 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="description" name="description" rows="4" cols="40"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Approval status :
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="approval_status" class="input-radio" id="" /> Approve
+                                            <input type="radio" name="manager_approval" class="input-radio" id="" /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="approval_status" class="input-radio" id="" /> Deny
+                                            <input type="radio" name="manager_approval" class="input-radio" id="" /> Deny
                                         </td>
                                     </tr>
                                 </table>

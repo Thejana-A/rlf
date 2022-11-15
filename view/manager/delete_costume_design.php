@@ -71,6 +71,17 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Appearance :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../icons/front_view.png" alt="front-view" class="design-view" />
+                                <img src="../icons/rear_view.png" alt="rear-view" /><br />
+                                <img src="../icons/left_view.png" alt="left-view" />
+                                <img src="../icons/right_view.png" alt="right-view" /> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Description
                             </div>
                             <div class="form-row-data">

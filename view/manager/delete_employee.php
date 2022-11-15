@@ -35,27 +35,34 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Name : 
+                                First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="name" id="name" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                User name : 
+                                Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="name" id="name" />
                             </div>
                         </div>
-                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="name" id="name" />
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="email" name="email" id="email" />
                             </div>
                         </div>
                         <div class="form-row">

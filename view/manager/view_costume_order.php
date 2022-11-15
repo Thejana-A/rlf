@@ -163,6 +163,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Advance payment date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Quotation issued on :
                             </div>
                             <div class="form-row-data">
@@ -179,7 +187,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Acceptance (By merchandiser) :
+                                Order acceptance :
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">

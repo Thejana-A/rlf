@@ -155,7 +155,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <b>Approval for material price (By manager) :</b>
+                                <b>Approve request (By manager) :</b>
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">

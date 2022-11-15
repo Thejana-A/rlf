@@ -17,12 +17,12 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> > Material purchase requests
+                    <a href="#">Merchandiser </a> > Raw material purchase requests
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
-                        <h2>Material purchase requests</h2>
+                        <h2>Raw material purchase requests</h2>
                     </center>
 
                     <form method="post" action="" class="search-panel">
@@ -51,7 +51,7 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Supplier ID</b>
+                            <b>Order ID</b>
                             <b>Supplier name</b>
                             <b>EDD</b>
                             <b>Goods received on</b>

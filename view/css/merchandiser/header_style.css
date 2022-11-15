@@ -47,7 +47,18 @@
     display:inline-block;width:73%;padding-top:16px;padding-bottom:8px;text-align:right;height:68px;
   }
   #logout-button{
-    text-decoration:none;color:#000000;background-color:#ffffff;padding:5px;display:inline-block;width:80px;border-radius:3px;margin-top:15px;text-align:center;margin-right:50px;
+    text-decoration:none;
+    color:#000000;
+    background-color:#ffffff;
+    padding:5px;
+    display:inline-block;
+    width:80px;
+    border-radius:3px;
+    margin-top:15px;
+    text-align:center;
+    margin-right:50px;
+    font-size:16px;
+    border:none;
   }
   #logout-button:hover{
     text-decoration:none;color:#000000;background-color:#cccccc;padding:5px;display:inline-block;width:80px;border-radius:3px;margin-top:15px;text-align:center;margin-right:50px;

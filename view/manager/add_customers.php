@@ -28,16 +28,7 @@
                         
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Customer name : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" />
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Contact number : 
+                                First name : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -45,7 +36,23 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Username : 
+                                Last name : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Email : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
@@ -61,12 +68,21 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Email : 
+                                Confirm password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Contact number : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
                             </div>
                         </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 City : 

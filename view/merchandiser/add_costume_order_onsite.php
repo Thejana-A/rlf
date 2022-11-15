@@ -135,6 +135,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Advance payment date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">

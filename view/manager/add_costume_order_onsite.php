@@ -17,7 +17,7 @@
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
                     <a href="#">Manager </a> >
-                    <a href="#">Costume orders </a> > Create a costume order
+                    <a href="#">Costume orders </a> > Add new costume order
                 </div>
 
                 <div id="form-box">
@@ -147,6 +147,14 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Advance payment date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" />
                             </div>
                         </div>
                         <div class="form-row">
