@@ -46,12 +46,12 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $sql = "SELECT employee_id, name, user_type, contact_no FROM employee";
+                            $sql = "SELECT employee_id, first_name, last_name, user_type, contact_no FROM employee";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
-                                        echo "<span class='manager-ID-column'>".$row["employee_id"]."</span><span>".$row["name"]."</span><span>".$row["user_type"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<span class='manager-ID-column'>".$row["employee_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["user_type"]."</span><span>".$row["contact_no"]."</span>";
                                         echo "<a href=./edit_employee.php?employee_id=".$row["employee_id"]." class='grey'>Edit</a>";
                                         echo "<a href='./delete_employee.php' class='grey'>Delete</a>";
                                         echo "<hr class='manager-long-hr' />";

@@ -31,7 +31,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="name" id="name" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,12 +39,13 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>S</option>
-                                    <option>M</option>
-                                    <option>L</option>
-                                    <option>XL</option>
-                                    <option>XXL</option>
+                                <select name="size" id="size">
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
                                 </select>
                             </div>
                         </div>
@@ -53,12 +54,33 @@
                                 Raw materials : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="" multiple size="2">
+                                <?php 
+                                    require_once('../../model/DBConnection.php');
+                                    $connObj = new DBConnection();
+                                    $conn = $connObj->getConnection();
+                                    $sql = "SELECT material_id, name FROM raw_material";
+                                    if($result = mysqli_query($conn, $sql)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo "<select name='raw_material_id' id='raw_material_id' multiple size='2'>";
+                                            echo "<option disabled>ID - Material name</option>";
+                                            while($row = mysqli_fetch_array($result)){
+                                                echo "<option value='".$row["material_id"]."'>".$row["material_id"]." - ".$row["name"]."</option>";
+                                            }
+                                            echo "</select>";
+                                        }else {
+                                            echo "0 results";
+                                        }
+                                    }else{
+                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                                    }
+                                    mysqli_close($conn);
+                                ?>
+                                <!--<select name="raw_material_id" id="raw_material_id" multiple size="2">
                                     <option disabled>ID - Material name</option>
                                     <option>0004 - Black Thread-S</option>
                                     <option>0014 - Blue Thread-S</option>
                                     <option>0022 - Red anchor button-L</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="form-row">
@@ -66,7 +88,7 @@
                                 Front view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="" id="" />
+                                <input type="file" name="front_view" id="front_view" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -74,7 +96,7 @@
                                 Rear view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="" id="" />
+                                <input type="file" name="rear_view" id="rear_view" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -82,7 +104,7 @@
                                 Left view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="" id="" />
+                                <input type="file" name="left_view" id="left_view" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -90,7 +112,7 @@
                                 Right view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="" id="" />
+                                <input type="file" name="right_view" id="right_view" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -98,7 +120,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="" id=""></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -106,7 +128,7 @@
                                 Fashion designer : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
+                                <select name="fashion_designer_id" id="fashion_designer_id">
                                     <option disabled>Designer ID - Designer name</option>
                                     <option>0001-John A</option>
                                     <option>0004-John B</option>
@@ -120,7 +142,7 @@
                                 Merchandiser : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
+                                <select name="merchandiser_id" id="merchandiser_id">
                                     <option disabled>Merchandiser ID - Merchandiser name</option>
                                     <option>0001-John A</option>
                                     <option>0004-John B</option>

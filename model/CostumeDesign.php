@@ -1,40 +1,51 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class RawMaterial{
+    class CostumeDesign{
         
-        private $materialID;
+        private $designID;
         private $name;
         private $size;
-        private $image;
+        private $frontView;
+        private $rearView;
+        private $leftView;
+        private $rightView;
+        private $publishStatus;
+        private $materialPriceApproval;
+        private $materialPriceDescription;
         private $description;
-        private $managerApproval;
-        private $approvalDescription;
-        private $approvalDate;
-        private $measuringUnit;
-        private $quantityInStock;
+        private $finalPrice;
+        private $customizedDesignApproval;
+        private $designApprovalDescription;
+        private $designapprovalDate;
         
         function __construct($args) {
             $this->name = $args["name"];
             $this->size = $args["size"];
-            $this->image = $_FILES["image"]["name"];
+            $this->frontView = $_FILES["front_view"]["name"];
+            $this->rearView = $_FILES["rear_view"]["name"];
+            $this->leftView = $_FILES["left_view"]["name"];
+            $this->rightView = $_FILES["right_view"]["name"];
+            $this->publishStatus = $args["publish_status"];
+            $this->materialPriceApproval = $args["material_price_approval"];
+            $this->materialPriceDescription = $args["material_price_description"];
             $this->description = $args["description"];
-            $this->managerApproval = $args["manager_approval"];
-            $this->approvalDescription = $args["approval_description"];
-            $this->approvalDate = $args["approval_date"];
-            $this->measuringUnit = $args["measuring_unit"];
-            $this->quantityInStock = $args["quantity_in_stock"]; 
-            $this->supplierID = $args["supplier_id"];
+            $this->finalPrice = $args["final_price"];
+            $this->customizedDesignApproval = $args["customized_design_approval"]; 
+            $this->designApprovalDescription = $args["design_approval_description"];
+            $this->designApprovalDate = $args["design_approval_date"];
+            $this->customerID = $args["customer_id"];
+            $this->merchandiserID = $args["merchandiser_id"];
             $this->fashionDesignerID = $args["fashion_designer_id"];
         }
 
         public function add(){
             while (true) {
-                $newImageName = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
+                $newFrontImage = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
                 if (!file_exists("raw-material-image/".$newImageName)) break;
             }
             
-            $target = "../view/raw-material-image/";		
+            $target = "/opt/lampp/htdocs/rlf/view/raw-material-image/";		
             $fileTarget = $target.$newImageName;	
             $tempFileName = $_FILES["image"]["tmp_name"];
             $result = move_uploaded_file($tempFileName,$fileTarget);

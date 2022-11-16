@@ -4,6 +4,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Add raw material</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <script>
+            function setApprovalDate() {      
+                var today = new Date()
+                var day = today.getDate();
+                var month = today.getMonth() + 1;
+                var year = today.getFullYear();
+                var approvalDate = year+"-"+month+"-"+day;
+                document.getElementById("approval_date").value = approvalDate;
+            }
+            function validateForm(){
+                var manager_approval = document.forms["rawMaterialForm"]["manager_approval"].value;
+                if(manager_approval == ""){
+                    alert("Manager's approval is required!");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -21,7 +40,7 @@
                 </div>
 
                 <div id="form-box-ultra-small">
-                    <form method="post" name="rawMaterialForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                    <form method="post" name="rawMaterialForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                         <center>
                             <h2>Add raw material</h2>
@@ -32,7 +51,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="name" id="name" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -40,12 +59,13 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size" id="size">
-                                    <option>S</option>
-                                    <option>M</option>
-                                    <option>L</option>
-                                    <option>XL</option>
-                                    <option>XXL</option>
+                                <select name="size" id="size" required>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
                                 </select>
                             </div>
                         </div>
@@ -54,12 +74,12 @@
                                 Measuring unit : 
                             </div>
                             <div class="form-row-data">
-                                <select name="measuring_unit" id="measuring_unit">
-                                    <option>Units</option>
-                                    <option>m</option>
-                                    <option>yards</option>
-                                    <option>reels</option>
-                                    <option>m^2</option>
+                                <select name="measuring_unit" id="measuring_unit" required>
+                                    <option value="units">Units</option>
+                                    <option value="m">m</option>
+                                    <option value="yards">yards</option>
+                                    <option value="reels">reels</option>
+                                    <option value="m^2">m^2</option>
                                 </select>
                             </div>
                         </div>
@@ -68,7 +88,7 @@
                                 Image :
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="" id="" />
+                                <input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -76,7 +96,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="description" name="description" rows="4" cols="40"></textarea>
+                                <textarea id="description" name="description" rows="4" cols="40" required></textarea>
                             </div>
                         </div>
                         
@@ -88,14 +108,15 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" id="" /> Approve
+                                            <input type="radio" name="manager_approval" class="input-radio" id="" value="approve" onClick="setApprovalDate()" /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" id="" /> Deny
+                                            <input type="radio" name="manager_approval" class="input-radio" id="" value="deny" onClick="setApprovalDate()" /> Deny
                                         </td>
                                     </tr>
                                 </table>
                             </div>
+                            <input type="date" hidden="true" name="approval_date" id="approval_date" />
                         </div>
                         <div class="form-row">
                             <div class="form-row-submit">
@@ -108,7 +129,7 @@
                         
                     </form>
                 </div> 
-                  
+                
 
             </div> 
         </div> 

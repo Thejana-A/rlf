@@ -1,7 +1,8 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class Employee extends IDBModel{
+    require_once(__DIR__.'/IDBModel.php');
+    class Employee implements IDBModel{
         
         private $employeeID;
         private $firstName;
@@ -43,7 +44,7 @@
                 mysqli_stmt_execute($stmt);
                 $this->employeeID = $conn->insert_id;
                 if($this->employeeID == 0){
-                    echo "Sorry ! That username already exists.";
+                    echo "Sorry ! That email already exists.";
                 }else{
                     echo "New employee was added successfully";
                     echo "<table>";
@@ -91,19 +92,20 @@
             $conn = $connObj->getConnection();
             $this->employeeID = $_POST["employee_id"];
             //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
-            $sql = "UPDATE employee SET first_name=?,last_name=?, NIC=?, email=?, password=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID'";        
+            $sql = "UPDATE employee SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->name, $this->username, $this->password, $this->email, $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus);
+                mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! That username already exists.";
+                    echo "Sorry ! An error occured.";
                 }else{
                     echo "Employee was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
-                    echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                    echo "<tr><td>Username </td><td>: $this->username</td></tr>"; 
+                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
+                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
+                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
                     echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
                     echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                     echo "<tr><td>User type </td><td>: $this->userType</td></tr>";

@@ -1,71 +1,40 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class RawMaterial{
+    class DesignMaterial{
         
-        private $materialID;
-        private $name;
-        private $size;
-        private $image;
-        private $description;
-        private $managerApproval;
-        private $approvalDescription;
-        private $approvalDate;
-        private $measuringUnit;
-        private $quantityInStock;
+        private $quantity;
+        private $unitPrice;
         
         function __construct($args) {
-            $this->name = $args["name"];
-            $this->size = $args["size"];
-            $this->image = $_FILES["image"]["name"];
-            $this->description = $args["description"];
-            $this->managerApproval = $args["manager_approval"];
-            $this->approvalDescription = $args["approval_description"];
-            $this->approvalDate = $args["approval_date"];
-            $this->measuringUnit = $args["measuring_unit"];
-            $this->quantityInStock = $args["quantity_in_stock"]; 
-            $this->supplierID = $args["supplier_id"];
-            $this->fashionDesignerID = $args["fashion_designer_id"];
+            $this->quantity = $args["quantity"];
+            $this->unitPrice = $args["unit_price"];
         }
 
         public function add(){
-            while (true) {
-                $newImageName = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
-                if (!file_exists("raw-material-image/".$newImageName)) break;
-            }
-            
-            $target = "../view/raw-material-image/";		
-            $fileTarget = $target.$newImageName;	
-            $tempFileName = $_FILES["image"]["tmp_name"];
-            $result = move_uploaded_file($tempFileName,$fileTarget);
-            if($result) { 
-                $connObj = new DBConnection();
-                $conn = $connObj->getConnection();
-                $sql = "INSERT INTO raw_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date,quantity_in_stock,supplier_id,fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
-                    mysqli_stmt_execute($stmt);
-                    $this->materialID = $conn->insert_id;
-                    if($this->materialID == 0){
-                        echo "Sorry ! That material name already exists.";
-                    }else{
-                        echo "New raw material was added successfully";
-                        echo "<table>";
-                        echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
-                        echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                        echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                        echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                        echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
-                        echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                        echo "</table>";
-                    }
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                } 				
-            }else{			
-                echo "Sorry !!! There was an error in uploading your file";			
-            }
-            
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "INSERT INTO design_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date,quantity_in_stock,supplier_id,fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
+                mysqli_stmt_execute($stmt);
+                $this->materialID = $conn->insert_id;
+                if($this->materialID == 0){
+                    echo "Sorry ! That material name already exists.";
+                }else{
+                    echo "New raw material was added successfully";
+                    echo "<table>";
+                    echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
+                    echo "<tr><td>Name </td><td>: $this->name</td></tr>";
+                    echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
+                    echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
+                    echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
+                    echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
+                    echo "</table>";
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 				
             $stmt->close(); 
             $conn->close(); 
         }

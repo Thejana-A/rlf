@@ -25,45 +25,35 @@
         ?>
         <script>
             function validateForm(){
-                var name = document.forms["employeeForm"]["name"].value;
-                var username = document.forms["employeeForm"]["username"].value;
-                var password = document.forms["employeeForm"]["password"].value;
-                var email = document.forms["employeeForm"]["email"].value;
-                var contact_no = document.forms["employeeForm"]["contact_no"].value;
-                var user_type = document.forms["employeeForm"]["user_type"].value;
-                var address_line1 = document.forms["employeeForm"]["address_line1"].value;
-                var DOB = document.forms["employeeForm"]["DOB"].value;
-                var joined_date = document.forms["employeeForm"]["joined_date"].value;
+                var first_name = document.forms["employeeForm"]["first_name"].value;
+                var last_name = document.forms["employeeForm"]["last_name"].value;
+                var NIC = document.forms["employeeForm"]["NIC"].value;
                 var active_status = document.forms["employeeForm"]["active_status"].value;
-                if (name == "") {
-                    alert("Name must be filled out");
+                const date = new Date();
+                if (/^[a-zA-Z\s]+$/.test(first_name) == false) {
+                    alert("First name must have only letters and spaces");
                     return false;
-                }else if (/^[a-zA-Z\s]+$/.test(name) == false) {
-                    alert("Name must have only letters and spaces");
+                }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
+                    alert("Last name must have only letters and spaces");
                     return false;
-                }else if (username == "") {
-                    alert("Username must be filled out");
+                }else if ((NIC.length != 10)&&(NIC.length != 12)) {
+                    alert("NIC is invalid");
                     return false;
-                }else if (password == "") {
-                    alert("Password must be filled out");
+                }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
+                    alert("NIC is invalid");
                     return false;
-                }else if (email == "") {
-                    alert("email must be filled out");
+                }else if (NIC.length == 10) {
+                    if((NIC.charAt(9)=='x')||(NIC.charAt(9)=='X')||(NIC.charAt(9)=='v')||(NIC.charAt(9)=='V')){
+                        var validity = 1;    
+                    }else{
+                        alert("NIC is invalid");
+                        return false;
+                    }
+                }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
+                    alert("NIC is invalid");
                     return false;
-                }else if (contact_no == "") {
-                    alert("Contact number must be filled out");
-                    return false;
-                }else if (user_type == "") {
-                    alert("User type must be filled out");
-                    return false;
-                }else if (address_line1 == "") {
-                    alert("Address must have at least one line");
-                    return false;
-                }else if (DOB == "") {
-                    alert("Date of birth must be filled out");
-                    return false;
-                }else if (joined_date == "") {
-                    alert("Joined date must be filled out");
+                }else if (password.length<8) {
+                    alert("Password must have at least 8 characters");
                     return false;
                 }else if (active_status == "") {
                     alert("Active status must be filled out");
@@ -101,7 +91,7 @@
                                 Employee ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="employee_id" value="" readonly />
+                                <input type="text" name="employee_id" value="<?php echo $_GET["employee_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -109,7 +99,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -117,7 +107,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -125,7 +115,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -133,7 +123,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="email" name="email" id="email" />
+                                <input type="email" name="email" id="email" value="<?php echo $row["email"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -141,7 +131,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" value="" />
+                                <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" value="<?php echo $row["contact_no"]; ?>" required />
                             </div>
                         </div>
                     
@@ -151,8 +141,8 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="user_type">
-                                    <option value="merchandiser">Merchadiser</option>
-                                    <option value="fashion designer">Fashion designer</option>
+                                    <option value="merchandiser" <?php echo ($row["user_type"]=="merchandiser")?'selected':'' ?>>Merchadiser</option>
+                                    <option value="fashion designer" <?php echo ($row["user_type"]=="fashion designer")?'selected':'' ?>>Fashion designer</option>
                                 </select>
                             </div>
                         </div>
@@ -161,7 +151,7 @@
                                 Address line 1 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line1" value="" />
+                                <input type="text" name="address_line1" value="<?php echo $row["address_line1"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -169,7 +159,7 @@
                                 Address line 2 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line2" value="" />
+                                <input type="text" name="address_line2" value="<?php echo $row["address_line2"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -177,7 +167,7 @@
                                 Address line 3 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line3" value="" />
+                                <input type="text" name="address_line3" value="<?php echo $row["address_line3"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -185,7 +175,7 @@
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="DOB" value="" />
+                                <input type="date" name="DOB" value="<?php echo $row["DOB"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -193,7 +183,7 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="joined_date" value="" />
+                                <input type="date" name="joined_date" value="<?php echo $row["joined_date"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -204,10 +194,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" value="enable" /> Enable
+                                            <input type="radio" name="active_status" class="input-radio" value="enable" <?php echo ($row["active_status"]=="enable")?'checked':'' ?> /> Enable
                                         </td>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" value="disable" /> Disable
+                                            <input type="radio" name="active_status" class="input-radio" value="disable" <?php echo ($row["active_status"]=="disable")?'checked':'' ?> /> Disable
                                         </td>
                                     </tr>
                                 </table>
@@ -227,6 +217,15 @@
         </div> 
 
         <?php include 'footer.php';?>
-
+        <script>
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; 
+            var yyyy = today.getFullYear();
+            var max_DOB = yyyy-18 + '-' + mm + '-' + dd;
+            var max_joined_date = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("DOB").setAttribute("max", max_DOB);
+            document.getElementById("joined_date").setAttribute("max", max_joined_date);
+        </script>
     </body> 
 </html>

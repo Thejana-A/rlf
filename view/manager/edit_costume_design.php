@@ -48,6 +48,7 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="" id="">
+                                    <option>XS</option>
                                     <option>S</option>
                                     <option>M</option>
                                     <option>L</option>
