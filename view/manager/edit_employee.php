@@ -175,7 +175,7 @@
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="DOB" value="<?php echo $row["DOB"]; ?>" required />
+                                <input type="date" name="DOB" id="DOB" value="<?php echo $row["DOB"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -183,7 +183,7 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="joined_date" value="<?php echo $row["joined_date"]; ?>" required />
+                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">

@@ -41,32 +41,56 @@
 
         public function add(){
             while (true) {
-                $newFrontImage = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
-                if (!file_exists("raw-material-image/".$newImageName)) break;
+                $newFrontImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
+                if (!file_exists("front-view-image/".$newFrontImage)) break;
+            }
+            while (true) {
+                $newRearImage = uniqid().".".explode("/", $_FILES["rear_view"]["type"])[1];
+                if (!file_exists("rear-view-image/".$newRearImage)) break;
+            }
+            while (true) {
+                $newLeftImage = uniqid().".".explode("/", $_FILES["left_view"]["type"])[1];
+                if (!file_exists("left-view-image/".$newLeftImage)) break;
+            }
+            while (true) {
+                $newRightImage = uniqid().".".explode("/", $_FILES["right_view"]["type"])[1];
+                if (!file_exists("right-view-image/".$newRightImage)) break;
             }
             
-            $target = "/opt/lampp/htdocs/rlf/view/raw-material-image/";		
-            $fileTarget = $target.$newImageName;	
-            $tempFileName = $_FILES["image"]["tmp_name"];
-            $result = move_uploaded_file($tempFileName,$fileTarget);
-            if($result) { 
+            $frontImageTarget = "../view/front-view-image/".$newFrontImage;
+            $rearImageTarget = "../view/rear-view-image/".$newRearImage;
+            $leftImageTarget = "../view/left-view-image/".$newLeftImage;
+            $rightImageTarget = "../view/right-view-image/".$newRightImage;	
+
+            $tempFrontImage = $_FILES["front_view"]["tmp_name"];
+            $tempRearImage = $_FILES["rear_view"]["tmp_name"];
+            $tempLeftImage = $_FILES["left_view"]["tmp_name"];
+            $tempRightImage = $_FILES["right_view"]["tmp_name"];
+
+            $frontImageResult = move_uploaded_file($tempFrontImage, $frontImageTarget);
+            $rearImageResult = move_uploaded_file($tempRearImage, $rearImageTarget);
+            $leftImageResult = move_uploaded_file($tempLeftImage, $leftImageTarget);
+            $rightImageResult = move_uploaded_file($tempRightImage, $rightImageTarget);
+            if($frontImageResult&&$rearImageResult&&$leftImageResult&&$rightImageResult) { 
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
-                $sql = "INSERT INTO raw_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date,quantity_in_stock,supplier_id,fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
+                $sql = "INSERT INTO costume_design (name, size, front_view, rear_view, left_view, right_view, publish_status, material_price_approval, material_price_description, description, final_price, customized_design_approval, design_approval_description, design_approval_date, customer_id, merchandiser_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT design_id FROM costume_design WHERE name = '$this->name')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
+                    mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $this->name, $this->size, $this->front_view, $this->rear_view, $this->left_view, $this->right_view, $this->publish_status, $this->material_price_approval, $this->material_price_description, $this->description, $this->final_price, $this->customized_design_approval, $this->design_approval_description, $this->design_approval_date, $this->customer_id, $this->merchandiser_id, $this->fashion_designer_id);
                     mysqli_stmt_execute($stmt);
-                    $this->materialID = $conn->insert_id;
-                    if($this->materialID == 0){
-                        echo "Sorry ! That material name already exists.";
+                    $this->designID = $conn->insert_id;
+                    if($this->designID == 0){
+                        echo "Sorry ! That design name already exists.";
                     }else{
-                        echo "New raw material was added successfully";
+                        echo "New costume design was added successfully";
                         echo "<table>";
-                        echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
+                        echo "<tr><td>Design ID </td><td>: $this->materialID</td></tr>";
                         echo "<tr><td>Name </td><td>: $this->name</td></tr>";
                         echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                        echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                        echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
+                        echo "<tr><td>Front view </td><td>: $this->frontView</td></tr>"; 
+                        echo "<tr><td>Rear view </td><td>: $this->rearView</td></tr>"; 
+                        echo "<tr><td>Left view </td><td>: $this->leftView</td></tr>"; 
+                        echo "<tr><td>Left view </td><td>: $this->rightView</td></tr>"; 
                         echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                         echo "</table>";
                     }

@@ -7,31 +7,25 @@
         private $unitPrice;
         
         function __construct($args) {
-            $this->quantity = $args["quantity"];
+            $this->designID = $args["design_id"];
+            $this->materialID = $args["material_id"];
             $this->unitPrice = $args["unit_price"];
+            $this->quantity = $args["quantity"];
         }
 
         public function add(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "INSERT INTO design_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date,quantity_in_stock,supplier_id,fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
+            $sql = "INSERT INTO design_material (design_id, material_id,  unit_price, quantity) VALUES (?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
+                mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID, $this->unitPrice, $this->quantity);
                 mysqli_stmt_execute($stmt);
-                $this->materialID = $conn->insert_id;
-                if($this->materialID == 0){
-                    echo "Sorry ! That material name already exists.";
-                }else{
-                    echo "New raw material was added successfully";
-                    echo "<table>";
-                    echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
-                    echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                    echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                    echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                    echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
-                    echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                    echo "</table>";
-                }
+                echo "<table>";
+                echo "<tr><td>Design ID </td><td>: $this->designID</td></tr>";
+                echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
+                echo "<tr><td>Unit price </td><td>: $this->unitPrice</td></tr>";
+                echo "<tr><td>Quantity </td><td>: $this->quantity</td></tr>"; 
+                echo "</table>";
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
             } 				
@@ -43,7 +37,7 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM raw_material where material_id='$this->materialID'";
+            $sql = "SELECT * FROM design_material where material_id='$this->materialID' AND design_id='$this->designID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){

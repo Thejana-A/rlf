@@ -4,6 +4,9 @@
         case "employee":
             include_once ( __DIR__.'/EmployeeController.php');
             break;
+        case "customer":
+            include_once ( __DIR__.'/CustomerController.php');
+            break;
         case "raw_material":
             include_once ( __DIR__.'/RawMaterialController.php');
             break;

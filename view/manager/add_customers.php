@@ -4,6 +4,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Add new customer</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <script>
+            function validateForm(){
+                var first_name = document.forms["customerForm"]["first_name"].value;
+                var last_name = document.forms["customerForm"]["last_name"].value;
+                var NIC = document.forms["customerForm"]["NIC"].value;
+                var password = document.forms["customerForm"]["password"].value;
+                var confirm_password = document.forms["customerForm"]["confirm_password"].value;
+                const date = new Date();
+                if (/^[a-zA-Z\s]+$/.test(first_name) == false) {
+                    alert("First name must have only letters and spaces");
+                    return false;
+                }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
+                    alert("Last name must have only letters and spaces");
+                    return false;
+                }else if ((NIC.length != 10)&&(NIC.length != 12)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if (NIC.length == 10) {
+                    if((NIC.charAt(9)=='x')||(NIC.charAt(9)=='X')||(NIC.charAt(9)=='v')||(NIC.charAt(9)=='V')){
+                        var validity = 1;    
+                    }else{
+                        alert("NIC is invalid");
+                        return false;
+                    }
+                }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if (password.length<8) {
+                    alert("Password must have at least 8 characters");
+                    return false;
+                }else if (password != confirm_password) {
+                    alert("Confirm your password correctly");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            
+        </script>
     </head>
 
     <body>
@@ -21,7 +63,8 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" action="">
+                    <form method="post" name="customerForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="customer/add" />
                         <center>
                             <h2>Add customers</h2>
                         </center>
@@ -31,7 +74,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="first_name" id="first_name" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,7 +82,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="last_name" id="last_name" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -47,7 +90,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="email" name="email" id="email" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -55,7 +98,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="NIC" id="NIC" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -63,7 +106,7 @@
                                 Password : 
                             </div>
                             <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="password" name="password" id="password" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -71,7 +114,7 @@
                                 Confirm password : 
                             </div>
                             <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="password" name="confirm_password" id="confirm_password" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -79,7 +122,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="tel"  id="contact_no" name="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
                             </div>
                         </div>
                         
@@ -88,7 +131,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="city" id="city" />
                             </div>
                         </div>
                         <div class="form-row">
