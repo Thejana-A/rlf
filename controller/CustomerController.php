@@ -23,6 +23,9 @@
         case "logout":
             $customerModel->logout();
             break;
+        case "sign_up":
+            $customerModel->signUp();
+            break;
         
     } 
     
