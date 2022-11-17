@@ -1,11 +1,12 @@
 .header{
   width: 100%;
-  position: fixed;        
+  position: fixed;     
   padding: 0;
   color: #fff;
 }
 .header{
   top: 0;
+  left: 0;
 }
 /*header top start*/
 #header-top{
@@ -25,12 +26,16 @@
     width: 150px;
     height: 150px;
 }
-#centertitle{   
+#centertitle{
+    width: 60%;
     float: none;
+    display: flex;
+    justify-content: center;
     position: absolute;
     top: 40px;
     left: 50%;
     transform: translate(-50%, -50%);
+
   }
 #centertitle button{
     margin-top: 30px;
@@ -52,9 +57,9 @@
     width: 20%;
     float: right;
     margin-right: 2%;
-    height: 100px;    
+    height: 100px;
 }
-#logoutbutton{
+#logoutbutton,#signupbutton,#loginbutton{
     margin-top: 30px;
     float: right;
     padding-left: 20px;
@@ -67,9 +72,11 @@
     background-color: #D1D1D1;
     border: none;
 }
-#logoutbutton:hover{
+#signupbutton,#loginbutton{
+  margin-left: 5px;
+}
+#logoutbutton:hover,#signupbutton:hover,#loginbutton:hover{
   background-color: #f1f1f1;
-
 }
 /*header top end*/
 
@@ -133,7 +140,7 @@
   }
   
   .sidenav a:hover {
-    color: #f1f1f1;
+    background-color:#eecfa2;
   }
   
   .sidenav .closebtn {
@@ -144,13 +151,40 @@
   #main {
     margin-top: 150px;
     transition: margin-left .5s;
-    height: 700px;
+    height: 560px;
     padding: 0;
   }
   
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+
+  }
+  @media only screen and (max-width: 1000px){
+
+    #button{
+      font-size: 12px;
+    }
+    #centertitle{
+      font-size: 12px;
+    }
+    #loginbutton{
+      margin-top: 2px;
+      width: 85px;
+    }
+    #signupbutton{
+      margin-top: 20px;
+    }
+
+  }
+  @media only screen and (max-width: 500px){
+
+    #centertitle button{
+      padding-left: 8px;
+      padding-right: 8px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
 
   .iframe{
@@ -158,6 +192,7 @@
     width: 100%;
     border: none;
   }
+
   /*body end*/
 
 

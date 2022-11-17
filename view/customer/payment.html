@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<head>
+    <title>Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="customer_css.css" />
+</head>
+<body style="background-image: url('../image/payment.jpg'); 
+min-height:100%;
+background-size: cover;
+background-position: center; 
+background-repeat: no-repeat; 
+background-attachment: fixed;
+margin: 0;
+padding: 0;">
+<button type="button" onclick="goback()" class="back">Go Back</button>
+<form action="" method="post"  class="payment">
+
+    <label for="name"><b>Customer Name</b></label>
+    <input type="text" placeholder="Enter Name" name="name" required>
+
+    <input type="hidden" name="user_id" value="">
+    <label for="username"><b>Address</b></label>
+    <input type="text" placeholder="" name="address" required>
+
+        <label for="email"><b>Contact Number</b></label>
+    <input type="text" placeholder="" name="con" required>
+
+    <label for="contact"><b>Design Name</b></label>
+    <input type="text" placeholder="Sport t-shirt" name="designname" required>
+
+        <label for="address"><b>Price</b></label>
+    <input type="text" placeholder="Rs.32 000.00" name="price" required>
+
+
+    <br />
+    <br />
+    <button type="pay" class="btn" name="signup">Pay with Card</button>
+
+
+  </form>
+  <script>
+    function goback(){
+        window.history.go(-1);
+    }
+
+    $('#ph').on('keypress',function(){
+         var text = $(this).val().length;
+         if(text > 9){
+              return false;
+         }else{
+            $('#ph').text($(this).val());
+         }
+         
+    });
+</script>
+
+</body>
+</html>

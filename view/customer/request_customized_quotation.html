@@ -18,15 +18,19 @@
         <div class="box">
             <form action="">
                 <label for="fname">Propased Name :</label>
-                <input type="text" id="fname" name="fname"style="width: 100%;">
+                <input type="text" id="fname" name="fname"style="width: 100%;" required>
               </form>
         </div>
     </div>
     <div class="ViewRow">
         <div class="box">
             <form action="">
-                <label for="fname">Input Design Image:</label>
-                <input type="file" id="myFile" name="filename" style="width: 100%;">
+                <label for="fname">Input Design Image :</label>
+                <br>
+                Front View<input type="file" id="myFile" name="filename" style="width: 100%;">
+                <br>Back view<input type="file" id="myFile" name="filename" style="width: 100%;">
+                <br>Left View<input type="file" id="myFile" name="filename" style="width: 100%;">
+                <br>Right View<input type="file" id="myFile" name="filename" style="width: 100%;">
               </form>
         </div>
         
@@ -49,16 +53,37 @@
             <img src="../image/size-chart- new.png" width="60%">
             <br />
             <form action="">
-                <label for="sizes">Size :</label>
-                <select id="sizes" name="cars" col="10" style="padding: 5px; padding-right:40px; ">
-                  <option value="volvo">S</option>
-                  <option value="saab">M</option>
-                  <option value="fiat">L</option>
-                </select>
-                <br />
-                <br />
-                <label for="fname">Quantity :</label>
-                <input type="text" id="fname" name="fname"style="width: 15%">
+                <table>
+                    <tr>
+                        <th style="padding: 5px;">Size</th>
+                        <th style="padding-left: 20px;">Quantity</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">XS</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XS"style="width: 40%"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">S</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="S"style="width: 40%"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">M</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="M"style="width: 40%"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">L</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="L"style="width: 40%"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">XL</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XL"style="width: 40%"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 5px;">XXL</td>
+                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XXL"style="width: 40%"></td>
+                    </tr>
+                </table>
+
                 <br />
                 <input type="submit" value="Request Customized Quotation" class="Quotationbtn" style="margin-top: 20px; width:200px">
               </form>
