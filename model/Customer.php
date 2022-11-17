@@ -118,6 +118,9 @@
         public function editSelfProfile() {
             
         }
+        public function signUp(){
+            $this->add();
+        }
         
         public function login() {
             $connObj = new DBConnection();
