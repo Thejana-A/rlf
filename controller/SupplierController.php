@@ -1,30 +1,30 @@
 <?php
     require_once(__DIR__.'/BaseController.php');
-    require_once('../model/Employee.php');
+    require_once('../model/Supplier.php');
     $args = $_POST;
     
-    $employeeModel = new Employee($args); 
+    $supplierModel = new Supplier($args); 
     switch($controllerName[1]){
-        case "add": 
-            $employeeModel->addEmployee();
+        case "add":
+            $supplierModel->addSupplier();
             break;
         case "view":
-            $employeeModel->viewEmployee();
+            $supplierModel->viewSupplier();
             break;
         case "update":
-            $employeeModel->updateEmployee();
+            $supplierModel->updateSupplier();
             break;
         case "delete":
-            $employeeModel->deleteEmployee();
+            $supplierModel->deleteSupplier();
             break;
         case "login":
-            $employeeModel->login();
+            $supplierModel->login();
             break;
         case "logout":
-            $employeeModel->logout();
+            $supplierModel->logout();
             break;
         case "sign_up":
-            $employeeModel->signUp();
+            $supplierModel->signUp();
             break;
         
     } 

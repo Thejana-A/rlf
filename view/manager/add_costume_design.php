@@ -21,7 +21,8 @@
                 </div>
 
                 <div id="form-box-small">
-                    <form method="post" action="">
+                    <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
                         <center>
                             <h2>Create costume design</h2>
                         </center>
@@ -31,7 +32,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="name" id="name" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,7 +40,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size" id="size">
+                                <select name="size" id="size" required>
                                     <option value="XS">XS</option>
                                     <option value="S">S</option>
                                     <option value="M">M</option>
@@ -61,7 +62,7 @@
                                     $sql = "SELECT material_id, name FROM raw_material";
                                     if($result = mysqli_query($conn, $sql)){
                                         if(mysqli_num_rows($result) > 0){
-                                            echo "<select name='raw_material_id' id='raw_material_id' multiple size='2'>";
+                                            echo "<select name='material_id[]' id='material_id' multiple size='2' required>";
                                             echo "<option disabled>ID - Material name</option>";
                                             while($row = mysqli_fetch_array($result)){
                                                 echo "<option value='".$row["material_id"]."'>".$row["material_id"]." - ".$row["name"]."</option>";
@@ -88,7 +89,7 @@
                                 Front view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="front_view" id="front_view" />
+                                <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -96,7 +97,7 @@
                                 Rear view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="rear_view" id="rear_view" />
+                                <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -104,7 +105,7 @@
                                 Left view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="left_view" id="left_view" />
+                                <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -112,7 +113,7 @@
                                 Right view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="right_view" id="right_view" />
+                                <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -120,7 +121,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description"></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" required></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -128,13 +129,32 @@
                                 Fashion designer : 
                             </div>
                             <div class="form-row-data">
-                                <select name="fashion_designer_id" id="fashion_designer_id">
+                                <?php 
+                                    $conn = $connObj->getConnection();
+                                    $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type='fashion designer'";
+                                    if($result = mysqli_query($conn, $sql)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo "<select name='fashion_designer_id' id='fashion_designer_id' required>";
+                                            echo "<option disabled>ID - Fashion designer</option>";
+                                            while($row = mysqli_fetch_array($result)){
+                                                echo "<option value='".$row["employee_id"]."'>".$row["employee_id"]." - ".$row["first_name"]." ".$row["last_name"]."</option>";
+                                            }
+                                            echo "</select>";
+                                        }else {
+                                            echo "0 results";
+                                        }
+                                    }else{
+                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                                    }
+                                    mysqli_close($conn);
+                                ?>
+                                <!--<select name="fashion_designer_id" id="fashion_designer_id">
                                     <option disabled>Designer ID - Designer name</option>
                                     <option>0001-John A</option>
                                     <option>0004-John B</option>
                                     <option>0010-John C</option>
                                     <option>0011-John D</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="form-row">
@@ -142,15 +162,34 @@
                                 Merchandiser : 
                             </div>
                             <div class="form-row-data">
-                                <select name="merchandiser_id" id="merchandiser_id">
+                                <?php 
+                                    $conn = $connObj->getConnection();
+                                    $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type='merchandiser'";
+                                    if($result = mysqli_query($conn, $sql)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            echo "<select name='merchandiser_id' id='merchandiser_id' required>";
+                                            echo "<option disabled>ID - Merchandiser</option>";
+                                            while($row = mysqli_fetch_array($result)){
+                                                echo "<option value='".$row["employee_id"]."'>".$row["employee_id"]." - ".$row["first_name"]." ".$row["last_name"]."</option>";
+                                            }
+                                            echo "</select>";
+                                        }else {
+                                            echo "0 results";
+                                        }
+                                    }else{
+                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                                    }
+                                    mysqli_close($conn);
+                                ?>
+                                <!--<select name="merchandiser_id" id="merchandiser_id">
                                     <option disabled>Merchandiser ID - Merchandiser name</option>
                                     <option>0001-John A</option>
                                     <option>0004-John B</option>
                                     <option>0010-John C</option>
                                     <option>0011-John D</option>
-                                </select>
+                                </select> -->
                             </div>
-                        </div>
+                        </div> 
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />

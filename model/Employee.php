@@ -36,11 +36,13 @@
         }
 
         public function add(){
+            echo $this->password."<br>";
+            echo $_POST["password"]."<br>";
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "INSERT INTO employee (first_name, last_name, NIC , email, password , contact_no, user_type, address_line1, address_line2, address_line3,DOB, joined_date, active_status) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT employee_id FROM employee WHERE email = '$this->email')";
+            $sql = "INSERT INTO employee (first_name, last_name, NIC , email, password , contact_no, user_type, address_line1, address_line2, address_line3, DOB, joined_date, active_status) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT employee_id FROM employee WHERE email = '$this->email')";
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->password, $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus);
+                mysqli_stmt_bind_param($stmt, "sssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus);
                 mysqli_stmt_execute($stmt);
                 $this->employeeID = $conn->insert_id;
                 if($this->employeeID == 0){
@@ -49,7 +51,7 @@
                     echo "New employee was added successfully";
                     echo "<table>";
                     echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
-                    echo "<tr><td>First name </td><td>: $this->fistName</td></tr>";
+                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
                     echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
                     echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
                     echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
@@ -65,7 +67,7 @@
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
-            } 
+            }  
             $stmt->close(); 
             $conn->close(); 
         }
@@ -131,6 +133,9 @@
         public function addEmployee() {
             $this->add();
         }
+        public function signUp() {
+            $this->add();
+        }
 
         public function updateEmployee() {
             $this->update();
@@ -140,32 +145,39 @@
             $this->view();
         }
         public function editSelfProfile() {
-            
+            $this->update();
         }
         
-        public function login() {
+        public function login() {   
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            if($this->userType=="merchandiser"){
-                $sql = "SELECT * from employee where username='$this->username';";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                if($this->password==$row["password"]){
-                    session_start();
-                    $_SESSION["username"] = $row["username"]; 
-                    $_SESSION["employee_id"] = $row["employee_id"]; 
-                    $_SESSION["user_type"] = $row["user_type"]; 
+            $sql = "SELECT * from employee where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->password) == $row["password"]){
+                session_start();
+                $_SESSION["email"] = $row["email"]; 
+                $_SESSION["employee_id"] = $row["employee_id"]; 
+                $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
+                $_SESSION["user_type"] = $row["user_type"]; 
+                if($_SESSION["user_type"]=="manager"){
+                    header("location: http://localhost/rlf/view/manager/home.php");
+                }else if($_SESSION["user_type"]=="merchandiser"){
                     header("location: http://localhost/rlf/view/merchandiser/home.php");
-                    exit;
+                }else if($_SESSION["user_type"]=="fashion designer"){
+                    header("location: http://localhost/rlf/view/fashion_designer/home.php");
                 }else{
-                    echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-                }  
-            }
-            
-            $conn->close();
+                    echo "Your credentials are invalid. Please try again.<br />";
+                } 
+            }else{
+                echo "Sorry ! Your credentials are invalid. Please try again.<br />";
+            }  
+            $conn->close(); 
         }
+
         public function logout() {
-            header("location: http://localhost/rlf/view/merchandiser/login.php");
-        }
+                header("location: http://localhost/rlf/view/merchandiser/login.php");
+                
+        } 
     }
 ?>

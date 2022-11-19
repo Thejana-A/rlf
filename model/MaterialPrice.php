@@ -1,16 +1,16 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class DesignMaterial{
+    class MaterialPrice{
         
-        private $quantity;
-        private $unitPrice;
+        private $requestQuantity;
+        private $price;
         
-        function __construct($args, $publicDesignID) {
-            $this->designID = $publicDesignID;
+        function __construct($args, $publicQuotationID) {
+            $this->quotationID = $publicQuotationID;
             $this->materialID = $args["material_id"];
-            $this->unitPrice = $args["unit_price"];
-            $this->quantity = $args["quantity"];
+            $this->requestQuantity = $args["request_quantity"];
+            $this->price = $args["price"];
         }
 
         public function add(){

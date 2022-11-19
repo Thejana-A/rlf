@@ -26,23 +26,22 @@
                 }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (NIC.length == 10) {
-                    if((NIC.charAt(9)=='x')||(NIC.charAt(9)=='X')||(NIC.charAt(9)=='v')||(NIC.charAt(9)=='V')){
-                        var validity = 1;    
-                    }else{
-                        alert("NIC is invalid");
-                        return false;
-                    }
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
                 }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (password.length<8) {
+                }
+                else if (password.length < 8) {
                     alert("Password must have at least 8 characters");
                     return false;
-                }else if (password != confirm_password) {
+                }
+                else if (password != confirm_password) {
                     alert("Confirm your password correctly");
                     return false;
-                }else if (active_status == "") {
+                }
+                else if (active_status == "") {
                     alert("Active status must be filled out");
                     return false;
                 }else{
@@ -138,7 +137,7 @@
                                 <select name="user_type" id="user_type" required>
                                     <option disabled value="" selected>Select user type</option>
                                     <option value="fashion designer">Fashion designer</option>
-                                    <option value="merchndiser">Merchandiser</option>
+                                    <option value="merchandiser">Merchandiser</option>
                                 </select>
                             </div>
                         </div>

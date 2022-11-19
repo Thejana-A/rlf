@@ -1,10 +1,11 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
+    require_once(__DIR__.'/MaterialSupplier.php');
     require_once(__DIR__.'/IDBModel.php');
-    class Customer implements IDBModel{
+    class Supplier implements IDBModel{
         
-        private $customerID;
+        private $supplierID;
         private $firstName;
         private $lastName;
         private $NIC;
@@ -12,6 +13,7 @@
         private $password;
         private $contactNo;
         private $city;
+        private $verifyStatus;
          
         function __construct($args) {
             $this->firstName = $args["first_name"];
@@ -20,30 +22,35 @@
             $this->email = $args["email"];
             $this->password = $args["password"];
             $this->contactNo = $args["contact_no"];
-            $this->city = $args["city"];     
+            $this->city = $args["city"]; 
+            $this->verifyStatus = $args["verify_status"];     
         }
 
         public function add(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city) SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
+            $sql = "INSERT INTO supplier (first_name, last_name, NIC , email, password , contact_no, city, verify_status) SELECT ?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "ssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->city, $this->verifyStatus);
                 mysqli_stmt_execute($stmt);
-                $this->customerID = $conn->insert_id;
-                if($this->customerID == 0){
+                $this->supplierID = $conn->insert_id;
+                $publicSupplierID = $this->supplierID;
+                if($this->supplierID == 0){
                     echo "Sorry ! That email already exists.";
                 }else{
-                    echo "New customer was added successfully";
+                    echo "New supplier was added successfully";
                     echo "<table>";
-                    echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
+                    echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
                     echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
                     echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
                     echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
                     echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
                     echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                     echo "<tr><td>City </td><td>: $this->city</td></tr>";
+                    echo "<tr><td>City </td><td>: $this->verifyStatus</td></tr>";
                     echo "</table>";
+                    $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
+                    $materialSupplierModel->insertMaterialSupplied();
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -76,7 +83,7 @@
             //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
             $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
@@ -104,15 +111,15 @@
         }
 
 
-        public function addCustomer() {
+        public function addSupplier() {
             $this->add();
         }
 
-        public function updateCustomer() {
+        public function updateSupplier() {
             $this->update();
         }
 
-        public function viewCustomer() {
+        public function viewSupplier() {
             $this->view();
         }
         public function editSelfProfile() {
@@ -125,23 +132,26 @@
         public function login() {
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "SELECT * from customer where email='$this->email';";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            if(md5($this->password)==$row["password"]){
-                session_start();
-                $_SESSION["username"] = $row["username"]; 
-                $_SESSION["employee_id"] = $row["employee_id"]; 
-                $_SESSION["user_type"] = $row["user_type"]; 
-                header("location: http://localhost/rlf/view/customer/home.php");
-                exit;
-            }else{
-                echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-            }     
+            if($this->userType=="merchandiser"){
+                $sql = "SELECT * from employee where username='$this->username';";
+                $result = $conn->query($sql);
+                $row = $result->fetch_assoc();
+                if(md5($this->password) == $row["password"]){
+                    session_start();
+                    $_SESSION["username"] = $row["username"]; 
+                    $_SESSION["employee_id"] = $row["employee_id"]; 
+                    $_SESSION["user_type"] = $row["user_type"]; 
+                    header("location: http://localhost/rlf/view/supplier/home.php");
+                    exit;
+                }else{
+                    echo "Sorry ! Your credentials are invalid. Please try again.<br />";
+                }  
+            }
+            
             $conn->close();
         }
         public function logout() {
-            header("location: http://localhost/rlf/view/customer/login.php");
+            header("location: http://localhost/rlf/view/supplier/login.php");
         }
     }
 ?>

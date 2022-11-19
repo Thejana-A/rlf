@@ -19,5 +19,5 @@
     <button onclick="displayLeftNav()">
         <img src="../icons/left-nav-button.png" />
     </button>    
-    <a href="#"> <span id="top-nav-username">Thejana Akmeemana &nbsp<img src="../icons/user_icon.png" style="width:30px;" /></span></a>
+    <a href="#"> <span id="top-nav-username"><?php echo $_SESSION["username"] ?>&nbsp<img src="../icons/user_icon.png" style="width:30px;" /></span></a>
 </div>

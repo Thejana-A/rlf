@@ -1,7 +1,9 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class CostumeDesign{
+    require_once(__DIR__.'/DesignMaterial.php');
+    require_once(__DIR__.'/IDBModel.php');
+    class CostumeDesign implements IDBModel{
         
         private $designID;
         private $name;
@@ -76,15 +78,16 @@
                 $conn = $connObj->getConnection();
                 $sql = "INSERT INTO costume_design (name, size, front_view, rear_view, left_view, right_view, publish_status, material_price_approval, material_price_description, description, final_price, customized_design_approval, design_approval_description, design_approval_date, customer_id, merchandiser_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT design_id FROM costume_design WHERE name = '$this->name')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $this->name, $this->size, $this->front_view, $this->rear_view, $this->left_view, $this->right_view, $this->publish_status, $this->material_price_approval, $this->material_price_description, $this->description, $this->final_price, $this->customized_design_approval, $this->design_approval_description, $this->design_approval_date, $this->customer_id, $this->merchandiser_id, $this->fashion_designer_id);
+                    mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $this->name, $this->size, $newFrontImage, $newRearImage, $newLeftImage, $newRightImage, $this->publishStatus, $this->materialPriceApproval, $this->materialPriceDescription, $this->description, $this->finalPrice, $this->customizedDesignApproval, $this->designApprovalDescription, $this->designApprovalDate, $this->customerID, $this->merchandiserID, $this->fashionDesignerID);
                     mysqli_stmt_execute($stmt);
                     $this->designID = $conn->insert_id;
+                    $publicDesignID = $this->designID;
                     if($this->designID == 0){
                         echo "Sorry ! That design name already exists.";
                     }else{
                         echo "New costume design was added successfully";
                         echo "<table>";
-                        echo "<tr><td>Design ID </td><td>: $this->materialID</td></tr>";
+                        echo "<tr><td>Design ID </td><td>: $this->designID</td></tr>";
                         echo "<tr><td>Name </td><td>: $this->name</td></tr>";
                         echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
                         echo "<tr><td>Front view </td><td>: $this->frontView</td></tr>"; 
@@ -93,6 +96,8 @@
                         echo "<tr><td>Left view </td><td>: $this->rightView</td></tr>"; 
                         echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                         echo "</table>";
+                        $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
+                        $designMaterialModel->insertMaterialQuantity();
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -159,18 +164,18 @@
 
         }
 
-        public function addRawMaterial() {
+        public function addDesign() {
             $this->add();
         }
 
-        public function updateRawMaterial() {
+        public function updateDesign() {
             $this->update();
         }
 
-        public function viewRawMaterial() {
+        public function viewDesign() {
             $this->view();
         }
-        public function deleteRawMaterial() {
+        public function deleteDesign() {
             $this->delete();
         }
     

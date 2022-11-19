@@ -42,13 +42,9 @@
                 }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (NIC.length == 10) {
-                    if((NIC.charAt(9)=='x')||(NIC.charAt(9)=='X')||(NIC.charAt(9)=='v')||(NIC.charAt(9)=='V')){
-                        var validity = 1;    
-                    }else{
-                        alert("NIC is invalid");
-                        return false;
-                    }
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
                 }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
                     alert("NIC is invalid");
                     return false;

@@ -1,8 +1,8 @@
 <?php
     require_once(__DIR__.'/BaseController.php');
     require_once('../model/CostumeDesign.php');
-    $args = $_POST;
     
+    $args = $_POST;
     $costumeDesignModel = new CostumeDesign($args); 
     switch($controllerName[1]){
         case "add":
