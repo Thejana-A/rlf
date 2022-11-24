@@ -1,0 +1,51 @@
+/*Page-footer start*/
+  #page-footer{
+    background-color:#aaaaaa;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    font-family:sans-serif;
+  }
+  #footer-left-column{
+    padding:30px;
+    padding-left:60px;
+    flex: 30%;
+    box-sizing: border-box;
+  }
+  #footer-left-column span{
+    padding:3px;
+    display:inline-block;
+    display:flex;
+    align-items:center;
+  }
+  #footer-left-column img{
+    width:30px;
+    margin-left:20px;
+  }
+  #footer-middle-column img{
+    width:40px;
+    margin-left:30px;
+  }
+  #footer-middle-column{
+    padding:30px;
+    padding-left:60px;
+    flex: 30%;
+    box-sizing: border-box;
+  }
+  #footer-middle-column #visa-card-icon{
+    width:100px;
+  }
+  #footer-right-column{
+    padding:30px;
+    padding-left:60px;
+    flex: 30%;
+    box-sizing: border-box;
+  }
+  #footer-right-column input{
+    width:250px;
+    margin:1px;
+  }
+  #footer-right-column form{
+    margin-left:20px;
+  }
+  /*Page-footer end*/

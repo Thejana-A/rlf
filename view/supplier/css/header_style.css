@@ -1,0 +1,87 @@
+/*RLF header start*/
+  #top-header{
+    background-color:#ff9900;
+  }
+  #rlf-logo-span{
+    float:left;width:25%;
+  }
+  #rlf-header-emptylink-span{
+    display:inline-block;width:45%;margin-top:40px;
+  }
+  #rlf-header-emptylink-span a{
+    text-decoration:none;
+    margin-left:30px;
+    font-family:sans-serif;
+    color:#000000;
+  }
+  #rlf-header-link-span{
+    display:inline-block;width:45%;margin-top:40px;
+  }
+  #rlf-header-link-span a{
+    text-decoration:none;
+    margin-left:30px;
+    font-family:sans-serif;
+    color:#000000;
+  }
+  #rlf-header-link-span a:hover{
+    margin-left:30px;
+    font-family:sans-serif;
+    color:#555555;
+  }
+  #header-button-span{
+    display:inline-block;width:28%;padding-top:8px;padding-bottom:8px;text-align:right;height:68px;
+  }
+  
+  #logout-button-span{
+    display:inline-block;width:73%;padding-top:16px;padding-bottom:18px;text-align:right;height:68px;
+  }
+  #logout-button{
+    text-decoration:none;color:#000000;background-color:#ffffff;padding:5px;display:inline-block;width:80px;border-radius:3px;margin-top:5px;text-align:center;margin-right:50px;
+  }
+  #logout-button:hover{
+    text-decoration:none;color:#000000;background-color:#cccccc;padding:5px;display:inline-block;width:80px;border-radius:3px;margin-top:15px;text-align:center;margin-right:50px;
+  }
+  @media only screen and (max-width: 1300px){
+    #rlf-logo-span{
+      width:100%;
+    }
+    #rlf-header-link-span{
+      width:100%;
+      margin-top:20px;
+    }
+    #header-button-span{
+      width:100%;
+    }
+    #logout-button-span{
+      width:100%;
+    }
+  }
+  /*RLF header end*/
+  
+  
+  /*top-nav start*/
+  #top-nav{
+    background-color:#aaaaaa;padding:5px;height:30px;padding-right:40px;position: -webkit-sticky;position: sticky;top: 0;
+  }
+  #top-nav button{
+    padding:0;background-color:#ffffff;float:left;
+  }
+  #top-nav a{
+    text-decoration:none;color:#000000;font-family:sans-serif;float:right;height:30px;
+  }
+  #top-nav-username{
+    margin:1px;
+    padding-bottom:3px;
+    float:left; 
+    display:flex;
+    align-items:center;  
+  }
+  #top-nav-username #top-nav-userrole{
+    font-size:10px;
+  }
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  /*top-nav end*/
