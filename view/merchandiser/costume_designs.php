@@ -39,7 +39,31 @@
                             <b>Fashion designer</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            //$merchandiserID = $_SESSION["merchandiser_id"];
+                            $merchandiserID = 2;
+                            $sql = "SELECT design_id,name, size, fashion_designer_id, first_name, last_name FROM costume_design INNER JOIN employee ON employee_id = fashion_designer_id WHERE merchandiser_id = '$merchandiserID'";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span style='padding-left:10px;'>".$row["name"]."</span><span style='padding-left:25px;'>".$row["size"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span>";
+                                        echo "<a href=./edit_costume_design.php?design_id=".$row["design_id"]." class='grey'> View </a>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>Blue collarless T-shirt-S</span>
                             <span>S</span>
@@ -54,31 +78,8 @@
                             <span>John Doe</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0010</span>
-                            <span>Red Chinese collar-S</span>
-                            <span>S</span>
-                            <span>Jennifer Lopez</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0011</span>
-                            <span>Red Chinese collar-XXL</span>
-                            <span>XXL</span>
-                            <span>Jennifer Lopez</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0026</span>
-                            <span>Gold top-XL</span>
-                            <span>XL</span>
-                            <span>John C</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
+                        </div>  -->
+                        
                     </div>
 
 

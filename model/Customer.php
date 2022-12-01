@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    error_reporting(E_ALL ^ E_WARNING);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/IDBModel.php');
     class Customer implements IDBModel{
@@ -23,6 +23,7 @@
             $this->city = $args["city"];     
         }
 
+
         public function add(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -33,17 +34,6 @@
                 $this->customerID = $conn->insert_id;
                 if($this->customerID == 0){
                     echo "Sorry ! That email already exists.";
-                }else{
-                    echo "New customer was added successfully";
-                    echo "<table>";
-                    echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
-                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-                    echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-                    echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-                    echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                    echo "</table>";
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -61,6 +51,7 @@
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -106,6 +97,15 @@
 
         public function addCustomer() {
             $this->add();
+            echo "<table>";
+            echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
+            echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
+            echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
+            echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
+            echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
+            echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
+            echo "<tr><td>City </td><td>: $this->city</td></tr>";
+            echo "</table>";
         }
 
         public function updateCustomer() {
@@ -120,6 +120,7 @@
         }
         public function signUp(){
             $this->add();
+            ?><script>alert("Customer was added successfully");</script> <?php
         }
         
         public function login() {
@@ -128,20 +129,25 @@
             $sql = "SELECT * from customer where email='$this->email';";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            if(md5($this->password)==$row["password"]){
+            if(md5($this->password) == $row["password"]){
                 session_start();
-                $_SESSION["username"] = $row["username"]; 
-                $_SESSION["employee_id"] = $row["employee_id"]; 
-                $_SESSION["user_type"] = $row["user_type"]; 
-                header("location: http://localhost/rlf/view/customer/home.php");
+                $_SESSION["customer_id"] = $row["customer_id"]; 
+                $_SESSION["first_name"] = $row["first_name"]; 
+                $_SESSION["last_name"] = $row["last_name"]; 
+                   
+                header("location: http://localhost/RLF/view/customer/customer_UI.php");
+                
                 exit;
             }else{
-                echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-            }     
+                ?><script>alert("Sorry ! Your credentials are invalid. Please try again.");</script> <?php
+                //header("location: http://localhost/RLF/view/customer/customer_login.php");
+            }  
+            
+            
             $conn->close();
         }
         public function logout() {
-            header("location: http://localhost/rlf/view/customer/login.php");
+            header("location: http://localhost/RLF/view/customer/customer_login.php");
         }
     }
 ?>

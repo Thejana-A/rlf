@@ -36,8 +36,6 @@
         }
 
         public function add(){
-            echo $this->password."<br>";
-            echo $_POST["password"]."<br>";
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "INSERT INTO employee (first_name, last_name, NIC , email, password , contact_no, user_type, address_line1, address_line2, address_line3, DOB, joined_date, active_status) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT employee_id FROM employee WHERE email = '$this->email')";
@@ -81,14 +79,16 @@
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }
+            } 
             mysqli_close($conn);
         }
+
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -142,7 +142,8 @@
         }
 
         public function viewEmployee() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function editSelfProfile() {
             $this->update();
@@ -155,20 +156,25 @@
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             if(md5($this->password) == $row["password"]){
-                session_start();
-                $_SESSION["email"] = $row["email"]; 
-                $_SESSION["employee_id"] = $row["employee_id"]; 
-                $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
-                $_SESSION["user_type"] = $row["user_type"]; 
-                if($_SESSION["user_type"]=="manager"){
-                    header("location: http://localhost/rlf/view/manager/home.php");
-                }else if($_SESSION["user_type"]=="merchandiser"){
-                    header("location: http://localhost/rlf/view/merchandiser/home.php");
-                }else if($_SESSION["user_type"]=="fashion designer"){
-                    header("location: http://localhost/rlf/view/fashion_designer/home.php");
+                if($row["active_status"]=="enable"){
+                    session_start();
+                    $_SESSION["email"] = $row["email"]; 
+                    $_SESSION["employee_id"] = $row["employee_id"]; 
+                    $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
+                    $_SESSION["user_type"] = $row["user_type"]; 
+                    if($_SESSION["user_type"]=="manager"){
+                        header("location: http://localhost/rlf/view/manager/home.php");
+                    }else if($_SESSION["user_type"]=="merchandiser"){
+                        header("location: http://localhost/rlf/view/merchandiser/home.php");
+                    }else if($_SESSION["user_type"]=="fashion designer"){
+                        header("location: http://localhost/rlf/view/fashion_designer/home.php");
+                    }else{
+                        echo "Your credentials are invalid. Please try again.<br />";
+                    } 
                 }else{
-                    echo "Your credentials are invalid. Please try again.<br />";
-                } 
+                    echo "Your account is inactive.<br />";
+                }
+                
             }else{
                 echo "Sorry ! Your credentials are invalid. Please try again.<br />";
             }  

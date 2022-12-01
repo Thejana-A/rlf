@@ -1,4 +1,4 @@
-<?php require_once 'redirect_login.php' ?>
+<?php /*require_once 'redirect_login.php'*/ ?>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,7 @@
                     <a href="#">Login </a> >
                     <a href="#">Merchandiser </a> > Home
                 </div>
-                <?php echo $_SESSION["username"];echo $_SESSION["employee_id"];echo $_SESSION["user_type"]; ?>
+                <?php /*echo $_SESSION["username"];echo $_SESSION["employee_id"];echo $_SESSION["user_type"];*/ ?>
                    
             </div> 
         </div> 

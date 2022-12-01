@@ -21,7 +21,7 @@
                     <a href="#">Manager </a> > Employees
                 </div>
                 <div class="link-row">
-                    <a href="#" class="right-button">Add new employee</a>
+                    <a href="./add_employee.php" class="right-button">Add new employee</a>
                 </div>
                 <div id="list-box">
                     <center>

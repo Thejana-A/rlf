@@ -61,13 +61,14 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->employeeID = $_GET["employee_id"];
-            $sql = "SELECT * FROM customer where customer_id='$this->customerID'";
+            $this->supplierID = $_GET["supplier_id"];
+            $sql = "SELECT * FROM supplier where supplier_id='$this->supplierID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -89,7 +90,7 @@
                 if($affectedRows == -1){
                     echo "Sorry ! An error occured.";
                 }else{
-                    echo "Customer was updated successfully";
+                    echo "Supplier was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
                     echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
@@ -120,7 +121,8 @@
         }
 
         public function viewSupplier() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function editSelfProfile() {
             
@@ -132,22 +134,24 @@
         public function login() {
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            if($this->userType=="merchandiser"){
-                $sql = "SELECT * from employee where username='$this->username';";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                if(md5($this->password) == $row["password"]){
+            $sql = "SELECT * from supplier where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->password) == $row["password"]){
+                if($row["verify_status"]=="approve"){
                     session_start();
-                    $_SESSION["username"] = $row["username"]; 
-                    $_SESSION["employee_id"] = $row["employee_id"]; 
+                    $_SESSION["email"] = $row["email"]; 
+                    $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
+                    $_SESSION["supplier_id"] = $row["supplier_id"]; 
                     $_SESSION["user_type"] = $row["user_type"]; 
                     header("location: http://localhost/rlf/view/supplier/home.php");
-                    exit;
                 }else{
-                    echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-                }  
-            }
-            
+                    echo "Sorry!!! Account isn't verified";
+                }
+                
+            }else{
+                echo "Sorry ! Your credentials are invalid. Please try again.<br />";
+            }  
             $conn->close();
         }
         public function logout() {

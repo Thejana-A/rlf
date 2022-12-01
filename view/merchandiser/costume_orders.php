@@ -21,7 +21,7 @@
                 </div>
                 
                 <div class="link-row-small">
-                    <a href="#" class="right-button">Add new costume order</a>
+                    <a href="./add_costume_order_onsite.php" class="right-button">Add new costume order</a>
                 </div>
                 <div id="list-box-small">
                     <center>

@@ -4,34 +4,34 @@
     class MaterialPrice{
         
         private $requestQuantity;
-        private $price;
+        private $unitPrice;
         
         function __construct($args, $publicQuotationID) {
             $this->quotationID = $publicQuotationID;
             $this->materialID = $args["material_id"];
             $this->requestQuantity = $args["request_quantity"];
-            $this->price = $args["price"];
+            $this->unitPrice = $args["unit_price"];
         }
 
         public function add(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
-                $sql = "INSERT INTO rlf.design_material (design_id, material_id, unit_price, quantity) VALUES (?,?,?,?);";
+                $sql = "INSERT INTO rlf.material_price (quotation_id, material_id, request_quantity, unit_price) VALUES (?,?,?,?);";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice, $this->quantity);
+                    mysqli_stmt_bind_param($stmt, "iidi", $this->quotationID, $this->materialID[$materialCount], $this->requestQuantity[$materialCount], $this->unitPrice[$materialCount]);
                     mysqli_stmt_execute($stmt);
                     echo "<br><table>";
-                    echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
-                    echo "<tr><td>Unit price </td><td>: $this->unitPrice</td></tr>";
-                    echo "<tr><td>Quantity </td><td>: $this->quantity</td></tr>"; 
+                    echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
+                    echo "<tr><td>Request quantity </td><td> : ".$this->requestQuantity[$materialCount]."</td></tr>";
                     echo "</table>";
                     	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
-                $stmt->close(); 
-            }		
+                
+            }	
+            $stmt->close(); 	
             $conn->close(); 
         }
 
@@ -89,19 +89,16 @@
 
         }
 
-        public function insertMaterialQuantity() {
+        public function setQuantity() {
             $this->add();
         }
 
-        public function updateMaterialQuantity() {
+        public function editQuantityunit_price() {
             $this->update();
         }
 
-        public function viewMaterialQuantity() {
+        public function viewQuantityunit_price() {
             $this->view();
-        }
-        public function deleteMaterialQuantity() {
-            $this->delete();
         }
     
         

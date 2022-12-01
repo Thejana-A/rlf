@@ -39,7 +39,29 @@
                             <b>Contact no</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT supplier_id, first_name, last_name, city, contact_no, verify_status FROM supplier WHERE `verify_status` = 'approve'";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<a href=./view_supplier.php?supplier_id=".$row["supplier_id"]." class='grey'> View </a>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>John Honter</span>
                             <span>Piliyandala</span>
@@ -54,31 +76,7 @@
                             <span>0777762045</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0010</span>
-                            <span>John B</span>
-                            <span>Galle</span>
-                            <span>0777762044</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0011</span>
-                            <span>John C</span>
-                            <span>Kandy</span>
-                            <span>0777762046</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0026</span>
-                            <span>Harry P</span>
-                            <span>Jaffna</span>
-                            <span>0777762049</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
+                        </div> -->
                     </div>
 
 

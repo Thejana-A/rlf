@@ -4,6 +4,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit customer</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <?php
+            require_once('../../model/Customer.php');
+            $customerModel = new Customer($_GET); 
+            $row = $customerModel->viewCustomer(); 
+        ?>
+
+        <script>
+            function validateForm(){
+                var first_name = document.forms["customerForm"]["first_name"].value;
+                var last_name = document.forms["customerForm"]["last_name"].value;
+                var NIC = document.forms["customerForm"]["NIC"].value;
+                const date = new Date();
+                if (/^[a-zA-Z\s]+$/.test(first_name) == false) {
+                    alert("First name must have only letters and spaces");
+                    return false;
+                }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
+                    alert("Last name must have only letters and spaces");
+                    return false;
+                }else if ((NIC.length != 10)&&(NIC.length != 12)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            
+        </script>
+
     </head>
 
     <body>
@@ -30,7 +67,7 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_id" id="customer_id" value="<?php echo $_GET["customer_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,7 +75,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,7 +83,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,7 +91,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="email" id="email" value="<?php echo $row["email"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -62,7 +99,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" />
                             </div>
                         </div>
                         
@@ -71,7 +108,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"]; ?>" />
                             </div>
                         </div>
                         
@@ -80,7 +117,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" />
                             </div>
                         </div>
                         

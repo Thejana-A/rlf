@@ -20,7 +20,7 @@
                     <a href="#">Merchandiser </a> > Costume designs quotations
                 </div>
                 <div class="link-row-small">
-                    <a href="#" class="right-button">Create a costume quotation</a>
+                    <a href="./create_costume_quotation_onsite.php" class="right-button">Create a costume quotation</a>
                 </div>
                 <div id="list-box-small">
                     <center>

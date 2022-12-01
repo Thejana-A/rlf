@@ -16,7 +16,7 @@
             $this->expectedDeliveryDate = $args["expected_delivery_date"];
             $this->supplierApproval = $args["supplier_approval"];
             $this->approvalDescrition = $args["approval_description"];
-            $this->requestDate = $args["request_date"];
+            $this->requestDate = date("Y-m-d");
             $this->issueDate = $args["issue_date"];
             $this->validTill = $args["valid_till"];
             $this->supplierID = $args["supplier_id"];
@@ -24,8 +24,8 @@
         }
 
         public function add(){
-            print_r($_POST);
-            /*$connObj = new DBConnection();
+            //print_r($_POST);
+            $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "INSERT INTO raw_material_quotation (expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -50,18 +50,22 @@
                 echo "Error: <br>" . mysqli_error($conn);
             } 
             $stmt->close(); 
-            $conn->close(); */
+            $conn->close(); 
         }
+
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->employeeID = $_GET["employee_id"];
-            $sql = "SELECT * FROM customer where customer_id='$this->customerID'";
+            $this->quotationID = $_GET["quotation_id"];
+            $sql = "SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id WHERE quotation_id = $this->quotationID
+            UNION
+            SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, '' AS merchandiser_first_name, '' AS merchandiser_last_name FROM raw_material_quotation, supplier WHERE raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id IS NULL AND quotation_id = $this->quotationID;";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -70,6 +74,7 @@
             }
             mysqli_close($conn);
         }
+
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -111,36 +116,11 @@
         }
 
         public function viewMaterialQuotation() {
-            $this->view();
-        }
-        public function editSelfProfile() {
-            
-        }
-        public function signUp(){
-            $this->add();
+            $row = $this->view();
+            return $row;
         }
         
-        public function login() {
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            if($this->userType=="merchandiser"){
-                $sql = "SELECT * from employee where username='$this->username';";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                if($this->password==$row["password"]){
-                    session_start();
-                    $_SESSION["username"] = $row["username"]; 
-                    $_SESSION["employee_id"] = $row["employee_id"]; 
-                    $_SESSION["user_type"] = $row["user_type"]; 
-                    header("location: http://localhost/rlf/view/merchandiser/home.php");
-                    exit;
-                }else{
-                    echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-                }  
-            }
-            
-            $conn->close();
-        }
+        
         public function logout() {
             header("location: http://localhost/rlf/view/merchandiser/login.php");
         }

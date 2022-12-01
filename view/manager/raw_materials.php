@@ -20,8 +20,8 @@
                     <a href="#">Manager </a> > View raw materials
                 </div>
                 <div class="link-row">
-                    <a href="#" class="left-button">Material storage log</a>
-                    <a href="#" class="right-button">Add new raw material</a>
+                    <a href="./material_storage_log.php" class="left-button">Material storage log</a>
+                    <a href="./add_raw_material.php" class="right-button">Add new raw material</a>
                 </div>
                 <div id="list-box">
                     <center>
@@ -42,7 +42,31 @@
                             <b>Available quantity</b>
                             <hr class="manager-long-hr" />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT material_id, name, measuring_unit, quantity_in_stock, manager_approval FROM raw_material";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="deny")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".$row["quantity_in_stock"]."</span>";
+                                        echo "<a href=./edit_raw_material.php?material_id=".$row["material_id"]." class='".$class."'>Edit</a>";
+                                        echo "<a href='./delete_raw_material.php' class='".$class."'>Delete</a>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>Blue thread-S</span>
                             <span>reels</span>
@@ -86,7 +110,7 @@
                             <a href="#" class="red">Edit</a>
                             <a href="#" class="red">Delete</a>
                             <hr class="manager-long-hr" />
-                        </div>
+                        </div> -->
                     </div>
 
 

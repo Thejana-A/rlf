@@ -19,13 +19,18 @@
             for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
                 $sql = "INSERT INTO rlf.design_material (design_id, material_id, unit_price, quantity) VALUES (?,?,?,?);";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice, $this->quantity);
+                    mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
                     mysqli_stmt_execute($stmt);
-                    echo "<br><table>";
-                    echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
-                    echo "<tr><td>Unit price </td><td>: $this->unitPrice</td></tr>";
-                    echo "<tr><td>Quantity </td><td>: $this->quantity</td></tr>"; 
-                    echo "</table>";
+                    $insertedRow = $conn -> affected_rows;
+                    if($insertedRow == -1){
+                        echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+                    }else{
+                        echo "<br><table>";
+                        echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
+                        echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$materialCount]."</td></tr>";
+                        echo "<tr><td>Quantity </td><td>:". $this->quantity[$materialCount]."</td></tr>"; 
+                        echo "</table>";
+                    } 
                     	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -39,12 +44,13 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM design_material where material_id='$this->materialID' AND design_id='$this->designID'";
+            $sql = "SELECT * FROM design_material where design_id='$this->designID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -98,7 +104,8 @@
         }
 
         public function viewMaterialQuantity() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function deleteMaterialQuantity() {
             $this->delete();

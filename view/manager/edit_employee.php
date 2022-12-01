@@ -5,7 +5,11 @@
         <title>Edit employee</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
-            require_once '../../model/DBConnection.php';
+            require_once('../../model/Employee.php');
+            $employeeModel = new Employee($_GET); 
+            $row = $employeeModel->viewEmployee(); 
+
+            /*require_once '../../model/DBConnection.php';
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $employeeID = $_GET["employee_id"];
@@ -21,7 +25,7 @@
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
-            mysqli_close($conn);
+            mysqli_close($conn); */
         ?>
         <script>
             function validateForm(){
@@ -58,7 +62,7 @@
                     return true;
                 }
             }
-            
+
         </script>
     </head>
 

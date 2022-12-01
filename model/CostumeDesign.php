@@ -42,6 +42,7 @@
         }
 
         public function add(){
+            //print_r($_POST);
             while (true) {
                 $newFrontImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
                 if (!file_exists("front-view-image/".$newFrontImage)) break;
@@ -107,19 +108,20 @@
             }
             
             $stmt->close(); 
-            $conn->close(); 
+            $conn->close();  
         }
 
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM raw_material where material_id='$this->materialID'";
+            $this->designID = $_GET["design_id"];
+            $sql = "SELECT * FROM costume_design where design_id='$this->designID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -173,7 +175,8 @@
         }
 
         public function viewDesign() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function deleteDesign() {
             $this->delete();

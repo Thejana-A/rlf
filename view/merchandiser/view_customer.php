@@ -4,6 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>View customer</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <?php
+            require_once('../../model/Customer.php');
+            $customerModel = new Customer($_GET); 
+            $row = $customerModel->viewCustomer(); 
+            $customerID = $_GET["customer_id"];
+        ?>
     </head>
 
     <body>
@@ -30,7 +36,7 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_id" value="<?php echo $customerID; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,7 +44,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="first_name" value="<?php echo $row["first_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,7 +52,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="last_name" value="<?php echo $row["last_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,7 +60,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="email" value="<?php echo $row["email"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -62,7 +68,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="NIC" value="<?php echo $row["NIC"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -70,7 +76,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="contact_no" value="<?php echo $row["contact_no"]; ?>" readonly />
                             </div>
                         </div>
                 
@@ -79,8 +85,9 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="city" value="<?php echo $row["city"]; ?>" readonly />
                             </div>
+                            <span style="height:70px;"></span>
                         </div>
                     </form>
                 </div>  

@@ -19,10 +19,10 @@
                     <a href="#">Login </a> >
                     <a href="#">Manager </a> > Suppliers
                 </div>
-                <div class="link-row-small">
-                    <a href="#" class="right-button">Add new Supplier</a>
+                <div class="link-row">
+                    <a href="./add_supplier.php" class="right-button">Add new Supplier</a>
                 </div>
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Suppliers</h2>
                     </center>
@@ -41,7 +41,31 @@
                             <b>Contact no</b>
                             <hr class="manager-long-hr" />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT supplier_id, first_name, last_name, city, contact_no, verify_status FROM supplier";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        $class = ($row["verify_status"]=="approve")?"green":(($row["verify_status"]=="deny")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<a href=./edit_supplier.php?supplier_id=".$row["supplier_id"]." class='".$class."'>Edit</a>";
+                                        echo "<a href='./delete_supplier.php' class='".$class."'>Delete</a>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>John Doe</span>
                             <span>Piliyandala</span>
@@ -85,7 +109,7 @@
                             <a href="#" class="green">Edit</a>
                             <a href="#" class="green">Delete</a>
                             <hr class="manager-long-hr" />
-                        </div>
+                        </div>  -->
                     </div>
 
 

@@ -12,35 +12,60 @@
         <title>Login</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
-        <script>
-            function validateForm(){
-                var email = document.forms["loginForm"]["email"].value;
-                var password = document.forms["loginForm"]["password"].value;
-                if (username == "") {
-                    alert("User name must be filled out");
-                    return false;
-                }else if(password == "") {
-                    alert("Password can't be empty");
-                    return false;
-                }else if(user_type == "") {
-                    alert("Select the user role");
-                    return false;
-                }else{
-                    return true; 
-                }
-            }
-        </script>
+        <link rel="stylesheet" type="text/css" href="../css/merchandiser/login_page.css" />
     </head>
 
-    <body>
-        <?php include 'header.php';?>
-        <form name="loginForm" id="loginForm" method="post" onSubmit="return validateForm()" action="../RouteHandler.php">
-            <input type="text" hidden="true" name="framework_controller" value="employee/login" />
-            <h2>Login</h2>
-            Username : <input type="text" name="email" id="email" /><br />
-            Password : <input type="password" name="password" id="password" /><br />
-            <input type="submit" value="Login" />
-            <input type="reset" value="Cancel" />
-        </form>
+    <body style="background-image: url('../icons/login_bg.jpeg');">
+        <center>
+        <div id="login-box">
+            <form name="loginForm" id="loginForm" method="post" action="../RouteHandler.php">
+                <input type="text" hidden="true" name="framework_controller" value="employee/login" />
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../icons/login_logo.png" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <center>
+                                <h2>Login</h2>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            Email : <br />
+                            <input type="email" name="email" id="email" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            Password : <br />
+                            <input type="password" name="password" id="password" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right;padding-right:20px;">
+                            <br /><a href="#" style="text-decoration:none;">Forgot password ?</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <center>
+                                <input type="submit" value="Login" class="login-button" />
+                            <center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />Don't have an account?<br />
+                            <a href="./signup.php" style="text-decoration:none;color:#cc0000;">Create one now!!!</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>  
+        </center>
     </body>
 </html>

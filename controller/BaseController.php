@@ -13,13 +13,16 @@
         case "raw_material":
             include_once ( __DIR__.'/RawMaterialController.php');
             break;
+        case "storage_log":
+            include_once ( __DIR__.'/StorageLogController.php');
+            break;
         case "raw_material_quotation":
             include_once ( __DIR__.'/RawMaterialQuotationController.php');
             break;
         case "costume_design":
             include_once ( __DIR__.'/CostumeDesignController.php');
             break;
-        
+            
         
     } 
     

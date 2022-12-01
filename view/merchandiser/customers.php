@@ -39,15 +39,29 @@
                             <b>Contact no</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
-                            <span>0003</span>
-                            <span>John Doe</span>
-                            <span>Piliyandala</span>
-                            <span>0777762043</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT customer_id, first_name, last_name, city, contact_no FROM customer";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<span class='manager-ID-column'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<a href=./view_customer.php?customer_id=".$row["customer_id"]." class='grey'> View </a>";
+                                        echo "<hr />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0006</span>
                             <span>John A</span>
                             <span>Borella</span>
@@ -78,7 +92,7 @@
                             <span>0777762049</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
+                        </div> -->
                     </div>
 
 

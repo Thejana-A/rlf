@@ -1,7 +1,8 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    class RawMaterial{
+    require_once(__DIR__.'/IDBModel.php');
+    class RawMaterial implements IDBModel{
         
         private $materialID;
         private $name;
@@ -38,6 +39,7 @@
             $fileTarget = $target.$newImageName;	
             $tempFileName = $_FILES["image"]["tmp_name"];
             $result = move_uploaded_file($tempFileName,$fileTarget);
+            $this->quantityInStock = 0;
             if($result) { 
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
@@ -74,12 +76,18 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM raw_material where material_id='$this->materialID'";
+            $sql = 
+            "SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.supplier_id as requester_id,'supplier' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,supplier where raw_material.supplier_id = supplier.supplier_id and material_id = '$this->materialID'
+            UNION
+            SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.fashion_designer_id as requester_id,'fashion designer' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,employee where raw_material.fashion_designer_id = employee.employee_id and material_id = '$this->materialID'
+            UNION
+            SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image,'' as requester_id,'' as requester_role, '' as first_name,'' as last_name,manager_approval,approval_description FROM raw_material where fashion_designer_id is null and supplier_id is null AND material_id = '$this->materialID';";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
@@ -101,7 +109,7 @@
                 if($affectedRows == -1){
                     echo "Sorry ! That username already exists.";
                 }else{
-                    echo "RawMaterial was updated successfully";
+                    echo "Raw material was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
                     echo "<tr><td>Name </td><td>: $this->name</td></tr>";
@@ -133,8 +141,11 @@
         }
 
         public function viewRawMaterial() {
-            $this->view();
+            $row = $this->view();
+            return $row; 
         }
+
+
         public function deleteRawMaterial() {
             $this->delete();
         }

@@ -170,7 +170,7 @@
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="DOB" id="DOB" max="" required />
+                                <input type="date" name="DOB" id="DOB" required />
                             </div>
                         </div>
                         <div class="form-row">
