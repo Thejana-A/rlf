@@ -5,12 +5,13 @@
         <title>Edit costume design</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php   
-            require_once('../../model/CostumeDesign.php');
-            $costumeDesignModel = new CostumeDesign($_GET); 
-            $row = $costumeDesignModel->viewDesign(); 
-            //print_r($row);
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
 
-            $designID = $_GET["design_id"];
+            $designID = $row["design_id"];
             $conn = new mysqli("localhost", "root", "", "rlf");
         
             if($conn->connect_error){

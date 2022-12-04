@@ -4,10 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit customer</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
-        <?php
-            require_once('../../model/Customer.php');
-            $customerModel = new Customer($_GET); 
-            $row = $customerModel->viewCustomer(); 
+        <?php 
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
         ?>
 
         <script>
@@ -58,7 +60,8 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" action="">
+                    <form method="post" name="customerForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="customer/update" />
                         <center>
                             <h2>Edit customer details</h2>
                         </center>
@@ -67,7 +70,7 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="customer_id" id="customer_id" value="<?php echo $_GET["customer_id"]; ?>" readonly />
+                                <input type="text" name="customer_id" id="customer_id" value="<?php echo $row["customer_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

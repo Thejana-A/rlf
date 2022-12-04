@@ -39,7 +39,36 @@
                             <b>Fashion designer</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT design_id, name, customized_design_approval, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, employee.first_name AS fashion_designer_first_name, employee.last_name AS fashion_designer_last_name FROM costume_design, customer, employee WHERE costume_design.customer_id = customer.customer_id AND costume_design.fashion_designer_id = employee.employee_id
+                            UNION
+                            SELECT design_id, name, customized_design_approval, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, '' AS fashion_designer_first_name, '' AS fashion_designer_last_name FROM costume_design, customer WHERE costume_design.customer_id = customer.customer_id AND costume_design.fashion_designer_id IS NULL;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        $class = ($row["customized_design_approval"]=="approve")?"green":(($row["customized_design_approval"]=="reject")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_customized_design' />";
+                                        echo "<input type='text' hidden='true' name='design_id' value='".$row["design_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span>".$row["name"]."</span><span>".$row["customer_first_name"]." ".$row["customer_last_name"]."</span><span>".$row["fashion_designer_first_name"]." ".$row["fashion_designer_last_name"]."</span>";
+                                        echo "<input type='submit' class='".$class."' value='View' />";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>Blue-long-sleeve</span>
                             <span>Jane Eyre</span>
@@ -54,31 +83,8 @@
                             <span>&nbsp</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0006</span>
-                            <span>Red dotted shirt</span>
-                            <span>John Watson</span>
-                            <span>&nbsp</span>
-                            <a href="#" class="red">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0007</span>
-                            <span>Blue T-shirt</span>
-                            <span>James Kane</span>
-                            <span>&nbsp</span>
-                            <a href="#" class="green">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0009</span>
-                            <span>Stripped white top</span>
-                            <span>Peter ABC</span>
-                            <span>Henry C</span>
-                            <a href="#" class="green">View</a>
-                            <hr />
-                        </div>
+                        </div>  -->
+                        
                         
                     </div>
                 </div>

@@ -8,8 +8,11 @@
         case "add":
             $rawMaterialQuotationModel->addMaterialQuotation();
             break;
-        case "view":
-            $rawMaterialQuotationModel->viewMaterialQuotation();
+        case "manager_view":
+            $rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
+            $data = $rawMaterialQuotationModel->viewMaterialQuotation();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/manager/view_material_quotation.php?data[]=$row");
             break;
         case "update":
             $rawMaterialQuotationModel->updateMaterialQuotation();

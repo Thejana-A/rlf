@@ -56,7 +56,7 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->quotationID = $_GET["quotation_id"];
+            $this->quotationID = $_POST["quotation_id"];
             $sql = "SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id WHERE quotation_id = $this->quotationID
             UNION
             SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, '' AS merchandiser_first_name, '' AS merchandiser_last_name FROM raw_material_quotation, supplier WHERE raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id IS NULL AND quotation_id = $this->quotationID;";

@@ -89,7 +89,7 @@
                         
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Suppliers : 
+                                Verified suppliers : 
                             </div>
                             <div class="form-row-data">
                                 <select name="" id="" multiple size="2" disabled>
