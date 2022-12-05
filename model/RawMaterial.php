@@ -75,7 +75,7 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->materialID = $_GET["material_id"];
+            $this->materialID = $_POST["material_id"];
             $sql = 
             "SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.supplier_id as requester_id,'supplier' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,supplier where raw_material.supplier_id = supplier.supplier_id and material_id = '$this->materialID'
             UNION

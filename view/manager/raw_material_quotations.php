@@ -67,9 +67,13 @@
                                     while($row = mysqli_fetch_array($result)){
                                         $class = ($row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="deny")?"red":"grey");
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["issue_date"]."</span><span>".$row["valid_till"]."</span>";
-                                        echo "<a href=./view_material_quotation.php?quotation_id=".$row["quotation_id"]." class='".$class."'>View</a>";
+                                        echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

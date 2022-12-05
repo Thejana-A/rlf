@@ -1,7 +1,7 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
-    require_once(__DIR__.'/DesignQuotation.php.php');
+    require_once(__DIR__.'/DesignQuotation.php');
     class CostumeQuotation{
         
         private $quotationID;
@@ -24,7 +24,8 @@
         }
 
         public function addCostumeQuotation(){
-            $connObj = new DBConnection();
+            print_r($_POST);
+            /*$connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "INSERT INTO costume_quotation (request_date, issue_date, valid_till, manager_approval, approval_description, approval_date, customer_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -49,7 +50,7 @@
             } 				
             
             $stmt->close(); 
-            $conn->close();  
+            $conn->close(); */ 
         }
 
         public function updateCostumeQuotation(){

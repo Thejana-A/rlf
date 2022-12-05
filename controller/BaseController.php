@@ -22,6 +22,9 @@
         case "costume_design":
             include_once ( __DIR__.'/CostumeDesignController.php');
             break;
+        case "costume_quotation":
+            include_once ( __DIR__.'/CostumeQuotationController.php');
+            break;
             
         
     } 

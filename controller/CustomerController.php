@@ -8,8 +8,15 @@
         case "add":
             $customerModel->addCustomer();
             break;
-        case "view":
-            $customerModel->viewCustomer();
+        case "manager_view":
+            $customerModel = new Customer($_POST); 
+            $data = $customerModel->viewCustomer();
+            $row = http_build_query($data); 
+            if(isset($_POST['edit'])){ 
+                header("location: http://localhost/rlf/view/manager/edit_employee.php?data[]=$row");
+            }else if(isset($_POST['delete'])){
+                header("location: http://localhost/rlf/view/manager/delete_employee.php?data[]=$row");
+            }
             break;
         case "update":
             $customerModel->updateCustomer();

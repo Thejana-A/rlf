@@ -4,42 +4,75 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Create costume quotation</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <script>
+            let costumeQuotation = [[]];
+            let merchandiser = [[]];
+        </script>
         <?php 
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             } 
 
-            function selectCostumeDesign($designName){
-                $costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price IS NOT NULL AND (name LIKE '".$designName."-__' OR name LIKE '".$designName."-_')";
-                $costume_list = "";
-                if($result = mysqli_query($conn, $costume_quotation_sql)){
-                    $costumeRowCount = 0;
-                    if(mysqli_num_rows($result) > 0){
-                        while($costume_quotation_row = mysqli_fetch_array($result)){
-                            $costume_list .= "<div class='form-row'>";
-                            $costume_list .= "<div class='form-row-theme'>";
-                            $costume_list .= "<input type = 'text' name='costume_id[]' value='".$costume_quotation_row["design_id"]." - ".$costume_quotation_row["name"]."' readonly />";
-                            $costume_list .= "</div>";
-                            $costume_list .= "<div class='form-row-data'>";
-                            $costume_list .= "<input type='number' min='0' step='1' name='quantity[]' id='quantity_".$costumeRowCount."' onChange='setPrice(".$costumeRowCount.")' class='column-textfield' value='0' required />&nbsp";
-                            $costume_list .= "<input type='text' name='unit_price[]' id='unit_price_".$costumeRowCount."' class='column-textfield' value='".$costume_quotation_row["final_price"]."' readonly />&nbsp";
-                            $costume_list .= "<input type='text' name='price[]' id='price_".$costumeRowCount."' class='column-textfield' readonly />";
-                            $costume_list .= "</div>";
-                            $costume_list .= "</div>";
-                            $costumeRowCount++;
-                        }
-                    }else {
-                        $costume_list .= "0 results";
-                    }
-                }else{
-                    $costume_list .= "ERROR: Could not able to execute $costume_quotation_sql. " . mysqli_error($conn);
-                } 
-                return $costume_list;
+            //costume name list to be displayed
+            $costume_sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE final_price IS NOT NULL";
+            $costumeNameCount = 0;
+            $costumeNameList = "";
+            if($costumeNameResult = mysqli_query($conn, $costume_sql)){
+                if(mysqli_num_rows($costumeNameResult) > 0){
+                    $costumeNameList .= "<select name='select_costume_name' id='select_costume_name' onChange='selectCostume()' required>";
+                    $costumeNameList .= "<option disabled>ID - Costume</option>";
+                    while($costume_name = mysqli_fetch_array($costumeNameResult)){
+                        $costumeNameList .= "<option value='".$costumeNameCount."'>".$costume_name["costume_name"]."</option>";
+                        $costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price IS NOT NULL AND (name LIKE '".$costume_name["costume_name"]."-__' OR name LIKE '".$costume_name["costume_name"]."-_')";
+                        if($result = mysqli_query($conn, $costume_quotation_sql)){
+                            if(mysqli_num_rows($result) > 0){
+                                $costumeCountForName = 0; ?>
+                                <script> costumeListForName = []; </script>
+                            <?php 
+                                while($costume_quotation_row = mysqli_fetch_array($result)){  ?>                                 
+                                    <script> costumeListForName["<?php echo $costumeCountForName; ?>"] = ["<?php echo $costume_quotation_row["design_id"]; ?>", "<?php echo $costume_quotation_row["name"]; ?>", "<?php echo $costume_quotation_row["final_price"]; ?>"]; </script>
+                            <?php   
+                                    if($costumeCountForName == 0){
+                                        $merchandiser_sql = "SELECT employee_id, first_name, last_name FROM employee INNER JOIN costume_design ON costume_design.merchandiser_id = employee.employee_id WHERE costume_design.design_id = ".$costume_quotation_row["design_id"].";";
+                                        if($merchandiserResult = mysqli_query($conn, $merchandiser_sql)){
+                                            if(mysqli_num_rows($merchandiserResult) > 0){
+                                                while($merchandiser_row = mysqli_fetch_array($merchandiserResult)){ 
+                                                    if($costumeNameCount == 0){ ?>
+                                                        <script>merchandiser[0] = ["<?php echo $merchandiser_row["employee_id"] ?>", "<?php echo $merchandiser_row["first_name"] ?>", "<?php echo $merchandiser_row["last_name"] ?>"];</script>
+                            <?php                   }else{  ?>
+                                                        <script>merchandiser.push(["<?php echo $merchandiser_row["employee_id"] ?>", "<?php echo $merchandiser_row["first_name"] ?>", "<?php echo $merchandiser_row["last_name"] ?>"]);</script>
+                            <?php                   }
+                                                }
+                                            }else {
+                                                echo "0 results";
+                                            }
+                                        }else{
+                                            echo "ERROR: Could not able to execute $merchandiser_sql. " . mysqli_error($conn);
+                                        }
+                                    }
+                                    $costumeCountForName++;                   
+                                }       
+                            } 
+                        } 
+                        if($costumeNameCount == 0){ ?>
+                            <script> costumeQuotation[0] = costumeListForName </script>                
+                <?php   }else{ ?>
+                            <script> costumeQuotation.push(costumeListForName) </script> 
+                <?php   }
+                        $costumeNameCount++;
+                    } 
+                    $costumeNameList .= "</select>";
+                }else {
+                $costumeNameList .= "0 results";
+                }
+            }else{
+                $costumeNameList .= "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
-                
         ?>
+        
         <script>
+
             function selectCustomer(){
                 var customerDetails = document.getElementById("customer_id").value;
                 var customerContactNo = customerDetails.split("-")[1];
@@ -50,9 +83,22 @@
             
             function selectCostume(){
                 var costumeName = document.getElementById("select_costume_name").value;
-                //document.cookie = "costume_name="+costumeName+";path=/"; 
-                
-                document.getElementById("form-body").innerHTML = "<?php echo $xx; ?>";
+                var costumeList = "";
+                for(var i = 0;i <(costumeQuotation[costumeName]).length;i++){
+                    costumeList += "<div class='form-row'>";
+                    costumeList += "<div class='form-row-theme'>";
+                    costumeList += "<input type = 'text' name='costume_id[]' value='"+costumeQuotation[costumeName][i][0]+" - "+costumeQuotation[costumeName][i][1]+"' readonly />";
+                    costumeList += "</div>";
+                    costumeList += "<div class='form-row-data'>";
+                    costumeList += "<input type='number' min='0' step='1' name='quantity[]' id='quantity_"+i+"' onChange='setPrice("+i+")' class='column-textfield' value='0' required />&nbsp";
+                    costumeList += "<input type='text' name='unit_price[]' id='unit_price_"+i+"' class='column-textfield' value='"+costumeQuotation[costumeName][i][2]+"' readonly />&nbsp";
+                    costumeList += "<input type='text' name='price[]' id='price_"+i+"' class='column-textfield' readonly />";
+                    costumeList += "</div>";
+                    costumeList += "</div>";
+                }
+                document.getElementById("form-body").innerHTML = costumeList;
+                document.getElementById("merchandiser_id").value = merchandiser[costumeName][0];
+                document.getElementById("merchandiser_name").value = merchandiser[costumeName][1]+" "+merchandiser[costumeName][2];
             }
 
             function setPrice(costumeRowCount){
@@ -62,7 +108,7 @@
                 document.getElementById("price_"+costumeRowCount).value = product;
                 var totalQuantity = 0;
                 var totalPrice = 0;
-                for(let i = 0;i < <?php echo $costumeRowCount; ?>;i++){
+                for(let i = 0;i < 2;i++){
                     var quantity = document.getElementById("quantity_"+i).value;
                     var unitPrice = document.getElementById("unit_price_"+i).value;
                     totalQuantity = parseInt(totalQuantity) + parseInt(quantity);
@@ -90,7 +136,8 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                    <form method="post" name="costumeQuotationForm" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
                         <center>
                             <h2>Create costume quotation (onsite)</h2>
                         </center>
@@ -145,24 +192,7 @@
                                 Costume design : 
                             </div>
                             <div class="form-row-data">
-                                <?php 
-                                    //$costume_sql = "SELECT design_id, name FROM costume_design where customized_design_approval = 'approve'";
-                                    $costume_sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE final_price IS NOT NULL";
-                                    if($result = mysqli_query($conn, $costume_sql)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            echo "<select name='select_costume_name' id='select_costume_name' onChange='selectCostume()' required>";
-                                            echo "<option disabled>ID - Costume</option>";
-                                            while($costume_name = mysqli_fetch_array($result)){
-                                                echo "<option value='".$costume_name["costume_name"]."'>".$costume_name["costume_name"]."</option>";
-                                            }
-                                            echo "</select>";
-                                        }else {
-                                            echo "0 results";
-                                        }
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                                    }
-                                ?>
+                                <?php echo $costumeNameList; ?>
                                 <!--<select name="" id="">
                                     <option>0001 - Black T-shirt-S</option>
                                     <option>0002 - Black T-shirt-M</option>
@@ -175,7 +205,7 @@
                                 Merchandiser ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="merchandiser_id" id="merchandiser_id" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -183,7 +213,7 @@
                                 Merchandiser name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="merchandiser_name" id="merchandiser_name" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -243,7 +273,7 @@
                                 Quotation issued on :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="issue_date" id="issue_date" />
+                                <input type="date" name="issue_date" id="issue_date" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -251,7 +281,7 @@
                                 Quotation valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" id="valid_till" />
+                                <input type="date" name="valid_till" id="valid_till" required />
                             </div>
                         </div>
                         
@@ -278,13 +308,22 @@
             var mm = today.getMonth() + 1; 
             var yyyy = today.getFullYear();
             var min_issue_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            var max_issue_date = new Date();
+            max_issue_date.setMonth(max_issue_date.getMonth()+2);
+            max_issue_date = max_issue_date.getFullYear() + '-' + addLeadingZeros(max_issue_date.getMonth(),2) + '-' + addLeadingZeros(max_issue_date.getDate(),2);
 
             var min_valid_till = new Date();
             min_valid_till.setMonth(min_valid_till.getMonth()+3);
             min_valid_till = min_valid_till.getFullYear() + '-' + addLeadingZeros(min_valid_till.getMonth(),2) + '-' + addLeadingZeros(min_valid_till.getDate(),2);
-            
+            var max_valid_till = new Date();
+            max_valid_till.setYear(max_valid_till.getFullYear()+2);
+            max_valid_till = max_valid_till.getFullYear() + '-' + addLeadingZeros(max_valid_till.getMonth(),2) + '-' + addLeadingZeros(max_valid_till.getDate(),2);
+
             document.getElementById("issue_date").setAttribute("min", min_issue_date);
+            document.getElementById("issue_date").setAttribute("max", max_issue_date);
+
             document.getElementById("valid_till").setAttribute("min", min_valid_till);
+            document.getElementById("valid_till").setAttribute("max", max_valid_till);
         </script>
         
     </body> 

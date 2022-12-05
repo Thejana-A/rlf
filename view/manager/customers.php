@@ -50,10 +50,14 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='customer/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='customer_id' value='".$row["customer_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<a href=./edit_customer.php?customer_id=".$row["customer_id"]." class='grey'>Edit</a>";
-                                        echo "<a href='./delete_customer.php' class='grey'>Delete</a>";
+                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
+                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {
@@ -78,15 +82,6 @@
                             <span>John A</span>
                             <span>Borella</span>
                             <span>0777762045</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0010</span>
-                            <span>John B</span>
-                            <span>Galle</span>
-                            <span>0777762044</span>
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />

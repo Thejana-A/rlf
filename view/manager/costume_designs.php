@@ -51,10 +51,14 @@
                                 if((mysqli_num_rows($result1) > 0) && (mysqli_num_rows($result2) > 0)){
                                     while(($row1 = mysqli_fetch_array($result1)) && ($row2 = mysqli_fetch_array($result2))){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='design_id' value='".$row1["design_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row1["design_id"]."</span><span>".$row1["name"]."</span><span>".$row1["first_name"]." ".$row1["last_name"]."</span><span>".$row2["first_name"]." ".$row2["last_name"]."</span>";
-                                        echo "<a href=./edit_costume_design.php?design_id=".$row1["design_id"]." class='grey'>Edit</a>";
-                                        echo "<a href='./delete_costume_design.php' class='grey'>Delete</a>";
+                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
+                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

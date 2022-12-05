@@ -51,10 +51,14 @@
                                     while($row = mysqli_fetch_array($result)){
                                         $class = ($row["verify_status"]=="approve")?"green":(($row["verify_status"]=="deny")?"red":"grey");
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='supplier/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='supplier_id' value='".$row["supplier_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<a href=./edit_supplier.php?supplier_id=".$row["supplier_id"]." class='".$class."'>Edit</a>";
-                                        echo "<a href='./delete_supplier.php' class='".$class."'>Delete</a>";
+                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
+                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {
@@ -75,37 +79,10 @@
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
-                            <span>0006</span>
-                            <span>John A</span>
-                            <span>Borella</span>
-                            <span>0777762045</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
                             <span>0010</span>
                             <span>John B</span>
                             <span>Galle</span>
                             <span>0777762044</span>
-                            <a href="#" class="green">Edit</a>
-                            <a href="#" class="green">Delete</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0011</span>
-                            <span>John C</span>
-                            <span>Kandy</span>
-                            <span>0777762046</span>
-                            <a href="#" class="grey">Edit</a>
-                            <a href="#" class="grey">Delete</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0026</span>
-                            <span>Harry P</span>
-                            <span>Jaffna</span>
-                            <span>0777762049</span>
                             <a href="#" class="green">Edit</a>
                             <a href="#" class="green">Delete</a>
                             <hr class="manager-long-hr" />

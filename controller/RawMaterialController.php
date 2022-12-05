@@ -8,8 +8,15 @@
         case "add":
             $rawMaterialModel->addRawMaterial();
             break;
-        case "view":
-            $rawMaterialModel->viewRawMaterial();
+        case "manager_view":
+            $rawMaterialModel = new RawMaterial($_POST); 
+            $data = $rawMaterialModel->viewRawMaterial();
+            $row = http_build_query($data); 
+            if(isset($_POST['edit'])){ 
+                header("location: http://localhost/rlf/view/manager/edit_raw_material.php?data[]=$row");
+            }else if(isset($_POST['delete'])){
+                header("location: http://localhost/rlf/view/manager/delete_raw_materials.php?data[]=$row");
+            }
             break;
         case "update":
             $rawMaterialModel->updateRawMaterial();

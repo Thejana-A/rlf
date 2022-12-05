@@ -114,7 +114,7 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->designID = $_GET["design_id"];
+            $this->designID = $_POST["design_id"];
             $sql = "SELECT * FROM costume_design where design_id='$this->designID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);

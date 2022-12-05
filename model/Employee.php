@@ -72,8 +72,8 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->employeeID = $_GET["employee_id"];
-            $sql = "SELECT * FROM employee where employee_id='$this->employeeID'";
+            $this->employeeID = $_POST["employee_id"];
+            $sql = "SELECT employee_id, first_name, last_name, NIC, email, contact_no, user_type, address_line1, address_line2, address_line3, DOB, joined_date, active_status FROM employee where employee_id='$this->employeeID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
@@ -86,7 +86,7 @@
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             } 
-            mysqli_close($conn);
+            mysqli_close($conn); 
         }
 
         public function update(){
