@@ -51,10 +51,14 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='employee/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='employee_id' value='".$row["employee_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["employee_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["user_type"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<a href=./edit_employee.php?employee_id=".$row["employee_id"]." class='grey'>Edit</a>";
-                                        echo "<a href='./delete_employee.php' class='grey'>Delete</a>";
+                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
+                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

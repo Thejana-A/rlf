@@ -1,5 +1,6 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
+    error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/IDBModel.php');
     class Customer implements IDBModel{
@@ -44,8 +45,8 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->employeeID = $_GET["employee_id"];
-            $sql = "SELECT * FROM customer where customer_id='$this->customerID'";
+            $this->customerID = $_POST["customer_id"];
+            $sql = "SELECT customer_id, first_name, last_name, NIC, email, contact_no, city FROM customer where customer_id = '$this->customerID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
@@ -58,16 +59,33 @@
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
-            mysqli_close($conn);
+            mysqli_close($conn); 
+            /*$connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->customerID = $_GET["customer_id"];
+            $sql = "SELECT * FROM customer where customer_id = '$this->customerID'";
+            $path = mysqli_query($conn, $sql);
+            $result = $path->fetch_array(MYSQLI_ASSOC);
+            if($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+                    $row = mysqli_fetch_array($result);
+                    return $row;
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            }
+            mysqli_close($conn); */
         }
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->customerID = $_POST["customer_id"];
-            //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
+            //$sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID' AND NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";    
             $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
@@ -90,6 +108,7 @@
             $stmt->close(); 
             $conn->close(); 
         }
+        
         public function delete(){
 
         }
@@ -113,7 +132,8 @@
         }
 
         public function viewCustomer() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function editSelfProfile() {
             

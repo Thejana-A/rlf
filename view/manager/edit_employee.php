@@ -4,28 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit employee</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
-        <?php
-            require_once('../../model/Employee.php');
-            $employeeModel = new Employee($_GET); 
-            $row = $employeeModel->viewEmployee(); 
-
-            /*require_once '../../model/DBConnection.php';
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $employeeID = $_GET["employee_id"];
-            $sql = "SELECT * FROM employee where employee_id='$employeeID'";
-            $path = mysqli_query($conn, $sql);
-            $result = $path->fetch_array(MYSQLI_ASSOC);
-            if($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
-                    $row = mysqli_fetch_array($result);
-                }else {
-                    echo "0 results";
-                }
-            }else{
-                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+        <?php 
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
             }
-            mysqli_close($conn); */
         ?>
         <script>
             function validateForm(){
@@ -91,7 +75,7 @@
                                 Employee ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="employee_id" value="<?php echo $_GET["employee_id"]; ?>" readonly />
+                                <input type="text" name="employee_id" value="<?php echo $row["employee_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -140,10 +124,7 @@
                                 User type :
                             </div>
                             <div class="form-row-data">
-                                <select name="user_type">
-                                    <option value="merchandiser" <?php echo ($row["user_type"]=="merchandiser")?'selected':'' ?>>Merchadiser</option>
-                                    <option value="fashion designer" <?php echo ($row["user_type"]=="fashion designer")?'selected':'' ?>>Fashion designer</option>
-                                </select>
+                                <input type="text" name="user_type" value="<?php echo $row["user_type"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

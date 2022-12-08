@@ -8,8 +8,15 @@
         case "add":
             $supplierModel->addSupplier();
             break;
-        case "view":
-            $supplierModel->viewSupplier();
+        case "manager_view":
+            $supplierModel = new Supplier($_POST); 
+            $data = $supplierModel->viewSupplier();
+            $row = http_build_query($data); 
+            if(isset($_POST['edit'])){ 
+                header("location: http://localhost/rlf/view/manager/edit_supplier.php?data[]=$row");
+            }else if(isset($_POST['delete'])){
+                header("location: http://localhost/rlf/view/manager/delete_supplier.php?data[]=$row");
+            }
             break;
         case "update":
             $supplierModel->updateSupplier();

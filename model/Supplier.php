@@ -61,8 +61,8 @@
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->supplierID = $_GET["supplier_id"];
-            $sql = "SELECT * FROM supplier where supplier_id='$this->supplierID'";
+            $this->supplierID = $_POST["supplier_id"];
+            $sql = "SELECT supplier_id, first_name, last_name, NIC, email, contact_no, city, verify_status FROM supplier where supplier_id='$this->supplierID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
