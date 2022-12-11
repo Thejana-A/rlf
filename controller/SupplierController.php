@@ -18,6 +18,12 @@
                 header("location: http://localhost/rlf/view/manager/delete_supplier.php?data[]=$row");
             }
             break;
+        case "merchandiser_view":
+            $supplierModel = new Supplier($_POST); 
+            $data = $supplierModel->viewSupplier();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/view_supplier.php?data[]=$row");
+            break;
         case "update":
             $supplierModel->updateSupplier();
             break;

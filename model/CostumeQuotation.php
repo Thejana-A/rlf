@@ -19,13 +19,12 @@
             $this->managerApproval = $args["manager_approval"];
             $this->approvalDescription = $args["approval_description"];
             $this->approvalDate = $args["approval_date"];
-            $this->customerID = $args["customer_id"];
+            $this->customerID = explode("-" , $args["customer_id"])[0];
             $this->merchandiserID = $args["merchandiser_id"];
         }
 
         public function addCostumeQuotation(){
-            print_r($_POST);
-            /*$connObj = new DBConnection();
+            $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "INSERT INTO costume_quotation (request_date, issue_date, valid_till, manager_approval, approval_description, approval_date, customer_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -50,7 +49,7 @@
             } 				
             
             $stmt->close(); 
-            $conn->close(); */ 
+            $conn->close(); 
         }
 
         public function updateCostumeQuotation(){
@@ -58,7 +57,23 @@
         }
         
         public function viewCostumeQuotation(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->quotationID = $_POST["quotation_id"];
+            $sql = "SELECT quotation_id, customer.customer_id, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no, customer.email, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, manager_approval, approval_description FROM costume_quotation, employee, customer where costume_quotation.merchandiser_id = employee.employee_id AND costume_quotation.customer_id = customer.customer_id AND quotation_id='$this->quotationID'";
+            $path = mysqli_query($conn, $sql);
+            $result = $path->fetch_array(MYSQLI_ASSOC);
+            if($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+                    $row = mysqli_fetch_array($result);
+                    return $row;
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            } 
+            mysqli_close($conn); 
         }
 
     }

@@ -34,6 +34,12 @@
             $row = http_build_query($data); 
             header("location: http://localhost/rlf/view/manager/view_customized_design.php?data[]=$row");
             break;
+        case "merchandiser_view":
+            $costumeDesignModel = new CostumeDesign($_POST); 
+            $data = $costumeDesignModel->viewDesign();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/edit_costume_design.php?data[]=$row");
+            break;
         case "update":
             $costumeDesignModel->updateDesign();
             break;

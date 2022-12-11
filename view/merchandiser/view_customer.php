@@ -5,10 +5,11 @@
         <title>View customer</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
-            require_once('../../model/Customer.php');
-            $customerModel = new Customer($_GET); 
-            $row = $customerModel->viewCustomer(); 
-            $customerID = $_GET["customer_id"];
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
         ?>
     </head>
 
@@ -36,7 +37,7 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="customer_id" value="<?php echo $customerID; ?>" readonly />
+                                <input type="text" name="customer_id" value="<?php echo $row["customer_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

@@ -4,9 +4,81 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Add costume order</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <?php
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                print_r($row);
+            }
+
+            $quotationID = $row["quotation_id"];
+            $conn = new mysqli("localhost", "root", "", "rlf");
+        
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+            $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";
+                             
+            if($result = mysqli_query($conn, $sql_costume_quotation)){
+                if(mysqli_num_rows($result) > 0){
+                    $costumeCount = 0; 
+                    $costumeDesignList = ""; 
+                    while($sql_costume_quotation = mysqli_fetch_array($result)){
+                        $costumeDesignList .= "<div class='form-row'>";
+                        $costumeDesignList .= "<div class='form-row-theme'>";
+                        $costumeDesignList .= "<input type='text' name='design_id[]' value='".$sql_costume_quotation["design_id"]." - ".$sql_costume_quotation["name"]."' readonly />";
+                        $costumeDesignList .= "</div>";
+                        $costumeDesignList .= "<div class='form-row-data'>";
+                        $costumeDesignList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["quantity"]."' required /> ";
+                        $costumeDesignList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["unit_price"]."' readonly /> ";
+                        $costumeDesignList .= "<input type='text' name='costume_price[]'' id='costume_price_".$costumeCount."' class='column-textfield' value='' readonly />"; 
+                        $costumeDesignList .= "</div>";
+                        $costumeDesignList .= "</div>";
+                        $costumeCount++;
+                    }
+                    
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
+            }  
+        ?>
+
+        <script>
+            var costumeCount = "<?php echo $costumeCount; ?>";
+            var totalPrice = 0;
+            var totalQuantity = 0;
+            var advancePayment = 0;
+
+            function setPrice(){
+                for(let i = 0;i < costumeCount;i++){
+                    var quantity = document.getElementById("quantity_"+i).value;
+                    var unitPrice = document.getElementById("unit_price_"+i).value;
+                    document.getElementById("costume_price_"+i).value = quantity*unitPrice;
+                    totalPrice = totalPrice + (quantity*unitPrice); 
+                    totalQuantity = totalQuantity + (quantity*1); 
+                } 
+                document.getElementById("total_price").value = totalPrice;
+                document.getElementById("total_quantity").value = totalQuantity;
+            } 
+
+            function checkAdvancePayment(){
+                var advancePayment = document.getElementById("advance_payment").value;
+                alert("Advance payment should be at least 50% of total order value"+totalPrice+advancePayment);
+                return false;
+                if(advancePayment < (totalPrice/2)){
+                    alert("Advance payment should be at least 50% of total order value");
+                    return false;
+                }else{
+                    return true;
+                } 
+            } 
+
+        </script>
     </head>
 
-    <body>
+    <body onLoad="setPrice()">
         <?php include 'header.php';?>
 
         <div id="page-body">
@@ -21,7 +93,8 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                    <form method="post" name="costumeOrderForm" onSubmit="return checkAdvancePayment()" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_order/add" />
                         <center>
                             <h2>Add costume order(onsite)</h2>
                         </center>
@@ -30,11 +103,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>0001</option>
-                                    <option>0002</option>
-                                    <option>0004</option>
-                                </select>
+                                <input type="text" name="quotation_id" value="<?php echo $row["quotation_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -42,7 +111,7 @@
                                 Customer ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_id" value="<?php echo $row["customer_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -50,7 +119,7 @@
                                 Customer name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_name" value="<?php echo $row["customer_first_name"]." ".$row["customer_last_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -58,7 +127,7 @@
                                 Customer contact no : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_contact_no" value="<?php echo $row["contact_no"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -66,7 +135,7 @@
                                 Customer email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="customer_email" value="<?php echo $row["email"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -74,7 +143,7 @@
                                 Merchandiser ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="merchandiser_id" value="<?php echo $row["employee_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -82,7 +151,7 @@
                                 Merchandiser name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="merchandiser_name" value="<?php echo $row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -95,42 +164,43 @@
                                 <span><b>Price(LKR)</b></span>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <?php echo $costumeDesignList; ?>
+                        <!--<div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-small
+                                0005 - Black T-shirt-small
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-large
+                                0008 - Black T-shirt-large
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Black T-shirt-XXL
+                                0010 - Black T-shirt-XXL
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
+                                <input type="text" name="" id="" class="column-textfield" readonly />
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total items :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="total_quantity" id="total_quantity" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -138,15 +208,34 @@
                                 Total price (LKR) :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="total_price" id="total_price" readonly />
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Quotation issuing date :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" readonly />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Quotation Valid till :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" readonly />
+                            </div>
+                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 <b>Advance payment (LKR) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="advance_payment" required />
+                                <input type="text" hidden="true" name="order_status" value="confirmed" />
+                                <input type="date" hidden="true" name="order_placed_on" value="<?php echo date("Y-m-d"); ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -154,7 +243,7 @@
                                 Advance payment date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" />
+                                <input type="date" name="advance_payment_date" id="advance_payment_date" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -162,27 +251,9 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" />
+                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" required />
                             </div>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quotation issued on :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quotation valid till :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
-                            </div>
-                        </div>
-                        
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />
@@ -197,6 +268,23 @@
         </div> 
 
         <?php include 'footer.php';?>
+
+        <script>
+            function addLeadingZeros(num, totalLength) {
+                return String(num).padStart(totalLength, '0');
+            }
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; 
+            var yyyy = today.getFullYear();
+            var max_quotation_valid_till = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("valid_till").setAttribute("max", max_quotation_valid_till);
+            var min_advance_payment_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("advance_payment_date").setAttribute("min", min_advance_payment_date);
+            var min_EDD = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("expected_delivery_date").setAttribute("min", min_EDD);
+        </script>
+
 
     </body> 
 </html>

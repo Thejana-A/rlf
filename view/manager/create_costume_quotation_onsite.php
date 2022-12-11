@@ -21,7 +21,7 @@
             if($costumeNameResult = mysqli_query($conn, $costume_sql)){
                 if(mysqli_num_rows($costumeNameResult) > 0){
                     $costumeNameList .= "<select name='select_costume_name' id='select_costume_name' onChange='selectCostume()' required>";
-                    $costumeNameList .= "<option disabled>ID - Costume</option>";
+                    $costumeNameList .= "<option disabled selected>ID - Costume</option>";
                     while($costume_name = mysqli_fetch_array($costumeNameResult)){
                         $costumeNameList .= "<option value='".$costumeNameCount."'>".$costume_name["costume_name"]."</option>";
                         $costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price IS NOT NULL AND (name LIKE '".$costume_name["costume_name"]."-__' OR name LIKE '".$costume_name["costume_name"]."-_')";
@@ -87,7 +87,7 @@
                 for(var i = 0;i <(costumeQuotation[costumeName]).length;i++){
                     costumeList += "<div class='form-row'>";
                     costumeList += "<div class='form-row-theme'>";
-                    costumeList += "<input type = 'text' name='costume_id[]' value='"+costumeQuotation[costumeName][i][0]+" - "+costumeQuotation[costumeName][i][1]+"' readonly />";
+                    costumeList += "<input type = 'text' name='design_id[]' value='"+costumeQuotation[costumeName][i][0]+" - "+costumeQuotation[costumeName][i][1]+"' readonly />";
                     costumeList += "</div>";
                     costumeList += "<div class='form-row-data'>";
                     costumeList += "<input type='number' min='0' step='1' name='quantity[]' id='quantity_"+i+"' onChange='setPrice("+i+")' class='column-textfield' value='0' required />&nbsp";
@@ -117,6 +117,15 @@
                 document.getElementById("total_quantity").value = totalQuantity;
                 document.getElementById("total_price").value = totalPrice;
             } 
+            function validateForm(){
+                var total_quantity = document.forms["costumeQuotationForm"]["total_quantity"].value;
+                if(total_quantity <= 0){
+                    alert("At least one item should be selected");
+                    return false; 
+                }else{
+                    return true;  
+                }
+            }
         
         </script>
     </head>
@@ -136,7 +145,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="costumeQuotationForm" action="../RouteHandler.php">
+                    <form method="post" name="costumeQuotationForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
                         <center>
                             <h2>Create costume quotation (onsite)</h2>
@@ -151,7 +160,7 @@
                                     if($result = mysqli_query($conn, $customer_sql)){
                                         if(mysqli_num_rows($result) > 0){
                                             echo "<select name='customer_id' id='customer_id' onChange='selectCustomer()' required>";
-                                            echo "<option disabled>ID - Customer</option>";
+                                            echo "<option disabled selected>ID - Customer</option>";
                                             while($customer_row = mysqli_fetch_array($result)){
                                                 echo "<option value='".$customer_row["customer_id"]."-".$customer_row["contact_no"]."-".$customer_row["email"]."'>".$customer_row["customer_id"]." - ".$customer_row["first_name"]." ".$customer_row["last_name"]."</option>";
                                             }
@@ -284,7 +293,8 @@
                                 <input type="date" name="valid_till" id="valid_till" required />
                             </div>
                         </div>
-                        
+                        <input type="text" hidden="true" name="manager_approval" value="approve" />
+                        <input type="date" hidden="true" name="approval_date" value="<?php echo date("Y-m-d"); ?>" />
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />

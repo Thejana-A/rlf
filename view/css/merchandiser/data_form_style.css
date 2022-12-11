@@ -9,6 +9,11 @@
     display: table-cell;
     width:100%;
   }
+  @media (max-width: 1200px) {
+    #page-content{
+      overflow:hidden;
+    }
+  }
   #breadcrumb{
     margin:15px;
     color:#0000cc;
@@ -42,7 +47,7 @@
     background-color:#ffcc99;
     border-radius:6px;
     padding:15px;
-    margin:30px;
+    margin:30px; 
     clear:inherit;
     font-family:sans-serif;
     width:160%;

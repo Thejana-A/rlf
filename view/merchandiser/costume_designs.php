@@ -50,9 +50,13 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view' />";
+                                        echo "<input type='text' hidden='true' name='design_id' value='".$row["design_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span style='padding-left:10px;'>".$row["name"]."</span><span style='padding-left:25px;'>".$row["size"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span>";
-                                        echo "<a href=./edit_costume_design.php?design_id=".$row["design_id"]." class='grey'> View </a>";
+                                        echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

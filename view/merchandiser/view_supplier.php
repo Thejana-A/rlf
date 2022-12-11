@@ -5,11 +5,13 @@
         <title>View supplier</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php 
-            require_once('../../model/Supplier.php');
-            $supplierModel = new Supplier($_GET); 
-            $row = $supplierModel->viewSupplier();
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
         
-            $supplierID = $_GET["supplier_id"];
+            $supplierID = $row["supplier_id"];
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
@@ -84,7 +86,7 @@
                                 Supplier ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="supplier_id" id="supplier_id" value="<?php echo $supplierID ?>" readonly />
+                                <input type="text" name="supplier_id" id="supplier_id" value="<?php echo $supplierID; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

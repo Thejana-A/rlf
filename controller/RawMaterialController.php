@@ -18,11 +18,19 @@
                 header("location: http://localhost/rlf/view/manager/delete_raw_materials.php?data[]=$row");
             }
             break;
+<<<<<<< Updated upstream
         case "fashion_designer_view":
             $rawMaterialModel = new RawMaterial($_POST); 
             $data = $rawMaterialModel->viewRawMaterial();
             $row = http_build_query($data); 
             header("location: http://localhost/rlf/view/fashion_designer/edit_raw_material.php?data[]=$row");
+=======
+        case "merchandiser_view":
+            $rawMaterialModel = new RawMaterial($_POST); 
+            $data = $rawMaterialModel->viewRawMaterial();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data[]=$row");
+>>>>>>> Stashed changes
             break;
         case "update":
             $rawMaterialModel->updateRawMaterial();

@@ -215,12 +215,15 @@
 
         <?php include 'footer.php';?>
         <script>
+            function addLeadingZeros(num, totalLength) {
+                return String(num).padStart(totalLength, '0');
+            }
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
             var yyyy = today.getFullYear();
-            var max_DOB = yyyy-18 + '-' + mm + '-' + dd;
-            var max_joined_date = yyyy + '-' + mm + '-' + dd;
+            var max_DOB = yyyy-18 + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            var max_joined_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
             document.getElementById("DOB").setAttribute("max", max_DOB);
             document.getElementById("joined_date").setAttribute("max", max_joined_date);
         </script>

@@ -5,11 +5,13 @@
         <title>View raw material</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
-            require_once('../../model/RawMaterial.php');
-            $rawMaterialModel = new RawMaterial($_GET); 
-            $row = $rawMaterialModel->viewRawMaterial();
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
             
-            $materialID = $_GET["material_id"];
+            $materialID = $row["material_id"];
             //$merchandiserID = $_SESSION["merchandiser_id"];
             $merchandiserID = 2;
             $conn = new mysqli("localhost", "root", "", "rlf");
@@ -67,7 +69,7 @@
                                 Raw material ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="material_id" id="material_id" value="<?php echo $_GET["material_id"]; ?>" readonly />
+                                <input type="text" name="material_id" id="material_id" value="<?php echo $row["material_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

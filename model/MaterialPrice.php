@@ -13,7 +13,7 @@
             $this->unitPrice = $args["unit_price"];
         }
 
-        public function add(){
+        public function setQuantity(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
@@ -21,11 +21,15 @@
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "iidi", $this->quotationID, $this->materialID[$materialCount], $this->requestQuantity[$materialCount], $this->unitPrice[$materialCount]);
                     mysqli_stmt_execute($stmt);
-                    echo "<br><table>";
-                    echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
-                    echo "<tr><td>Request quantity </td><td> : ".$this->requestQuantity[$materialCount]."</td></tr>";
-                    echo "</table>";
-                    	
+                    $insertedRow = $conn -> affected_rows;
+                    if($insertedRow == -1){
+                        echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+                    }else{
+                        echo "<br><table>";
+                        echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
+                        echo "<tr><td>Request quantity </td><td> : ".$this->requestQuantity[$materialCount]."</td></tr>";
+                        echo "</table>";
+                    }	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
@@ -35,26 +39,44 @@
             $conn->close(); 
         }
 
-        public function view(){
+        public function viewQuantityPrice(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM design_material where material_id='$this->materialID' AND design_id='$this->designID'";
-            $path = mysqli_query($conn, $sql);
+            $this->quotationID = $_POST["quotation_id"];
+            $sql = "SELECT * FROM material_price WHERE quotation_id='$this->quotationID';";
+            
+            $result = $conn->query($sql);
+            $quantity_price_array = array();
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()) {
+                    array_push($quantity_price_array, $row); 
+                    print_r($row);
+                    echo "<br>";
+                }
+                return $quantity_price_array;
+            }else{
+                echo "0 results";
+            } 
+
+            /*$path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
+            $quantity_price_array = array();
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    array_push($quantity_price_array, $row); 
                 }else {
                     echo "0 results";
-                }
+                } 
+                return $row;
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }
+            }  */
             mysqli_close($conn);
+
         }
 
-        public function update(){
+        public function editQuantityPrice(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->RawMaterialID = $_POST["material_id"];    
@@ -89,18 +111,6 @@
 
         }
 
-        public function setQuantity() {
-            $this->add();
-        }
-
-        public function editQuantityunit_price() {
-            $this->update();
-        }
-
-        public function viewQuantityunit_price() {
-            $this->view();
-        }
-    
         
     }
 ?>

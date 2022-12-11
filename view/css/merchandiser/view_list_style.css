@@ -12,7 +12,7 @@
     margin-top:60px;
   }
 
-  #list-box h2, #material-price-box h2{
+  #list-box h2, #material-price-box h2, #list-box-home h2, #list-box-home h4{
     color:#330099;
     font-family:sans-serif;
   }
@@ -25,7 +25,20 @@
     clear:inherit;
     font-family:sans-serif;
     width:170%;
-    margin-top:60px;
+    margin-top:50px;
+    float:left; 
+  }
+  #list-box-home{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:30px;
+    margin:10px;
+    clear:inherit; 
+    font-family:sans-serif;
+    width:195%;
+    margin-top:20px;
+    margin-right:80px;
+    height:245px;
   }
 
   #list-box-small h2{
@@ -42,6 +55,9 @@
       width: 80%;
     }
     #list-box-ultra-small {
+      width: 80%;
+    }
+    #list-box-home {
       width: 80%;
     }
   }
@@ -288,6 +304,14 @@
   .item-list .manager-ID-column{
     width:14%;
   }
+
+  .two-button-table{
+    padding:0;
+    margin-left:-7px;
+    margin-right:-7px;
+  }
+  
+  
 
 
   

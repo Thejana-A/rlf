@@ -33,7 +33,17 @@
         case "sign_up":
             $employeeModel->signUp();
             break;
-        
+
+            
+        case "verify_email":
+            $employeeModel->verifyEmail();
+            break;
+        case "request_forgot_password":
+            $employeeModel->requestForgotPassword();
+            break;
+        case "reset_forgot_password":
+            $employeeModel->resetForgotPassword();
+            break;
     } 
     
 ?>

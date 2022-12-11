@@ -65,6 +65,7 @@
                             <span>Pending</span>
                             <span>2022-10-01</span>
                             <span>2022-12-01</span>
+                            
                             <a href="#" class="grey">View</a>
                             <hr />
                         </div>

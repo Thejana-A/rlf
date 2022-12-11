@@ -35,6 +35,8 @@
                 $this->customerID = $conn->insert_id;
                 if($this->customerID == 0){
                     echo "Sorry ! That email already exists.";
+                }else{
+                    ?><script>alert("Customer was added successfully");</script><?php
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -140,7 +142,6 @@
         }
         public function signUp(){
             $this->add();
-            ?><script>alert("Customer was added successfully");</script> <?php
         }
         
         public function login() {

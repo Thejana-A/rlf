@@ -11,7 +11,6 @@
                 //print_r($row);
             }
         
-        
             $supplierID = $row["supplier_id"];
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){

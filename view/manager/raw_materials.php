@@ -55,9 +55,11 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/manager_view' />";
                                         echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".$row["quantity_in_stock"]."</span>";
-                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
-                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
+                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:20px;'>".$row["measuring_unit"]."</span><span>".$row["quantity_in_stock"]."</span>";
+                                        echo "<table class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='".$class."' name='edit' value='Edit' /></td>";
+                                        echo "<td><input type='submit' class='".$class."' name='delete' value='Delete' /></td>";
+                                        echo "</tr></table>"; 
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
                                         echo "</div>";

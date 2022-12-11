@@ -57,14 +57,43 @@
                             <b>Customer name</b>
                             <b>Issued date</b>
                             <b>valid till</b>
-                            <hr />
+                            <hr class="manager-long-hr" />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, manager_approval FROM costume_quotation INNER JOIN customer on costume_quotation.customer_id = customer.customer_id;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="deny")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["issue_date"]."</span><span>".$row["valid_till"]."</span>";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='".$class."' value='View' /></td>";
+                                        echo "</tr></table>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "No costume quotations";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>John Doe</span>
                             <span>2022-01-01</span>
                             <span>2022-06-01</span>
-                            <a href="#" class="grey">View</a>
+                            <a href="edit_costume_quotation.php" class="grey">View</a>
                             <hr />
                         </div>
                         <div class="item-data-row">
@@ -98,7 +127,7 @@
                             <span>2022-06-01</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
+                        </div> -->
                     </div>
 
 

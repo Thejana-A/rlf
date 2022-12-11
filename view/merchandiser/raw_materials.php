@@ -48,9 +48,13 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/merchandiser_view' />";
+                                        echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".$row["quantity_in_stock"]."</span>";
-                                        echo "<a href=./view_raw_material.php?material_id=".$row["material_id"]." class='grey'> View </a>";
+                                        echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

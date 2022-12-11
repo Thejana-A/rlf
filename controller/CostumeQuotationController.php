@@ -8,11 +8,19 @@
         case "add":
             $costumeQuotationModel->addCostumeQuotation();
             break;
-        case "view":
-            $costumeQuotationModel->viewCostumeQuotation();
+        case "manager_view":
+            $data = $costumeQuotationModel->viewCostumeQuotation();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data[]=$row");
             break;
-        case "update":
-            $costumeQuotationModel->updateCostumeQuotation();
+        case "manager_update":
+            $data = $costumeQuotationModel->viewCostumeQuotation();
+            $row = http_build_query($data); 
+            if(isset($_POST['update_costume_quotation'])){ 
+                $costumeQuotationModel->updateCostumeQuotation();
+            }else if(isset($_POST['add_costume_order'])){
+                header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data[]=$row");
+            }
             break;
 
     } 

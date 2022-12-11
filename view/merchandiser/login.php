@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <td style="text-align:right;padding-right:20px;">
-                            <br /><a href="#" style="text-decoration:none;">Forgot password ?</a>
+                            <br /><a href="request_forgot_password.php" style="text-decoration:none;">Forgot password ?</a>
                         </td>
                     </tr>
                     <tr>

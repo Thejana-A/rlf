@@ -48,9 +48,13 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
-                                        echo "<span class='manager-ID-column'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<a href=./view_customer.php?customer_id=".$row["customer_id"]." class='grey'> View </a>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='customer/merchandiser_view' />";
+                                        echo "<input type='text' hidden='true' name='customer_id' value='".$row["customer_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:15px;'>".$row["city"]."</span><span style='padding-left:20px;'>".$row["contact_no"]."</span>";
+                                        echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

@@ -19,13 +19,21 @@
         case "raw_material_quotation":
             include_once ( __DIR__.'/RawMaterialQuotationController.php');
             break;
+        case "raw_material_order":
+            include_once ( __DIR__.'/RawMaterialOrderController.php');
+            break;
+        case "order_material_received":
+            include_once ( __DIR__.'/OrderMaterialReceivedController.php');
+            break;
         case "costume_design":
             include_once ( __DIR__.'/CostumeDesignController.php');
             break;
         case "costume_quotation":
             include_once ( __DIR__.'/CostumeQuotationController.php');
             break;
-            
+        case "costume_order":
+            include_once ( __DIR__.'/CostumeOrderController.php');
+            break;
         
     } 
     

@@ -11,7 +11,6 @@
                 //print_r($row);
             }
 
-
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
@@ -103,7 +102,8 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                    <form method="post" name="MaterialQuotationForm" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/update" />
                         <center>
                             <h2>View raw material quotation</h2>
                         </center>
@@ -252,6 +252,8 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> />
+                                <input type="text" hidden="true" name="manager_approval" value="approve" />
+                                <input type="text" hidden="true" name="approval_date" value="<?echo date("Y-m-d"); ?>" />
                             </div>
                         </div>
                         
@@ -261,16 +263,16 @@
                                     if($row["supplier_approval"] != null){
                                         echo "<input type='submit' value='Save' disabled />";
                                     }else{
-                                        echo "<input type='submit' value='Save' />";
+                                        echo "<input type='submit' value='Save' name='update_material_quotation' />";
                                     }
                                 ?>  
                             </div>
                             <div class="form-row-reset">
                                 <?php
-                                    if($row["supplier_approval"] == "reject"){
+                                    if(($row["supplier_approval"] == "reject")||($row["supplier_approval"] == null)){
                                         echo "<input type='submit' value='Send purchase request' disabled />";
                                     }else{
-                                        echo "<input type='submit' value='Send purchase request' />";
+                                        echo "<input type='submit' value='Send purchase request' name='add_material_order' />";
                                     }
                                 ?>  
                             </div>

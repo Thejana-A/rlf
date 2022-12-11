@@ -55,8 +55,10 @@
                                         echo "<input type='text' hidden='true' name='framework_controller' value='employee/manager_view' />";
                                         echo "<input type='text' hidden='true' name='employee_id' value='".$row["employee_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["employee_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["user_type"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<input type='submit' class='grey' name='edit' value='Edit' />";
-                                        echo "<input type='submit' class='grey' name='delete' value='Delete' />";
+                                        echo "<table class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='grey' name='edit' value='Edit' /></td>";
+                                        echo "<td><input type='submit' class='grey' name='delete' value='Delete' /></td>";
+                                        echo "</tr></table>";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
                                         echo "</div>";

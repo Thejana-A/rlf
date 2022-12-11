@@ -5,10 +5,11 @@
         <title>View material quotation</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
-            require_once('../../model/RawMaterialQuotation.php');
-            $rawMaterialQuotationModel = new RawMaterialQuotation($_GET); 
-            $row = $rawMaterialQuotationModel->viewMaterialQuotation(); 
-            //print_r($row);
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
 
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
@@ -77,7 +78,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="quotation_id" value="<?php echo $_GET["quotation_id"]; ?>" readonly/>
+                                <input type="text" name="quotation_id" value="<?php echo $row["quotation_id"]; ?>" readonly/>
                             </div>
                         </div>
                         <div class="form-row">

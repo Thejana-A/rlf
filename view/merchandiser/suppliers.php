@@ -37,7 +37,7 @@
                             <b>Supplier name</b>
                             <b>City</b>
                             <b>Contact no</b>
-                            <hr />
+                            <hr class='manager-long-hr' />
                         </div>
                         <?php 
                             require_once('../../model/DBConnection.php');
@@ -48,9 +48,13 @@
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
-                                        echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
-                                        echo "<a href=./view_supplier.php?supplier_id=".$row["supplier_id"]." class='grey'> View </a>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='supplier/merchandiser_view' />";
+                                        echo "<input type='text' hidden='true' name='supplier_id' value='".$row["supplier_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span style='padding-left:15px;padding-right:15px;'>".$row["contact_no"]."</span>";
+                                        echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

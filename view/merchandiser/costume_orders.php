@@ -85,7 +85,7 @@
                             <hr />
                         </div>
                         <div class="item-data-row">
-                            <span>John Cena</span>
+                            <span>John C</span>
                             <span>Completed</span>
                             <span>2022-01-05</span>
                             <span>2022-12-15</span>

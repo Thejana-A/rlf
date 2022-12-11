@@ -9,14 +9,20 @@
             $customerModel->addCustomer();
             break;
         case "manager_view":
-            $customerModel = new Customer($_POST); 
+            //$customerModel = new Customer($_POST); 
             $data = $customerModel->viewCustomer();
             $row = http_build_query($data); 
             if(isset($_POST['edit'])){ 
-                header("location: http://localhost/rlf/view/manager/edit_employee.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/edit_customer.php?data[]=$row");
             }else if(isset($_POST['delete'])){
-                header("location: http://localhost/rlf/view/manager/delete_employee.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/delete_customer.php?data[]=$row");
             }
+            break;
+        case "merchandiser_view":
+            //$customerModel = new Customer($_POST); 
+            $data = $customerModel->viewCustomer();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/view_customer.php?data[]=$row");
             break;
         case "update":
             $customerModel->updateCustomer();
