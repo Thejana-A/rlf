@@ -62,24 +62,17 @@
                     
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <b>ID - Material name </b>
-                            </div>
-                            <div class="form-row-data">
-                                <span><b>Quantity</b></span>
-                                <span><b>Unit</b></span>
-                            </div>
-                        </div>
-
-		 <div class="form-row">
-                            <div class="form-row-theme">
-                                <select name="" id="">
+                            <select name="" id="">
+                                    <option><b>ID - Material name </b></option>
                                     <option>0001-Pink linen clothe</option>
                                     <option>0120-black silk clothe</option>
                                     <option>0015-red flat button</option>
                                 </select>
+                                <span><b>Quantity</b></span>
+                                <span><b>Unit</b></span>
                             </div>
-                            
                         </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 0001-Pink linen clothe(m)
