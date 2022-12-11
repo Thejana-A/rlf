@@ -2,7 +2,7 @@
 <html>
 	<head>
 	      <Meta name="viewpoint" content="width=device-width, initial-scale=1">
-              <title> Edit costume design </title>
+              <title> Costume Design </title>
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
 	</head>
 
@@ -72,7 +72,7 @@
                                 <span><b>Unit</b></span>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-row-theme">
                                 0001-Pink linen clothe(m)

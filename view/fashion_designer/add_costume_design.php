@@ -45,6 +45,7 @@
                                     <option>M</option>
 				                    <option>L</option>
 				                    <option>XL</option>
+                                    <option>2XL</option>
                                 </select>
                             </div>
                         </div>

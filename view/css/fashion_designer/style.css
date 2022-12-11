@@ -1,5 +1,5 @@
 body
-{	
+{	 
 	margin:0;
 	padding:0;
 	font-family:sans-serif;
@@ -8,7 +8,6 @@ body
 	background:linear-gradient(rgba(0,0,0,0.5),#db930f);
 	background-size:cover;
 	background-position: center;
-    height: 100vh;
 	
 }	
 .logo{
@@ -21,7 +20,7 @@ body
 {
 	width:320px;
 	height:420px;
-	background:#000;
+	background-color:#000;
 	color:#fff;
 	top: 50%;
 	left: 50%;
@@ -31,18 +30,26 @@ body
 	padding: 70px 30px;
 }
 
-.signupbox 
-{
-	width:40%;
-	background:#000;
-	color:#fff;
-	top: 50%;
-	left: 50%;
-	position:absolute;
-	transform:translate(-50% , -50%);
-	box-sizing:border-box;
-	padding: 70px 30px;
+.signupbox{
+    background-color:#000000;
+    border-radius:10px;
+    padding:15px;
+    margin:30px;
+    font-family:sans-serif;
+    width:40%;
 }
+.signupbox input , .signupbox select{
+    width:400px;
+}
+@media (max-width: 1200px) {
+    .signup-box {
+        width: 80%;
+    }
+    .signupbox input, .signupbox select{
+        width:100%;
+    }
+}
+
 
 .avatar
 {
@@ -75,7 +82,7 @@ h1
 	margin-bottom:20px;
 }
 
-.loginbox input[type="text"],input[type="password"],input[type="email"]
+.loginbox input[type="password"],input[type="email"]
 {
 	border:none;
 	border-bottom:1 px solid black;
@@ -101,7 +108,7 @@ h1
 {
 	border:none;
 	outline:none;
-	height:40px;
+	height:30px;
 	background:#fb2525;
 	color:#fff;
 	font-size:18px;
@@ -111,7 +118,7 @@ h1
 {
 	border:none;
 	outline:none;
-	height:40px;
+	height:30px;
 	background:#fb2525;
 	color:#fff;
 	font-size:18px;

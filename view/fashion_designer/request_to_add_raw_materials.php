@@ -25,6 +25,62 @@
                             <h2>Raw Material Request Form</h2>
                         </center>
 
+                    <div class="form-row">
+                        <div class="form-row-theme">
+                            Material Type : 
+                        </div>
+                        <div class="form-row-data">
+                            <input type="text" name="" id="" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-row-theme">
+                            Design view : 
+                        </div>
+                        <div class="form-row-data">
+                            <input type="file" name="" id="" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                            <div class="form-row-theme">
+                                Size : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="" id="">
+                                    <option>XS</option>
+                                    <option>S</option>
+                                    <option>M</option>
+				                    <option>L</option>
+				                    <option>XL</option>
+                                    <option>2XL</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                               Description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="" name="" rows="4" cols="30"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-submit">
+                                <input type="submit" value="Submit" />
+                            </div>
+                            <div class="form-row-reset">
+                                <input type="reset" value="Cancel" />
+                            </div>
+                        </div> 
+                    </form>
+		        </div>
+	        </div>
+	    </div>
+                    
+
+
+
+
         <?php include 'footer.php';?>
 
 </body> 

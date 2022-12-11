@@ -46,12 +46,12 @@
             
         </script>
 </head>
-	<body style="background-image: url('../icons/login_bg.jpeg'); height:100vh;">
+	<body style="background-image: url('../icons/login_bg.jpeg');">
 	<form name="employeeForm" id="employeeForm" onSubmit="return validateForm()" method="post" action="../RouteHandler.php">
         <input type="text" hidden="true" name="framework_controller" value="employee/sign_up" />
 	<section id="image1">
 		<img src="../icons/login_logo.png"class="logo" href="#">
-	<div class="loginbox">
+	<div class="signupbox">
 	<img src="../icons/avatar.png" class="avatar">
 	<h1>Sign up</h1>
 	<form>
@@ -89,7 +89,7 @@
             
 		<input type="submit" name="" value="Sign up">
         <input type="reset" name="" value="Cancel"><br>
-		<a href="#">Login here</a>
+		<a href="./login.php">Login here</a>
 				</form>
 			</div>
     	</section>
