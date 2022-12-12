@@ -15,7 +15,7 @@
     </span>  
 </div>
 
-<div style="height:2px ;background-color:#aaaaaa;"></div>
+<div style="height:1px ;background-color:#aaaaaa;"></div>
 
 <div id="top-nav">
     <button onclick="displayLeftNav()">

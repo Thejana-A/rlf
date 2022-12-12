@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
 	if(count($errors) == 0)
 	{
-		header("Location: profile.php");
+		header("Location: ../profile.php");
 		die;
 	}
 }
@@ -23,9 +23,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
-	<link rel = "stylesheet" href="login.css">
+	<link rel = "stylesheet" href="../css/login.css">
 </head>
 <body>
+
+
 <div class="form-container">
 
 
@@ -38,7 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 			<?php endif;?>
 
 		</div>
-		<form method="post">
+		<form name="loginForm" id="loginForm" method="post" action="../../RouteHandler.php">
+        <input type="text" hidden="true" name="framework_controller" value="supplier/login" />
 		<h1>Login</h1>
 		<div>
 			<label for="email">Email</label>
@@ -47,11 +50,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 		<div>
 			<label for="password">Password</label>
 			<input type="password" name="password" placeholder="Password"><br>
+			<a href = "#">Forgot password? </a>
+
 			
 			<input type="submit" value="Login">
 			<p>Not a registered user? <a href = "signup.php">Create account</a></p>
+			
 		</form>
 	</div>
-				</div>
+ </div>
 </body>
 </html>

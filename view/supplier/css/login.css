@@ -68,14 +68,14 @@
    justify-content: center;
    padding:20px;
    padding-bottom: 60px;
-   background: #eee;
+   background-color:#ff9900;
 }
 
 .form-container form{
    padding:20px;
    border-radius: 5px;
    box-shadow: 0 5px 10px rgba(0,0,0,.1);
-   background: #fff;
+   background-color:#aaaaaa;
    text-align: center;
    width: 500px;
 }

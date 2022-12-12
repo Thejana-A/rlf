@@ -3,12 +3,14 @@
 
 <div id="left-nav">
     <a href="#"><b>Supplier</b></a>
-    <a href="#">Home</a>
+    <a href="profile.php">Home</a>
     <a href="notifications.php">Notifications</a>
     <a href="#" onClick="displayLeftNavSub3()">Raw materials</a>
     <span id="left-nav-sub-3">
         <a href="all_raw_materials.php">All raw materials</a>
         <a href="add_raw_material_request.php">Request to add</a>
+        <a href="all_raw_material_request.php">All raw material requests</a>
+        
     </span>
     <a href="#" onClick="displayLeftNavSub4()">Quotations</a>
     <span id="left-nav-sub-4">

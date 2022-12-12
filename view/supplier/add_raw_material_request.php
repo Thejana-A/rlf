@@ -20,8 +20,9 @@
                 </div>
 
                 <div id="form-box-ultra-small">
-                <form method="post" name="rawMaterialRequestForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="raw_material_request/add" />
+                <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
+                    <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>" />   
                         <center>
                             <h2> Add raw material request</h2>
                         </center>
@@ -34,6 +35,38 @@
                                 <input type="text" name="name" id="" required/>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Size : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="size" id="">
+                                    <option>XS</option>                                 
+                                    <option>S</option>
+                                    <option>M</option>
+                                    <option>L</option>
+                                    <option>XL</option>
+                                    <option>XXL</option>
+                                    <option>XXXL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Measuring unit : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="measuring_unit" id="" >
+                                    <option>Units</option>
+                                    <option>m</option>
+                                    <option>yards</option>
+                                    <option>reels</option>
+                                    <option>m^2</option>
+                                </select>
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -43,6 +76,7 @@
                                 <textarea id="" name="description" rows="4" cols="40" required ></textarea>
                             </div>
                         </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Image :
@@ -50,7 +84,8 @@
                             <div class="form-row-data">
                             <input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg, image/tiff" required>
                             </div>  
-                        </div>  
+                        </div>
+                          
                             <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Submit" />

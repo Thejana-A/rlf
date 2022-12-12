@@ -8,9 +8,10 @@
     margin:30px;
     clear:inherit;
     font-family:sans-serif;
-    width:100%;
+    width:145%;
     margin-top:60px;
   }
+
   #list-box h2, #material-price-box h2{
     color:#330099;
     font-family:sans-serif;
@@ -26,10 +27,12 @@
     width:170%;
     margin-top:60px;
   }
+
   #list-box-small h2{
     color:#330099;
     font-family:sans-serif;
   }
+
   @media (max-width: 1200px) {
     
     #list-box {
@@ -152,7 +155,7 @@
   }
   
   
-  .item-data-row .grey {
+  .item-data-row .grey{
     padding:4px;
     padding-left:15px;
     padding-right:15px;
@@ -161,6 +164,13 @@
     border-radius:6px;
     display:inline-block;
     text-decoration:none;
+    border:none;
+    font-size:15px;
+    margin:1px;
+  }
+  .item-data-row .grey:hover{
+    background-color:#999999;
+    cursor: pointer;
   }
   .item-data-row .green {
     padding:4px;
@@ -171,6 +181,13 @@
     border-radius:6px;
     display:inline-block;
     text-decoration:none;
+    border:none;
+    font-size:15px;
+    margin:1px;
+  }
+  .item-data-row .green:hover{
+    background-color:#008800;
+    cursor: pointer;
   }
   .item-data-row .red {
     padding:4px;
@@ -181,6 +198,13 @@
     border-radius:6px;
     display:inline-block;
     text-decoration:none;
+    border:none;
+    font-size:15px;
+    margin:1px;
+  }
+  .item-data-row .red:hover{
+    background-color:#880000;
+    cursor: pointer;
   }
 
   .item-data-row .notification-message{

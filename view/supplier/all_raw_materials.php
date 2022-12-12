@@ -49,6 +49,7 @@
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
                                         echo "<span class='raw_material-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span>";
+                                        echo "<span></span>";
                                         echo "<a href=./view_raw_materials.php?material_id=".$row["material_id"]." class='grey'>View</a>";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</div>";
@@ -61,7 +62,6 @@
                             }
                             mysqli_close($conn);
                         ?>
-
                         <!--<div class="item-data-row">
                             <span>0001</span>
                             <span>Blue anchor button </span> 

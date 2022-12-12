@@ -60,6 +60,15 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Valid till :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="" id="" disabled/>
+                            </div>
+                        </div>
+
                         
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -146,11 +155,39 @@
                             </div>
                         </div>
                         
+                       
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Status (By supplier) :
+                            </div>
+                            <div class="form-row-data">
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id="" /> Accepted
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="acceptance" class="input-radio" id=""  /> Rejected
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Acceptance description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="" name="" rows="4" cols="40" ></textarea>
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Send" />
                             </div>
                         </div> 
+
                     </form>
                 </div>   
             </div> 

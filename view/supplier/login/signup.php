@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 <head>
 	<meta charset="utf-8">
 	<title>Signup</title>
-	<link rel = "stylesheet" href="login.css">
+	<link rel = "stylesheet" href="../css/login.css">
 </head>
 <body>
 <div class="form-container">
@@ -36,8 +36,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 				<?php endif;?>
 
 			</div>
-			<form method="post">
-			<h1>Signup</h1>
+			<form name="supplierForm" id="supplierForm" method="post" action="../../RouteHandler.php">
+            <input type="text" hidden="true" name="framework_controller" value="supplier/sign_up" />
+			<center><h1>Signup</h1></center>
 			<div>
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" placeholder="First Name">
@@ -61,11 +62,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 			</div>
 			<div>
 				<label for="email">Email</label>
-				<input type="text" name="email" placeholder="Email">
+				<input type="email" name="email" placeholder="Email">
 			</div>
 			<div>
-				<label for="contact_number">Contact Number</label>
-				<input type="tel" name="contact_number" placeholder="Contact Number" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
+				<label for="contact_no">Contact Number</label>
+				<input type="tel" name="contact_no" placeholder="Contact Number" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
 			</div>
 			<div>
 				<label for="city">City</label>
