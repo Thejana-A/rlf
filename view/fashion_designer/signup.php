@@ -5,7 +5,7 @@
 <head>
 <title>Sign up</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../css/fashion_designer/style.css" />
+	<link rel="stylesheet" type="text/css" href="../css/fashion_designer/signup_page.css" />
 	<script>
             function validateForm(){
                 var first_name = document.forms["employeeForm"]["first_name"].value;
@@ -51,7 +51,7 @@
         <input type="text" hidden="true" name="framework_controller" value="employee/sign_up" />
 	<section id="image1">
 		<img src="../icons/login_logo.png"class="logo" href="#">
-	<div class="signupbox">
+	<div id="signupbox">
 	<img src="../icons/avatar.png" class="avatar">
 	<h1>Sign up</h1>
 	<form>
@@ -70,11 +70,13 @@
         <p>Contact Number</p>
 			<input type="text" name="" placeholder="94 123 456 789" required>
         <p>User Type</p>
+        <div class="selection">
 			<select>
-                <option>Select User Type</option>
+                <option value="0">Select User Type</option>
                 <option>Fashion Designer</option>
                 <option>Merchandiser</option>
             </select>
+        </div>
         <p>Address Line 1</p>
 			<input type="Text" name="" placeholder="Line 1" required>
         <p>Address Line 2</p>
@@ -82,9 +84,9 @@
         <p>Address Line 3</p>
 			<input type="password" name="" placeholder="Line 3" required>
         <p>Date of Birth</p>
-			<input type="password" name="" placeholder="Date of Birth" required>
+			<input type="password" name="" placeholder="22.10.2022" required>
         <p>Joined Date</p>
-			<input type="password" name="" placeholder="Joined Date" required><br><br>
+			<input type="password" name="" placeholder="15.12.2022" required><br><br>
 
             
 		<input type="submit" name="" value="Sign up">

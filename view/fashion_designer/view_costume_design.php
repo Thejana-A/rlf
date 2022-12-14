@@ -38,8 +38,8 @@
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
-                            <span>Linen black</span>
-                            <span><img src="../icons/shirt.png" alt="All-views" class="design-view" length="375px" width="325"/></span>
+                            <span>OREM shirt</span>
+                            <span><img src="../icons/shirt.png" alt="All-views" class="design-view" length="370px" width="320"/></span>
                             <a href="./costume_design.php" class="grey">View</a>
                             <hr class="manager-long-hr" />
                         </div>
