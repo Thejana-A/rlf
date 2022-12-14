@@ -22,7 +22,7 @@
 	<div id="form-box">
                     <form method="post" action="">
                         <center>
-                            <h2>Add Costume Design</h2>
+                            <h2>Create Costume Design</h2>
                         </center>
 
 		                <div class="form-row">
@@ -30,7 +30,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id=""  />
                             </div>
                         </div>
 
@@ -101,6 +101,43 @@
                                 <span><b>Unit</b></span>
                             </div>
                         </div>
+                        
+
+                        <div id="form_body">
+                                <div class="form-row">
+                                    <div class="form-row-theme">
+                                        <?php
+                                            if($result = mysqli_query($conn, $sql_all_material)){
+                                                if(mysqli_num_rows($result) > 0){
+                                                    echo "<select name='material_id[]' id='material_id_0' onChange='setSizeAndUnit(0 , this)' required>";
+                                                    echo "<option disabled>ID - Material name</option>";
+                                                    while($all_material_row = mysqli_fetch_array($result)){
+                                                        echo "<option value='".$all_material_row["material_id"]."'>".$all_material_row["material_id"]." - ".$all_material_row["name"]." - (".$all_material_row["measuring_unit"].")</option>";
+                                                    }
+                                                    echo "</select>";
+                                                }else {
+                                                    echo "0 results";
+                                                }
+                                            }else{
+                                                echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
+                                            }  
+                                        ?>
+                                        <!--<select name="" id="">
+                                            <option disabled>ID - Material name</option>
+                                            <option>0004 - Black Thread-S</option>
+                                            <option>0014 - Blue Thread-S</option>
+                                            <option>0022 - Red anchor button-L</option>
+                                        </select>-->
+                                    </div>
+                                    <div class="form-row-data">
+                                        <input type="text" name="material_size[]" id="material_size_0" class="column-textfield" value="" readonly />
+                                        <input type="text" name="measuring_unit[]" id="measuring_unit_0" class="column-textfield" value="" readonly />
+                                        <input type="number" step="0.001" min="0.001" name="quantity[]" id="quantity_0" class="column-textfield" required />
+                                        <button onclick="addCode()"> + </button>
+                                    </div>
+                                </div>
+                            </div>
+
 
 		                <div class="form-row">
                             <div class="form-row-theme">

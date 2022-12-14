@@ -55,38 +55,42 @@
 	<img src="../icons/avatar.png" class="avatar">
 	<h1>Sign up</h1>
 	<form>
-		<p>First Name</p>
-			<input type="text" name="" placeholder="Enter First Name" required>
+        <p>First Name</p>
+			<input type="text" name="first_name" id="first_name" placeholder="Enter First Name" required>
 		<p>Last Name</p>
-			<input type="text" name="" placeholder="Enter Last Name" required>
+			<input type="text" name="last_name" id="last_name" placeholder="Enter Last Name" required>
         <p>NIC</p>
-			<input type="text" name="" placeholder="Enter NIC" required>
+			<input type="text" name="NIC" id="NIC" placeholder="Enter NIC" required>
         <p>Email</p>
-			<input type="email" name="" placeholder="Enter Email" required>
+			<input type="email" name="email" id="email" placeholder="Enter Email" required>
         <p>Password</p>
-			<input type="password" name="" placeholder="Enter Password" required>
+			<input type="password" name="password" id="password" placeholder="Enter Password" required>
         <p>Confirm Password</p>
-			<input type="password" name="" placeholder="Enter Password" required>
+			<input type="password" name="confirm_password" id="confirm_password" placeholder="Enter Password" required>
         <p>Contact Number</p>
-			<input type="text" name="" placeholder="94 123 456 789" required>
+			<input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required>
         <p>User Type</p>
         <div class="selection">
 			<select>
-                <option value="0">Select User Type</option>
+                <option disabled value="" selected>Select User Type</option>
                 <option>Fashion Designer</option>
                 <option>Merchandiser</option>
             </select>
         </div>
         <p>Address Line 1</p>
-			<input type="Text" name="" placeholder="Line 1" required>
+			<input type="Text" name="address_line1" id="address_line1" placeholder="Line 1" required>
         <p>Address Line 2</p>
-			<input type="password" name="" placeholder="Line 2" required>
+			<input type="Text" name="address_line2" id="address_line2" placeholder="Line 2" required>
         <p>Address Line 3</p>
-			<input type="password" name="" placeholder="Line 3" required>
+			<input type="Text" name="address_line3" id="address_line3" placeholder="Line 3" required>
+        <div class="data-box">
         <p>Date of Birth</p>
-			<input type="password" name="" placeholder="22.10.2022" required>
+			<input type="Date" name="DOB" id="DOB" placeholder="dd/mm/yyyy" required>
+        </div>
+        <div class="data-box">
         <p>Joined Date</p>
-			<input type="password" name="" placeholder="15.12.2022" required><br><br>
+			<input type="Date" name="joined_date" id="joined_date" placeholder="dd/mm/yyyy" required><br><br>
+        </div>
 
             
 		<input type="submit" name="" value="Sign up">
