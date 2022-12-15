@@ -1,3 +1,4 @@
+<?php require_once 'redirect.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +23,6 @@
                 <div id="form-box-ultra-small">
                 <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
-                    <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>" />   
                         <center>
                             <h2> Add raw material request</h2>
                         </center>
