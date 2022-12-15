@@ -1,3 +1,4 @@
+<?php require_once 'redirect.php' ?>
         <link rel="stylesheet" type="text/css" href="../supplier/css/footer_style.css" />
         
         <div id="page-footer">

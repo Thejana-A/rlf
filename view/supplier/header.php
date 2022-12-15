@@ -15,11 +15,11 @@
     </span>  
 </div>
 
-<div style="height:1px ;background-color:#aaaaaa;"></div>
+<div style="height:2px ;background-color:#aaaaaa;"></div>
 
 <div id="top-nav">
     <button onclick="displayLeftNav()">
         <img src="../icons/left-nav-button.png" />
     </button>    
-    <a href="edit_self_profile.php"> <span id="top-nav-username">Nayomi Karunaratne &nbsp<img src="../icons/user_icon.png" style="width:30px;" /></span></a>
+    <a href="edit_self_profile.php"> <span id="top-nav-username"><?php echo $_SESSION["supplier_id"]; ?><!-- Nayomi Karunaratne --> &nbsp<img src="../icons/user_icon.png" style="width:30px;" /></span></a>
 </div>

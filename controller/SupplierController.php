@@ -39,6 +39,16 @@
         case "sign_up":
             $supplierModel->signUp();
             break;
+
+        case "verify_email":
+            $supplierModel->verifyEmail();
+            break;
+        case "request_forgot_password":
+            $supplierModel->requestForgotPassword();
+            break;
+        case "reset_forgot_password":
+            $supplierModel->resetForgotPassword();
+            break;
         
     } 
     

@@ -3,7 +3,7 @@
 
 <div id="left-nav">
     <a href="#"><b>Supplier</b></a>
-    <a href="profile.php">Home</a>
+    <a href = "profile.php"><b>Home</a>
     <a href="notifications.php">Notifications</a>
     <a href="#" onClick="displayLeftNavSub3()">Raw materials</a>
     <span id="left-nav-sub-3">

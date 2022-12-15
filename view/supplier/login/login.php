@@ -1,3 +1,8 @@
+<?php
+	session_start();
+    error_reporting(E_ERROR | E_PARSE);
+	$_SESSION["supplier_id"] = "";
+?>
 <?php  
 
 require "functions.php";
