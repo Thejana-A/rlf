@@ -22,9 +22,9 @@
 						<h1>Login Here</h1>
 					<form>
 						<p>Email</p>
-							<input type="email" name="" placeholder="Enter Username" required />
+							<input type="email" name="email" placeholder="Enter Username" required />
 						<p>Password</p>
-							<input type="password" name="" placeholder="Enter Password" required />
+							<input type="password" name="password" placeholder="Enter Password" required />
 							<input type="submit" name="" value="login">
 							<a href="#">Forget Password ?</a><br>
 							<a href="./signup.php">Create an account</a>

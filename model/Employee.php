@@ -197,8 +197,8 @@
         }
 
         public function logout() {
-                header("location: http://localhost/rlf/view/merchandiser/login.php");       
-        } 
+                header("location: http://localhost/rlf/view/merchandiser/login.php");
+        }
 
 
         public function verifyEmail() {

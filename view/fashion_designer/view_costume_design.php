@@ -19,6 +19,9 @@
                     <a href="#">Login </a> >
                     <a href="#">Fashion Designer </a> > View Costume Design
                 </div>
+                <div class="link-row">
+                    <a href="./add_costume_design.php" class="right-button">Add new design</a>
+                </div>
 
                     <div id="list-box-small">
                         <center>
@@ -40,7 +43,12 @@
                         <div class="item-data-row">
                             <span>OREM shirt</span>
                             <span><img src="../icons/shirt.png" alt="All-views" class="design-view" length="370px" width="320"/></span>
-                            <a href="./costume_design.php" class="grey">View</a>
+                            <div style="margin-right:100px;"><a href="./edit_costume_design.php" class="grey">View</a></div> 
+                            <!--<table style="width:40%;margin:0;" border=1><tr>
+                                <td><span>OREM shirt</span></td>
+                                <td><img src="../icons/shirt.png" alt="All-views" class="design-view" length="370px" width="320"/></td>
+                                <td><a href="./costume_design.php" class="grey">View</a></td>
+                            </tr></table>  -->
                             <hr class="manager-long-hr" />
                         </div>
                     </div>

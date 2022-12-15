@@ -62,7 +62,7 @@ h1
 	margin-bottom:20px;
 }
 
-.loginbox input[type="password"],input[type="email"]
+.loginbox input[type="password"],input[type="email"],input[type="email_otp"]
 {
 	border:none;
 	border-bottom:1 px solid black;

@@ -70,19 +70,17 @@
         <p>Contact Number</p>
 			<input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required>
         <p>User Type</p>
-        <div class="selection">
-			<select>
+			<select name="user_type" id="user_type" required>
                 <option disabled value="" selected>Select User Type</option>
                 <option>Fashion Designer</option>
                 <option>Merchandiser</option>
             </select>
-        </div>
         <p>Address Line 1</p>
 			<input type="Text" name="address_line1" id="address_line1" placeholder="Line 1" required>
         <p>Address Line 2</p>
-			<input type="Text" name="address_line2" id="address_line2" placeholder="Line 2" required>
+			<input type="Text" name="address_line2" id="address_line2" placeholder="Line 2" >
         <p>Address Line 3</p>
-			<input type="Text" name="address_line3" id="address_line3" placeholder="Line 3" required>
+			<input type="Text" name="address_line3" id="address_line3" placeholder="Line 3" >
         <div class="data-box">
         <p>Date of Birth</p>
 			<input type="Date" name="DOB" id="DOB" placeholder="dd/mm/yyyy" required>

@@ -102,13 +102,14 @@
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
-                } 				
+                } 
+                $stmt->close(); 
+                $conn->close();  				
             }else{			
                 echo "Sorry !!! There was an error in uploading your file";			
             }
             
-            $stmt->close(); 
-            $conn->close();  
+            
         }
 
         public function view(){
