@@ -6,18 +6,18 @@
     $costumeOrderModel = new CostumeOrder($args); 
     switch($controllerName[1]){
         case "add":
-            //$costumeOrderModel->addCostumeOrder();
-            print_r($_POST);
+            $costumeOrderModel->addCostumeOrder();
+            //print_r($_POST);
             break;
         case "manager_view":
             $data = $costumeOrderModel->viewCostumeOrder();
             $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/manager/edit_raw_material.php?data[]=$row");
+            header("location: http://localhost/rlf/view/manager/view_costume_order.php?data[]=$row");
             break;
         case "merchandiser_view":
             $data = $costumeOrderModel->viewCostumeOrder();
             $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data[]=$row");
+            header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data[]=$row");
             break;
         case "update":
             $costumeOrderModel->updateCostumeOrder();

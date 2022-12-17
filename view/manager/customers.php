@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,9 +28,8 @@
                     <center>
                         <h2>Customers</h2>
                     </center>
-
+                
                     <form method="post" action="" class="search-panel">
-                        
                         <input type="text" name="" id="" placeholder="Search" class="text-field" />
                         <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
                     </form>

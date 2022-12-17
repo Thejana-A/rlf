@@ -157,6 +157,7 @@
         }
         
         public function login() {   
+            //print_r($_POST);
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "SELECT * from employee where email='$this->email';";
@@ -193,11 +194,39 @@
                 ?><script>alert("Sorry ! Your credentials are invalid.");</script><?php
                 echo "Please try again.<br />";
             }  
-            $conn->close(); 
+            $conn->close();   
         }
 
         public function logout() {
                 header("location: http://localhost/rlf/view/merchandiser/login.php");
+        }
+
+        public function resetPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->employeeID = $_POST["employee_id"];
+            $sql = "SELECT * from employee where employee_id = '$this->employeeID';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->password) == $row["password"]){
+                $sql_reset_password = "UPDATE employee SET password=? WHERE employee_id='$this->employeeID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_password)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($_POST["new_password"]));
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>alert("Sorry ! Password wasn't updated.")</script><?php
+                        echo "Please try again";
+                    }else{
+                        ?><script>alert("Passwrod was updated successfully")</script><?php
+                        echo "Use your new password to login next time";
+                    }
+                }
+            }else{
+                ?><script>alert("Sorry ! Your current password is wrong.")</script><?php
+                echo "Please try again";
+            } 
+
         }
 
 

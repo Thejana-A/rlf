@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -97,22 +99,7 @@
                                 <input type="text" name="NIC" id="NIC" required />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="password" id="password" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Confirm password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="confirm_password" id="confirm_password" required />
-                            </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Contact number : 
@@ -128,6 +115,22 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="city" id="city" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="password" id="password" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Confirm password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="confirm_password" id="confirm_password" required />
                             </div>
                         </div>
                         <div class="form-row">

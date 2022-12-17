@@ -107,9 +107,7 @@
                 $conn->close();  				
             }else{			
                 echo "Sorry !!! There was an error in uploading your file";			
-            }
-            
-            
+            }   
         }
 
         public function view(){

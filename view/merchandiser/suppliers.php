@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,13 +25,13 @@
                     <center>
                         <h2>Suppliers</h2>
                     </center>
-
-                    <form method="post" action="" class="search-panel">
-                        
-                        <input type="text" name="" id="" placeholder="Search" class="text-field" />
-                        <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />   
-                    </form>
-
+                    <center>
+                        <form method="post" action="" class="search-panel">
+                            
+                            <input type="text" name="" id="" placeholder="Search" class="text-field" />
+                            <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />   
+                        </form>
+                    </center>
                     <div class="item-list">
                         <div class="item-heading-row">
                             <b>Supplier ID</b>
@@ -52,7 +53,10 @@
                                         echo "<input type='text' hidden='true' name='framework_controller' value='supplier/merchandiser_view' />";
                                         echo "<input type='text' hidden='true' name='supplier_id' value='".$row["supplier_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["supplier_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span style='padding-left:15px;padding-right:15px;'>".$row["contact_no"]."</span>";
-                                        echo "<input type='submit' class='grey' value='View' />";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='grey' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        //echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
                                         echo "</div>";

@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -160,96 +162,6 @@
 
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Verified suppliers : 
-                            </div>
-                            <div class="form-row-data">
-                                <?php  
-                                    $material_supplier_id = array();
-                                    if($result = mysqli_query($conn, $sql_material_supplier)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            while($material_supplier_row = mysqli_fetch_array($result)){
-                                                array_push($material_supplier_id, $material_supplier_row["supplier_id"]);
-                                            }
-                                        }
-                                    }
-                                    $all_supplier_select = "";
-                                    if($result = mysqli_query($conn, $sql_all_supplier)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            $all_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='2' required>";
-                                            $all_supplier_select .= "<option disabled>ID - Supplier name</option>";
-                                            while($all_supplier_row = mysqli_fetch_array($result)){
-                                                $all_supplier_select .= "<option value=".$all_supplier_row["supplier_id"];
-                                                if(in_array($all_supplier_row["supplier_id"], $material_supplier_id)){
-                                                    $all_supplier_select .= " selected>".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
-                                                }else{
-                                                    $all_supplier_select .= ">".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
-                                                } 
-                                            }
-                                            $all_supplier_select .= "</select>";
-                                        }else {
-                                            $all_supplier_select = "0 results";
-                                        }
-                                        echo $all_supplier_select;
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql_all_supplier. " . mysqli_error($conn);
-                                    }  
-                                ?>
-                                <!--<select name="" id="" multiple size="2">
-                                    <option disabled>Supplier ID - Supplier name</option>
-                                    <option>0001-John A</option>
-                                    <option>0004-John B</option>
-                                    <option>0010-John C</option>
-                                    <option>0011-John D</option>
-                                </select> -->
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Costume designs : 
-                            </div>
-                            <div class="form-row-data">
-                                <?php  
-                                    $material_design_id = array();
-                                    if($result = mysqli_query($conn, $sql_material_design)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            while($material_design_row = mysqli_fetch_array($result)){
-                                                array_push($material_design_id, $material_design_row["design_id"]);
-                                            }
-                                        }
-                                    }
-                                    $all_design_select = "";
-                                    if($result = mysqli_query($conn, $sql_all_design)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            $all_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='2' required>";
-                                            $all_design_select .= "<option disabled>ID - Design name</option>";
-                                            while($all_design_row = mysqli_fetch_array($result)){
-                                                $all_design_select .= "<option value=".$all_design_row["design_id"];
-                                                if(in_array($all_design_row["design_id"], $material_design_id)){
-                                                    $all_design_select .= " selected>".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
-                                                }else{
-                                                    $all_design_select .= ">".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
-                                                } 
-                                            }
-                                            $all_design_select .= "</select>";
-                                        }else {
-                                            $all_design_select = "0 results";
-                                        }
-                                        echo $all_design_select;
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql_all_design. " . mysqli_error($conn);
-                                    }  
-                                ?>
-                                <!--<select name="" id="" multiple size="2">
-                                    <option disabled>Design ID - Design name</option>
-                                    <option>0002-Black T-shirt-S</option>
-                                    <option>0007-Blue T-shirt-M</option>
-                                    <option>0012-Red stipped top-XXL</option>
-                                    <option>0013-Green Chinese collar-M</option>
-                                </select> -->
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
                                 Approval status :
                             </div>
                             <div class="form-row-data">
@@ -282,6 +194,100 @@
                                 <input type="reset" value="Cancel" />
                             </div>
                         </div> 
+
+                        <center>
+                            <h2>Related details</h2>
+                        </center>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <b>Verified suppliers : </b>
+                            </div>
+                            <div class="form-row-data">
+                                <?php  
+                                    $material_supplier_id = array();
+                                    if($result = mysqli_query($conn, $sql_material_supplier)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            while($material_supplier_row = mysqli_fetch_array($result)){
+                                                array_push($material_supplier_id, $material_supplier_row["supplier_id"]);
+                                            }
+                                        }
+                                    }
+                                    $all_supplier_select = "";
+                                    if($result = mysqli_query($conn, $sql_all_supplier)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            $all_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='3' onClick='window.location.href=this.value'>";
+                                            $all_supplier_select .= "<option disabled>ID - Supplier name</option>";
+                                            while($all_supplier_row = mysqli_fetch_array($result)){
+                                                $all_supplier_select .= "<option value=edit_supplier.php?supplier_id=".$all_supplier_row["supplier_id"];
+                                                if(in_array($all_supplier_row["supplier_id"], $material_supplier_id)){
+                                                    $all_supplier_select .= " selected>".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
+                                                }else{
+                                                    $all_supplier_select .= ">".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
+                                                } 
+                                            }
+                                            $all_supplier_select .= "</select>";
+                                        }else {
+                                            $all_supplier_select = "0 results";
+                                        }
+                                        echo $all_supplier_select;
+                                    }else{
+                                        echo "ERROR: Could not able to execute $sql_all_supplier. " . mysqli_error($conn);
+                                    }  
+                                ?>
+                                <!--<select name="" id="" multiple size="2">
+                                    <option disabled>Supplier ID - Supplier name</option>
+                                    <option>0001-John A</option>
+                                    <option>0004-John B</option>
+                                    <option>0010-John C</option>
+                                    <option>0011-John D</option>
+                                </select> -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <b>Costume designs : </b>
+                            </div>
+                            <div class="form-row-data">
+                                <?php  
+                                    $material_design_id = array();
+                                    if($result = mysqli_query($conn, $sql_material_design)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            while($material_design_row = mysqli_fetch_array($result)){
+                                                array_push($material_design_id, $material_design_row["design_id"]);
+                                            }
+                                        }
+                                    }
+                                    $all_design_select = "";
+                                    if($result = mysqli_query($conn, $sql_all_design)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            $all_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='3' onClick='window.location.href=this.value'>";
+                                            $all_design_select .= "<option disabled>ID - Design name</option>";
+                                            while($all_design_row = mysqli_fetch_array($result)){
+                                                $all_design_select .= "<option value=edit_costume_design.php?design_id=".$all_design_row["design_id"];
+                                                if(in_array($all_design_row["design_id"], $material_design_id)){
+                                                    $all_design_select .= " selected>".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
+                                                }else{
+                                                    $all_design_select .= ">".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
+                                                } 
+                                            }
+                                            $all_design_select .= "</select>";
+                                        }else {
+                                            $all_design_select = "0 results";
+                                        }
+                                        echo $all_design_select;
+                                    }else{
+                                        echo "ERROR: Could not able to execute $sql_all_design. " . mysqli_error($conn);
+                                    }  
+                                ?>
+                                <!--<select name="" id="" multiple size="2">
+                                    <option disabled>Design ID - Design name</option>
+                                    <option>0002-Black T-shirt-S</option>
+                                    <option>0007-Blue T-shirt-M</option>
+                                    <option>0012-Red stipped top-XXL</option>
+                                    <option>0013-Green Chinese collar-M</option>
+                                </select> -->
+                            </div>
+                        </div>
                         
                     </form>
                 </div> 

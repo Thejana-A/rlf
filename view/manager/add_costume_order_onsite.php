@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +10,7 @@
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
                 parse_str($_SERVER['REQUEST_URI'],$row);
-                print_r($row);
+                //print_r($row);
             }
 
             $quotationID = $row["quotation_id"];
@@ -41,7 +43,7 @@
                     echo "0 results";
                 }
             }else{
-                echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
+                echo "ERROR: Could not able to execute $sql_costume_quotation. " . mysqli_error($conn);
             }  
         ?>
 
@@ -65,10 +67,17 @@
 
             function checkAdvancePayment(){
                 var advancePayment = document.getElementById("advance_payment").value;
-                alert("Advance payment should be at least 50% of total order value"+totalPrice+advancePayment);
-                return false;
+                var advancePaymentDate = document.getElementById("advance_payment_date").value;
+                var expectedDeliveryDate = document.getElementById("expected_delivery_date").value;
+                var validTill = document.getElementById("valid_till").value;
                 if(advancePayment < (totalPrice/2)){
                     alert("Advance payment should be at least 50% of total order value");
+                    return false;
+                }else if(advancePayment > totalPrice){
+                    alert("Advance payment should be less than total order value");
+                    return false;
+                }else if(advancePaymentDate > expectedDeliveryDate){
+                    alert("Advance payment date should be before delivery date");
                     return false;
                 }else{
                     return true;
@@ -233,7 +242,7 @@
                                 <b>Advance payment (LKR) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="advance_payment" required />
+                                <input type="text" name="advance_payment" id="advance_payment" required />
                                 <input type="text" hidden="true" name="order_status" value="confirmed" />
                                 <input type="date" hidden="true" name="order_placed_on" value="<?php echo date("Y-m-d"); ?>" />
                             </div>
@@ -243,7 +252,7 @@
                                 Advance payment date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="advance_payment_date" id="advance_payment_date" required />
+                                <input type="date" name="advance_payment_date" id="advance_payment_date" value="<?php echo Date("Y-m-d"); ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

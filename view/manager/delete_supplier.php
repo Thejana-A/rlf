@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,6 +74,24 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../NIC-front-image/<?php echo $row["NIC_front_image"]; ?>" class="material-image" />
+                                <img src="../NIC-rear-image/<?php echo $row["NIC_rear_image"]; ?>" class="material-image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Business certificate :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../business_certificate/<?php echo $row["business_certificate"]; ?>" class="material-image" />
                             </div>
                         </div>
                         
