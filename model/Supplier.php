@@ -60,6 +60,10 @@
             if($nicFrontImageResult&&$nicRearImageResult&&$businessCertificateResult) { 
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
+                $OTP = rand(1000,9999);
+                $message = "Click <a href='http://localhost/rlf/view/supplier/verify_email.php?email=".$this->email."'>here</a> for email verification.";
+                $sendMail = new SendMail($this->firstName, $this->lastName, $this->email, $OTP, $message); 
+                $sendMail->sendTheEmail();
                 $sql = "INSERT INTO supplier (first_name, last_name, NIC , email, password , contact_no, NIC_front_image, NIC_rear_image, business_certificate, city, verify_status, email_otp) SELECT ?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $nicFrontImage, $nicRearImage, $businessCertificate, $this->city, $this->verifyStatus, md5($OTP));
