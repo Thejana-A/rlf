@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -63,6 +64,7 @@
 	            <div id="form-box">
                 <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
+                            <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $_SESSION["employee_id"]; ?> />
                             <center>
                                 <h2>Create costume design</h2>
                             </center>

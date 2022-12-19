@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -42,7 +43,7 @@
                             <span>0003</span>
                             <span>Linen black</span>
                             <span>5000m</span>
-                            <a href="#" class="grey">View</a>
+                            <a href="../manager/raw_materials.php" class="grey">View</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">

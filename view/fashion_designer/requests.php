@@ -1,4 +1,3 @@
-<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,21 +17,54 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Fashion Designer </a> > View Requests
+                    <a href="#">Fashion Designer </a> 
+                    <a href="#">View Requests </a> > View 
                 </div>
 
                     <div id="list-box-small">
                         <center>
-                            <h2>View Requests</h2>
+                            <h2>Requests</h2>
                         </center>
 
-                    <form method="post" action="" class="search-panel">
-                        
-                        <input type="text" name="" id="" placeholder="Search" class="text-field" />
-                        <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
-                    </form>
+                        <div class="form-row">
+                                <div class="form-row-theme">
+                                    Design ID : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="name" id="name"  readonly />
+                                </div>
+                            </div>
 
-                    <div class="item-list">
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Design name : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="name" id="name"  readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Published Date: 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="name" id="name"  readonly/>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Status: 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="name" id="name"  readonly/>
+                                </div>
+                            </div>
+
+                            
+
+                <!--    <div class="item-list">
                         <div class="item-heading-row">
                             <b>Design ID</b>
                             <b>Design name</b>
@@ -45,7 +77,7 @@
                             <span>Linen black</span>
                             <span>11.11.2022</span>
                             <span>Pending</span>
-                            <a href="./requests.php" class="grey">View</a>
+                            <a href="#" class="grey">View</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
@@ -72,7 +104,7 @@
                             <a href="#" class="grey">View</a>
                             <hr class="manager-long-hr" />
                         </div>
-                    </div>
+                    </div>-->
 
 
                 </div>
