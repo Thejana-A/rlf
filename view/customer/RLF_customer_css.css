@@ -17,7 +17,7 @@
    
 }
 #logo{
-    width: 25%;
+    width: 14%;
     float: left;
     margin-left: 2%;
     height: 100px;
@@ -95,8 +95,8 @@
     cursor: pointer;
 }
 #menubutton img{
-    width: 40px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
 }
 #username{
     margin-right: 2%;
@@ -146,6 +146,14 @@
   .sidenav .closebtn {
     top: 0;
     font-size: 36px;
+    
+
+  }
+
+  .closebtn{
+    float: right;
+    margin-left: 100px;
+
   }
   
   #main {

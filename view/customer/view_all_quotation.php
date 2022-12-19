@@ -1,10 +1,12 @@
 <?php 
+    session_start();    
+    include "db_conn.php";
 
-include "db_conn.php";
-
-$sql = "SELECT * FROM quotation";
-$result = $conn->query($sql);
+    $sql = "SELECT * FROM costume_quotation INNER JOIN employee ON employee.employee_id=costume_quotation.merchandiser_id ";
+    $result = mysqli_query($conn, $sql);
+    
 ?>
+
 
 <!DOCTYPE html>
 <head>
@@ -46,17 +48,18 @@ $result = $conn->query($sql);
                     </div>
             <?php
 
-                if ($result->num_rows > 0) {
+                if (mysqli_num_rows($result)  > 0) {
 
-                        while ($row = $result->fetch_assoc()) {
+                        while ($row = mysqli_fetch_array($result)) {
 
                      ?>
 
                     <div class="item-data-row">
                         <span><?php echo $row['quotation_id']; ?></span>
-                        <span><?php echo $row['date']; ?></span>
-                        <span><?php echo $row['merchandiser_name']; ?></span>
+                        <span><?php echo $row['request_date']; ?></span>
+                        <span><?php echo $row['first_name'] ?></span>
                         <a href="view_quotation.php?quotation_id=<?php echo $row['quotation_id']; ?>" class="grey">View</a>
+                        
                         <hr />
                     </div>
 
@@ -65,14 +68,14 @@ $result = $conn->query($sql);
                 }
 
             ?> 
-                    <!--<div class="item-data-row">
-                        <span>Q002</span>
-                        <span>2022-10-21</span>
-                        <span>Selena Gomez</span>
-                        <a href="view_quotation.html" class="grey">View</a>
+                    <div class="item-data-row">
+                        <span>1</span>
+                        <span>2022-11-11</span>
+                        <span>Kamal Perera</span>
+                        <a href="view_approve_quotation.html" class="green">View</a>
                         <hr />
                     </div>
-                    <div class="item-data-row">
+                    <!--<div class="item-data-row">
                         <span>Q003</span>
                         <span>2022-10-12</span>
                         <span>John Perera</span>

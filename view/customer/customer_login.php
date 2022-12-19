@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    $_SESSION["email"] = "";
+    $_SESSION["customer_id"] = "";
+
+    
+    
+?>
 <!DOCTYPE html>
 <head>
     <title>Login</title>
@@ -13,7 +22,8 @@ background-attachment: fixed;
 margin: 0;
 padding: 0;">
 
-  <form action="login.php" method="post" class="container">
+  <form action="../RouteHandler.php" method="post" class="container">
+  <input type="text" hidden="true" name="framework_controller" value="customer/login" />
 
       <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="200px"/></div>
       <h2>Customer Login</h2></center>
@@ -26,7 +36,7 @@ padding: 0;">
 
       <label><b>E mail</b></label>
 
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <input type="text" placeholder="Enter E mail" name="email" required>
 
       <label><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" required>

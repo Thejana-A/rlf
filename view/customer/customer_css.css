@@ -1,4 +1,11 @@
 /*login and signup*/
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+
+}
 h3.error {
   color: #FF0000;
 }
@@ -39,15 +46,15 @@ h3.error {
   border: none;
   background: #f1f1f1;
 }
-.signup input[type=text], input[type=password] {
+.signup input[type=text],.signup input[type=password],input[type=tel],input[type=email]{
   width: 90%;
-  padding: 10px;
+  padding: 6px;
   margin: 5px 0 5px 0;
   border: none;
   background: #f1f1f1;
   
 }
-.payment input[type=text], input[type=password] {
+.payment input[type=text],.payment input[type=password] {
   width: 90%;
   padding: 10px;
   margin: 5px 0 5px 0;
@@ -72,7 +79,7 @@ h3.error {
 .btn {
   background-color: #04AA6D;
   color: white;
-  padding: 12px 20px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
   width: 100%;

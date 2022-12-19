@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    error_reporting(E_ERROR | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/DesignQuotation.php');
     class CostumeQuotation{
@@ -35,12 +35,15 @@
                 if($this->quotationID == 0){
                     echo "Sorry! Quotation couldn't be created.";
                 }else{
-                    echo "New costume quotation was created successfully";
+                    echo "<script> alert('New costume quotation was created successfully');
+                        window.location.href='customer/customer_home.php';
+                        </script>";
+                    /*echo "New costume quotation was created successfully";
                     echo "<table>";
                     echo "<tr><td>Quotation ID </td><td>: $this->quotationID </td></tr>";
                     echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>"; 
                     echo "<tr><td>Request date </td><td>: $this->requestDate </td></tr>";
-                    echo "</table>";
+                    echo "</table>";*/
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice();
                 }

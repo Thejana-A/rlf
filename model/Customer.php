@@ -1,7 +1,9 @@
 <?php
-    error_reporting(E_ALL ^ E_WARNING);
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    
+    error_reporting(E_ERROR | E_PARSE);
+
     require_once(__DIR__.'/DBConnection.php');
+    require_once(__DIR__.'/send_email/SendMail.php');
     require_once(__DIR__.'/IDBModel.php');
     class Customer implements IDBModel{
         
@@ -13,6 +15,7 @@
         private $password;
         private $contactNo;
         private $city;
+        
          
         function __construct($args) {
             $this->firstName = $args["first_name"];
@@ -21,73 +24,83 @@
             $this->email = $args["email"];
             $this->password = $args["password"];
             $this->contactNo = $args["contact_no"];
-            $this->city = $args["city"];     
+            $this->city = $args["city"];
+            $this->emailOTP = $args["email_otp"];   
+  
         }
 
 
         public function add(){
+            //print_r($_POST);
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city) SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
+            $OTP = rand(1000,9999);
+            $message = "Click <a href='http://localhost/rlf/view/customer/verify_email.php?email=".$this->email."'>here</a> for email verification.";
+            $sendMail = new SendMail($this->firstName, $this->lastName, $this->email, $OTP, $message); 
+            $sendMail->sendTheEmail(); 
+            $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city,email_otp) SELECT ?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "ssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->password, $this->contactNo, $this->city,md5($OTP));
                 mysqli_stmt_execute($stmt);
                 $this->customerID = $conn->insert_id;
                 if($this->customerID == 0){
                     echo "Sorry ! That email already exists.";
                 }else{
-                    ?><script>alert("Customer was added successfully");</script><?php
+                    ?><script>alert("Customer was added successfully");
+                        alert("Check your email inbox for verification");
+                    </script><?php
+                    
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close();  
+        }
+        /*public function add(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city) SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->password, $this->contactNo, $this->city);
+                mysqli_stmt_execute($stmt);
+                $this->customerID = $conn->insert_id;
+                if($this->customerID == 0){
+                    echo "Sorry ! That email already exists.";
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
             } 
             $stmt->close(); 
             $conn->close(); 
-        }
+        }*/
+
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->customerID = $_POST["customer_id"];
-            $sql = "SELECT customer_id, first_name, last_name, NIC, email, contact_no, city FROM customer where customer_id = '$this->customerID'";
+            $this->employeeID = $_GET["customer_id"];
+            $sql = "SELECT * FROM customer where customer_id='$this->customerID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
-                    return $row;
                 }else {
                     echo "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
-            mysqli_close($conn); 
-            /*$connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $this->customerID = $_GET["customer_id"];
-            $sql = "SELECT * FROM customer where customer_id = '$this->customerID'";
-            $path = mysqli_query($conn, $sql);
-            $result = $path->fetch_array(MYSQLI_ASSOC);
-            if($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
-                    $row = mysqli_fetch_array($result);
-                    return $row;
-                }else {
-                    echo "0 results";
-                }
-            }else{
-                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }
-            mysqli_close($conn); */
+            mysqli_close($conn);
         }
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->customerID = $_POST["customer_id"];
-            //$sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID' AND NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";    
+            //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
             $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
@@ -110,7 +123,6 @@
             $stmt->close(); 
             $conn->close(); 
         }
-        
         public function delete(){
 
         }
@@ -134,14 +146,14 @@
         }
 
         public function viewCustomer() {
-            $row = $this->view();
-            return $row;
+            $this->view();
         }
         public function editSelfProfile() {
             
         }
         public function signUp(){
             $this->add();
+            /*?><script>alert("Customer was added successfully");</script> <?php*/
         }
         
         public function login() {
@@ -150,13 +162,21 @@
             $sql = "SELECT * from customer where email='$this->email';";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            if(md5($this->password) == $row["password"]){
-                session_start();
-                $_SESSION["customer_id"] = $row["customer_id"]; 
-                $_SESSION["first_name"] = $row["first_name"]; 
-                $_SESSION["last_name"] = $row["last_name"]; 
-                   
-                header("location: http://localhost/RLF/view/customer/customer_UI.php");
+            if($this->password==$row["password"]){
+                if($row["email_verification"]==1){
+                    session_start();
+                    $_SESSION["customer_id"] = $row["customer_id"]; 
+                    $_SESSION["first_name"] = $row["first_name"]; 
+                    $_SESSION["last_name"] = $row["last_name"]; 
+                    $_SESSION["NIC"] = $row["NIC"];
+                    $_SESSION["email"] = $row["email"];
+                    $_SESSION["contact_no"] = $row["contact_no"];
+                    $_SESSION["city"] = $row["city"];
+                    header("location: http://localhost/rlf/view/customer/customer_UI.php");
+                }else{
+                    ?><script>alert("Sorry ! Your email isn't verified.");</script> <?php
+                }
+                
                 
                 exit;
             }else{
@@ -167,8 +187,43 @@
             
             $conn->close();
         }
+        public function verifyEmail() {
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "SELECT * from customer where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->emailOTP) == $row["email_otp"]){
+                $sql_update = "UPDATE customer SET email_verification = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    $validValue = 1;
+                    mysqli_stmt_bind_param($stmt, "i", $validValue);
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>alert("Sorry ! Email wasn't verified");</script><?php
+                        echo "Please try again later.";
+                    }else{
+                        echo "<script> alert('Email was verified successfully And Now You can log in');
+                        window.location.href='customer/customer_login.php';
+                        </script>";
+                        
+                        
+                        //echo "Now you can log in";
+                    }
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
+                echo "Please try again";
+            }
+        }
+
         public function logout() {
-            header("location: http://localhost/RLF/view/customer/customer_login.php");
+            header("location: http://localhost/rlf/view/customer/customer_login.php");
         }
     }
 ?>

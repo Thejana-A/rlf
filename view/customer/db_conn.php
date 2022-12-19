@@ -6,7 +6,7 @@ $unmae= "root";
 
 $password = "";
 
-$db_name = "rlf_factory";
+$db_name = "rlf";
 
 $conn = mysqli_connect($sname, $unmae, $password, $db_name);
 

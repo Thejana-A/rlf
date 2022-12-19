@@ -39,6 +39,9 @@
         case "sign_up":
             $customerModel->signUp();
             break;
+        case "verify_email":
+            $customerModel->verifyEmail();
+            break;
         
     } 
     
