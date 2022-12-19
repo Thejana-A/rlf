@@ -1,5 +1,4 @@
 <?php require_once 'redirect_login.php' ?>
-<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -268,16 +267,7 @@
                             <?php echo $presentMaterialList; ?>
                         </div>
 
-                        <!--<div class="form-row">
-                            <div class="form-row-theme">
-                                0002-Anchor button(units)
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                            </div>
-                        </div> -->
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total material price (LKR) :
