@@ -72,7 +72,7 @@
                                     Design name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" required />
+                                    <input type="text" name="name" id="name" place holder="White T Shirt S" required />
                                 </div>
                             </div>
                             <div class="form-row">

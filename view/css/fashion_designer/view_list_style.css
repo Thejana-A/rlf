@@ -135,7 +135,7 @@
    
   }
   .item-heading-row hr, .item-data-row hr, .report-heading-row hr, .report-data-row hr{
-    color:#1B3280;
+    color:hsl(226, 65%, 30%);
     width:95%;
   }
   .item-data-row span{
@@ -234,6 +234,7 @@
     }
   }
 
+  
 
 
   .report-heading-row b{

@@ -35,45 +35,45 @@
                         <div class="item-heading-row">
                             <b>Design ID</b>
                             <b>Design name</b>
-                            <b>view Design</b>
+                            
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
                             <span>0003</span>
-                            <span>John Doe</span>
-                            <span>Piliyandala</span>
+                            <span>Black T shirt M</span>
+                    
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
                             <span>0006</span>
-                            <span>John A</span>
-                            <span>Borella</span>
+                            <span>Black T shirt M</span>
+                           
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
                             <span>0010</span>
-                            <span>John B</span>
-                            <span>Galle</span>
+                            <span>Black T shirt M</span>
+                           
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
                             <span>0011</span>
-                            <span>John C</span>
-                            <span>Kandy</span>
+                            <span>Black T shirt M</span>
+                         
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />
                         </div>
                         <div class="item-data-row">
                             <span>0026</span>
-                            <span>Harry P</span>
-                            <span>Jaffna</span>
+                            <span>Black T shirt M</span>
+                         
                             <a href="#" class="grey">Edit</a>
                             <a href="#" class="grey">Delete</a>
                             <hr class="manager-long-hr" />

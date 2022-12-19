@@ -4,6 +4,49 @@
 	      <Meta name="viewpoint" content="width=device-width, initial-scale=1">
               <title> Costume Design </title>
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
+              <?php   
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
+
+            $designID = $row["design_id"];
+            $conn = new mysqli("localhost", "root", "", "rlf");
+        
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+            $sql_design_material = "SELECT design_material.design_id, raw_material.material_id, name, measuring_unit, quantity, unit_price from design_material inner join raw_material on design_material.material_id = raw_material.material_id where design_material.design_id = '$designID';";
+            $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve';";
+
+            $materialCount = 0; 
+            $presentMaterialList = "";                  
+            if($result = mysqli_query($conn, $sql_design_material)){
+                if(mysqli_num_rows($result) > 0){
+                    while($design_material_row = mysqli_fetch_array($result)){
+                        $presentMaterialList .= "<div class='form-row'>";
+                        $presentMaterialList .= "<div class='form-row-theme'>";
+                        $presentMaterialList .= "<input type='text' name='material_id[]' value='".$design_material_row["material_id"]." - ".$design_material_row["name"]." (".$design_material_row["measuring_unit"].")' readonly />";
+                        $presentMaterialList .= "</div>";
+                        $presentMaterialList .= "<div class='form-row-data'>";
+                        $presentMaterialList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["quantity"]."' required /> ";
+                        $presentMaterialList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' /> ";
+                        $presentMaterialList .= "<input type='text' name='material_price[]'' id='material_price_".$materialCount."' class='column-textfield' value='' readonly />"; 
+                        $presentMaterialList .= "</div>";
+                        $presentMaterialList .= "</div>";
+                        $materialCount++;
+                    }
+                    
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
+            }  
+                            
+        ?>
+
 	</head>
 
     <body>
@@ -16,8 +59,8 @@
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Edit costume designs </a> > Edit
+                    <a href="#">Fashion Designer </a> >
+                    <a href="#">View costume designs </a> > view
                 </div>
 
                 <div id="form-box">
@@ -31,7 +74,7 @@
                                 Design ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="design_id" value="<?php echo $designID; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,69 +82,141 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Size :
+                                Size : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Design View :
-                            </div>
-                            <div class="form-row-data">
-                                <img src="../icons/shirt.png" alt="All-views" class="design-view" />
+                                <select name="size" disabled>
+                                    <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
+                                    <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
+                                    <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
+                                    <option value="L" <?php echo ($row["size"] == "L")?'selected':'' ?>>L</option>
+                                    <option value="XL" <?php echo ($row["size"] == "XL")?'selected':'' ?>>XL</option>
+                                    <option value="XXL" <?php echo ($row["size"] == "XXL")?'selected':'' ?>>XXL</option>
+                                </select>
                             </div>
                         </div>
 
+                        <!--<div class="form-row">
+                            <div class="form-row-theme">
+                                Raw materials : 
+                            </div>
+                            <div class="form-row-data">
+                                <select name="material_id" id="material_id" multiple size="2">
+                                    <option disabled>ID - Material name</option>
+                                    <option>0004 - Black Thread-S</option>
+                                    <option>0014 - Blue Thread-S</option>
+                                    <option>0022 - Red anchor button-L</option>
+                                </select>
+                            </div>
+                        </div> -->
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Appearance :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../front-view-image/<?php echo $row["front_view"]; ?>" alt="front-view" class="design-view" />
+                                <img src="../rear-view-image/<?php echo $row["rear_view"]; ?>" alt="rear-view" class="design-view" /><br />
+                                <img src="../left-view-image/<?php echo $row["left_view"]; ?>" alt="left-view" class="design-view" />
+                                <img src="../right-view-image/<?php echo $row["right_view"]; ?>" alt="right-view" class="design-view" /> 
+                            </div>
+                        </div>
+                    <!--    <div class="form-row">
+                            <div class="form-row-theme">
+                                Front view : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="front_view" id="front_view" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Rear view : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="rear_view" id="rear_view" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Left view : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="left_view" id="left_view" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Right view : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="right_view" id="right_view" />
+                            </div>
+                        </div>-->
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Description
+                            </div>
+                            <div class="form-row-data">
+                                <textarea rows="4" cols="40" name="description" id="description"><?php echo $row["description"]; ?></textarea>
+                            </div>
+                        </div>
                     
                         <div class="form-row">
-                            <div class="form-row-theme">
-                            <select name="" id="">
-                                    <option><b>ID - Material name </b></option>
-                                    <option>0001-Pink linen clothe</option>
-                                    <option>0120-black silk clothe</option>
-                                    <option>0015-red flat button</option>
-                                </select>
-                                <span><b>Quantity</b></span>
-                                <span><b>Unit</b></span>
+                                <div class="form-row-theme">
+                                    <b>ID - Material name</b>
+                                </div>
+                                <div class="form-row-data">
+                                    <span><b>Material Size</b></span>
+                                    <span><b>Measuring unit</b></span>
+                                    <span><b>Quantity</b></span>
+                                </div>
                             </div>
-                        </div>
+                            <div id="form_body">
+                                <div class="form-row">
+                                    <div class="form-row-theme">
+                                        <?php
+                                            if($result = mysqli_query($conn, $sql_all_material)){
+                                                if(mysqli_num_rows($result) > 0){
+                                                    echo "<select name='material_id[]' id='material_id_0' onChange='setSizeAndUnit(0 , this)' required>";
+                                                    echo "<option disabled>ID - Material name</option>";
+                                                    while($all_material_row = mysqli_fetch_array($result)){
+                                                        echo "<option value='".$all_material_row["material_id"]."'>".$all_material_row["material_id"]." - ".$all_material_row["name"]." - (".$all_material_row["measuring_unit"].")</option>";
+                                                    }
+                                                    echo "</select>";
+                                                }else {
+                                                    echo "0 results";
+                                                }
+                                            }else{
+                                                echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
+                                            }  
+                                        ?>
+                                        
+                                    </div>
+                                    <div class="form-row-data">
+                                        <input type="number" step="0.001" min="0.001" name="quantity[]" id="quantity_0" class="column-textfield" readonly />
+                                        <input type="text" name="material_size[]" id="material_size_0" class="column-textfield" value="" readonly />
+                                        <input type="text" name="measuring_unit[]" id="measuring_unit_0" class="column-textfield" value="" readonly />
+                                        
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                0001-Pink linen clothe(m)
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" value="5000" class="column-textfield"  />
-                                <input type="text" name="" id="" value="m"class="column-textfield" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                0120-black silk clothe
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" value="1000"class="column-textfield" />
-                                <input type="text" name="" id="" value="m"class="column-textfield" />
-                            </div>
-                        </div>
-                        <div class="form-row-add">
-                                    <input type="submit" value="+" />
-                        </div>
-
-		<div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
-                            <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
-                            </div>
+                            
+                            
+                            <div class="form-row">
+                                <div class="form-row-submit">
+                                    <input type="submit" value="Save" />
+                                </div>
+                                <div class="form-row-reset">
+                                    <input type="reset" value="Cancel" />
+                                </div>
+                            </div> 
                         </div> 
                     </form>
 		</div>
