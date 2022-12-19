@@ -16,8 +16,8 @@
         public function insertQuantityPrice(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            for($costumeCount = 0;$costumeCount<count($this->designID);$costumeCount++){
-                if($this->quantity[$costumeCount] > 0){
+            for($costumeCount = 0;$costumeCount < count($this->designID);$costumeCount++){
+                //if($this->quantity[$costumeCount] > 0){
                     $sql = "INSERT INTO rlf.design_quotation (quotation_id, design_id, unit_price, quantity) VALUES (?,?,?,?);";
                     if ($stmt = mysqli_prepare($conn, $sql)) {
                         mysqli_stmt_bind_param($stmt, "iiii", $this->quotationID, explode("-",$this->designID[$costumeCount])[0], $this->unitPrice[$costumeCount], $this->quantity[$costumeCount]);
@@ -37,7 +37,7 @@
                         echo "Error: <br>" . mysqli_error($conn);
                     } 
                     $stmt->close(); 
-                }
+                //}
             }		
             $conn->close();  
         }

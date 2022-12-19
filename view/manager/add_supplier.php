@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,7 +66,7 @@
                 </div>
 
                 <div id="form-box-small">
-                    <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                    <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="supplier/add" />
                         <center>
                             <h2>Add suppliers</h2>
@@ -75,7 +77,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" required />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo isset($_POST['first_name'])?$_POST['first_name']:''; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -83,7 +85,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" required />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo isset($_POST['last_name'])?$_POST['last_name']:''; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -91,7 +93,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="NIC" id="NIC" required />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo isset($_POST['NIC'])?$_POST['NIC']:''; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -104,28 +106,36 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="password" id="password" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Confirm password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="confirm_password" id="confirm_password" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
                             <input type="tel"  id="contact_no" name="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC (front side) :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="NIC_front_image" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC (rear side) :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="NIC_rear_image" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Business certificate :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="business_certificate" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                            </div>
+                        </div> 
                         
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -185,6 +195,22 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="password" id="password" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Confirm password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="confirm_password" id="confirm_password" required />
                             </div>
                         </div>
                         <div class="form-row">

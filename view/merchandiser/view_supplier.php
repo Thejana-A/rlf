@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,17 +6,28 @@
         <title>View supplier</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php 
-            error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
-                //print_r($row);
-            }
-        
-            $supplierID = $row["supplier_id"];
+            
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }else{
+
+                $sql = "SELECT * FROM supplier WHERE supplier_id = ".$_GET["supplier_id"].";";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                } else {
+                    echo "0 results";
+                }
+            }
+            $supplierID = $row["supplier_id"];
             $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = '$supplierID';";
             $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve'";
         ?>
@@ -128,6 +140,23 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" readonly />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../NIC-front-image/<?php echo $row["NIC_front_image"]; ?>" class="material-image" />
+                                <img src="../NIC-rear-image/<?php echo $row["NIC_rear_image"]; ?>" class="material-image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Business certificate :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../business_certificate/<?php echo $row["business_certificate"]; ?>" class="material-image" />
                             </div>
                         </div>
                         

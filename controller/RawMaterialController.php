@@ -33,6 +33,12 @@
                 header("location: http://localhost/rlf/view/manager/delete_raw_materials.php?data[]=$row");
             }
             break;
+        case "merchandiser_view":
+            $rawMaterialModel = new RawMaterial($_POST); 
+            $data = $rawMaterialModel->viewRawMaterial();
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data[]=$row");
+            break;
         case "update":
             $rawMaterialModel->updateRawMaterial();
             break;

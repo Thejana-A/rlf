@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,8 +13,8 @@
             }
             
             $materialID = $row["material_id"];
-            //$merchandiserID = $_SESSION["merchandiser_id"];
-            $merchandiserID = 2;
+            $merchandiserID = $_SESSION["employee_id"];
+            //$merchandiserID = 2;
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
@@ -128,6 +129,10 @@
                                 <img src="../raw-material-image/<?php echo $row["image"]; ?>" class="material-image" />
                             </div>
                         </div>
+
+                        <center>
+                            <h2>Related details</h2>
+                        </center>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Suppliers : 
@@ -145,10 +150,10 @@
                                     $all_supplier_select = "";
                                     if($result = mysqli_query($conn, $sql_all_supplier)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='3' readonly>";
+                                            $all_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='3' onClick='window.location.href=this.value'>";
                                             $all_supplier_select .= "<option disabled>ID - Supplier name</option>";
                                             while($all_supplier_row = mysqli_fetch_array($result)){
-                                                $all_supplier_select .= "<option value=".$all_supplier_row["supplier_id"];
+                                                $all_supplier_select .= "<option value=view_supplier.php?supplier_id=".$all_supplier_row["supplier_id"];
                                                 if(in_array($all_supplier_row["supplier_id"], $material_supplier_id)){
                                                     $all_supplier_select .= " selected>".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
                                                 }else{
@@ -190,10 +195,10 @@
                                     $all_design_select = "";
                                     if($result = mysqli_query($conn, $sql_all_design)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='3' readonly>";
+                                            $all_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='3' onClick='window.location.href=this.value'>";
                                             $all_design_select .= "<option disabled>ID - Design name</option>";
                                             while($all_design_row = mysqli_fetch_array($result)){
-                                                $all_design_select .= "<option value=".$all_design_row["design_id"];
+                                                $all_design_select .= "<option value=edit_costume_design.php?design_id=".$all_design_row["design_id"];
                                                 if(in_array($all_design_row["design_id"], $material_design_id)){
                                                     $all_design_select .= " selected>".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
                                                 }else{

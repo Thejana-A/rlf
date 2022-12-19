@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,7 +74,7 @@
         ?>
         
         <script>
-
+            var costumeSizeCount = 0;
             function selectCustomer(){
                 var customerDetails = document.getElementById("customer_id").value;
                 var customerContactNo = customerDetails.split("-")[1];
@@ -96,6 +98,7 @@
                     costumeList += "</div>";
                     costumeList += "</div>";
                 }
+                costumeSizeCount = (costumeQuotation[costumeName]).length;
                 document.getElementById("form-body").innerHTML = costumeList;
                 document.getElementById("merchandiser_id").value = merchandiser[costumeName][0];
                 document.getElementById("merchandiser_name").value = merchandiser[costumeName][1]+" "+merchandiser[costumeName][2];
@@ -108,7 +111,7 @@
                 document.getElementById("price_"+costumeRowCount).value = product;
                 var totalQuantity = 0;
                 var totalPrice = 0;
-                for(let i = 0;i < 2;i++){
+                for(let i = 0;i < costumeSizeCount;i++){
                     var quantity = document.getElementById("quantity_"+i).value;
                     var unitPrice = document.getElementById("unit_price_"+i).value;
                     totalQuantity = parseInt(totalQuantity) + parseInt(quantity);
@@ -282,7 +285,7 @@
                                 Quotation issued on :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="issue_date" id="issue_date" required />
+                                <input type="date" name="issue_date" id="issue_date" value="<?php echo Date("Y-m-d"); ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

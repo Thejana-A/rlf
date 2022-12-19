@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,6 +11,20 @@
             if(isset($_GET['data'])){ 
                 parse_str($_SERVER['REQUEST_URI'],$row);
                 //print_r($row);
+            }else{
+                $conn = new mysqli("localhost", "root", "", "rlf");
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $sql = "SELECT * FROM supplier WHERE supplier_id = ".$_GET["supplier_id"].";";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                } else {
+                echo "0 results";
+                }
             }
         
             $supplierID = $row["supplier_id"];
@@ -24,7 +40,7 @@
             function addCode() {
                 material_row = "<div class='form-row'><div class='form-row-theme'>";
                 material_row += "<select name='material_id[]' id='material_id_"+materialCount+"' onChange='setSizeAndUnit("+materialCount+", this)' required>";
-                material_row += "<option disabled>ID - Material name</option>";
+                material_row += "<option selected disabled>ID - Material name</option>";
                 <?php
                     if($result = mysqli_query($conn, $sql_supplier_material)){
                         if(mysqli_num_rows($result) > 0){ 
@@ -70,7 +86,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php">
+                    <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <center>
                             <h2>Edit suppliers</h2>
                         </center>
@@ -124,13 +140,55 @@
                                 <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" />
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                NIC :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../NIC-front-image/<?php echo $row["NIC_front_image"]; ?>" class="material-image" />
+                                <img src="../NIC-rear-image/<?php echo $row["NIC_rear_image"]; ?>" class="material-image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Business certificate :
+                            </div>
+                            <div class="form-row-data">
+                                <img src="../business-certificate/<?php echo $row["business_certificate"]; ?>" class="material-image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Update NIC front image : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="NIC_front_image" id="NIC_front_image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Update NIC rear image : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="NIC_rear_image" id="NIC_rear_image" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Update business certificate : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="file" name="business_certificate" id="business_certificate" />
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-theme">
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" value="city" />
+                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" />
                             </div>
                         </div>
 
@@ -239,7 +297,7 @@
                                         if($result = mysqli_query($conn, $sql_supplier_material)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo "<select name='material_id[]' id='material_id_0' onChange='setSizeAndUnit(0, this)' required>";
-                                                echo "<option disabled>ID - Material name</option>";
+                                                echo "<option selected disabled>ID - Material name</option>";
                                                 while($supplier_material_row = mysqli_fetch_array($result)){
                                                     echo "<option value='".$supplier_material_row["material_id"]."'>".$supplier_material_row["material_id"]." - ".$supplier_material_row["name"]." - (".$supplier_material_row["measuring_unit"].")</option>";
                                                     array_push($supplier_material_id, $supplier_material_row["material_id"]);

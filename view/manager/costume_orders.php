@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +23,7 @@
                 </div>
                 
                 <div class="link-row">
-                    <a href="./add_costume_order_onsite.php" class="right-button">Add new costume order</a>
+                    <!--<a href="./add_costume_order_onsite.php" class="right-button">Add new costume order</a> -->
                 </div>
                 <div id="list-box">
                     <center>
@@ -58,9 +60,52 @@
                             <b>Order status</b>
                             <b>Order placed on</b>
                             <b>EDD</b>
-                            <hr />
+                            <hr class="manager-long-hr" />
                         </div>
-                        <div class="item-data-row">
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        if($row["order_status"] == "accepted"){
+                                            $orderStatus = "accepted";
+                                        }else if($row["order_status"] == "rejected"){
+                                            $orderStatus = "rejected";
+                                        }else if($row["order_status"] == "complete"){
+                                            $orderStatus = "complete";
+                                        }else if($row["order_status"] == "incomplete"){
+                                            $orderStatus = "incomplete";
+                                        }else if(($row["order_status"] == "complete")&&($row["dispatch_date"] != "")){
+                                            $orderStatus = "delivered";
+                                        }else if($row["order_status"] == "confirmed"){
+                                            $orderStatus = "confirmed";
+                                        }
+                                        $class = ($row["quality_status"]=="good")?"green":(($row["quality_status"]=="bad")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span>".$row["expected_delivery_date"]."</span>";
+                                        //echo "<input type='submit' class='grey' value='View' />";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='".$class."' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        <!--<div class="item-data-row">
                             <span>John Doe</span>
                             <span>Pending</span>
                             <span>2022-10-01</span>
@@ -124,7 +169,7 @@
                             <span>2022-03-01</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
+                        </div> -->
                     </div>
 
 

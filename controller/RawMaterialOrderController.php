@@ -17,6 +17,12 @@
             $row = http_build_query($data); 
             header("location: http://localhost/rlf/view/manager/view_material_purchase_request.php?data[]=$row");
             break;
+        case "merchandiser_view":
+            $data = $rawMaterialOrderModel->viewMaterialOrder();
+            //print_r($data);
+            $row = http_build_query($data); 
+            header("location: http://localhost/rlf/view/merchandiser/view_material_purchase_request.php?data[]=$row");
+            break;
 
     }
 ?>

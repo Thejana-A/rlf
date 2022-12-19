@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -104,22 +106,6 @@
                                 <input type="email" name="email" id="email" required />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="password" id="password" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Confirm password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="confirm_password" id="confirm_password" required />
-                            </div>
-                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -178,7 +164,7 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="joined_date" id="joined_date" required />
+                                <input type="date" name="joined_date" id="joined_date" value="<?php echo Date("Y-m-d"); ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -196,6 +182,22 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="password" id="password" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Confirm password : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="password" name="confirm_password" id="confirm_password" required />
                             </div>
                         </div>
                         <div class="form-row">

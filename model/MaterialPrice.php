@@ -57,21 +57,6 @@
             }else{
                 echo "0 results";
             } 
-
-            /*$path = mysqli_query($conn, $sql);
-            $result = $path->fetch_array(MYSQLI_ASSOC);
-            $quantity_price_array = array();
-            if($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
-                    $row = mysqli_fetch_array($result);
-                    array_push($quantity_price_array, $row); 
-                }else {
-                    echo "0 results";
-                } 
-                return $row;
-            }else{
-                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }  */
             mysqli_close($conn);
 
         }

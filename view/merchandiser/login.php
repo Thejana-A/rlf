@@ -29,7 +29,7 @@
                     <tr>
                         <td>
                             <center>
-                                <h2>Login</h2>
+                                <h2>Merchandiser Login</h2>
                             </center>
                         </td>
                     </tr>

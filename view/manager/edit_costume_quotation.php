@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,9 +50,9 @@
 
         <script>
             var costumeCount = "<?php echo $costumeCount; ?>";
-            var totalPrice = 0;
-            var totalQuantity = 0;
             function setPrice(){
+                var totalPrice = 0;
+                var totalQuantity = 0;
                 for(let i = 0;i < costumeCount;i++){
                     var quantity = document.getElementById("quantity_"+i).value;
                     var unitPrice = document.getElementById("unit_price_"+i).value;
@@ -184,6 +186,14 @@
                         </div> -->
                         <div class="form-row">
                             <div class="form-row-theme">
+                                <a style="text-decoration:none;" href="costume_order_material_description.php?quotation_id=<?php echo $row["quotation_id"]; ?>">View raw material description</a>
+                            </div>
+                            <div class="form-row-data">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Total items :
                             </div>
                             <div class="form-row-data">
@@ -203,7 +213,7 @@
                                 Quotation issuing date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" />
+                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -223,10 +233,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="acceptance" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="acceptance" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -246,7 +256,13 @@
                                 <input type="submit" value="Save" name="update_costume_quotation" />
                             </div>
                             <div class="form-row-reset">
-                                <input type="submit" value="Add costume order" name="add_costume_order" />
+                                <?php 
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='submit' value='Add costume order' name='add_costume_order' />";
+                                    }else{
+                                        echo "<input type='submit' value='Add costume order' name='add_costume_order' disabled />";
+                                    }
+                                ?>
                             </div>
                         </div> 
                     </form>
@@ -255,6 +271,33 @@
         </div> 
 
         <?php include 'footer.php';?>
+        <script>
+            function addLeadingZeros(num, totalLength) {
+                return String(num).padStart(totalLength, '0');
+            }
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; 
+            var yyyy = today.getFullYear();
+            var min_issue_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            var max_issue_date = new Date();
+            max_issue_date.setMonth(max_issue_date.getMonth()+2);
+            max_issue_date = max_issue_date.getFullYear() + '-' + addLeadingZeros(max_issue_date.getMonth(),2) + '-' + addLeadingZeros(max_issue_date.getDate(),2);
+
+            var min_valid_till = new Date();
+            min_valid_till.setMonth(min_valid_till.getMonth()+3);
+            min_valid_till = min_valid_till.getFullYear() + '-' + addLeadingZeros(min_valid_till.getMonth(),2) + '-' + addLeadingZeros(min_valid_till.getDate(),2);
+            var max_valid_till = new Date();
+            max_valid_till.setYear(max_valid_till.getFullYear()+2);
+            max_valid_till = max_valid_till.getFullYear() + '-' + addLeadingZeros(max_valid_till.getMonth(),2) + '-' + addLeadingZeros(max_valid_till.getDate(),2);
+
+            document.getElementById("issue_date").setAttribute("min", min_issue_date);
+            document.getElementById("issue_date").setAttribute("max", max_issue_date);
+
+            document.getElementById("valid_till").setAttribute("min", min_valid_till);
+            document.getElementById("valid_till").setAttribute("max", max_valid_till);
+        </script>
+
 
     </body> 
 </html>

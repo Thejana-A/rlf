@@ -1,3 +1,4 @@
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,14 +56,14 @@
                             <b>Supplier name</b>
                             <b>Issued date</b>
                             <b>Valid till</b>
-                            <hr />
+                            <hr class="manager-long-hr" />
                         </div>
                         <?php 
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            //$merchandiserID = $_SESSION["merchandiser_id"];
-                            $merchandiserID = 2;
+                            $merchandiserID = $_SESSION["employee_id"];
+                            //$merchandiserID = 2;
                             $sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier on raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID';";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
@@ -72,14 +73,17 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/merchandiser_view' />";
                                         echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["issue_date"]."</span><span>".$row["valid_till"]."</span>";
-                                        echo "<input type='submit' class='grey' value='View' />";
+                                        echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span>".($row["valid_till"]==""?"Pending":$row["valid_till"])."</span>";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='grey' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        //echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {
-                                    echo "0 results";
+                                    echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNo material quotations yet.";
                                 }
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);

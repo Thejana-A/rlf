@@ -1,3 +1,5 @@
+<?php require_once 'redirect_login.php' ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +39,7 @@
                             <b>Design name</b>
                             <b>Customer name</b>
                             <b>Fashion designer</b>
-                            <hr />
+                            <hr class="manager-long-hr" />
                         </div>
                         <?php 
                             require_once('../../model/DBConnection.php');
@@ -54,7 +56,7 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_customized_design' />";
                                         echo "<input type='text' hidden='true' name='design_id' value='".$row["design_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span>".$row["name"]."</span><span>".$row["customer_first_name"]." ".$row["customer_last_name"]."</span><span>".$row["fashion_designer_first_name"]." ".$row["fashion_designer_last_name"]."</span>";
+                                        echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span style='padding-left:20px;'>".$row["name"]."</span><span>".$row["customer_first_name"]." ".$row["customer_last_name"]."</span><span>".$row["fashion_designer_first_name"]." ".$row["fashion_designer_last_name"]."</span>";
                                         echo "<input type='submit' class='".$class."' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
