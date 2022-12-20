@@ -30,7 +30,7 @@
                                 Purchase request ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="0001" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,7 +38,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="11"readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,7 +46,7 @@
                                 Supplier ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="8" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,7 +54,7 @@
                                 Valid till : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="2023-1-15"readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -62,7 +62,7 @@
                                 Expected Delivery Date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="2022-10-05"readonly />
                             </div>
                         </div>
                         
@@ -80,22 +80,22 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <select name="" id="" disabled>
-                                    <option>ID - Material name</option>
+                                <select name="" id="" readonly>
+                                    <option disabled>ID - Material name</option>
                                     <option>0004 - Black Thread-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
                                     <option>0022 - Red anchor button-L(L)</option>
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" value="5" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="meters" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="1000" readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <select name="" id="" disabled>
+                                <select name="" id="" readonly>
                                     <option disabled>ID - Material name</option>
                                     <option>0002 - Green Silk-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
@@ -103,14 +103,14 @@
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" value="10"readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="meters" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="2000" readonly/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <select name="" id="" disabled>
+                                <select name="" id="" readonly>
                                     <option disabled>ID - Material name</option>
                                     <option>0003 - White Thread-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
@@ -118,9 +118,9 @@
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
+                                <input type="text" name="" id="" class="column-textfield" value="10" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="yards" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="1500" readonly />
                             </div>
                         </div>
                         
@@ -129,7 +129,7 @@
                                 Total price (LKR) :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value="4500"readonly />
                             </div>
                         </div>
                         

@@ -1,0 +1,28 @@
+table{
+    border-radius:6px;
+    border:2px solid #330099;
+    font-size:18px;
+    font-family:sans-serif;
+    color:#330099;
+    margin-top:20px;
+    float:right; 
+}
+table td{
+    border-radius:3px;
+    border:2px solid #cccccc;
+    text-align:right;
+    width:40px;
+}
+.today_cell{
+    background-color:#FFA500;
+}
+.nameOfDay td{
+    background-color:#ffcc99;
+}
+
+@media (max-width: 1200px) {
+    table{
+        float:left;
+        margin-left:30px; 
+    }
+}

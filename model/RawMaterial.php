@@ -25,7 +25,7 @@
             $this->approvalDate = $args["approval_date"];
             $this->measuringUnit = $args["measuring_unit"];
             $this->quantityInStock = $args["quantity_in_stock"]; 
-            $this->supplierID = $args["supplier_id"];
+            $this->supplierID = explode("-" ,$args["supplier_id"])[0];
             $this->fashionDesignerID = $args["fashion_designer_id"];
         }
 
@@ -51,6 +51,7 @@
                     if($this->materialID == 0){
                         echo "Sorry ! That material name already exists.";
                     }else{
+                        echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                         echo "New raw material was added successfully";
                         echo "<table>";
                         echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
@@ -60,6 +61,7 @@
                         echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
                         echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                         echo "</table>";
+                        echo "</div></center>";
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

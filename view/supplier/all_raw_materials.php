@@ -44,7 +44,7 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $sql = "SELECT material_id, name  FROM raw_material ORDER BY material_id ASC";
+                            $sql = "SELECT material_id, name  FROM raw_material WHERE manager_approval = 'approve' ORDER BY material_id ASC";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){

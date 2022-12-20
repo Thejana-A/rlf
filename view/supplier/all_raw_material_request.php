@@ -55,7 +55,7 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_view' />";
                                         echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".$row["manager_approval"]."</span>";
+                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".(($row["manager_approval"])==""?"Pending":$row["manager_approval"])."</span>";
                                         echo "<a href=./view_raw_material_request.php?material_id=".$row["material_id"]." class='".$class."'> View </a>";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";

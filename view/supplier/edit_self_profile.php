@@ -9,10 +9,9 @@
 
     <body>
         <?php include 'header.php';?>
-
         <div id="page-body">
-            <?php include 'leftnav.php';?>
-
+            <?php include 'leftnav.php';
+            require_once('../../model/DBConnection.php');?>
             <div id="page-content">
                 <div id="breadcrumb">
                     <a href="index.php">Welcome </a> >
@@ -21,16 +20,37 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" action="">
+                    <form method="post" name="supplierForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <input type="text" hidden="true" name="framework_controller" value="supplier/edit_self_profile" />
                         <center>
                             <h2>Edit profile</h2>
                         </center>
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            if(isset($_SESSION['supplier_id'])){
+                                $supplier_id = $_SESSION['supplier_id'];
+                                $sql = "SELECT supplier_id, first_name,last_name, NIC, password, email, contact_no,city FROM supplier WHERE supplier_ID = '$supplier_id' ";
+                                $result = mysqli_query($conn, $sql);
+                           
+                                if(mysqli_num_rows($result) > 0)
+                                {
+                                    $row = $result->fetch_assoc();
+                                    //print_r($row);
+                                }else{
+                                    echo "No result";
+                                }
+                            }else{
+                                echo "No supplier result";
+                            }
+                        ?>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Supplier ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="supplier_id" id="supplier_id" value ="<?php echo $row["supplier_id"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,7 +58,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="first_name" id="first_name" value ="<?php echo $row["first_name"];?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,7 +66,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="last_name" id="last_name" value ="<?php echo $row["last_name"];?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,15 +74,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Password : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="text" name="NIC" id="NIC" value ="<?php echo $row["NIC"];?>" readonly />
                             </div>
                         </div>
                                             
@@ -71,7 +83,7 @@
                                 Email :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="email" id="email" value ="<?php echo $row["email"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -79,7 +91,7 @@
                                 Contact no : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="contact_no" id="contact_no" value ="<?php echo $row["contact_no"];?>" />
                             </div>
                         </div>
 
@@ -88,7 +100,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" />
+                                <input type="text" name="city" id="city" value ="<?php echo $row["city"];?>"/>
                             </div>
                         </div>
                         
@@ -140,9 +152,10 @@
                                 <input type="reset" value="Cancel" />
                             </div>
                         </div> 
-                    </form>
+                  
                 </div> 
-
+            
+                          </form>
             </div> 
         </div> 
 

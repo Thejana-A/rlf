@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
+    error_reporting(E_ERROR | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/MaterialSupplier.php');
     require_once(__DIR__.'/send_email/SendMail.php');
@@ -27,22 +27,23 @@
             $this->password = $args["password"];
             $this->contactNo = $args["contact_no"];
             $this->city = $args["city"]; 
-            $this->verifyStatus = $args["verify_status"];     
+            $this->verifyStatus = $args["verify_status"];  
+            $this->emailOTP = $args["email_otp"];
         }
 
         public function add(){
             //print_r($_POST);
             while (true) {
                 $nicFrontImage = uniqid().".".explode("/", $_FILES["NIC_front_image"]["type"])[1];
-                if (!file_exists("NIC-front-image/".$nicFrontImage)) break;
+                if (!file_exists("../view/NIC-front-image/".$nicFrontImage)) break;
             }
             while (true) {
                 $nicRearImage = uniqid().".".explode("/", $_FILES["NIC_rear_image"]["type"])[1];
-                if (!file_exists("NIC-rear-image/".$nicRearImage)) break;
+                if (!file_exists("../view/NIC-rear-image/".$nicRearImage)) break;
             }
             while (true) {
                 $businessCertificate = uniqid().".".explode("/", $_FILES["business_certificate"]["type"])[1];
-                if (!file_exists("business-certificate/".$businessCertificate)) break;
+                if (!file_exists("../view/business-certificate/".$businessCertificate)) break;
             } 
             
             $nicFrontImageTarget = "../view/NIC-front-image/".$nicFrontImage;
@@ -73,7 +74,8 @@
                     if($this->supplierID == 0){
                         echo "Sorry ! That email already exists.";
                     }else{
-                        echo "New supplier was added successfully";
+                        echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                        echo "New supplier was added";
                         echo "<table>";
                         echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
                         echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
@@ -82,8 +84,8 @@
                         echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
                         echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                         echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                        echo "<tr><td>City </td><td>: $this->verifyStatus</td></tr>";
                         echo "</table>";
+                        echo "</div></center>";
                         $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
                         $materialSupplierModel->insertMaterialSupplied();
                     }
@@ -119,26 +121,30 @@
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->customerID = $_POST["customer_id"];
-            //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
-            $sql = "UPDATE customer SET first_name=?, last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
+            $this->supplierID = $_POST["supplier_id"];
+            $sql = "UPDATE supplier SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=?, verify_status=? WHERE supplier_id='$this->supplierID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city, $this->verifyStatus);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
+                    echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                     echo "Sorry ! An error occured.";
+                    echo "</div></center>";
                 }else{
+                    echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                     echo "Supplier was updated successfully";
                     echo "<table>";
-                    echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
+                    echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
                     echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
                     echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
                     echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
                     echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
                     echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                     echo "<tr><td>City </td><td>: $this->city</td></tr>";
+                    echo "<tr><td>Verify status </td><td>: $this->verifyStatus</td></tr>";
                     echo "</table>";
+                    echo "</div></center>";
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -178,23 +184,58 @@
             $row = $result->fetch_assoc();
             if(md5($this->password) == $row["password"]){
                 if($row["verify_status"]=="approve"){
-                    session_start();
-                    $_SESSION["email"] = $row["email"]; 
-                    $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
-                    $_SESSION["supplier_id"] = $row["supplier_id"]; 
-                    $_SESSION["user_type"] = $row["user_type"]; 
-                    header("location: http://localhost/rlf/view/supplier/home.php");
+                    if($row["email_verification"] == 1){
+                        session_start();
+                        $_SESSION["email"] = $row["email"]; 
+                        $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
+                        $_SESSION["supplier_id"] = $row["supplier_id"]; 
+                        header("location: http://localhost/rlf/view/supplier/profile.php");   
+                    }else{
+                        ?><script>alert("Your email isn't verified");</script><?php
+                        echo "Please verify email and try again.";
+                    }  
                 }else{
-                    echo "Sorry!!! Account isn't verified";
+                    ?><script>alert("Your account is inactive");</script><?php
+                    echo "Please try again later.<br />";
                 }
-                
             }else{
-                echo "Sorry ! Your credentials are invalid. Please try again.<br />";
-            }  
+                ?><script>alert("Sorry ! Your credentials are invalid.");</script><?php
+                echo "Please try again.<br />";
+            }     
             $conn->close();
         }
         public function logout() {
             header("location: http://localhost/rlf/view/supplier/login.php");
+        }
+        public function verifyEmail() {
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "SELECT * from supplier where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->emailOTP) == $row["email_otp"]){
+                $sql_update = "UPDATE supplier SET email_verification = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    $validValue = 1;
+                    mysqli_stmt_bind_param($stmt, "i", $validValue);
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>alert("Sorry ! Email wasn't verified");</script><?php
+                        echo "Please try again later.";
+                    }else{
+                        ?><script>alert("Email was verified successfully");</script><?php
+                        echo "Now you can log in. <a href='http://localhost/rlf/view/supplier/login/login.php'>Log in</a>";
+                    }
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
+                echo "Please try again";
+            }
         }
     }
 ?>

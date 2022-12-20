@@ -8,6 +8,14 @@
         case "add":
             $supplierModel->addSupplier();
             break;
+        case "supplier_view":
+            $supplierModel = new Supplier($_POST); 
+            $data = $supplierModel->viewSupplier();
+            $row = http_build_query($data); 
+            if(isset($_POST['view'])){ 
+                header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data[]=$row");
+            break;
+            }
         case "manager_view":
             $supplierModel = new Supplier($_POST); 
             $data = $supplierModel->viewSupplier();
@@ -48,6 +56,9 @@
             break;
         case "reset_forgot_password":
             $supplierModel->resetForgotPassword();
+            break;
+        case "edit_self_profile":
+            $supplierModel->editSelfProfile();
             break;
         
     } 

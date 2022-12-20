@@ -55,7 +55,7 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
                                         echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["issue_date"]."</span><span>".$row["valid_till"]."</span>";
+                                        echo "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".(($row["issue_date"])==""?"Pending":$row["issue_date"])."</span><span>".(($row["valid_till"])==""?"Pending":$row["valid_till"])."</span>";
                                         echo "<input type='submit' class='grey' name='view' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";

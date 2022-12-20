@@ -45,7 +45,7 @@
                                 Raw material ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="material_id" id="material_id" value = "<?php echo $row["material_id"];?>"disabled />
+                                <input type="text" name="material_id" id="material_id" value = "<?php echo $row["material_id"];?>"readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -53,7 +53,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name"value = "<?php echo $row["name"];?>" disabled />
+                                <input type="text" name="name" id="name"value = "<?php echo $row["name"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -61,7 +61,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                            <input type="text" name="size" id="size"value = "<?php echo $row["size"];?>" disabled />
+                            <input type="text" name="size" id="size"value = "<?php echo $row["size"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -69,7 +69,7 @@
                                 Measuring unit : 
                             </div>
                             <div class="form-row-data">
-                            <input type="text" name="measuring_unit" id="measuring_unit"value = "<?php echo $row["measuring_unit"];?>" disabled />
+                            <input type="text" name="measuring_unit" id="measuring_unit"value = "<?php echo $row["measuring_unit"];?>" readonly />
                             </div>
                         </div>
                     
@@ -78,7 +78,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                            <input type="text" name="description" id="description"value = "<?php echo $row["description"];?>" disabled />
+                            <input type="text" name="description" id="description"value = "<?php echo $row["description"];?>" readonlys />
                             </div>
                         </div>
                         <div class="form-row">

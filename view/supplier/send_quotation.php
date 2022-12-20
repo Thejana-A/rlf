@@ -31,7 +31,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled/>
+                                <input type="text" name="" id="" value ="1" readonly/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -39,7 +39,7 @@
                                 Merchandiser ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="" id="" value ="4" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -47,7 +47,7 @@
                                 Merchandiser name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled/>
+                                <input type="text" name="" id="" value ="RLF Manager" readonly/>
                             </div>
                         </div>
             
@@ -57,7 +57,7 @@
                                 Requested on :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled/>
+                                <input type="date" name="" id="" value ="2022-11-21" readonly/>
                             </div>
                         </div>
 
@@ -66,7 +66,7 @@
                                 Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled/>
+                                <input type="date" name="" id="" value ="2023-11-21" readonly/>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <select name="" id="" disabled>
+                                <select name="" id="" readonly>
                                     <option disabled>ID - Material name</option>
                                     <option>0001 - Black Thread-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
@@ -91,14 +91,14 @@
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield"  />
+                                <input type="text" name="" id="" value = "100" class="column-textfield" />
+                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                <select name="" id="" disabled>
+                                <select name="" id=""  readonly>
                                     <option disabled>ID - Material name</option>
                                     <option>0002 - Green Silk-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
@@ -106,14 +106,14 @@
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield"  />
+                                <input type="text" name="" id="" value = "200"  class="column-textfield" />
+                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>
                         <div class="form-row">
                              <div class="form-row-theme">
-                                <select name="" id="" disabled>
+                                <select name="" id="" readonly>
                                     <option disabled>ID - Material name</option>
                                     <option>0003 - White Thread-S(S)</option>
                                     <option>0014 - Blue Thread-S(S)</option>
@@ -121,8 +121,8 @@
                                 </select> 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield"  />
+                                <input type="text" name="" id=""value = "150" class="column-textfield" />
+                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>

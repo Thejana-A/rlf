@@ -29,7 +29,7 @@
                     <p>Contact : 0777 355 656</p>
                     <p>Email : rlfapparel@yahoo.com</p>
                     <div class="form-row-data">
-                                <img src="../images/sewing.jpg" class="material-image" />
+                                <img src="images/sewing.jpg" class="material-image" />
                             </div>
                     </center>
                 </div>

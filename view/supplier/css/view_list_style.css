@@ -28,6 +28,19 @@
     margin-top:60px;
   }
 
+  #list-box-home{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:30px;
+    margin:10px;
+    clear:inherit; 
+    font-family:sans-serif;
+    width:195%;
+    margin-top:20px;
+    margin-right:80px;
+    height:245px;
+  }
+
   #list-box-small h2{
     color:#330099;
     font-family:sans-serif;
