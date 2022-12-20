@@ -21,10 +21,10 @@
                         <button>Help</button>
                 </span>
                 <span id ="button">
-                    <button id="signupbutton" onclick="window.location.href='';">
+                    <button id="signupbutton" onclick="window.location.href='view/customer/signup_as.html';">
                         Signup
                     </button>
-                    <button id="loginbutton" onclick="window.location.href='';">
+                    <button id="loginbutton" onclick="window.location.href='view/customer/login_as.html';">
                         Login
                     </button>
                 </span>

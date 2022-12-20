@@ -39,6 +39,19 @@ h3.error {
   border-radius: 10px;
 }
 
+.container_as{
+  /*position: absolute;*/
+  right: 0;
+  margin: 10px;
+  max-width: 200px;
+  padding: 16px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(242, 186, 81);
+  border-radius: 10px;
+}
+
 .container input[type=text],.container input[type=password] {
   width: 80%;
   padding: 15px;
@@ -138,7 +151,7 @@ body{
 .ViewRow{
     display: flex;
     justify-content: center;
-    background-color: rgb(243, 237, 191);
+    /*background-color: rgb(243, 237, 191);*/
 }
 .box{
     margin-bottom: 40px;

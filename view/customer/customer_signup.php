@@ -39,7 +39,7 @@ error_reporting(E_ERROR | E_PARSE); ?>
                 }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (password.length>8) {
+                }else if (password.length < 8) {
                     alert("Password must have at least 8 characters");
                     return false;
                 }else if (password != confirm_password) {
