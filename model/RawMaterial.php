@@ -32,7 +32,7 @@
         public function add(){
             while (true) {
                 $newImageName = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
-                if (!file_exists("raw-material-image/".$newImageName)) break;
+                if (!file_exists("../view/raw-material-image/".$newImageName)) break;
             }
             
             $target = "../view/raw-material-image/";		

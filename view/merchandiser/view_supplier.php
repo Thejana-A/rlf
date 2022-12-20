@@ -6,7 +6,6 @@
         <title>View supplier</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php 
-            
             $conn = new mysqli("localhost", "root", "", "rlf");
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
@@ -36,7 +35,7 @@
             function addCode() {
                 material_row = "<div class='form-row'><div class='form-row-theme'>";
                 material_row += "<select name='material_id[]' id='material_id_"+materialCount+"' onChange='setSizeAndUnit("+materialCount+", this)' required>";
-                material_row += "<option disabled>ID - Material name</option>";
+                material_row += "<option selected disabled>ID - Material name</option>";
                 <?php
                     if($result = mysqli_query($conn, $sql_supplier_material)){
                         if(mysqli_num_rows($result) > 0){ 
@@ -156,7 +155,7 @@
                                 Business certificate :
                             </div>
                             <div class="form-row-data">
-                                <img src="../business_certificate/<?php echo $row["business_certificate"]; ?>" class="material-image" />
+                                <img src="../business-certificate/<?php echo $row["business_certificate"]; ?>" class="material-image" />
                             </div>
                         </div>
                         
@@ -218,8 +217,9 @@
                 </div> 
                 
                 <div id="form-box">
-                <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
+                    <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/add" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Send raw material quotation request</h2>
                         </center>
@@ -230,7 +230,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="supplier_id" value="<?php echo $supplierID; ?>" readonly />
-                                <input type="text" hidden="true" name="merchandiser_id" value="<?php echo "2"/*$_SESSION["merchandiser_id"];*/ ?>" />
+                                <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $_SESSION["employee_id"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -250,7 +250,7 @@
                                         if($result = mysqli_query($conn, $sql_supplier_material)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo "<select name='material_id[]' id='material_id_0' onChange='setSizeAndUnit(0 ,this)' required>";
-                                                echo "<option disabled>ID - Material name</option>";
+                                                echo "<option selected disabled>ID - Material name</option>";
                                                 while($supplier_material_row = mysqli_fetch_array($result)){
                                                     echo "<option value='".$supplier_material_row["material_id"]."'>".$supplier_material_row["material_id"]." - ".$supplier_material_row["name"]." - (".$supplier_material_row["measuring_unit"].")</option>";
                                                     array_push($supplier_material_id, $supplier_material_row["material_id"]);
@@ -287,11 +287,9 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" />
+                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" required />
                             </div>
                         </div>
-
-                        <input type="text" hidden="true" name="merchandiser_id" value="<?php /*echo $_SESSION["merchandiser_id"];*/ ?>" />
 
                         <div class="form-row">
                             <div class="form-row-submit">

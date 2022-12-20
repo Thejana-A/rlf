@@ -19,7 +19,7 @@
             function addCode() {
                 var material_row = "<div class='form-row'><div class='form-row-theme'>";
                 material_row += "<select name='material_id[]' id='material_id_"+materialCount+"' onChange='setSizeAndUnit("+materialCount+", this)' required>";
-                material_row += "<option disabled>ID - Material name</option>";
+                material_row += "<option selected disabled>ID - Material name</option>";
                 <?php 
                     if($result = mysqli_query($conn, $sql_all_material)){
                         if(mysqli_num_rows($result) > 0){ 
@@ -155,7 +155,7 @@
                                             if($result = mysqli_query($conn, $sql_all_material)){
                                                 if(mysqli_num_rows($result) > 0){
                                                     echo "<select name='material_id[]' id='material_id_0' onChange='setSizeAndUnit(0 , this)' required>";
-                                                    echo "<option disabled>ID - Material name</option>";
+                                                    echo "<option selected disabled>ID - Material name</option>";
                                                     while($all_material_row = mysqli_fetch_array($result)){
                                                         echo "<option value='".$all_material_row["material_id"]."'>".$all_material_row["material_id"]." - ".$all_material_row["name"]." - (".$all_material_row["measuring_unit"].")</option>";
                                                     }
@@ -248,7 +248,9 @@
                             </div> 
                             <div class="form-row">
                                 <div class="form-row-submit">
-                                    <input type="submit" value="Save" />
+                                    <a href="add_costume_design.php">
+                                        <input type="submit" value="Save" />
+                                    </a>
                                 </div>
                                 <div class="form-row-reset">
                                     <input type="reset" value="Cancel" />

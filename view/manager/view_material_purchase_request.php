@@ -41,9 +41,13 @@
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
-            }      
+            }    
 
-            $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, quantity_received FROM raw_material, material_price, order_material_received WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id']." AND material_price.material_id = order_material_received.material_id AND order_id = ".$_GET['order_id'];
+            if($row["dispatch_date"] == ""){
+                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id'];
+            }else{
+                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, quantity_received FROM raw_material, material_price, order_material_received WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id']." AND material_price.material_id = order_material_received.material_id AND order_id = ".$_GET['order_id'];
+            }    
             if($result = mysqli_query($conn, $sql_goods_received_notice)){
                 $goodsReceivedCount = 0;
                 $goodsReceivedNotice = "";
@@ -119,6 +123,7 @@
 
                 <div id="form-box">
                     <form method="post" action="">
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>View material purchase requests</h2>
                         </center>

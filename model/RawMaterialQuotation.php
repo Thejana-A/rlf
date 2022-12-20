@@ -33,18 +33,23 @@
                 mysqli_stmt_execute($stmt);
                 $this->quotationID = $conn->insert_id;
                 $publicQuotationID = $this->quotationID;
-                if($this->quotationID == 0){
-                    echo "Sorry ! An error occured.";
+                if($this->quotationID == 0){ 
+                    ?><script>alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"] ?>';
+                    </script><?php
                 }else{
-                    echo "Material quotation request was added successfully";
-                    echo "<table>";
+                    /*echo "<table>";
                     echo "<tr><td>Quotation ID </td><td>: $this->quotationID</td></tr>";
                     echo "<tr><td>Expected delivery date </td><td>: $this->expectedDeliveryDate</td></tr>";
                     echo "<tr><td>Request date </td><td>: $this->requestDate</td></tr>"; 
                     echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>"; 
-                    echo "</table>";
+                    echo "</table>"; */
                     $materialPriceModel = new MaterialPrice($_POST, $publicQuotationID); 
                     $materialPriceModel->setQuantity();
+                    ?><script>
+                    alert("Material quotation request was added successfully");
+                    window.location.href='<?php echo $_POST["page_url"] ?>';
+                    </script><?php
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -82,7 +87,7 @@
             //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
             $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
+                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){

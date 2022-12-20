@@ -21,7 +21,7 @@
                     <a href="home.php">Supplier </a> > Purchase requests
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box" style="width:120%;">
                     <center>
                         <h2>View puchase requests</h2>
                     </center>
@@ -45,7 +45,6 @@
                             <span>James R</span>
                             <span>2022-10-05</span>
                             <span></span>
-                            <span></span>
                             <a href="accept_purchase_request.php" class="grey">View</a>
                             <hr />
                         </div>
@@ -54,7 +53,6 @@
                             <span>James S</span>
                             <span>2022-10-10</span>
                             <span></span>
-                            <span></span>
                             <a href="#" class="grey">View</a>
                             <hr />
                         </div>
@@ -62,7 +60,6 @@
                             <span>0003</span>
                             <span>James W</span>
                             <span>2022-10-15</span>
-                            <span></span>
                             <span></span>
                             <a href="#" class="grey">View</a>
                             <hr />

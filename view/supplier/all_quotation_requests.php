@@ -21,7 +21,7 @@
                     <a href="home.php">Supplier </a> >Quotation requests
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>All quotation requests</h2>
                     </center>

@@ -24,7 +24,7 @@
                 <div class="form-row" style="width:115%;">
                     <div class="form-row-theme">
                         <div id="list-box-home" style="flex: 65%;box-sizing: border-box;">
-                            <h2>Hi Thejana,</h2>
+                            <h2>Hi <?php echo $_SESSION["username"] ?>,</h2>
                             <h4>Welcome you to RLF Apparel Factory !</h4><br>
                             <h4>You have following upcoming tasks today.</h4>
                         </div>

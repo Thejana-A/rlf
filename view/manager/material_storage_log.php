@@ -43,7 +43,60 @@
                     
                     <div class="item-list" style="width:80%;">
                         <hr style="width:120%;color:#1B3280;" />
-                        <div class="material-price-block">
+                        <?php
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id ORDER BY time_stamp DESC;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='material-price-block'>";
+                                        echo "<div class='material-price-row'>";
+                                        echo "<div class='material-price-left'>";
+                                        echo "Material ID : <input type='text' value='".$row["material_id"]."' readonly />";
+                                        echo "</div>";
+                                        echo "<div class='material-price-right'>";
+                                        echo "Material name : <input type='text' value='".$row["name"]."' readonly />";
+                                        echo "</div>  ";
+                                        echo "</div>";
+                                        echo "<div class='material-price-row'>";
+                                        echo "<div class='material-price-left'>";
+                                        echo "Merch. ID&nbsp&nbsp : <input type='text' value='".$row["employee_id"]."' readonly />";
+                                        echo "</div>";
+                                        echo "<div class='material-price-right'>";
+                                        echo "Merch. name&nbsp&nbsp : <input type='text' value='".$row["first_name"]." ".$row["last_name"]."' readonly />";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "<div class='material-price-row'>";
+                                        echo "<div class='material-price-left'>";
+                                        echo "Date&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : <input type='text' value='".explode(" ",$row["time_stamp"])[0]."' readonly />";
+                                        echo "</div>";
+                                        echo "<div class='material-price-right'>";
+                                        echo "Store/ retrieve : <input type='text' value='".$row["store_action"]."' readonly />";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "<div class='material-price-row'>";
+                                        echo "<div class='material-price-left'>";
+                                        echo "Quantity&nbsp&nbsp&nbsp : <input type='text' value='".$row["quantity"]."' readonly />";
+                                        echo "</div>";
+                                        echo "<div class='material-price-right'>";
+                                        echo "Unit&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : <input type='text' value='".$row["measuring_unit"]."' readonly />";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "<hr />";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+
+                        <!--<div class="material-price-block">
                             <div class="material-price-row">
                                 <div class="material-price-left">
                                     Material ID : <input type="text" name="" id="" />
@@ -113,43 +166,8 @@
                                 </div>  
                             </div>
                             <hr />
-                        </div>
+                        </div> -->
 
-                        <div class="material-price-block">
-                            <div class="material-price-row">
-                                <div class="material-price-left">
-                                    Material ID : <input type="text" name="" id="" />
-                                </div>
-                                <div class="material-price-right">
-                                    Material name : <input type="text" name="" id="" />
-                                </div>  
-                            </div>
-                            <div class="material-price-row">
-                                <div class="material-price-left">
-                                    Merch. ID&nbsp&nbsp : <input type="text" name="" id=""/>
-                                </div>
-                                <div class="material-price-right">
-                                    Merch. name&nbsp&nbsp : <input type="text" name="" id="" />
-                                </div>  
-                            </div>
-                            <div class="material-price-row">
-                                <div class="material-price-left">
-                                    Date&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : <input type="text" name="" id=""/>
-                                </div>
-                                <div class="material-price-right">
-                                    Store/ retrieve : <input type="text" name="" id="" />
-                                </div>  
-                            </div>
-                            <div class="material-price-row">
-                                <div class="material-price-left">
-                                    Quantity&nbsp&nbsp&nbsp : <input type="text" name="" id=""/>
-                                </div>
-                                <div class="material-price-right">
-                                    Unit&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : <input type="text" name="" id="" />
-                                </div>  
-                            </div>
-                            <hr />
-                        </div>
 
                     </div>
                 </div> 

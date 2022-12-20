@@ -68,6 +68,7 @@
                 <div id="form-box-small">
                     <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="supplier/add" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Add suppliers</h2>
                         </center>

@@ -28,6 +28,7 @@
         <div id="login-box">
             <form name="resetPasswordForm" id="resetPasswordForm" method="post" onSubmit="return validateForm()" action="../RouteHandler.php">
                 <input type="text" hidden="true" name="framework_controller" value="employee/reset_forgot_password" />
+                <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                 <table>
                     <tr>
                         <td>

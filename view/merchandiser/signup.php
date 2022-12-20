@@ -54,6 +54,7 @@
         <div id="signup-box">
             <form name="employeeForm" id="employeeForm" onSubmit="return validateForm()" method="post" action="../RouteHandler.php">
                 <input type="text" hidden="true" name="framework_controller" value="employee/sign_up" />
+                <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                 <table>
                     <tr>
                         <td>

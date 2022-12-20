@@ -32,7 +32,7 @@
                         }
                         echo "<br><table>";
                         echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
-                        echo "<tr><td>Request quantity </td><td> : ".$this->quantityReceived[$materialCount]."</td></tr>";
+                        echo "<tr><td>Received quantity </td><td> : ".$this->quantityReceived[$materialCount]."</td></tr>";
                         echo "</table>";
                     }	
                 } else {
@@ -66,7 +66,7 @@
 
         }
 
-        public function updateQuantityPrice(){
+        public function updateQuantityReceived(){
              
         }
 

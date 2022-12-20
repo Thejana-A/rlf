@@ -45,19 +45,19 @@
             //print_r($_POST);
             while (true) {
                 $newFrontImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
-                if (!file_exists("front-view-image/".$newFrontImage)) break;
+                if (!file_exists("../view/front-view-image/".$newFrontImage)) break;
             }
             while (true) {
                 $newRearImage = uniqid().".".explode("/", $_FILES["rear_view"]["type"])[1];
-                if (!file_exists("rear-view-image/".$newRearImage)) break;
+                if (!file_exists("../view/rear-view-image/".$newRearImage)) break;
             }
             while (true) {
                 $newLeftImage = uniqid().".".explode("/", $_FILES["left_view"]["type"])[1];
-                if (!file_exists("left-view-image/".$newLeftImage)) break;
+                if (!file_exists("../view/left-view-image/".$newLeftImage)) break;
             }
             while (true) {
                 $newRightImage = uniqid().".".explode("/", $_FILES["right_view"]["type"])[1];
-                if (!file_exists("right-view-image/".$newRightImage)) break;
+                if (!file_exists("../view/right-view-image/".$newRightImage)) break;
             }
             
             $frontImageTarget = "../view/front-view-image/".$newFrontImage;

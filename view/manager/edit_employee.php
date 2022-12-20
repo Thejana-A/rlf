@@ -69,6 +69,7 @@
                 <div id="form-box-small">
                     <form method="post" name="employeeForm" action="../RouteHandler.php" onSubmit="return validateForm()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit employee</h2>
                         </center>

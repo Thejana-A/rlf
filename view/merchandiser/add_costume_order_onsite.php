@@ -102,6 +102,7 @@
                 <div id="form-box">
                     <form method="post" name="costumeOrderForm" onSubmit="return checkAdvancePayment()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_order/add" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Add costume order(onsite)</h2>
                         </center>

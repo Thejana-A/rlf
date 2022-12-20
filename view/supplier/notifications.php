@@ -21,7 +21,7 @@
                     <a href="home.php">Supplier </a> > Notifications
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Notifications</h2>
                     </center>

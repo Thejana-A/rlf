@@ -16,9 +16,11 @@
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "ii", $this->supplierID, $this->materialID[$materialCount]);
                     mysqli_stmt_execute($stmt);
-                    echo "<br><table>";
+                    echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                    echo "<table>";
                     echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
                     echo "</table>";
+                    echo "</div></center>";
                     	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

@@ -24,6 +24,7 @@
 
                 <div id="form-box-small">
                     <form method="post" action="">
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Delete suppliers</h2>
                         </center>

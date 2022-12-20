@@ -93,6 +93,7 @@
                 <!--<div id="form-box-ultra-small">-->
                 <div id="form-box">
                     <form method="post" action="">
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Customized costume design</h2>
                         </center>

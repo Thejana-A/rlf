@@ -60,6 +60,7 @@
 
                 <div id="form-box-ultra-small">
                     <form method="post" action="" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit raw material</h2>
                         </center>
@@ -295,6 +296,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" name="storageLogForm" action="../RouteHandler.php" onSubmit="return validateStorageLogForm()">
                         <input type="text" hidden="true" name="framework_controller" value="storage_log/manage" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Retrieve from storage</h2>
                         </center>

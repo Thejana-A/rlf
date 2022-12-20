@@ -87,6 +87,8 @@
 
                 <div id="form-box">
                     <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="supplier/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit suppliers</h2>
                         </center>
@@ -244,10 +246,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="verify_status" class="input-radio" <?php echo ($row["verify_status"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="verify_status" value="approve" class="input-radio" <?php echo ($row["verify_status"]=="approve")?'checked':'' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="verify_status" class="input-radio" <?php echo ($row["verify_status"]=="deny")?'checked':'' ?> /> Deny
+                                            <input type="radio" name="verify_status" value="deny" class="input-radio" <?php echo ($row["verify_status"]=="deny")?'checked':'' ?> /> Deny
                                         </td>
                                     </tr>
                                 </table>
@@ -267,6 +269,7 @@
                 <div id="form-box">
                     <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/add" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Send raw material quotation request</h2>
                         </center>
@@ -277,7 +280,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="supplier_id" value="<?php echo $supplierID; ?>" readonly />
-                                <input type="text" hidden="true" name="merchandiser_id" value="<?php echo "2"/*$_SESSION["manager_id"];*/ ?>" />
+                                <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $_SESSION["employee_id"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">

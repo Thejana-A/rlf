@@ -63,6 +63,7 @@
                 <div id="form-box-small">
                     <form method="post" name="customerForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="customer/add" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Add customers</h2>
                         </center>

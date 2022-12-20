@@ -83,6 +83,7 @@
                 <div id="form-box">
                     <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/manager_update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit costume quotation</h2>
                         </center>
