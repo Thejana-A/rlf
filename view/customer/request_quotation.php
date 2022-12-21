@@ -60,7 +60,7 @@
                 $costume_list .= "<td style='padding: 5px;'>".$row["name"]."</td>";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
-                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' style='width: 40%'></td>";
+                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' style='width: 40%'></td>";
                 $costume_list .= "</tr>";
             }     
             $costume_list .= "</table>";
@@ -147,6 +147,7 @@
             <br />
             <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
                 <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
+                <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                 <input type="text" hidden="true" name="request_date" value="<?php echo date("Y-m-d"); ?>" />
                 <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $merchandiser_name; ?>" />
                 <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"]; ?>" />

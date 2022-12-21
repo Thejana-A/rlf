@@ -301,7 +301,7 @@
 
                 <div id="form-box">
                     <form method="post" action="">
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Price description</h2>
                         </center>

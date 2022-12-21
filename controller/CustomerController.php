@@ -17,7 +17,7 @@
             }else if(isset($_POST['delete'])){
                 header("location: http://localhost/rlf/view/manager/delete_customer.php?data[]=$row");
             }
-            break;
+            break; 
         case "merchandiser_view":
             //$customerModel = new Customer($_POST); 
             $data = $customerModel->viewCustomer();

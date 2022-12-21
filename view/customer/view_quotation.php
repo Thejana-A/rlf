@@ -139,18 +139,18 @@ if (isset($_GET['quotation_id'])) {
             <div id="footer-left-column">
                 <b>Contact us</b><br /><br />
                 <span><img src="../Icon/call.png" />&nbsp +94 774 719 095 </span><br />
-                <span><img src="../icon/email.png" />&nbsp rlfapparel@gmail.com </span><br />
-                <span><img src="../icon/loc.png" />&nbsp 341/c/194 , 6th Lane ,<br />&nbsp Mahayaya Watta , Piliyandala </span>
+                <span><img src="../Icon/email.png" />&nbsp rlfapparel@gmail.com </span><br />
+                <span><img src="../Icon/loc.png" />&nbsp 341/c/194 , 6th Lane ,<br />&nbsp Mahayaya Watta , Piliyandala </span>
                 
             </div>
             <div id="footer-middle-column">
                 <b>Follow us</b><br /><br />
-                <a href="#"><img src="../icon/insta.png" /></a>
-                <a href="#"><img src="../icon/fb.png" /></a>
-                <a href="#"><img src="../icon/twitter.png" /></a>
+                <a href="#"><img src="../Icon/insta.png" /></a>
+                <a href="#"><img src="../Icon/fb.png" /></a>
+                <a href="#"><img src="../Icon/twitter.png" /></a>
                 <br /><br />
                 <b>Pay with</b><br /><br />
-                <img src="../icon/visa.png" id="visa-card-icon" />
+                <img src="../Icon/visa.png" id="visa-card-Icon" />
             </div>
             <div id="footer-right-column">
                 <b>Your message</b><br /><br />
@@ -293,7 +293,7 @@ if (isset($_GET['quotation_id'])) {
                 ?>   
                 
                 <label for="fname">Design Name :</label>
-                <input type="text"  name="design_name"style="width: 100%;" value="<?php echo $costume_name;?>" disabled />
+                <input type="text"  name="design_name" style="width: 100%;" value="<?php echo $costume_name;?>" disabled />
                 <label for="fname">Merchandiser Name :</label>
                 <input type="text"  name="merchandiser_name"style="width: 100%;" value="<?php echo $merchandiser_name;?>" disabled />
                 <label for="fname">Merchandiser Contact No:</label>
@@ -392,39 +392,12 @@ if (isset($_GET['quotation_id'])) {
         </div>
         
     </div>
-    <footer class="footer">
-        <div id="page-footer">
-            <hr color="#cccccc" size="8px" width="100%" style="margin:0;" /> 
-            <div id="footer-left-column">
-                <b>Contact us</b><br /><br />
-                <span><img src="../Icon/call.png" />&nbsp +94 774 719 095 </span><br />
-                <span><img src="../icon/email.png" />&nbsp rlfapparel@gmail.com </span><br />
-                <span><img src="../icon/loc.png" />&nbsp 341/c/194 , 6th Lane ,<br />&nbsp Mahayaya Watta , Piliyandala </span>
-                
-            </div>
-            <div id="footer-middle-column">
-                <b>Follow us</b><br /><br />
-                <a href="#"><img src="../icon/insta.png" /></a>
-                <a href="#"><img src="../icon/fb.png" /></a>
-                <a href="#"><img src="../icon/twitter.png" /></a>
-                <br /><br />
-                <b>Pay with</b><br /><br />
-                <img src="../icon/visa.png" id="visa-card-icon" />
-            </div>
-            <div id="footer-right-column">
-                <b>Your message</b><br /><br />
-                <form method="post" action="">
-                    <input type="text" name="name" width="30%" placeholder="Name" /><br />
-                    <input type="text" name="email" width="30%" placeholder="Email" /><br />
-                    <textarea name="message" rows="4" cols="30" placeholder="Message"></textarea><br />
-                    <input type="submit" value="Send" />
-                </form>
-            </div>
-        </div>
-
-    </footer>
+    <?php
+    include "footer.php";
+    ?>
 </body>
 </html>
+
 
 <?php
 

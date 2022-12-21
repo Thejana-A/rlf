@@ -47,7 +47,7 @@
                     echo "Sorry ! That email already exists.";
                 }else{
                     ?><script>alert("Customer was added successfully");
-                        alert("Check your email inbox for verification");
+                        alert("Check email inbox for verification");
                     </script><?php
                     
                 }
@@ -57,42 +57,46 @@
             $stmt->close(); 
             $conn->close();  
         }
-        /*public function add(){
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city) SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->password, $this->contactNo, $this->city);
-                mysqli_stmt_execute($stmt);
-                $this->customerID = $conn->insert_id;
-                if($this->customerID == 0){
-                    echo "Sorry ! That email already exists.";
-                }
-            } else {
-                echo "Error: <br>" . mysqli_error($conn);
-            } 
-            $stmt->close(); 
-            $conn->close(); 
-        }*/
+        
 
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->employeeID = $_GET["customer_id"];
-            $sql = "SELECT * FROM customer where customer_id='$this->customerID'";
+            $this->customerID = $_POST["customer_id"];
+            $sql = "SELECT customer_id, first_name, last_name, NIC, email, contact_no, city FROM customer WHERE customer_id='$this->customerID'";
             $path = mysqli_query($conn, $sql);
             $result = $path->fetch_array(MYSQLI_ASSOC);
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
+                    return $row;
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+            } 
+            mysqli_close($conn);  
+
+            /*$connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->customerID = $_POST["customer_id"];
+            $sql = "SELECT * FROM customer where customer_id = '$this->customerID'";
+            $path = mysqli_query($conn, $sql);
+            $result = $path->fetch_array(MYSQLI_ASSOC);
+            if($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+                    $row = mysqli_fetch_array($result);
+                    return $row;
                 }else {
                     echo "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
-            mysqli_close($conn);
+            mysqli_close($conn); */
         }
+
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -130,7 +134,7 @@
 
         public function addCustomer() {
             $this->add();
-            echo "<table>";
+            /*echo "<table>";
             echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
             echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
             echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
@@ -138,7 +142,7 @@
             echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
             echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
             echo "<tr><td>City </td><td>: $this->city</td></tr>";
-            echo "</table>";
+            echo "</table>";*/
         }
 
         public function updateCustomer() {
@@ -146,14 +150,14 @@
         }
 
         public function viewCustomer() {
-            $this->view();
+            $row = $this->view();
+            return $row;
         }
         public function editSelfProfile() {
             
         }
         public function signUp(){
             $this->add();
-            /*?><script>alert("Customer was added successfully");</script> <?php*/
         }
         
         public function login() {
@@ -207,8 +211,6 @@
                         echo "<script> alert('Email was verified successfully And Now You can log in');
                         window.location.href='customer/customer_login.php';
                         </script>";
-                        
-                        
                         //echo "Now you can log in";
                     }
                 } else {

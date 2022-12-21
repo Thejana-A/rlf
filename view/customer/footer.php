@@ -2,6 +2,7 @@
         
         <div id="page-footer">
             <hr color="#cccccc" size="8px" width="100%" style="margin:0;" /> 
+            
             <div id="footer-left-column">
                 <b>Contact us</b><br /><br />
                 <span><img src="../icons/telephone.jpg" />&nbsp +94 774 719 095 </span><br />
@@ -26,5 +27,5 @@
                     <textarea name="message" rows="4" cols="30" placeholder="Message"></textarea><br />
                     <input type="submit" value="Send" />
                 </form>
-            </div>
+            </div> 
         </div>

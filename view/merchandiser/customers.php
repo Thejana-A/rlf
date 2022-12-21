@@ -21,7 +21,7 @@
                     <a href="#">Merchandiser </a> > Customers
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Customers</h2>
                     </center>

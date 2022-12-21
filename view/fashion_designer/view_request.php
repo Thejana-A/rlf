@@ -34,9 +34,9 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Design ID</b>
-                            <b>Design name</b>
-                            <b>Published Date</b>
+                            <b>Request ID</b>
+                            <b>Material name</b>
+                            <b>Request date</b>
                             <b>Status</b>
                             <hr class="manager-long-hr" />
                         </div>

@@ -9,7 +9,7 @@
             $employeeModel->addEmployee();
             break;
         case "manager_view":
-            $employeeModel = new Employee($_POST); 
+            //$employeeModel = new Employee($_POST); 
             $data = $employeeModel->viewEmployee();
             $row = http_build_query($data); 
             if(isset($_POST['edit'])){ 

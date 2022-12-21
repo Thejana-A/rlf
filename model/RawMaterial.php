@@ -51,7 +51,7 @@
                     if($this->materialID == 0){
                         echo "Sorry ! That material name already exists.";
                     }else{
-                        echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                        /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                         echo "New raw material was added successfully";
                         echo "<table>";
                         echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
@@ -61,7 +61,11 @@
                         echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
                         echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                         echo "</table>";
-                        echo "</div></center>";
+                        echo "</div></center>"; */
+                        ?><script>
+                        alert("New raw material was saved successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -127,7 +131,7 @@
                 echo "Error: <br>" . mysqli_error($conn);
             } 
             $stmt->close(); 
-            $conn->close(); 
+            $conn->close();  
         }
 
         public function delete(){

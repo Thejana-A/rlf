@@ -20,6 +20,10 @@
                     <a href="#">Login </a> >
                     <a href="#">Fashion Designer </a> > View costume designs
                 </div>
+
+                <div class="link-row">
+                    <a href="add_costume_design.php" class="right-button">Add new design</a>
+                </div>
                 
                 <div id="list-box-small">
                     <center>
@@ -38,13 +42,16 @@
                             <b>Appearance</b>
                             <hr class="manager-long-hr" />
                         </div>
+                        
                         <?php 
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
                             $fashionDesignerID = $_SESSION["employee_id"];
                             //$fashionDesignerID = 19;
-                            $sql = "SELECT design_id,name, size, merchandiser_id, first_name, last_name, front_view, rear_view FROM costume_design INNER JOIN employee ON employee_id = merchandiser_id WHERE fashion_designer_id = '$fashionDesignerID'";
+                            $sql = "SELECT design_id,name, size, merchandiser_id, first_name, last_name, front_view, rear_view FROM costume_design INNER JOIN employee ON employee_id = merchandiser_id WHERE fashion_designer_id = '$fashionDesignerID'
+                            UNION 
+                            SELECT design_id,name, size, '' AS merchandiser_id ,'' AS first_name, '' AS last_name, front_view, rear_view FROM costume_design, employee WHERE merchandiser_id IS NULL AND fashion_designer_id = '$fashionDesignerID'";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){

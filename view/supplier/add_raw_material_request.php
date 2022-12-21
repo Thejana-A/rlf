@@ -29,7 +29,9 @@
                 <div id="form-box-ultra-small">
                 <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                     <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>">
+
                         <center>
                             <h2> Add raw material request</h2>
                         </center>
@@ -39,7 +41,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="" required/>
+                                <input type="text" name="name" id="name" required/>
                             </div>
                         </div>
 
@@ -66,11 +68,12 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="measuring_unit" id="" >
-                                    <option>Units</option>
-                                    <option>meters</option>
-                                    <option>yards</option>
-                                    <option>reels</option>
-                                    <option>m^2</option>
+                                    <option value="units">Units</option>
+                                    <option value="metre">metre</option>
+                                    <option value="kilogram">kilogram</option>
+                                    <option value="litre">litre</option>
+                                    <option value="yards">yards</option>
+                                    <option value="m^2">m^2</option>
                                 </select>
                             </div>
                         </div>

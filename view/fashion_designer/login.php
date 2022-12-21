@@ -25,7 +25,7 @@
 							<input type="email" name="email" placeholder="Enter Username" required />
 						<p>Password</p>
 							<input type="password" name="password" placeholder="Enter Password" required />
-							<input type="submit" name="" value="login">
+							<input type="submit" value="login">
 							<a href="#">Forget Password ?</a><br>
 							<a href="./signup.php">Create an account</a>
 					</form>

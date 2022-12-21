@@ -89,7 +89,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" value="5" readonly />
-                                <input type="text" name="" id="" class="column-textfield" value="meters" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="metre" readonly />
                                 <input type="text" name="" id="" class="column-textfield" value="1000" readonly />
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" class="column-textfield" value="10"readonly />
-                                <input type="text" name="" id="" class="column-textfield" value="meters" readonly />
+                                <input type="text" name="" id="" class="column-textfield" value="metre" readonly />
                                 <input type="text" name="" id="" class="column-textfield" value="2000" readonly/>
                             </div>
                         </div>

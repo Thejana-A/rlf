@@ -113,7 +113,7 @@
                     costumeList += "<div class='form-row-data'>";
                     costumeList += "<input type='number' min='0' step='1' name='quantity[]' id='quantity_"+i+"' onChange='setPrice("+i+")' class='column-textfield' value='0' required />&nbsp";
                     costumeList += "<input type='text' name='unit_price[]' id='unit_price_"+i+"' class='column-textfield' value='"+costumeQuotation[costumeName][i][2]+"' readonly />&nbsp";
-                    costumeList += "<input type='text' name='price[]' id='price_"+i+"' class='column-textfield' readonly />";
+                    costumeList += "<input type='number' min='0' name='price[]' id='price_"+i+"' class='column-textfield' readonly />";
                     costumeList += "</div>";
                     costumeList += "</div>";
                 }
@@ -156,6 +156,7 @@
                 <div id="form-box" >
                     <form method="post" name="costumeQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
+                        <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                         <center>
                             <h2>Request costume quotation</h2>
                         </center>

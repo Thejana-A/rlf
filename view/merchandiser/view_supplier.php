@@ -219,7 +219,7 @@
                 <div id="form-box">
                     <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/add" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>Send raw material quotation request</h2>
                         </center>

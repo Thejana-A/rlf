@@ -35,9 +35,6 @@
                 if($this->quotationID == 0){
                     echo "Sorry! Quotation couldn't be created.";
                 }else{
-                    echo "<script> alert('New costume quotation was created successfully');
-                        window.location.href='customer/customer_home.php';
-                        </script>";
                     /*echo "New costume quotation was created successfully";
                     echo "<table>";
                     echo "<tr><td>Quotation ID </td><td>: $this->quotationID </td></tr>";
@@ -46,6 +43,10 @@
                     echo "</table>";*/
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice();
+                    ?><script>
+                    alert("New costume quotation was created successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php        
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

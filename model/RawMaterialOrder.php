@@ -32,11 +32,15 @@
                 if($this->orderID == 0){
                     echo "Sorry ! An error occured.";
                 }else{
-                    echo "Material purchase request was added successfully";
+                    /*echo "Material purchase request was added successfully";
                     echo "<table>";
                     echo "<tr><td>Order ID </td><td>: $this->orderID</td></tr>";
                     echo "<tr><td>Quotation ID </td><td>: $this->quotationID</td></tr>";
-                    echo "</table>";
+                    echo "</table>"; */
+                    ?><script>
+                    alert("New raw material purchase request was saved successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

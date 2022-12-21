@@ -26,14 +26,18 @@
                     }else{
                         $sql_update_dispatch_date = "UPDATE raw_material_order SET `dispatch_date` = '$this->dispatchDate' WHERE `order_id` = '$this->orderID'";
                         if ($conn->query($sql_update_dispatch_date) === TRUE) {
-                            echo "Record updated successfully";
+                            //echo "Record updated successfully";
+                            ?><script>
+                            alert("Goods received notice was saved successfully");
+                            window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php  
                         } else {
                             echo "Error : " . $conn->error;
                         }
-                        echo "<br><table>";
+                        /*echo "<br><table>";
                         echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
                         echo "<tr><td>Received quantity </td><td> : ".$this->quantityReceived[$materialCount]."</td></tr>";
-                        echo "</table>";
+                        echo "</table>"; */
                     }	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

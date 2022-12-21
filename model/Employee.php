@@ -53,7 +53,7 @@
                     echo "Sorry ! That email already exists.";
                 }else{
                     ?><script>alert("Employee was added successfully");</script><?php
-                    echo "Check your email inbox for verification";
+                    echo "Check email inbox for verification";
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -94,7 +94,7 @@
                 if($affectedRows == -1){
                     echo "Sorry ! An error occured.";
                 }else{
-                    echo "Employee was updated successfully";
+                    /*echo "Employee was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
                     echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
@@ -109,7 +109,11 @@
                     echo "<tr><td>Date of birth </td><td>: $this->DOB</td></tr>";
                     echo "<tr><td>Joined date </td><td>: $this->joinedDate</td></tr>";
                     echo "<tr><td>Active status </td><td>: $this->activeStatus</td></tr>";
-                    echo "</table>";
+                    echo "</table>"; */
+                    ?><script>
+                    alert("Employee was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -247,8 +251,9 @@
                         ?><script>alert("Sorry ! Email wasn't verified");</script><?php
                         echo "Please try again later.";
                     }else{
-                        ?><script>alert("Email was verified successfully");</script><?php
-                        echo "Now you can log in";
+                        ?><script>alert("Email was verified successfully and now you can log in");
+                        window.location.href='http://localhost/rlf/view/customer/login_as.html';
+                        </script><?php
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

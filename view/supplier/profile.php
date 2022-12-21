@@ -21,20 +21,21 @@
                     <a href="home.php">Supplier </a> > All raw materials                    
                 </div>
 			
-				<div class="form-row" style="width:115%;">
+                <div class="form-row" style="width:115%;">
                     <div class="form-row-theme">
-                        <div id="list-box-home" style="flex:65%;box-sizing: border-box;">
-                            <h2>Hi <?php echo $_SESSION["username"]; ?></h2>
+                        <div id="list-box-home" style="flex: 65%;box-sizing: border-box;background-color:#ffcc99;border-radius:6px;padding:30px;margin:10px;clear:inherit; font-family:sans-serif;width:195%;margin-top:20px;margin-right:80px;height:245px;">
+                            <h2>Hi <?php echo $_SESSION["username"]; ?>,</h2>
                             <h4>Welcome you to RLF Apparel Factory !</h4><br>
                             <h4>You have following upcoming tasks today.</h4>
                         </div>
                     </div>
                     <div class="form-row-data">
                         <div style="flex: 35%;box-sizing: border-box;">
-                            <?php include 'calender.php';?>
+                            <?php include '../merchandiser/calendar.php';?>
                         </div>
                     </div>
                 </div>
+				
                 <div id="list-box-small" style="width:90%;box-sizing: border-box;margin-top:20px;">
                     <center>
                         <h2>Quotation requests</h2>
@@ -43,24 +44,23 @@
                         <div class="item-heading-row">
 							<b>Quotation ID</b>
                             <b>Merchandiser name</b>
-							<span>&nbsp &nbsp &nbsp</span>
+                            <b style="width:150px;">Contact number</b>
                             <b>Requested on</b>
-                            <b>Valid till</b>
                             <hr />
                         </div>
                         <div class="item-data-row">
 							<span>0001</span>
                             <span>James A</span>
-                            <span>2022-10-01</span>
-                            <span>2022-12-01</span>
+                            <span style="width:150px;">94 123 456 789</span>
+                            <span>2022-12-22</span>
                             <a href="#" class="grey">View</a>
                             <hr />
                         </div>
                         <div class="item-data-row">
 							<span>0002</span>
                             <span>James B</span>
-                            <span>2022-06-01</span>
-                            <span>2023-01-01</span>
+                            <span style="width:150px;">94 123 654 789</span>
+                            <span>2022-12-22</span>
                             <a href="#" class="grey">View</a>
                             <hr />
                         </div>
@@ -75,23 +75,23 @@
                         <div class="item-heading-row">
                             <b>Order ID</b>
                             <b>Merchandiser name</b>
+                            <b style="width:150px;">Contact number</b>
                             <b>EDD</b>
-                            <b>Valid till</b>
                             <hr />
                         </div>
                         <div class="item-data-row">
                             <span>0003</span>
                             <span>John A</span>
-                            <span>2022-01-01</span>
-                            <span>2022-07-08</span>
+                            <span style="width:150px;">94 123 456 789</span>
+                            <span>2022-12-22</span>
                             <a href="#" class="grey">View</a>
                             <hr />
                         </div>
                         <div class="item-data-row">
                             <span>0006</span>
                             <span>John B</span>
-                            <span>2022-02-01</span>
-                            <span>2022-07-01</span>
+                            <span style="width:150px;">94 896 456 789</span>
+                            <span>2022-12-22</span>
                             <a href="#" class="green">View</a>
                             <hr />
                         </div>

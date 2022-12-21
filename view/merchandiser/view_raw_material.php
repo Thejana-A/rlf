@@ -102,12 +102,11 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="measuring_unit" id="measuring_unit" readonly>
-                                    <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
+                                <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
                                     <option value="m" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
-                                    <option value="g" <?php echo ($row["measuring_unit"]=="g")?'selected':'' ?>>gram</option>
+                                    <option value="kg" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
                                     <option value="l" <?php echo ($row["measuring_unit"]=="l")?'selected':'' ?>>litre</option>
                                     <option value="yards" <?php echo ($row["measuring_unit"]=="yards")?'selected':'' ?>>yards</option>
-                                    <option value="reels" <?php echo ($row["measuring_unit"]=="reels")?'selected':'' ?>>reels</option>
                                     <option value="m^2" <?php echo ($row["measuring_unit"]=="m^2")?'selected':'' ?>>m^2</option>
                                 </select>
                             </div>
@@ -231,7 +230,7 @@
                 <div id="form-box-small">
                 <form method="post" name="storageLogForm" action="../RouteHandler.php" onSubmit="return validateStorageLogForm()">
                         <input type="text" hidden="true" name="framework_controller" value="storage_log/manage" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>Retrieve from storage</h2>
                         </center>
@@ -241,7 +240,7 @@
                                 Raw material ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="merchandiser_id" hidden="true" value="<?php echo "2" /*$_SESSION["merchandiser_id"]*/; ?>" />
+                                <input type="text" name="merchandiser_id" hidden="true" value="<?php echo $_SESSION["employee_id"]; ?>" />
                                 <input type="text" name="material_id" value="<?php echo $_GET["material_id"]; ?>" readonly />
                                 <input type="text" name="time_stamp" hidden="true" value="<?php echo date("Y-m-d H:i:s"); ?>" />
                             </div>

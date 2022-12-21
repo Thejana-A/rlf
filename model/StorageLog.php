@@ -28,14 +28,17 @@
                 if($insertedRow == -1){
                     echo "Sorry ! That operation can't proceed.";
                 }else{
-                    echo "Operation was successful!";
+                    ?><script>
+                    alert("Operation was successful.");
+                    </script><?php  
+                    /*echo "Operation was successful!";
                     echo "<table>";
                     echo "<tr><td>Employee ID </td><td>: $this->merchandiserID</td></tr>";
                     echo "<tr><td>Material ID </td><td>: $this->materialID</td></tr>";
                     echo "<tr><td>Date & time </td><td>: $this->timeStamp</td></tr>"; 
                     echo "<tr><td>Action </td><td>: $this->storeAction</td></tr>"; 
                     echo "<tr><td>Quantity </td><td>: $this->quantity</td></tr>"; 
-                    echo "</table>";
+                    echo "</table>"; */
                     if($this->storeAction == "store"){
                         $quantityInStock = $this->quantityInStock + $this->quantity;
                     }else{
@@ -43,7 +46,11 @@
                     }
                     $sql = "UPDATE raw_material SET quantity_in_stock = ".$quantityInStock." WHERE material_id = ".$this->materialID.";";
                     if ($conn->query($sql) === TRUE) {
-                        echo "Storage was updated.";
+                        //echo "Storage was updated.";
+                        ?><script>
+                        alert("Material storage was updated");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
                     } else {
                         echo "Error updating storage: " . $conn->error;
                     }

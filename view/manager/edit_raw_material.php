@@ -59,7 +59,8 @@
                 </div>
 
                 <div id="form-box-ultra-small">
-                    <form method="post" action="" enctype="multipart/form-data">
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit raw material</h2>
@@ -102,11 +103,10 @@
                             <div class="form-row-data">
                                 <select name="measuring_unit" id="measuring_unit">
                                     <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
-                                    <option value="m" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
-                                    <option value="g" <?php echo ($row["measuring_unit"]=="g")?'selected':'' ?>>gram</option>
-                                    <option value="l" <?php echo ($row["measuring_unit"]=="l")?'selected':'' ?>>litre</option>
+                                    <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
+                                    <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
+                                    <option value="litre" <?php echo ($row["measuring_unit"]=="l")?'selected':'' ?>>litre</option>
                                     <option value="yards" <?php echo ($row["measuring_unit"]=="yards")?'selected':'' ?>>yards</option>
-                                    <option value="reels" <?php echo ($row["measuring_unit"]=="reels")?'selected':'' ?>>reels</option>
                                     <option value="m^2" <?php echo ($row["measuring_unit"]=="m^2")?'selected':'' ?>>m^2</option>
                                 </select>
                             </div>
@@ -169,10 +169,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="approval_status" class="input-radio" value="approve" <?php echo ($row["manager_approval"] == "approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" class="input-radio" value="approve" <?php echo ($row["manager_approval"] == "approve")?'checked':'' ?> /> Approve
                                         </td>
                                         <td> 
-                                            <input type="radio" name="approval_status" class="input-radio" value="deny" <?php echo ($row["manager_approval"] == "deny")?'checked':'' ?> /> Deny
+                                            <input type="radio" name="manager_approval" class="input-radio" value="reject" <?php echo ($row["manager_approval"] == "reject")?'checked':'' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -183,7 +183,7 @@
                                 Approval description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="" rows="4" cols="40"><?php echo $row["approval_description"]; ?></textarea>
+                                <textarea id="approval_description" name="approval_description" rows="4" cols="40"><?php echo $row["approval_description"]; ?></textarea>
                             </div>
                         </div>
                         
@@ -296,7 +296,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" name="storageLogForm" action="../RouteHandler.php" onSubmit="return validateStorageLogForm()">
                         <input type="text" hidden="true" name="framework_controller" value="storage_log/manage" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Retrieve from storage</h2>
                         </center>

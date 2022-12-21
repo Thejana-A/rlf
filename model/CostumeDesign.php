@@ -86,7 +86,7 @@
                     if($this->designID == 0){
                         echo "Sorry ! That design name already exists.";
                     }else{
-                        echo "New costume design was added successfully";
+                        /*echo "New costume design was added successfully";
                         echo "<table>";
                         echo "<tr><td>Design ID </td><td>: $this->designID</td></tr>";
                         echo "<tr><td>Name </td><td>: $this->name</td></tr>";
@@ -96,9 +96,13 @@
                         echo "<tr><td>Left view </td><td>: $this->leftView</td></tr>"; 
                         echo "<tr><td>Left view </td><td>: $this->rightView</td></tr>"; 
                         echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                        echo "</table>";
+                        echo "</table>";*/
                         $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
                         $designMaterialModel->insertMaterialQuantity();
+                        ?><script>
+                        alert("New costume design was added successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

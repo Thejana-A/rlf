@@ -44,7 +44,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" name="rawMaterialForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Add raw material</h2>
                         </center>
@@ -79,9 +79,10 @@
                             <div class="form-row-data">
                                 <select name="measuring_unit" id="measuring_unit" required>
                                     <option value="units">Units</option>
-                                    <option value="m">m</option>
+                                    <option value="metre">metre</option>
+                                    <option value="kilogram">kilogram</option>
+                                    <option value="litre">litre</option>
                                     <option value="yards">yards</option>
-                                    <option value="reels">reels</option>
                                     <option value="m^2">m^2</option>
                                 </select>
                             </div>

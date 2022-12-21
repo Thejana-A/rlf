@@ -22,6 +22,7 @@
 
                 <div id="form-box">
                     <form method="post" action="">
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <center>
                             <h2>Send quotation</h2>
                         </center>
@@ -92,7 +93,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" value = "100" class="column-textfield" />
-                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
+                                <input type="text" name="" id="" value = "metre" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>
@@ -107,7 +108,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id="" value = "200"  class="column-textfield" />
-                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
+                                <input type="text" name="" id="" value = "metre" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>
@@ -122,7 +123,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="" id=""value = "150" class="column-textfield" />
-                                <input type="text" name="" id="" value = "meters" class="column-textfield"  />
+                                <input type="text" name="" id="" value = "metre" class="column-textfield"  />
                                 <input type="text" name="" id="" class="column-textfield"  />
                             </div>
                         </div>
@@ -186,6 +187,9 @@
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Send" />
+                            </div>
+                            <div class="form-row-reset">
+                                <input type="submit" value="Cancel" />
                             </div>
                         </div> 
 

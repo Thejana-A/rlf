@@ -48,7 +48,7 @@
                     $materialPriceModel->setQuantity();
                     ?><script>
                     alert("Material quotation request was added successfully");
-                    window.location.href='<?php echo $_POST["page_url"] ?>';
+                    window.location.href='<?php echo $_POST["home_url"] ?>';
                     </script><?php
                 }
             } else {

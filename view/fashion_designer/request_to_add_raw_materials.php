@@ -22,6 +22,7 @@
 
 	<div id="form-box">
                     <form method="post" action="">
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <center>
                             <h2>Raw Material Request Form</h2>
                         </center>
@@ -53,10 +54,25 @@
                                     <option>M</option>
 				                    <option>L</option>
 				                    <option>XL</option>
-                                    <option>2XL</option>
+                                    <option>XXL</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="form-row">
+                        <div class="form-row-theme">
+                            Measuring unit : 
+                        </div>
+                        <div class="form-row-data">
+                            <select name="measuring_unit" id="measuring_unit" required>
+                                <option value="units">Units</option>
+                                <option value="m">metre</option>
+                                <option value="kg">kilogram</option>
+                                <option value="l">litre</option>
+                                <option value="yards">yards</option>
+                                <option value="m^2">m^2</option>
+                            </select>
+                        </div>
+                    </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                Description :

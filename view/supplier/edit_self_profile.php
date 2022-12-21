@@ -22,6 +22,7 @@
                 <div id="form-box-small">
                     <form method="post" name="supplierForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="supplier/edit_self_profile" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <center>
                             <h2>Edit profile</h2>
                         </center>
@@ -31,7 +32,7 @@
                             $conn = $connObj->getConnection();
                             if(isset($_SESSION['supplier_id'])){
                                 $supplier_id = $_SESSION['supplier_id'];
-                                $sql = "SELECT supplier_id, first_name,last_name, NIC, password, email, contact_no,city FROM supplier WHERE supplier_ID = '$supplier_id' ";
+                                $sql = "SELECT supplier_id, first_name,last_name, NIC, password, email, contact_no,city, verify_status FROM supplier WHERE supplier_ID = '$supplier_id' ";
                                 $result = mysqli_query($conn, $sql);
                            
                                 if(mysqli_num_rows($result) > 0)
@@ -101,6 +102,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="city" id="city" value ="<?php echo $row["city"];?>"/>
+                                <input type="text" hidden="true" name="verify_status" id="verify_status" value ="<?php echo $row["verify_status"];?>"/>
                             </div>
                         </div>
                         

@@ -123,6 +123,7 @@
 
                 <div id="form-box">
                     <form method="post" action="">
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>View material purchase requests</h2>
                         </center>
@@ -297,7 +298,7 @@
                 </div> 
                 
                 <div id="form-box">
-                <form method="post" onSubmit="return checkQuantityReceived()" action="../RouteHandler.php">
+                    <form method="post" onSubmit="return checkQuantityReceived()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="order_material_received/add" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>

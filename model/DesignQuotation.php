@@ -26,11 +26,11 @@
                         if($insertedRow == -1){
                             echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That costume already exists in quotation.<br>";
                         }else{
-                            echo "<br><table>";
+                            /*echo "<br><table>";
                             echo "<tr><td>Costume ID </td><td>:". $this->designID[$costumeCount]."</td></tr>";
                             echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$costumeCount]."</td></tr>";
                             echo "<tr><td>Quantity </td><td>:". $this->quantity[$costumeCount]."</td></tr>"; 
-                            echo "</table>";
+                            echo "</table>";*/
                         } 
                     	
                     } else {

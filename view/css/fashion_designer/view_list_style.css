@@ -265,6 +265,18 @@
   .item-list .manager-ID-column{
     width:14%;
   }
+  #list-box-home{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:30px;
+    margin:10px;
+    clear:inherit; 
+    font-family:sans-serif;
+    width:195%;
+    margin-top:20px;
+    margin-right:80px;
+    height:245px;
+  }
 
 
   

@@ -79,7 +79,7 @@
 				<label for="NIC_front_image">NIC Front Image</label>
                 <input type="file" name="NIC_front_image"  accept="image/png, image/gif, image/jpeg, image/tiff" required>
             
-				<label for="NIC_rear_image">NIC Front Image</label>
+				<label for="NIC_rear_image">NIC Rear Image</label>
                 <input type="file" name="NIC_rear_image"  accept="image/png, image/gif, image/jpeg, image/tiff" required>
             
 				<label for="business_certificate">Business Certificate</label>
@@ -91,7 +91,7 @@
 					if($conn->connect_error){
 						die("Connection Failed: ". $conn->connect_error);
 					}
-					$sql = "SELECT material_id, name FROM raw_material";
+					$sql = "SELECT material_id, name FROM raw_material WHERE manager_approval = 'approve'";
 					if($result = mysqli_query($conn, $sql)){
 						if(mysqli_num_rows($result) > 0){
 							echo "<select name='material_id[]' id='material_id' multiple size='2' required>";

@@ -170,7 +170,7 @@
             return $row;
         }
         public function editSelfProfile() {
-            
+            $this->update();
         }
         public function signUp(){
             $this->add();
