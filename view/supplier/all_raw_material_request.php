@@ -46,7 +46,8 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material";
+                            $supplierID = $_SESSION["supplier_id"];
+                            $sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material WHERE supplier_id = '$supplierID'";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){

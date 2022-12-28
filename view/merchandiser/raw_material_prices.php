@@ -93,7 +93,7 @@
                                         echo "</div>";
                                     }
                                 }else {
-                                    echo "No material quotations are approved yet.";
+                                    echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNo material prices are available yet.";
                                 }
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);

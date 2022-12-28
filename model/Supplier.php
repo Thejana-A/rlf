@@ -74,7 +74,7 @@
                     if($this->supplierID == 0){
                         echo "Sorry ! That email already exists.";
                     }else{
-                        echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                        /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                         echo "New supplier was added";
                         echo "<table>";
                         echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
@@ -85,9 +85,13 @@
                         echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                         echo "<tr><td>City </td><td>: $this->city</td></tr>";
                         echo "</table>";
-                        echo "</div></center>";
+                        echo "</div></center>"; */
                         $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
                         $materialSupplierModel->insertMaterialSupplied();
+                        ?><script>
+                        alert("Supplier was added successfully");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }
                 } else {		
                     echo "Error : ".$sql;			
@@ -122,6 +126,54 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->supplierID = $_POST["supplier_id"];
+
+            if($_FILES["NIC_front_image"]["name"] != ""){
+                while (true) {
+                    $nicFrontImage = uniqid().".".explode("/", $_FILES["NIC_front_image"]["type"])[1];
+                    if (!file_exists("../view/NIC-front-image/".$nicFrontImage)) break;
+                }
+
+                $nicFrontImageTarget = "../view/NIC-front-image/".$nicFrontImage;
+                $tempNICFrontImage = $_FILES["NIC_front_image"]["tmp_name"];
+                $nicFrontImageResult = move_uploaded_file($tempNICFrontImage, $nicFrontImageTarget);
+                $sql = "UPDATE supplier SET NIC_front_image = ? WHERE supplier_id='$this->supplierID'";        
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "s", $nicFrontImage);
+                    mysqli_stmt_execute($stmt);
+                }
+            }
+            if($_FILES["NIC_rear_image"]["name"] != ""){
+                while (true) {
+                    $nicRearImage = uniqid().".".explode("/", $_FILES["NIC_rear_image"]["type"])[1];
+                    if (!file_exists("../view/NIC-rear-image/".$nicRearImage)) break;
+                }
+
+                $nicRearImageTarget = "../view/NIC-rear-image/".$nicRearImage;
+                $tempNICRearImage = $_FILES["NIC_rear_image"]["tmp_name"];
+                $nicRearImageResult = move_uploaded_file($tempNICRearImage, $nicRearImageTarget);
+                $sql = "UPDATE supplier SET NIC_rear_image = ? WHERE supplier_id='$this->supplierID'";        
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "s", $nicRearImage);
+                    mysqli_stmt_execute($stmt);
+                }
+            }
+            if($_FILES["business_certificate"]["name"] != ""){
+                while (true) {
+                    $businessCertificate = uniqid().".".explode("/", $_FILES["business_certificate"]["type"])[1];
+                    if (!file_exists("../view/business-certificate/".$businessCertificate)) break;
+                }
+
+                $businessCertificateTarget = "../view/business-certificate/".$businessCertificate;
+                $tempBusinessCertificate = $_FILES["business_certificate"]["tmp_name"];
+                $businessCertificateResult = move_uploaded_file($tempBusinessCertificate, $businessCertificateTarget);
+                $sql = "UPDATE supplier SET business_certificate = ? WHERE supplier_id = '$this->supplierID'";        
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "s", $businessCertificate);
+                    mysqli_stmt_execute($stmt);
+                }
+            }
+            
+
             $sql = "UPDATE supplier SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=?, verify_status=? WHERE supplier_id='$this->supplierID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city, $this->verifyStatus);
@@ -132,6 +184,11 @@
                     echo "Sorry ! An error occured.";
                     echo "</div></center>";
                 }else{
+                    $sql_reset_material = "DELETE FROM material_supplier WHERE supplier_id = '$this->supplierID'";
+                    $conn->query($sql_reset_material);
+                    $materialSupplierModel = new MaterialSupplier($_POST, $this->supplierID); 
+                    $materialSupplierModel->insertMaterialSupplied();
+                    
                     echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                     echo "Supplier was updated successfully";
                     echo "<table>";
@@ -152,6 +209,8 @@
             $stmt->close(); 
             $conn->close(); 
         }
+
+
         public function delete(){
 
         }
@@ -204,9 +263,12 @@
             }     
             $conn->close();
         }
+
         public function logout() {
             header("location: http://localhost/rlf/view/supplier/login.php");
         }
+
+
         public function verifyEmail() {
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();

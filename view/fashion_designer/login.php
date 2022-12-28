@@ -15,6 +15,7 @@
 <body style="background-image: url('../icons/login_bg.jpeg'); height:100vh;">
 		<form name="loginForm" id="loginForm" method="post" action="../RouteHandler.php">
         	<input type="text" hidden="true" name="framework_controller" value="employee/login" />
+			<input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 			<section id="image1">
 					<img src="../icons/login_logo.png"class="logo" href="#"/>
 				<div class="loginbox">

@@ -26,7 +26,7 @@
             $this->measuringUnit = $args["measuring_unit"];
             $this->quantityInStock = $args["quantity_in_stock"]; 
             $this->supplierID = explode("-" ,$args["supplier_id"])[0];
-            $this->fashionDesignerID = $args["fashion_designer_id"];
+            $this->fashionDesignerID = explode("-" ,$args["fashion_designer_id"])[0];
         }
 
         public function add(){
@@ -106,17 +106,39 @@
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->RawMaterialID = $_POST["material_id"];    
-            $sql = "UPDATE raw_material SET name=?, size=?, image=?, description=?, manager_approval=?, approval_description=?, approval_date=?, measuring_unit=?, quantity_in_stock=?, supplier_id=?, fashion_designer_id=? WHERE material_id='$this->materialID'";        
+            $this->materialID = $_POST["material_id"];   
+
+            if($_FILES["image"]["name"] != ""){
+                while (true) {
+                    $rawMaterialImage = uniqid().".".explode("/", $_FILES["image"]["type"])[1];
+                    if (!file_exists("../view/raw-material-image/".$rawMaterialImage)) break;
+                }
+
+                $rawMaterialImageTarget = "../view/raw-material-image/".$rawMaterialImage;
+                $tempRawMaterialImage = $_FILES["image"]["tmp_name"];
+                $rawMaterialImageResult = move_uploaded_file($tempRawMaterialImage, $rawMaterialImageTarget);
+                $sql_reset_image = "UPDATE raw_material SET image = ? WHERE material_id = '$this->materialID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_image)) {
+                    mysqli_stmt_bind_param($stmt, "s", $rawMaterialImage);
+                    mysqli_stmt_execute($stmt);
+                }
+            } 
+             
+            $sql = "UPDATE raw_material SET name=?, size=?, measuring_unit=?, description=?, manager_approval=?, approval_description=?, approval_date=?, quantity_in_stock=? WHERE material_id='$this->materialID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->image, $this->description, $this->manager_approval, $this->approval_description, $this->approval_date, $this->measuring_unit, $this->quantity_in_stock, $this->supplierID, $this->fashionDesignerID);
+                mysqli_stmt_bind_param($stmt, "ssssssss", $this->name, $this->size, $this->measuringUnit, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! That username already exists.";
+                    echo "Sorry ! Material couldn't be updated.<br>";
                 }else{
-                    echo "Raw material was updated successfully";
+                    ?><script>
+                    alert("Raw material was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php   
+                    /*echo "Raw material was updated successfully";
                     echo "<table>";
+                    $this->materialID = $_POST["material_id"]; 
                     echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
                     echo "<tr><td>Name </td><td>: $this->name</td></tr>";
                     echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
@@ -125,13 +147,14 @@
                     echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                     echo "<tr><td>Manager's approval </td><td>: $this->managerApproval</td></tr>"; 
                     echo "<tr><td>Approval description </td><td>: $this->approvalDescription</td></tr>"; 
-                    echo "</table>";
+                    echo "</table>";  */
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
             } 
             $stmt->close(); 
-            $conn->close();  
+            $conn->close(); 
+            
         }
 
         public function delete(){

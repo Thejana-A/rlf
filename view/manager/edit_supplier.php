@@ -165,7 +165,7 @@
                                 Update NIC front image : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="NIC_front_image" id="NIC_front_image" />
+                                <input type="file" name="NIC_front_image" id="NIC_front_image" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -173,7 +173,7 @@
                                 Update NIC rear image : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="NIC_rear_image" id="NIC_rear_image" />
+                                <input type="file" name="NIC_rear_image" id="NIC_rear_image" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -181,7 +181,7 @@
                                 Update business certificate : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="business_certificate" id="business_certificate" />
+                                <input type="file" name="business_certificate" id="business_certificate" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         
@@ -270,6 +270,7 @@
                     <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/add" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Send raw material quotation request</h2>
                         </center>

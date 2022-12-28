@@ -83,6 +83,7 @@
                     <form method="post" name="employeeForm" action="../RouteHandler.php" onSubmit="return validateEditProfileForm()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit profile</h2>
                         </center>
@@ -175,6 +176,8 @@
                 <div id="form-box-small">
                     <form method="post" name="resetPasswordForm" action="../RouteHandler.php" onSubmit="return validateResetPassword()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/reset_password" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Reset password</h2>
                         </center>

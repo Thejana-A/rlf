@@ -52,8 +52,30 @@
                 if($this->employeeID == 0){
                     echo "Sorry ! That email already exists.";
                 }else{
-                    ?><script>alert("Employee was added successfully");</script><?php
-                    echo "Check email inbox for verification";
+                    ?><script>
+                    alert("Employee was added successfully. Check email for verification");</script><?php 
+                    if($_POST["home_url"]==""){ ?><script>
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';</script><?php
+                    }else{ ?><script>
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';</script><?php
+                    }
+                    
+                    
+                    /*echo "<table>";
+                    echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
+                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
+                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
+                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
+                    echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
+                    echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
+                    echo "<tr><td>User type </td><td>: $this->userType</td></tr>";
+                    echo "<tr><td>Address line 1 </td><td>: $this->addressLine1</td></tr>"; 
+                    echo "<tr><td>Address line 2 </td><td>: $this->addressLine2</td></tr>"; 
+                    echo "<tr><td>Address line 3 </td><td>: $this->addressLine3</td></tr>";
+                    echo "<tr><td>Date of birth </td><td>: $this->DOB</td></tr>";
+                    echo "<tr><td>Joined date </td><td>: $this->joinedDate</td></tr>";
+                    echo "<tr><td>Active status </td><td>: $this->activeStatus</td></tr>";
+                    echo "</table>"; */ 
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -128,21 +150,7 @@
 
         public function addEmployee() {
             $this->add();
-            echo "<table>";
-            echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
-            echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-            echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-            echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-            echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-            echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-            echo "<tr><td>User type </td><td>: $this->userType</td></tr>";
-            echo "<tr><td>Address line 1 </td><td>: $this->addressLine1</td></tr>"; 
-            echo "<tr><td>Address line 2 </td><td>: $this->addressLine2</td></tr>"; 
-            echo "<tr><td>Address line 3 </td><td>: $this->addressLine3</td></tr>";
-            echo "<tr><td>Date of birth </td><td>: $this->DOB</td></tr>";
-            echo "<tr><td>Joined date </td><td>: $this->joinedDate</td></tr>";
-            echo "<tr><td>Active status </td><td>: $this->activeStatus</td></tr>";
-            echo "</table>";
+            
         }
         public function signUp() {
             $this->add();
@@ -182,21 +190,30 @@
                         }else if($_SESSION["user_type"] == "fashion designer"){
                             header("location: http://localhost/rlf/view/fashion_designer/home.php");
                         }else{
-                            echo "Your credentials are invalid. Please try again.<br />";
+                            ?><script>
+                            alert("Your credentials are invalid. Please try again.");
+                            window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php  
                         } 
                     }else{
-                        ?><script>alert("Your email isn't verified");</script><?php
-                        echo "Please verify email and try again.";
+                        ?><script>
+                        alert("Your email isn't verified");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }
                     
                 }else{
-                    ?><script>alert("Your account is inactive");</script><?php
-                    echo "Please try again later.<br />";
+                    ?><script>
+                    alert("Your account is inactive");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }
                 
             }else{
-                ?><script>alert("Sorry ! Your credentials are invalid.");</script><?php
-                echo "Please try again.<br />";
+                ?><script>
+                alert("Sorry ! Your credentials are invalid.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
             }  
             $conn->close();   
         }
@@ -219,16 +236,22 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Password wasn't updated.")</script><?php
-                        echo "Please try again";
+                        ?><script>
+                        alert("Sorry ! Password wasn't updated.")
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
-                        ?><script>alert("Passwrod was updated successfully")</script><?php
-                        echo "Use your new password to login next time";
+                        ?><script>
+                        alert("Password was updated successfully")
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
                     }
                 }
             }else{
-                ?><script>alert("Sorry ! Your current password is wrong.")</script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your current password is wrong.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
             } 
 
         }
@@ -249,7 +272,7 @@
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
                         ?><script>alert("Sorry ! Email wasn't verified");</script><?php
-                        echo "Please try again later.";
+                        echo "Please try again";
                     }else{
                         ?><script>alert("Email was verified successfully and now you can log in");
                         window.location.href='http://localhost/rlf/view/customer/login_as.html';
@@ -261,7 +284,7 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
+                ?><script>alert("Sorry ! Your OTP code is incorrect"); </script><?php
                 echo "Please try again";
             }
         }

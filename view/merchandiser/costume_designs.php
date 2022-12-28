@@ -63,7 +63,7 @@
                                         echo "</div>";
                                     }
                                 }else {
-                                    echo "0 results";
+                                    echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNo costume designs yet.";
                                 }
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);

@@ -1,8 +1,8 @@
 <?php 
     session_start();    
     include "db_conn.php";
-
-    $sql = "SELECT * FROM costume_quotation INNER JOIN employee ON employee.employee_id=costume_quotation.merchandiser_id ";
+    $customerID =$_SESSION["customer_id"];
+    $sql = "SELECT * FROM costume_quotation INNER JOIN employee ON employee.employee_id=costume_quotation.merchandiser_id AND costume_quotation.customer_id='$customerID'";
     $result = mysqli_query($conn, $sql);
     
 ?>

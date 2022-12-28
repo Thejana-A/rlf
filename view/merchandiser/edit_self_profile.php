@@ -82,6 +82,7 @@
                     <form method="post" name="employeeForm" action="../RouteHandler.php" onSubmit="return validateEditProfileForm()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit self profile</h2>
                         </center>
@@ -144,6 +145,31 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Address line 1 :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="address_line1" value="<?php echo $row["address_line1"]; ?>" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Address line 2 :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="address_line2" value="<?php echo $row["address_line2"]; ?>" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Address line 3 :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="address_line3" value="<?php echo $row["address_line3"]; ?>" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
@@ -174,6 +200,8 @@
                 <div id="form-box-small">
                     <form method="post" name="resetPasswordForm" action="../RouteHandler.php" onSubmit="return validateResetPassword()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/reset_password" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Reset password</h2>
                         </center>

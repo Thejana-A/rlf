@@ -206,7 +206,7 @@
                                             }
                                             $all_design_select .= "</select>";
                                         }else {
-                                            $all_design_select = "0 results";
+                                            $all_design_select = "No costume designs assigned yet";
                                         }
                                         echo $all_design_select;
     

@@ -129,8 +129,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Edit costume design</h2>
                         </center>
@@ -148,7 +150,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -156,7 +158,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size">
+                                <select name="size" required>
                                     <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
                                     <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
                                     <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
@@ -197,7 +199,7 @@
                                 Front view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="front_view" id="front_view" />
+                                <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -205,7 +207,7 @@
                                 Rear view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="rear_view" id="rear_view" />
+                                <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -213,7 +215,7 @@
                                 Left view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="left_view" id="left_view" />
+                                <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -221,7 +223,7 @@
                                 Right view : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="right_view" id="right_view" />
+                                <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -229,7 +231,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description"><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <div class="form-row">

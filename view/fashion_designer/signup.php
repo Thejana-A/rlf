@@ -49,6 +49,7 @@
 	<body style="background-image: url('../icons/login_bg.jpeg');">
 	<form name="employeeForm" id="employeeForm" onSubmit="return validateForm()" method="post" action="../RouteHandler.php">
         <input type="text" hidden="true" name="framework_controller" value="employee/sign_up" />
+        
 	<section id="image1">
 		<img src="../icons/login_logo.png"class="logo" href="#">
 	<div id="signupbox">
@@ -63,17 +64,13 @@
 			<input type="text" name="NIC" id="NIC" placeholder="Enter NIC" required>
         <p>Email</p>
 			<input type="email" name="email" id="email" placeholder="Enter Email" required>
-        <p>Password</p>
-			<input type="password" name="password" id="password" placeholder="Enter Password" required>
-        <p>Confirm Password</p>
-			<input type="password" name="confirm_password" id="confirm_password" placeholder="Enter Password" required>
         <p>Contact Number</p>
 			<input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required>
         <p>User Type</p>
 			<select name="user_type" id="user_type" required>
                 <option disabled value="" selected>Select User Type</option>
-                <option>Fashion Designer</option>
-                <option>Merchandiser</option>
+                <option value="fashion designer">Fashion Designer</option>
+                <option value="merchandiser">Merchandiser</option>
             </select>
         <p>Address Line 1</p>
 			<input type="Text" name="address_line1" id="address_line1" placeholder="Line 1" required>
@@ -87,10 +84,14 @@
         </div>
         <div class="data-box">
         <p>Joined Date</p>
-			<input type="Date" name="joined_date" id="joined_date" placeholder="dd/mm/yyyy" required><br><br>
+			<input type="Date" name="joined_date" id="joined_date" value="<?php echo Date('Y-m-d'); ?>" readonly><br><br>
         </div>
+        <p>Password</p>
+			<input type="password" name="password" id="password" placeholder="Enter Password" required>
+        <p>Confirm Password</p>
+			<input type="password" name="confirm_password" id="confirm_password" placeholder="Enter Password" required>
 
-            
+        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 		<input type="submit" name="" value="Sign up">
         <input type="reset" name="" value="Cancel"><br>
 		<a href="./login.php">Login here</a>

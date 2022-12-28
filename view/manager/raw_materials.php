@@ -52,7 +52,7 @@
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
-                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="deny")?"red":"grey");
+                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="reject")?"red":"grey");
                                         echo "<div class='item-data-row'>";
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/manager_view' />";

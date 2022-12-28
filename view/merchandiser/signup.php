@@ -94,18 +94,7 @@
                             <input type="email" name="email" id="email" required />
                         </td>
                     </tr>
-                    <tr>
-                        <td class="data-box">
-                            Password : <br />
-                            <input type="password" name="password" id="password" required />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="data-box">
-                            Confirm password : <br />
-                            <input type="password" name="confirm_password" id="confirm_password" required />
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <td class="data-box">
                             Contact number : <br />
@@ -149,7 +138,19 @@
                     <tr>
                         <td class="data-box">
                             Joined date : <br />
-                            <input type="date" name="joined_date" id="joined_date" required />
+                            <input type="date" name="joined_date" id="joined_date" value="<?php echo Date('Y-m-d') ?>" readonly required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            Password : <br />
+                            <input type="password" name="password" id="password" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            Confirm password : <br />
+                            <input type="password" name="confirm_password" id="confirm_password" required />
                         </td>
                     </tr>
                     <tr>

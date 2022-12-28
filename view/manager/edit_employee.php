@@ -167,7 +167,7 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" required />
+                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" required readonly />
                             </div>
                         </div>
                         <div class="form-row">

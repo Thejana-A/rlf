@@ -32,6 +32,7 @@
             break;
         case "sign_up":
             $employeeModel->signUp();
+            print_r($_POST);
             break;
         case "reset_password":
             $employeeModel->resetPassword();

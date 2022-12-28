@@ -137,17 +137,83 @@
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->RawMaterialID = $_POST["material_id"];    
-            $sql = "UPDATE raw_material SET name=?, size=?, image=?, description=?, manager_approval=?, approval_description=?, approval_date=?, measuring_unit=?, quantity_in_stock=?, supplier_id=?, fashion_designer_id=? WHERE material_id='$this->materialID'";        
+            $this->designID = $_POST["design_id"];  
+            
+            if($_FILES["front_view"]["name"] != ""){
+                while (true) {
+                    $frontViewImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
+                    if (!file_exists("../view/front-view-image/".$frontViewImage)) break;
+                }
+
+                $frontViewImageTarget = "../view/front-view-image/".$frontViewImage;
+                $tempFrontViewImage = $_FILES["front_view"]["tmp_name"];
+                $frontViewImageResult = move_uploaded_file($tempFrontViewImage, $frontViewImageTarget);
+                $sql_reset_front_image = "UPDATE costume_design SET front_view = ? WHERE design_id = '$this->designID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_front_image)) {
+                    mysqli_stmt_bind_param($stmt, "s", $frontViewImage);
+                    mysqli_stmt_execute($stmt);
+                } 
+            } 
+
+            if($_FILES["rear_view"]["name"] != ""){
+                while (true) {
+                    $rearViewImage = uniqid().".".explode("/", $_FILES["rear_view"]["type"])[1];
+                    if (!file_exists("../view/rear-view-image/".$rearViewImage)) break;
+                }
+
+                $rearViewImageTarget = "../view/rear-view-image/".$rearViewImage;
+                $tempRearViewImage = $_FILES["rear_view"]["tmp_name"];
+                $rearViewImageResult = move_uploaded_file($tempRearViewImage, $rearViewImageTarget);
+                $sql_reset_rear_image = "UPDATE costume_design SET rear_view = ? WHERE design_id = '$this->designID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_rear_image)) {
+                    mysqli_stmt_bind_param($stmt, "s", $rearViewImage);
+                    mysqli_stmt_execute($stmt);
+                } 
+            } 
+
+            if($_FILES["left_view"]["name"] != ""){
+                while (true) {
+                    $leftViewImage = uniqid().".".explode("/", $_FILES["left_view"]["type"])[1];
+                    if (!file_exists("../view/left-view-image/".$leftViewImage)) break;
+                }
+
+                $leftViewImageTarget = "../view/left-view-image/".$leftViewImage;
+                $tempLeftViewImage = $_FILES["left_view"]["tmp_name"];
+                $leftViewImageResult = move_uploaded_file($tempLeftViewImage, $leftViewImageTarget);
+                $sql_reset_left_image = "UPDATE costume_design SET left_view = ? WHERE design_id = '$this->designID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_left_image)) {
+                    mysqli_stmt_bind_param($stmt, "s", $leftViewImage);
+                    mysqli_stmt_execute($stmt);
+                } 
+            } 
+
+            if($_FILES["right_view"]["name"] != ""){
+                while (true) {
+                    $rightViewImage = uniqid().".".explode("/", $_FILES["right_view"]["type"])[1];
+                    if (!file_exists("../view/right-view-image/".$rightViewImage)) break;
+                }
+
+                $rightViewImageTarget = "../view/right-view-image/".$rightViewImage;
+                $tempRightViewImage = $_FILES["right_view"]["tmp_name"];
+                $rightViewImageResult = move_uploaded_file($tempRightViewImage, $rightViewImageTarget);
+                $sql_reset_right_image = "UPDATE costume_design SET right_view = ? WHERE design_id = '$this->designID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_right_image)) {
+                    mysqli_stmt_bind_param($stmt, "s", $rightViewImage);
+                    mysqli_stmt_execute($stmt);
+                } 
+            } 
+             
+
+            $sql = "UPDATE costume_design SET name=?, size=?, description=?, merchandiser_id = ?, fashion_designer_id=? WHERE design_id='$this->designID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->image, $this->description, $this->manager_approval, $this->approval_description, $this->approval_date, $this->measuring_unit, $this->quantity_in_stock, $this->supplierID, $this->fashionDesignerID);
+                mysqli_stmt_bind_param($stmt, "sssii", $this->name, $this->size, $this->description, $this->merchandiserID, $this->fashionDesignerID);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! That username already exists.";
+                    echo "Sorry ! Couldn't update.";
                 }else{
-                    echo "RawMaterial was updated successfully";
-                    echo "<table>";
+                    echo "Design was updated successfully";
+                    /*echo "<table>";
                     echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
                     echo "<tr><td>Name </td><td>: $this->name</td></tr>";
                     echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
@@ -156,7 +222,7 @@
                     echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
                     echo "<tr><td>Manager's approval </td><td>: $this->managerApproval</td></tr>"; 
                     echo "<tr><td>Approval description </td><td>: $this->approvalDescription</td></tr>"; 
-                    echo "</table>";
+                    echo "</table>"; */
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

@@ -310,6 +310,10 @@
         </div> 
 
         <?php include 'footer.php';?>
-
+        <script>
+            document.getElementById("publish_status").addEventListener("click", function(event){
+                event.preventDefault()
+            });
+        </script>
     </body> 
 </html>

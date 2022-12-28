@@ -35,7 +35,10 @@
                 mysqli_stmt_execute($stmt);
                 $this->orderID = $conn->insert_id;
                 if($this->orderID == 0){
-                    echo "Sorry ! An error occured.";
+                    ?><script>
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }else{
                     
                     /*echo "Costume order was added successfully";

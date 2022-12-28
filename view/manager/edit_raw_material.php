@@ -61,7 +61,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Edit raw material</h2>
                         </center>
@@ -93,6 +93,7 @@
                                     <option value="L" <?php echo ($row["size"]=="L")?'selected':'' ?>>L</option>
                                     <option value="XL" <?php echo ($row["size"]=="XL")?'selected':'' ?>>XL</option>
                                     <option value="XXL" <?php echo ($row["size"]=="XXL")?'selected':'' ?>>XXL</option>
+                                    <option value="XXXL" <?php echo ($row["size"]=="XXXL")?'selected':'' ?>>XXXL</option>
                                 </select>
                             </div>
                         </div>
@@ -133,7 +134,15 @@
                                 Update image : 
                             </div>
                             <div class="form-row-data">
-                                <input type="file" name="image" id="image" />
+                                <input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg, image/tiff" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Quantity in stock : 
+                            </div>
+                            <div class="form-row-data">
+                                <input type="text" name="quantity_in_stock" value="<?php echo $row["quantity_in_stock"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

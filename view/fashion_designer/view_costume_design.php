@@ -21,7 +21,7 @@
                     <a href="#">Fashion Designer </a> > View costume designs
                 </div>
 
-                <div class="link-row">
+                <div class="link-row-small">
                     <a href="add_costume_design.php" class="right-button">Add new design</a>
                 </div>
                 
@@ -70,7 +70,7 @@
                                         echo "</div>";
                                     }
                                 }else {
-                                    echo "0 results";
+                                    echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNo costume designs yet";
                                 }
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);

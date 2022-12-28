@@ -236,7 +236,7 @@
                             </div>
                             <div class="form-row-reset">
                                 <?php 
-                                    if($row["manager_approval"] == "approve"){
+                                    if(($row["manager_approval"] == "approve")&&($row["valid_till"])>Date("Y-m-d")){
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' />";
                                     }else{
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' disabled />";
@@ -259,20 +259,11 @@
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
             var yyyy = today.getFullYear();
-            var min_issue_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
-            var max_issue_date = new Date();
-            max_issue_date.setMonth(max_issue_date.getMonth()+2);
-            max_issue_date = max_issue_date.getFullYear() + '-' + addLeadingZeros(max_issue_date.getMonth(),2) + '-' + addLeadingZeros(max_issue_date.getDate(),2);
 
-            var min_valid_till = new Date();
-            min_valid_till.setMonth(min_valid_till.getMonth()+3);
-            min_valid_till = min_valid_till.getFullYear() + '-' + addLeadingZeros(min_valid_till.getMonth(),2) + '-' + addLeadingZeros(min_valid_till.getDate(),2);
+            var min_valid_till = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
             var max_valid_till = new Date();
             max_valid_till.setYear(max_valid_till.getFullYear()+2);
             max_valid_till = max_valid_till.getFullYear() + '-' + addLeadingZeros(max_valid_till.getMonth(),2) + '-' + addLeadingZeros(max_valid_till.getDate(),2);
-
-            document.getElementById("issue_date").setAttribute("min", min_issue_date);
-            document.getElementById("issue_date").setAttribute("max", max_issue_date);
 
             document.getElementById("valid_till").setAttribute("min", min_valid_till);
             document.getElementById("valid_till").setAttribute("max", max_valid_till);
