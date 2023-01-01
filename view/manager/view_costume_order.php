@@ -68,6 +68,14 @@
                 document.getElementById("balance_payment").value = totalPrice - advancePayment;
             } 
 
+            function validateCostumeOrder(){
+                var order_quality = document.forms["costumeOrderForm"]["quality_status"].value;
+                if(order_quality == "bad"){
+                    document.forms["costumeOrderForm"]["order_status"].value = "incomplete";
+                    return true;
+                }
+            }
+
         </script>
     </head>
 
@@ -86,8 +94,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                    <form method="post" action="../RouteHandler.php" name="costumeOrderForm" onSubmit="return validateCostumeOrder()" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_order/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>View costume order</h2>
                         </center>
@@ -263,10 +273,11 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "accepted")?'checked':'' ?> value="accepted" /> Accept
+                                            <input type="text" name="order_status" hidden="true" value="<?php echo ($row["order_status"] == "confirmed")?'confirmed':($row["order_status"] == "pending"?'pending':'') ?>" />
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'disabled') ?> value="accepted" /> Accept
                                         </td>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "rejected")?'checked':'' ?> value="rejected" /> Reject
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'disabled') ?> value="rejected" /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -281,10 +292,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "incomplete")?'checked':'' ?> value="incomplete" /> Incomplete
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "incomplete"?'checked':'') ?> value="incomplete" /> Incomplete
                                         </td>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "complete")?'checked':'' ?> value="complete" /> Complete
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "complete"?'checked':'') ?> value="complete" /> Complete
                                         </td>
                                     </tr>
                                 </table>
@@ -298,10 +309,10 @@
                                 <table width="58%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="quality_status" class="input-radio" <?php echo ($row["quality_status"]=="good")?'checked':'' ?> /> Good
+                                            <input type="radio" name="quality_status" class="input-radio" value="good" <?php echo ($row["quality_status"]=="good")?'checked':'' ?> /> Good
                                         </td>
                                         <td>
-                                            <input type="radio" name="quality_status" class="input-radio" <?php echo ($row["quality_status"]=="bad")?'checked':'' ?> /> Bad
+                                            <input type="radio" name="quality_status" class="input-radio" value="bad" <?php echo ($row["quality_status"]=="bad")?'checked':'' ?> /> Bad
                                         </td>
                                     </tr>
                                 </table>
@@ -328,7 +339,7 @@
                                 Dispatched date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="dispatch_date" id="dispatch_date" />
+                                <input type="date" name="dispatch_date" id="dispatch_date" value="<?php echo $row["dispatch_date"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">

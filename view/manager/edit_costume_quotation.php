@@ -83,6 +83,7 @@
                 <div id="form-box">
                     <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/manager_update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Edit costume quotation</h2>
@@ -215,6 +216,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="issue_date" id="issue_date" value="<?php echo ($row["issue_date"])==""?Date("Y-m-d"):$row["issue_date"]; ?>" readonly />
+                                <input type="date" hidden="true" name="approval_date" id="approval_date" value="<?php echo ($row["approval_date"])==""?Date("Y-m-d"):$row["approval_date"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -234,10 +236,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" value="approve" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="manager_approval" value="reject" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>

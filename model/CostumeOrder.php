@@ -40,7 +40,6 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }else{
-                    
                     /*echo "Costume order was added successfully";
                     echo "<table>";
                     echo "<tr><td>Order ID </td><td>: $this->orderID</td></tr>";
@@ -59,7 +58,34 @@
         }
 
         public function updateCostumeOrder(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->orderID = $_POST["order_id"];
+            $orderID = $this->orderID;
+            $sql = "UPDATE costume_order SET order_status = ?, quality_status = ?, quality_status_description = ?, dispatch_date = ?, balance_payment = ? WHERE order_id = '$orderID'";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                if($this->dispatchDate == ''){
+                    $this->dispatchDate = NULL;
+                }else{
+                    $this->orderStatus = "delivered";
+                }
+                mysqli_stmt_bind_param($stmt, "ssssi", $this->orderStatus, $this->qualityStatus, $this->qualityStatusDescription, $this->dispatchDate, $this->balancePayment);
+                 
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    echo "Sorry ! Order couldn't be updated.";
+                }else{
+                    ?><script>
+                    alert("Order was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
 
         public function viewCostumeOrder(){

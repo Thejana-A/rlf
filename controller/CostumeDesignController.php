@@ -43,6 +43,9 @@
         case "update":
             $costumeDesignModel->updateDesign();
             break;
+        case "update_price":
+            $costumeDesignModel->updatePrice();
+            break;
         case "delete":
             $costumeDesignModel->deleteDesign();
             break;

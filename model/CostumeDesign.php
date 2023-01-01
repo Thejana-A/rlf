@@ -231,6 +231,37 @@
             $conn->close(); 
         }
 
+        public function updatePrice(){
+            //print_r($_POST);
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->designID = $_POST["design_id"];  
+            $publicDesignID = $this->designID;
+
+            $sql = "UPDATE costume_design SET final_price = ?, material_price_approval = ?, material_price_description = ?, publish_status = ? WHERE design_id='$this->designID'";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "isss", $this->finalPrice, $this->materialPriceApproval, $this->materialPriceDescription, $this->publishStatus);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    echo "Sorry ! Couldn't update.";
+                }else{
+                    $sql_reset_material = "DELETE FROM design_material WHERE design_id = '$this->designID'";
+                    $conn->query($sql_reset_material);
+                    $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
+                    $designMaterialModel->insertMaterialQuantity();
+                    ?><script>
+                    alert("Price description was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
+        }
+
         public function delete(){
 
         }

@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ERROR | E_PARSE);
+    error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/DesignQuotation.php');
     class CostumeQuotation{
@@ -57,7 +57,34 @@
         }
 
         public function updateCostumeQuotation(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->quotationID = $_POST["quotation_id"];  
+            $publicQuotationID = $this->quotationID;
 
+            $sql = "UPDATE rlf.costume_quotation SET issue_date = ?, valid_till = ?, manager_approval = ?, approval_description = ?, approval_date = ? WHERE quotation_id = '$this->quotationID'";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssss", $this->issueDate, $this->validTill, $this->managerApproval, $this->approvalDescription, $this->approvalDate);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    echo "Sorry ! Couldn't update.";
+                }else{
+                    $sql_reset_quantity = "DELETE FROM rlf.design_quotation WHERE quotation_id = '$this->quotationID'";
+                    $conn->query($sql_reset_quantity);
+                    $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
+                    $designQuotationModel->insertQuantityPrice(); 
+                    ?><script>
+                    alert("Costume quotation was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php        
+                }
+                
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
         
         public function viewCostumeQuotation(){

@@ -70,7 +70,9 @@
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
-                                        if($row["order_status"] == "accepted"){
+                                        if($row["order_status"] == "pending"){
+                                            $orderStatus = "pending";
+                                        }else if($row["order_status"] == "accepted"){
                                             $orderStatus = "accepted";
                                         }else if($row["order_status"] == "rejected"){
                                             $orderStatus = "rejected";
@@ -78,7 +80,7 @@
                                             $orderStatus = "complete";
                                         }else if($row["order_status"] == "incomplete"){
                                             $orderStatus = "incomplete";
-                                        }else if(($row["order_status"] == "complete")&&($row["dispatch_date"] != "")){
+                                        }else if($row["order_status"] == "delivered"){
                                             $orderStatus = "delivered";
                                         }else if($row["order_status"] == "confirmed"){
                                             $orderStatus = "confirmed";
