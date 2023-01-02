@@ -32,11 +32,6 @@
                 if($this->orderID == 0){
                     echo "Sorry ! An error occured.";
                 }else{
-                    /*echo "Material purchase request was added successfully";
-                    echo "<table>";
-                    echo "<tr><td>Order ID </td><td>: $this->orderID</td></tr>";
-                    echo "<tr><td>Quotation ID </td><td>: $this->quotationID</td></tr>";
-                    echo "</table>"; */
                     ?><script>
                     alert("New raw material purchase request was saved successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -50,7 +45,30 @@
         }
 
         public function updateMaterialOrder(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->orderID = $_POST["order_id"];
+            $sql = "UPDATE raw_material_order SET manager_approval = ?, approval_description = ?, approval_date = ?, payment = ?, payment_date = ? WHERE order_id = '$this->orderID'";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                if($this->paymentDate == ''){
+                    $this->paymentDate = NULL;
+                }
+                mysqli_stmt_bind_param($stmt, "sssss", $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->payment, $this->paymentDate);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    echo "Sorry ! An error occured.";
+                }else{
+                    ?><script>
+                    alert("Order was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
 
         public function viewMaterialOrder(){

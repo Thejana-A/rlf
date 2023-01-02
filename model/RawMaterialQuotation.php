@@ -83,32 +83,50 @@
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $this->customerID = $_POST["customer_id"];
-            //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
-            $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "ssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city);
-                mysqli_stmt_execute($stmt);
-                $affectedRows = mysqli_stmt_affected_rows($stmt);
-                if($affectedRows == -1){
-                    echo "Sorry ! An error occured.";
-                }else{
-                    echo "Customer was updated successfully";
-                    echo "<table>";
-                    echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
-                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-                    echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-                    echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-                    echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                    echo "</table>";
+            $this->quotationID = $_POST["quotation_id"];
+            $publicQuotationID = $this->quotationID;
+            $validity = 0;
+            for($i = 0;$i<count($_POST["material_id"]);$i++){
+                if($_POST["request_quantity"][$i] > 0){
+                    $validity = 1;
                 }
-            } else {
-                echo "Error: <br>" . mysqli_error($conn);
-            } 
-            $stmt->close(); 
-            $conn->close(); 
+            }
+            if($validity == 1){
+                $sql = "UPDATE raw_material_quotation SET issue_date = ?, valid_till = ?, supplier_approval = ?, approval_description = ?, expected_delivery_date = ? WHERE quotation_id = '$this->quotationID'";        
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    if($this->issueDate == ''){
+                        $this->issueDate = NULL;
+                    }
+                    if($this->validTill == ''){
+                        $this->validTill = NULL;
+                    }
+                    mysqli_stmt_bind_param($stmt, "sssss", $this->issueDate, $this->validTill, $this->supplierApproval, $this->approvalDescription, $this->expectedDeliveryDate);
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        echo "Sorry ! An error occured.";
+                    }else{
+                        $sql_reset_material = "DELETE FROM material_price WHERE quotation_id = '$this->quotationID'";
+                        $conn->query($sql_reset_material);
+                        $materialPriceModel = new MaterialPrice($_POST, $publicQuotationID); 
+                        $materialPriceModel->setQuantity();
+                        ?><script>
+                        alert("Quotation was updated successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
+                    }
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close(); 
+            }else{
+                ?><script>
+                alert("There should be at least one item");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 
+            }
+            
         }
 
 

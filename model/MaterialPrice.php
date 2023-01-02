@@ -17,26 +17,23 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
-                $sql = "INSERT INTO rlf.material_price (quotation_id, material_id, request_quantity, unit_price) VALUES (?,?,?,?);";
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "iidi", $this->quotationID, $this->materialID[$materialCount], $this->requestQuantity[$materialCount], $this->unitPrice[$materialCount]);
-                    mysqli_stmt_execute($stmt);
-                    $insertedRow = $conn -> affected_rows;
-                    if($insertedRow == -1){
-                        echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
-                    }else{
-                        /*echo "<br><table>";
-                        echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
-                        echo "<tr><td>Request quantity </td><td> : ".$this->requestQuantity[$materialCount]."</td></tr>";
-                        echo "</table>"; */
-                    }	
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                } 
-                
+                if($this->requestQuantity[$materialCount] > 0){
+                    $sql = "INSERT INTO rlf.material_price (quotation_id, material_id, request_quantity, unit_price) VALUES (?,?,?,?);";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "iidi", $this->quotationID, $this->materialID[$materialCount], $this->requestQuantity[$materialCount], $this->unitPrice[$materialCount]);
+                        mysqli_stmt_execute($stmt);
+                        $insertedRow = $conn -> affected_rows;
+                        if($insertedRow == -1){
+                            echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+                        }
+                    } else {
+                        echo "Error: <br>" . mysqli_error($conn);
+                    } 
+                }
             }	
             $stmt->close(); 	
             $conn->close(); 
+            
         }
 
         public function viewQuantityPrice(){

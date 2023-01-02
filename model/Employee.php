@@ -116,22 +116,6 @@
                 if($affectedRows == -1){
                     echo "Sorry ! An error occured.";
                 }else{
-                    /*echo "Employee was updated successfully";
-                    echo "<table>";
-                    echo "<tr><td>Employee ID </td><td>: $this->employeeID</td></tr>";
-                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-                    echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-                    echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-                    echo "<tr><td>User type </td><td>: $this->userType</td></tr>";
-                    echo "<tr><td>Address line 1 </td><td>: $this->addressLine1</td></tr>"; 
-                    echo "<tr><td>Address line 2 </td><td>: $this->addressLine2</td></tr>"; 
-                    echo "<tr><td>Address line 3 </td><td>: $this->addressLine3</td></tr>";
-                    echo "<tr><td>Date of birth </td><td>: $this->DOB</td></tr>";
-                    echo "<tr><td>Joined date </td><td>: $this->joinedDate</td></tr>";
-                    echo "<tr><td>Active status </td><td>: $this->activeStatus</td></tr>";
-                    echo "</table>"; */
                     ?><script>
                     alert("Employee was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -143,6 +127,7 @@
             $stmt->close(); 
             $conn->close(); 
         }
+        
         public function delete(){
 
         }

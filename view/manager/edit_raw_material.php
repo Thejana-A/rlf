@@ -93,7 +93,6 @@
                                     <option value="L" <?php echo ($row["size"]=="L")?'selected':'' ?>>L</option>
                                     <option value="XL" <?php echo ($row["size"]=="XL")?'selected':'' ?>>XL</option>
                                     <option value="XXL" <?php echo ($row["size"]=="XXL")?'selected':'' ?>>XXL</option>
-                                    <option value="XXXL" <?php echo ($row["size"]=="XXXL")?'selected':'' ?>>XXXL</option>
                                 </select>
                             </div>
                         </div>

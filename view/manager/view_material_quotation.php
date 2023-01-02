@@ -30,7 +30,7 @@
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$quotation_material_row["material_id"]." - ".$quotation_material_row["name"]." (".$quotation_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
-                        $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
+                        $presentMaterialList .= "<input type='number' step='1' min='0' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
                         $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' readonly /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' class='column-textfield' readonly />";
                         $presentMaterialList .= "</div>";
@@ -43,9 +43,9 @@
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
-            }  
-            
+            }     
         ?>
+
         <script>
             var materialCount = "<?php echo $materialCount; ?>";
             function addCode() {
@@ -61,7 +61,7 @@
                             }
                             $material_row .= "</select></div>";
                             $material_row .= "<div class='form-row-data'>";
-                            $material_row .= "<input type='number' step='0.001' min='0.001' class='column-textfield' name='request_quantity[]' required />&nbsp";
+                            $material_row .= "<input type='number' step='1' min='0' class='column-textfield' name='request_quantity[]' required />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='unit_price[]' readonly />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='material_price[]' id='' readonly /></div></div>";
                             
@@ -104,8 +104,9 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="MaterialQuotationForm" action="../RouteHandler.php">
+                    <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>View raw material quotation</h2>
@@ -254,9 +255,9 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> />
+                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> required />
                                 <input type="text" hidden="true" name="manager_approval" value="approve" />
-                                <input type="text" hidden="true" name="approval_date" value="<?echo date("Y-m-d"); ?>" />
+                                <input type="text" hidden="true" name="approval_date" value="<?php echo Date('Y-m-d') ?>" />
                             </div>
                         </div>
                         

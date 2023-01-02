@@ -6,6 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Delete employee</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <?php 
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
+        ?>
     </head>
 
     <body>
@@ -33,7 +40,7 @@
                                 Employee ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="employee_id" value="<?php echo $row["employee_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -41,7 +48,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -49,7 +56,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -57,7 +64,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -65,7 +72,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="email" name="email" id="email" />
+                                <input type="email" name="email" id="email" value="<?php echo $row["email"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -73,18 +80,16 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" value="<?php echo $row["contact_no"]; ?>" required />
                             </div>
                         </div>
+                    
                         <div class="form-row">
                             <div class="form-row-theme">
-                                User type : 
+                                User type :
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="" disabled>
-                                    <option>Fashion designer</option>
-                                    <option>Merchandiser</option>
-                                </select>
+                                <input type="text" name="user_type" value="<?php echo $row["user_type"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -92,7 +97,7 @@
                                 Address line 1 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="address_line1" value="<?php echo $row["address_line1"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -100,7 +105,7 @@
                                 Address line 2 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="address_line2" value="<?php echo $row["address_line2"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -108,7 +113,7 @@
                                 Address line 3 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" disabled />
+                                <input type="text" name="address_line3" value="<?php echo $row["address_line3"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -116,7 +121,7 @@
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <input type="date" name="DOB" id="DOB" value="<?php echo $row["DOB"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -124,21 +129,21 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" disabled />
+                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" required readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                User active status :
+                                Active status :
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" id="" disabled /> Enable
+                                            <input type="radio" name="active_status" class="input-radio" value="enable" <?php echo ($row["active_status"]=="enable")?'checked':'' ?> /> Enable
                                         </td>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" id="" disabled /> Disable
+                                            <input type="radio" name="active_status" class="input-radio" value="disable" <?php echo ($row["active_status"]=="disable")?'checked':'' ?> /> Disable
                                         </td>
                                     </tr>
                                 </table>

@@ -85,6 +85,7 @@
                     totalPrice = totalPrice + (quantity*unitPrice); 
                 } 
                 document.getElementById("total_price").value = totalPrice;
+                document.getElementById("payment").value = totalPrice;
             } 
 
             function checkQuantityReceived(){
@@ -122,8 +123,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                    <form method="post" name="materialOrderForm" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material_order/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>View material purchase requests</h2>
                         </center>
@@ -259,10 +262,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" value="approve" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="manager_approval" value="reject" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -274,6 +277,7 @@
                             </div>
                             <div class="form-row-data">
                                 <textarea id="" name="approval_description" rows="4" cols="40"><?php echo $row["approval_description"] ?></textarea>
+                                <input type="date" hidden="true" name="approval_date" value="<?php echo ($row["approval_date"] == ''?Date('Y-m-d'):$row["approval_date"]) ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -281,7 +285,7 @@
                                 Payment (LKR) :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="payment" id="payment" value="<?php echo $row["payment"] ?>" />
+                                <input type="text" name="payment" id="payment" value="<?php echo $row["payment"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -390,8 +394,12 @@
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
             var yyyy = today.getFullYear();
-            var max_dispatch_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
-            document.getElementById("dispatch_date").setAttribute("max", max_dispatch_date);
+            var today_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("dispatch_date").setAttribute("max", today_date);
+            document.getElementById("dispatch_date").setAttribute("min", today_date);
+
+            document.getElementById("payment_date").setAttribute("max", today_date);
+            document.getElementById("payment_date").setAttribute("min", today_date);
         </script>
 
     </body> 
