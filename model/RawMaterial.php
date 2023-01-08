@@ -40,28 +40,26 @@
             $tempFileName = $_FILES["image"]["tmp_name"];
             $result = move_uploaded_file($tempFileName,$fileTarget);
             $this->quantityInStock = 0;
+            if($this->approvalDate == ''){
+                $this->approvalDate = NULL;
+            }
+            if($this->fashionDesignerID == ''){
+                $this->fashionDesignerID = NULL;
+            }
+            if($this->supplierID == ''){
+                $this->supplierID = NULL;
+            }
             if($result) { 
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
-                $sql = "INSERT INTO raw_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date,quantity_in_stock,supplier_id,fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
+                $sql = "INSERT INTO raw_material (name, size, measuring_unit, image, description, manager_approval, approval_description, approval_date, quantity_in_stock, supplier_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT material_id FROM raw_material WHERE name = '$this->name')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
+                    mysqli_stmt_bind_param($stmt, "ssssssssdii", $this->name, $this->size, $this->measuringUnit, $newImageName, $this->description, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->quantityInStock, $this->supplierID, $this->fashionDesignerID);
                     mysqli_stmt_execute($stmt);
                     $this->materialID = $conn->insert_id;
                     if($this->materialID == 0){
                         echo "Sorry ! That material name already exists.";
                     }else{
-                        /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
-                        echo "New raw material was added successfully";
-                        echo "<table>";
-                        echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
-                        echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                        echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                        echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                        echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
-                        echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                        echo "</table>";
-                        echo "</div></center>"; */
                         ?><script>
                         alert("New raw material was saved successfully");
                         window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -76,6 +74,7 @@
             
             $stmt->close(); 
             $conn->close(); 
+
         }
 
         public function view(){
@@ -158,7 +157,30 @@
         }
 
         public function delete(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->materialID = $_POST["material_id"];
+            $sql = "DELETE FROM raw_material WHERE material_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "s", $this->materialID);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    ?><script>
+                        alert("Sorry ! That material can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
+                }else{
+                    ?><script>
+                        alert("Material was deleted successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close();
         }
 
         public function addRawMaterial() {

@@ -129,7 +129,30 @@
         }
         
         public function delete(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->employeeID = $_POST["employee_id"];
+            $sql = "DELETE FROM employee WHERE employee_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "s", $this->employeeID);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    ?><script>
+                        alert("Sorry ! That employee can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
+                }else{
+                    ?><script>
+                        alert("Employee was deleted successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
 
 
@@ -149,6 +172,11 @@
             $row = $this->view();
             return $row;
         }
+
+        public function deleteEmployee() {
+            $this->delete();
+        }
+
         public function editSelfProfile() {
             $this->update();
         }

@@ -48,8 +48,8 @@
                 }else{
                     ?><script>alert("Customer was added successfully");
                         alert("Check email inbox for verification");
-                    </script><?php
-                    
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php             
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -127,8 +127,32 @@
             $stmt->close(); 
             $conn->close(); 
         }
-        public function delete(){
 
+        public function delete(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->customerID = $_POST["customer_id"];
+            $sql = "DELETE FROM customer WHERE customer_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "s", $this->customerID);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    ?><script>
+                        alert("Sorry ! That customer can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
+                }else{
+                    ?><script>
+                        alert("Customer was deleted successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
 
 
@@ -153,9 +177,15 @@
             $row = $this->view();
             return $row;
         }
-        public function editSelfProfile() {
-            
+
+        public function deleteCustomer() {
+            $this->delete();
         }
+
+        public function editSelfProfile() {
+            $this->update();
+        }
+
         public function signUp(){
             $this->add();
         }

@@ -103,6 +103,7 @@
                 echo "Sorry !!! There was an error in uploading your file";			
             }
         }
+
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -122,6 +123,7 @@
             }
             mysqli_close($conn);
         }
+
         public function update(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -212,7 +214,44 @@
 
 
         public function delete(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->supplierID = $_POST["supplier_id"];
+            $sql = "DELETE FROM supplier WHERE supplier_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                $sql_quotation = "SELECT * FROM raw_material_quotation where supplier_id='$this->supplierID'";
+                $path = mysqli_query($conn, $sql_quotation);
+                $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
+                if($quotation_result = mysqli_query($conn, $sql_quotation)){
+                    if(mysqli_num_rows($quotation_result) > 0){
+                        ?><script>
+                        alert("Sorry ! That supplier can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
+                    }else{
+                        $sql_delete_material = "DELETE FROM material_supplier WHERE supplier_id = '$this->supplierID'";
+                        $conn->query($sql_delete_material);
+                        mysqli_stmt_bind_param($stmt, "s", $this->supplierID);
+                        mysqli_stmt_execute($stmt);
+                        $affectedRows = mysqli_stmt_affected_rows($stmt);
+                        if($affectedRows == -1){
+                            ?><script>
+                                alert("Sorry ! That supplier can't be deleted.");
+                                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php
+                        }else{
+                            ?><script>
+                                alert("Supplier was deleted successfully");
+                                window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php
+                        }
+                    }
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close(); 
         }
 
 
@@ -228,6 +267,11 @@
             $row = $this->view();
             return $row;
         }
+
+        public function deleteSupplier() {
+            $this->delete();
+        }
+
         public function editSelfProfile() {
             $this->update();
         }

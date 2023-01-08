@@ -30,8 +30,10 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                    <form method="post" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="employee/delete">
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Delete employee</h2>
                         </center>

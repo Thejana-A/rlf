@@ -7,14 +7,6 @@
         <title>Add raw material</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <script>
-            function setApprovalDate() {      
-                var today = new Date()
-                var day = today.getDate();
-                var month = today.getMonth() + 1;
-                var year = today.getFullYear();
-                var approvalDate = year+"-"+month+"-"+day;
-                document.getElementById("approval_date").value = approvalDate;
-            }
             function validateForm(){
                 var manager_approval = document.forms["rawMaterialForm"]["manager_approval"].value;
                 if(manager_approval == ""){
@@ -120,7 +112,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <input type="date" hidden="true" name="approval_date" id="approval_date" />
+                            <input type="date" hidden="true" name="approval_date" id="approval_date" value="<?php echo Date('Y-m-d'); ?>" />
                         </div>
                         <div class="form-row">
                             <div class="form-row-submit">

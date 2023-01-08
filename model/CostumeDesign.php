@@ -263,7 +263,44 @@
         }
 
         public function delete(){
-
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->designID = $_POST["design_id"];
+            $sql = "DELETE FROM costume_design WHERE design_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                $sql_quotation = "SELECT * FROM design_quotation where design_id='$this->designID'";
+                $path = mysqli_query($conn, $sql_quotation);
+                $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
+                if($quotation_result = mysqli_query($conn, $sql_quotation)){
+                    if(mysqli_num_rows($quotation_result) > 0){
+                        ?><script>
+                        alert("Sorry ! That costume can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
+                    }else{
+                        $sql_delete_material = "DELETE FROM design_material WHERE design_id = '$this->designID'";
+                        $conn->query($sql_delete_material);
+                        mysqli_stmt_bind_param($stmt, "s", $this->designID);
+                        mysqli_stmt_execute($stmt);
+                        $affectedRows = mysqli_stmt_affected_rows($stmt);
+                        if($affectedRows == -1){
+                            ?><script>
+                                alert("Sorry ! That costume can't be deleted.");
+                                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php
+                        }else{
+                            ?><script>
+                                alert("Costume was deleted successfully");
+                                window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php
+                        }
+                    }
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close();
         }
 
         public function addDesign() {
@@ -278,6 +315,7 @@
             $row = $this->view();
             return $row;
         }
+
         public function deleteDesign() {
             $this->delete();
         }
