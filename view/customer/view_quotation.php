@@ -196,6 +196,7 @@ if (isset($_GET['quotation_id'])) {
             $row = mysqli_fetch_array($result);
 
             $request_date = $row["request_date"];
+            $manager_approval = $row["manager_approval"];
             
             
         }else {
@@ -208,7 +209,7 @@ if (isset($_GET['quotation_id'])) {
     ?>
 
 <?php
-    $sql_costume_list = "SELECT * FROM costume_design INNER JOIN design_quotation WHERE design_quotation.quotation_id = $quotation_id AND design_quotation.design_id=costume_design.design_id;";
+    $sql_costume_list = "SELECT * FROM costume_design INNER JOIN design_quotation INNER JOIN costume_quotation WHERE design_quotation.quotation_id = $quotation_id AND design_quotation.design_id=costume_design.design_id AND costume_quotation.quotation_id = $quotation_id;";
     $path = mysqli_query($conn, $sql);
     if($result_costume_list = mysqli_query($conn, $sql_costume_list)){
         if(mysqli_num_rows($result_costume_list) > 0){
@@ -216,6 +217,10 @@ if (isset($_GET['quotation_id'])) {
             $costume_list .= "<tr>";
             $costume_list .= "<th style='padding: 5px;'>Size</th>";
             $costume_list .= "<th style='padding-left: 20px;'>Quantity</th>";
+            if(($row["manager_approval"] == "approve")){
+                $costume_list .= "<th >Price</th>";
+            }
+            
             $costume_list .= "</tr>";
             
             while ($row = $result_costume_list->fetch_assoc()){
@@ -225,8 +230,14 @@ if (isset($_GET['quotation_id'])) {
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
                 $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' value='".$row["quantity"]."' style='width: 40%'  ></td>";
+                if(($row["manager_approval"] == "approve")){
+                    $costume_list .= "<td style='padding-left: 20px;'><input type='text' name='final_price[]' style='width: 80%' disabled value='".$row["final_price"]."'></td>";
+                }
+
                 $costume_list .= "</tr>";
-            }     
+
+            }
+   
             $costume_list .= "</table>";
         }else {
             echo "0 results";
@@ -384,14 +395,34 @@ if (isset($_GET['quotation_id'])) {
                     </tr>
                 </table> -->
                 <?php echo $costume_list; ?>
-
-                <button type="submit" onclick="" class="updatebtn" name="update">Update</button>
+                <?php             
+                    if(( $manager_approval != "approve")){
+                        echo "<button type='submit' onclick='' class='updatebtn' name='update'>Update</button>";
+                    }  
+                ?>
                 
               </form>
             </center>
         </div>
         
     </div>
+    <?php             
+    if(( $manager_approval == "approve")){  
+    echo "<div class='ViewRow'>" ;
+        echo "<div class='box'>";
+            echo "<form action='#'>";
+                echo "<label for='fname'>Order Deadline :</label>";
+                echo "<input type='text' id='fname' name='fname' style='width: 100%;'>";
+                echo "<br />";
+                echo "<br />";
+                echo "<center>";
+                echo "<input type='submit' value='Place Order' style='width: 50%;'>";
+                echo "</center>";
+              echo "</form>";
+        echo "</div>";
+    echo "</div>";
+    }
+    ?>
     <?php
     include "footer.php";
     ?>

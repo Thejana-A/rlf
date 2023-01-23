@@ -198,7 +198,7 @@ if(($_SESSION["customer_id"]=="")){
                         <a href="customer_home.php" target="iframe_a">Home</a>
                         <a href="#">Notification</a>
                         <a href="view_all_quotation.php" target="iframe_a">View All Quotation</a>
-                        <a href="view_all_order.html" target="iframe_a">View All Order</a>
+                        <a href="view_all_order.php" target="iframe_a">View All Order</a>
                     </div>
 
                     <div id="main">

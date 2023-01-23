@@ -60,7 +60,7 @@
                 $costume_list .= "<td style='padding: 5px;'>".$row["name"]."</td>";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
-                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' style='width: 40%'></td>";
+                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' required style='width: 40%'></td>";
                 $costume_list .= "</tr>";
             }     
             $costume_list .= "</table>";

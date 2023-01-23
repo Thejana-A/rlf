@@ -53,12 +53,13 @@
                         while ($row = mysqli_fetch_array($result)) {
 
                      ?>
-
+                    
                     <div class="item-data-row">
+                        <?php $class = ($row["manager_approval"]=="approve")?"green":"grey"; ?>
                         <span><?php echo $row['quotation_id']; ?></span>
                         <span><?php echo $row['request_date']; ?></span>
                         <span><?php echo $row['first_name'] ?></span>
-                        <a href="view_quotation.php?quotation_id=<?php echo $row['quotation_id']; ?>" class="grey">View</a>
+                        <a href="view_quotation.php?quotation_id=<?php echo $row['quotation_id']; ?>" class="<?php echo $class ?>" >View</a>
                         
                         <hr />
                     </div>
@@ -68,41 +69,14 @@
                 }
 
             ?> 
-                    <div class="item-data-row">
+                    <!--<div class="item-data-row">
                         <span>1</span>
                         <span>2022-11-11</span>
                         <span>Kamal Perera</span>
                         <a href="view_approve_quotation.html" class="green">View</a>
                         <hr />
-                    </div>
-                    <!--<div class="item-data-row">
-                        <span>Q003</span>
-                        <span>2022-10-12</span>
-                        <span>John Perera</span>
-                        <a href="view_quotation.html" class="red">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>Q004</span>
-                        <span>2022-11-11</span>
-                        <span>Harry petter</span>
-                        <a href="view_approve_quotation.html" class="green">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>Q005</span>
-                        <span>2022-11-01</span>
-                        <span>Kamal Perera</span>
-                        <a href="view_quotation.html" class="grey">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>Q006</span>
-                        <span>2022-10-06</span>
-                        <span>Nimal Dias</span>
-                        <a href="view_approve_quotation.html" class="green">View</a>
-                        <hr />
                     </div>-->
+
 
                 </div>
             
