@@ -181,6 +181,7 @@ if (isset($_GET['quotation_id'])) {
 
 //include "db_conn.php";
     session_start();
+    $total_price = 0;
     $sname= "localhost";
     $unmae= "root";
     $password = "";
@@ -216,28 +217,50 @@ if (isset($_GET['quotation_id'])) {
             $costume_list = "<table>";
             $costume_list .= "<tr>";
             $costume_list .= "<th style='padding: 5px;'>Size</th>";
-            $costume_list .= "<th style='padding-left: 20px;'>Quantity</th>";
+            $costume_list .= "<th style='padding-left: 5px;'>Quantity</th>";
             if(($row["manager_approval"] == "approve")){
-                $costume_list .= "<th >Price</th>";
+                $costume_list .= "<th style='padding-left: 5px;'>Unit Price</th>";
+                $costume_list .= "<th style='padding-left: 5px;'>Price</th>";
             }
             
             $costume_list .= "</tr>";
             
             while ($row = $result_costume_list->fetch_assoc()){
                 //echo $row["name"]."<br>";
+                
+                $unit_price = $row["final_price"];
+                $quantity = $row["quantity"];
                 $costume_list .= "<tr>";
                 $costume_list .= "<td style='padding: 5px;'>".$row["name"]."</td>";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
-                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' value='".$row["quantity"]."' style='width: 40%'  ></td>";
+                
                 if(($row["manager_approval"] == "approve")){
-                    $costume_list .= "<td style='padding-left: 20px;'><input type='text' name='final_price[]' style='width: 80%' disabled value='".$row["final_price"]."'></td>";
+                    $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' value='".$row["quantity"]."' style='width: 40%' disabled ></td>";
+                    $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$unit_price."'></td>";
+                    $price = $unit_price * $quantity;
+                    $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$price."'></td>";
+                    $total_price= $total_price+$price;
+                }
+                else{
+                    $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' value='".$row["quantity"]."' style='width: 40%'  ></td>";
+
                 }
 
                 $costume_list .= "</tr>";
+                
 
             }
-   
+            
+            /*if(($row["manager_approval"] == "approve")){*/
+            $costume_list .= "<tr>";
+            $costume_list .= "<td style='padding-left: 5px;'><b>Total Price</b></td>";
+            $costume_list .= "<td style='padding-left: 5px;'></td>";
+            $costume_list .= "<td style='padding-left: 5px;'></td>";
+            $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$total_price."'></td>";
+            $costume_list .= "</tr>";
+           /* }*/
+
             $costume_list .= "</table>";
         }else {
             echo "0 results";
@@ -397,7 +420,7 @@ if (isset($_GET['quotation_id'])) {
                 <?php echo $costume_list; ?>
                 <?php             
                     if(( $manager_approval != "approve")){
-                        echo "<button type='submit' onclick='' class='updatebtn' name='update'>Update</button>";
+                        echo "<input type='submit' class='updatebtn' name='update' value='Edit'>";
                     }  
                 ?>
                 
@@ -412,7 +435,7 @@ if (isset($_GET['quotation_id'])) {
         echo "<div class='box'>";
             echo "<form action='#'>";
                 echo "<label for='fname'>Order Deadline :</label>";
-                echo "<input type='text' id='fname' name='fname' style='width: 100%;'>";
+                echo "<input type='date' id='fname' name='fname' style='width: 100%;'>";
                 echo "<br />";
                 echo "<br />";
                 echo "<center>";

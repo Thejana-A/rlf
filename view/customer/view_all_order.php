@@ -54,11 +54,17 @@
                          ?>
                         
                         <div class="item-data-row">
-                            <?php $class = ($row["manager_approval"]=="approve")?"green":"grey"; ?>
+                            <?php $class = ($row["order_status"]=="reject")?"red":(($row["order_status"]== NULL)?"grey":"green");
+                             ?>
                             <span><?php echo $row['order_id']; ?></span>
                             <span><?php echo $row['order_placed_on']; ?></span>
-                            <span><?php echo $row['order_status'] ?></span>
-                            <a href="view_quotation.php?quotation_id=<?php echo $row['quotation_id']; ?>" class="<?php echo $class ?>" >View</a>
+                            <span><?php if($row["order_status"]==NULL){
+                                echo "pending";
+                            }
+                            ?>
+                            <?php echo $row['order_status']; ?></span>
+                            
+                            <a href="view_order.php?order_id=<?php echo $row['order_id']?>&quotation_id=<?php echo $row['quotation_id']?>" class="<?php echo $class ?>" >View</a>
                             
                             <hr />
                         </div>
@@ -97,11 +103,12 @@
                         <a href="view_approve_order.html" class="green">View</a>
                         <hr />
                     </div>
+                    -->
                     <div class="item-data-row">
                         <span>O005</span>
                         <span>2022-11-01</span>
                         <span>Kamal Perera</span>
-                        <a href="view_order.html" class="grey">View</a>
+                        <a href="view_order.php" class="grey">View</a>
                         <hr />
                     </div>
                     <div class="item-data-row">
@@ -110,7 +117,7 @@
                         <span>Nimal Dias</span>
                         <a href="view_approve_order.html" class="green">View</a>
                         <hr />
-                    </div>-->
+                    </div>
                 </div>
             
         </div>
