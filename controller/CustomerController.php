@@ -11,18 +11,25 @@
         case "manager_view":
             //$customerModel = new Customer($_POST); 
             $data = $customerModel->viewCustomer();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             if(isset($_POST['edit'])){ 
-                header("location: http://localhost/rlf/view/manager/edit_customer.php?data[]=$row");
+                //header("location: http://localhost/rlf/view/manager/edit_customer.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/edit_customer.php?data=true");
             }else if(isset($_POST['delete'])){
-                header("location: http://localhost/rlf/view/manager/delete_customer.php?data[]=$row");
-            }
+                //header("location: http://localhost/rlf/view/manager/delete_customer.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/delete_customer.php?data=true");
+            } 
             break; 
         case "merchandiser_view":
             //$customerModel = new Customer($_POST); 
             $data = $customerModel->viewCustomer();
-            $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/merchandiser/view_customer.php?data[]=$row");
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/merchandiser/view_customer.php?data[]=$row");
+            header("location: http://localhost/rlf/view/merchandiser/view_customer.php?data=true");
             break;
         case "update":
             $customerModel->updateCustomer();

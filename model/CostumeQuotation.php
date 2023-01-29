@@ -35,18 +35,16 @@
                 if($this->quotationID == 0){
                     echo "Sorry! Quotation couldn't be created.";
                 }else{
-                    /*echo "New costume quotation was created successfully";
-                    echo "<table>";
-                    echo "<tr><td>Quotation ID </td><td>: $this->quotationID </td></tr>";
-                    echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>"; 
-                    echo "<tr><td>Request date </td><td>: $this->requestDate </td></tr>";
-                    echo "</table>";*/
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
-                    $designQuotationModel->insertQuantityPrice();
+                    $designQuotationModel->insertQuantityPrice(); 
+                    date_default_timezone_set("Asia/Calcutta");
+                    $notification_message = "New costume quotation - ".$this->quotationID." was created";
+                    $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."');";
+                    $conn->query($sql_notification); 
                     ?><script>
                     alert("New costume quotation was created successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
-                    </script><?php        
+                    </script><?php
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -74,6 +72,10 @@
                     $conn->query($sql_reset_quantity);
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
+                    date_default_timezone_set("Asia/Calcutta");
+                    $notification_message = "Costume quotation - ".$this->quotationID." was updated";
+                    $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."');";
+                    $conn->query($sql_notification);
                     ?><script>
                     alert("Costume quotation was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -105,6 +107,47 @@
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             } 
             mysqli_close($conn); 
+        }
+
+        public function deleteCostumeQuotation(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->quotationID = $_POST["quotation_id"];
+            $sql = "DELETE FROM costume_quotation WHERE quotation_id = ?";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                $sql_quotation = "SELECT manager_approval FROM costume_quotation where quotation_id='$this->quotationID'";
+                $path = mysqli_query($conn, $sql_quotation);
+                $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
+                if($quotation_result = mysqli_query($conn, $sql_quotation)){
+                    if(($quotation_result["manager_approval"] == "approve")||($quotation_result["manager_approval"] == "reject")){
+                        ?><script>
+                        alert("Sorry ! That quotation can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
+                    }else{
+                        $sql_delete_costumes = "DELETE FROM design_quotation WHERE quotation_id = '$this->quotationID'";
+                        $conn->query($sql_delete_costumes);
+                        mysqli_stmt_bind_param($stmt, "s", $this->quotationID);
+                        mysqli_stmt_execute($stmt);
+                        $affectedRows = mysqli_stmt_affected_rows($stmt);
+                        if($affectedRows == -1){
+                            ?><script>
+                                alert("Sorry ! That quotation can't be deleted.");
+                                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php
+                        }else{
+                            ?><script>
+                                alert("Quotation was deleted successfully");
+                                window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php
+                        }
+                    }
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close();
         }
 
     }

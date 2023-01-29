@@ -5,7 +5,7 @@
     
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Customers</title>
+        <title>Employees</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php

@@ -7,14 +7,17 @@
         <title>Edit costume design</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php   
-            $conn = new mysqli("localhost", "root", "", "rlf");
-        
+            //$conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }else{
 
@@ -24,7 +27,7 @@
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                 } else {
-                echo "0 results";
+                    echo "0 results";
                 }
             }
         

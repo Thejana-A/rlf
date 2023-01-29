@@ -7,6 +7,103 @@
         <title>Costume orders</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
+        <?php 
+            require_once('../../model/DBConnection.php');
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            if(isset($_POST["search"])){
+                $searchbar = $_POST["searchbar"];
+                $minOrderPlacedOn = $_POST["min_order_placed_on"];
+                $maxOrderPlacedOn = $_POST["max_order_placed_on"];
+                $minExpectedDeliveryDate = $_POST["min_expected_delivery_date"];
+                $maxExpectedDeliveryDate = $_POST["max_expected_delivery_date"];
+                if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on <= '$maxOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on >= '$minOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date <= '$maxExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND expected_delivery_date <= '$maxExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on >= '$minOrderPlacedOn' AND expected_delivery_date <= '$maxExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on >= '$minOrderPlacedOn' AND order_placed_on <= '$maxOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND order_placed_on <= '$maxOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND order_placed_on >= '$minOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date <= '$maxExpectedDeliveryDate' AND order_placed_on <= '$maxOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn == "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND expected_delivery_date <= '$maxExpectedDeliveryDate' AND order_placed_on >= '$minOrderPlacedOn');";
+                }else if(($minExpectedDeliveryDate == "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on >= '$minOrderPlacedOn' AND order_placed_on <= '$maxOrderPlacedOn' AND expected_delivery_date <= '$maxExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate == "")&&($minOrderPlacedOn != "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (order_placed_on >= '$minOrderPlacedOn' AND order_placed_on <= '$maxOrderPlacedOn' AND expected_delivery_date >= '$minExpectedDeliveryDate');";
+                }else if(($minExpectedDeliveryDate != "")&&($maxExpectedDeliveryDate != "")&&($minOrderPlacedOn == "")&&($maxOrderPlacedOn != "")){
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND expected_delivery_date <= '$maxExpectedDeliveryDate' AND order_placed_on <= '$maxOrderPlacedOn');";
+                }else{
+                    $search_sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND (order_id LIKE '%$searchbar%' OR order_status LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minExpectedDeliveryDate' AND expected_delivery_date <= '$maxExpectedDeliveryDate' AND order_placed_on >= '$minOrderPlacedOn' AND order_placed_on <= '$maxOrderPlacedOn');";
+                }
+
+                $search_output = "";
+                $output = "";
+                if($search_result = mysqli_query($conn, $search_sql)){
+                    if(mysqli_num_rows($search_result) > 0){
+                        while($search_row = mysqli_fetch_array($search_result)){
+                            $class = ($search_row["quality_status"]=="good")?"green":(($search_row["quality_status"]=="bad")?"red":"grey");
+                            $search_output.= "<div class='item-data-row'>";
+                            $search_output.= "<form method='post' action='../RouteHandler.php'>";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                            $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
+                            $search_output.= "<span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;'>".$search_row["order_status"]."</span><span>".$search_row["order_placed_on"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
+                            //$search_output.= "<input type='submit' class='grey' value='View' />";
+                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
+                            $search_output.= "</tr></table>"; 
+                            $search_output.= "<hr class='manager-long-hr' />";
+                            $search_output.= "</form>";
+                            $search_output.= "</div>";
+                        }   
+                    }else{
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
+                    }
+                }
+            }else{
+                $sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id;";
+                $search_output = "";
+                $output = "";
+                if($result = mysqli_query($conn, $sql)){
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_array($result)){
+                            $class = ($row["quality_status"]=="good")?"green":(($row["quality_status"]=="bad")?"red":"grey");
+                            $output.= "<div class='item-data-row'>";
+                            $output.= "<form method='post' action='../RouteHandler.php'>";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                            $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
+                            $output.= "<span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["order_status"]."</span><span>".$row["order_placed_on"]."</span><span>".$row["expected_delivery_date"]."</span>";
+                            //$output.= "<input type='submit' class='grey' value='View' />";
+                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
+                            $output.= "</tr></table>"; 
+                            $output.= "<hr class='manager-long-hr' />";
+                            $output.= "</form>";
+                            $output.= "</div>";
+                        }
+                    }else {
+                        $output.= "0 results";
+                    }
+                }else{
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                }
+            } 
+
+        ?>
     </head>
 
     <body>
@@ -32,24 +129,24 @@
 
                     <form method="post" action="" class="search-panel">
                         
-                        <input type="text" name="" id="" placeholder="Search" class="text-field" />
-                        <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                        <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
+                        <input type="submit" value="search" name="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
                         <b>Order placed on : </b><br />
                         <div class="search-panel-row">
                             <div class="search-panel-row-left">
-                                From : <input type="date" name="" id="" class="date-field" />
+                                From : <input type="date" name="min_order_placed_on" id="min_order_placed_on" class="date-field" />
                             </div>
                             <div class="search-panel-row-right">
-                                To&nbsp&nbsp : <input type="date" name="" id="" class="date-field" />
+                                To&nbsp&nbsp : <input type="date" name="max_order_placed_on" id="max_order_placed_on" class="date-field" />
                             </div>
                         </div>
                         <b>Expected delivery date : </b><br />
                         <div class="search-panel-row">
                             <div class="search-panel-row-left">
-                                From : <input type="date" name="" id="" class="date-field" />
+                                From : <input type="date" name="min_expected_delivery_date" id="min_expected_delivery_date" class="date-field" />
                             </div>
                             <div class="search-panel-row-right">
-                                To&nbsp&nbsp : <input type="date" name="" id="" class="date-field" />
+                                To&nbsp&nbsp : <input type="date" name="max_expected_delivery_date" id="max_expected_delivery_date" class="date-field" />
                             </div>
                         </div>   
                     </form>
@@ -62,7 +159,14 @@
                             <b>EDD</b>
                             <hr class="manager-long-hr" />
                         </div>
-                        <?php 
+                        <div id="content-list">
+                            <?php 
+                                echo $search_output;
+                                echo $output;
+                                mysqli_close($conn);
+                            ?>
+                        </div>
+                        <?php /*
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
@@ -105,7 +209,7 @@
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                             }
-                            mysqli_close($conn);
+                            mysqli_close($conn); */
                         ?>
                         <!--<div class="item-data-row">
                             <span>John Doe</span>
