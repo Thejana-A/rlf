@@ -65,6 +65,7 @@
                             } 
 
                             foreach($materialQuantity as $material_id => $material_quantity){
+                                $deficient_quantity = (($material_quantity[4]-$material_quantity[3])>=0)?($material_quantity[4]-$material_quantity[3]):0;
                                 echo "<div class='item-data-row'>";
                                 echo "<form method='post' action='../RouteHandler.php'>";
                                 echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/merchandiser_view' />";
@@ -72,7 +73,7 @@
                                 echo "<span>".$material_id." - ".$material_quantity[1]."</span>";
                                 echo "<span style='padding-left:10px;'>".$material_quantity[2]."</span>";
                                 echo "<span>".$material_quantity[3]."</span>";
-                                echo "<span>".($material_quantity[4]-$material_quantity[3])."</span>";
+                                echo "<span>".$deficient_quantity."</span>";
                                 echo "<table class='two-button-table'><tr>";
                                 echo "<td><input type='submit' class='grey' name='edit' value='View' /></td>";
                                 echo "</tr></table>"; 

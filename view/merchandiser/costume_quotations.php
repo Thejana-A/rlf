@@ -62,7 +62,6 @@
                         </div>
                         <?php 
                             $merchandiserID = $_SESSION["employee_id"];
-                            //$merchandiserID = 2;
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
@@ -70,7 +69,7 @@
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
-                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="deny")?"red":"grey");
+                                        $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="reject")?"red":"grey");
                                         echo "<div class='item-data-row'>";
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/merchandiser_view' />";

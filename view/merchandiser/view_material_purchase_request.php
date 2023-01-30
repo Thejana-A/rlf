@@ -8,15 +8,18 @@
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
-            $conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
-            $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id'];
+
+            $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             if($result = mysqli_query($conn, $sql_quotation_material)){
                 $materialCount = 0;
                 $presentMaterialList = "";
@@ -44,9 +47,9 @@
 
             
             if($row["dispatch_date"] == ""){
-                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id'];
+                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             }else{
-                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, quantity_received FROM raw_material, material_price, order_material_received WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id']." AND material_price.material_id = order_material_received.material_id AND order_id = ".$_GET['order_id'];
+                $sql_goods_received_notice = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, quantity_received FROM raw_material, material_price, order_material_received WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id']." AND material_price.material_id = order_material_received.material_id AND order_id = ".$row['order_id'];
             } 
             if($result = mysqli_query($conn, $sql_goods_received_notice)){
                 $goodsReceivedCount = 0;
@@ -122,8 +125,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                    <form method="post" name="materialOrderForm" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material_order/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>View material purchase requests</h2>
                         </center>
@@ -386,6 +391,18 @@
         </div> 
 
         <?php include 'footer.php';?>
-
+        <script>
+            function addLeadingZeros(num, totalLength) {
+                return String(num).padStart(totalLength, '0');
+            }
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; 
+            var yyyy = today.getFullYear();
+            var max_payment_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            var max_dispatch_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("payment_date").setAttribute("max", max_payment_date);
+            document.getElementById("dispatch_date").setAttribute("max", max_dispatch_date);
+        </script>
     </body> 
 </html>

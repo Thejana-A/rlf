@@ -8,12 +8,17 @@
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
             $quotationID = $row["quotation_id"];
-            $conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
         
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
@@ -243,10 +248,11 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "accepted")?'checked':'' ?> value="accepted" /> Accept
+                                            <input type="text" name="order_status" hidden="true" value="<?php echo ($row["order_status"] == "confirmed")?'confirmed':($row["order_status"] == "pending"?'pending':'') ?>" />
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'disabled') ?> value="accepted" /> Accept
                                         </td>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "rejected")?'checked':'' ?> value="rejected" /> Reject
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'disabled') ?> value="rejected" /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -261,10 +267,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "incomplete")?'checked':'' ?> value="incomplete" /> Incomplete
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "incomplete"?'checked':'') ?> value="incomplete" /> Incomplete
                                         </td>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "complete")?'checked':'' ?> value="complete" /> Complete
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "complete"?'checked':'') ?> value="complete" /> Complete
                                         </td>
                                     </tr>
                                 </table>
@@ -278,10 +284,10 @@
                                 <table width="58%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="quality_status" class="input-radio" <?php echo ($row["quality_status"]=="good")?'checked':'disabled' ?> /> Good
+                                            <input type="radio" name="quality_status" class="input-radio" value="good" <?php echo ($row["quality_status"]=="good")?'checked':'' ?> /> Good
                                         </td>
                                         <td>
-                                            <input type="radio" name="quality_status" class="input-radio" <?php echo ($row["quality_status"]=="bad")?'checked':'disabled' ?> /> Bad
+                                            <input type="radio" name="quality_status" class="input-radio" value="bad" <?php echo ($row["quality_status"]=="bad")?'checked':'' ?> /> Bad
                                         </td>
                                     </tr>
                                 </table>

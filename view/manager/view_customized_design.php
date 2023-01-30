@@ -9,16 +9,19 @@
         <?php   
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
             $designID = $row["design_id"];
-            $conn = new mysqli("localhost", "root", "", "rlf");
-        
+            //$conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+            
             $sql_design_material = "SELECT design_material.design_id, raw_material.material_id, name, measuring_unit, quantity, unit_price from design_material inner join raw_material on design_material.material_id = raw_material.material_id where design_material.design_id = '$designID';";
             $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve';";
 
@@ -63,6 +66,7 @@
         ?>
 
         <script>
+            var materialCount = "<?php echo $materialCount; ?>";
             function setOriginalPrice(){
                 var totalPrice = 0;
                 for(let i = 0;i < materialCount;i++){

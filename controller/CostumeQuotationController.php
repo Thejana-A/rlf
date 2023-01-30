@@ -10,13 +10,19 @@
             break;
         case "manager_view":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data[]=$row");
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data[]=$row");
+            header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data=true");
             break;
         case "merchandiser_view":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/merchandiser/view_costume_quotation.php?data[]=$row");
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/merchandiser/view_costume_quotation.php?data[]=$row");
+            header("location: http://localhost/rlf/view/merchandiser/view_costume_quotation.php?data=true");
             break;
         case "manager_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();

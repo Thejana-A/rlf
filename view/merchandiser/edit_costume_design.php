@@ -13,7 +13,8 @@
             }  
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }else{
 
@@ -204,8 +205,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form >
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update_price" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>Price description</h2>
                         </center>
@@ -300,10 +303,22 @@
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' />";
+                                    }
+                                ?>   
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }
+                                ?>   
                             </div>
                         </div>
                         

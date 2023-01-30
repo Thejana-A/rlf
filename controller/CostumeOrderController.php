@@ -11,13 +11,19 @@
             break;
         case "manager_view":
             $data = $costumeOrderModel->viewCostumeOrder();
-            $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/manager/view_costume_order.php?data[]=$row");
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/manager/view_costume_order.php?data[]=$row");
+            header("location: http://localhost/rlf/view/manager/view_costume_order.php?data=true");
             break;
         case "merchandiser_view":
             $data = $costumeOrderModel->viewCostumeOrder();
-            $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data[]=$row");
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data[]=$row");
+            header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data=true");
             break;
         case "update":
             $costumeOrderModel->updateCostumeOrder();

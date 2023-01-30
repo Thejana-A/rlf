@@ -11,11 +11,15 @@
         case "manager_view":
             //$employeeModel = new Employee($_POST); 
             $data = $employeeModel->viewEmployee();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             if(isset($_POST['edit'])){ 
-                header("location: http://localhost/rlf/view/manager/edit_employee.php?data[]=$row");
+                //header("location: http://localhost/rlf/view/manager/edit_employee.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/edit_employee.php?data=true");
             }else if(isset($_POST['delete'])){
-                header("location: http://localhost/rlf/view/manager/delete_employee.php?data[]=$row");
+                //header("location: http://localhost/rlf/view/manager/delete_employee.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/edit_employee.php?data=true");
             }
             break;
         case "update":
