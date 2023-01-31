@@ -221,7 +221,15 @@
         <div class="box" style="display: block;">
             <center>
             <div class="section-header text-center">
-                <h3 style="color: red;">Payment ..!</h3>
+                <?php
+                    if($order_status == "confirmed"){
+                        echo "<h3 style='color: red;'>Payment..!</h3>";
+                    }else if($order_status == "complete"){
+                        echo "<h3 style='color: red;'>Your Order is Completed..!</h3>";
+                    }else if($order_status == "reject"){
+                        echo "<h3 style='color: red;'>Your Order is Rejected..!</h3>";
+                    }
+                ?>
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />

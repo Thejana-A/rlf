@@ -67,20 +67,18 @@
                     $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='text' name='quantity[]' value='".$row["quantity"]."' style='width: 40%'  ></td>";
 
                 }
-
                 $costume_list .= "</tr>";
-                
-
             }
             
-            /*if(($row["manager_approval"] == "approve")){*/
-            $costume_list .= "<tr>";
-            $costume_list .= "<td style='padding-left: 5px;'><b>Total Price</b></td>";
-            $costume_list .= "<td style='padding-left: 5px;'></td>";
-            $costume_list .= "<td style='padding-left: 5px;'></td>";
-            $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$total_price."'></td>";
-            $costume_list .= "</tr>";
-           /* }*/
+            //if(($row["manager_approval"] == "approve")){
+                $costume_list .= "<tr>";
+                $costume_list .= "<td style='padding-left: 5px;'><b>Total Price</b></td>";
+                $costume_list .= "<td style='padding-left: 5px;'></td>";
+                $costume_list .= "<td style='padding-left: 5px;'></td>";
+                $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$total_price."'></td>";
+                $costume_list .= "</tr>";
+            //}
+            
 
             $costume_list .= "</table>";
         }else {
