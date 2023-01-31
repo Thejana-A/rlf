@@ -1,8 +1,8 @@
 <?php 
     session_start();    
     include "db_conn.php";
-    
-    $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id";
+    $customerID =$_SESSION["customer_id"];
+    $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID'";
     $result = mysqli_query($conn, $sql);
     
 ?>
@@ -74,50 +74,6 @@
                     }
     
                 ?> 
-
-                    <!--<div class="item-data-row">
-                        <span>O001</span>
-                        <span>2022-10-01</span>
-                        <span>John Doe</span>
-                        <a href="view_order.html" class="grey">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>O002</span>
-                        <span>2022-10-21</span>
-                        <span>Selena Gomez</span>
-                        <a href="view_order.html" class="grey">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>O003</span>
-                        <span>2022-10-12</span>
-                        <span>John Perera</span>
-                        <a href="view_reject_order.html" class="red">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>O004</span>
-                        <span>2022-11-11</span>
-                        <span>Harry petter</span>
-                        <a href="view_approve_order.html" class="green">View</a>
-                        <hr />
-                    </div>
-                    -->
-                    <div class="item-data-row">
-                        <span>O005</span>
-                        <span>2022-11-01</span>
-                        <span>Kamal Perera</span>
-                        <a href="view_order.php" class="grey">View</a>
-                        <hr />
-                    </div>
-                    <div class="item-data-row">
-                        <span>O006</span>
-                        <span>2022-10-06</span>
-                        <span>Nimal Dias</span>
-                        <a href="view_approve_order.html" class="green">View</a>
-                        <hr />
-                    </div>
                 </div>
             
         </div>

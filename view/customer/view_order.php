@@ -26,6 +26,22 @@
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
     }
 
+    $sql = "SELECT * FROM costume_order WHERE costume_order.order_id = $order_id";
+    $path = mysqli_query($conn, $sql);
+    if($result = mysqli_query($conn, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result);
+
+            $order_deadline = $row["expected_delivery_date"];
+            $order_status = $row["order_status"];
+
+        }else {
+            echo "0 results";
+        } 
+    }else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+    }
+
     ?>
 
 <?php
@@ -37,10 +53,9 @@
             $costume_list .= "<tr>";
             $costume_list .= "<th style='padding: 5px;'>Size</th>";
             $costume_list .= "<th style='padding-left: 5px;'>Quantity</th>";
-            if(($row["manager_approval"] == "approve")){
-                $costume_list .= "<th style='padding-left: 5px;'>Unit Price</th>";
-                $costume_list .= "<th style='padding-left: 5px;'>Price</th>";
-            }
+            $costume_list .= "<th style='padding-left: 5px;'>Unit Price</th>";
+            $costume_list .= "<th style='padding-left: 5px;'>Price</th>";
+
             
             $costume_list .= "</tr>";
             
@@ -89,6 +104,25 @@
     }
 
 ?>
+
+<?php
+    $sql = "SELECT  e.first_name, e.contact_no  FROM employee e,costume_quotation c WHERE c.quotation_id = $quotation_id AND c.merchandiser_id = e.employee_id;";
+    $path = mysqli_query($conn, $sql);
+    if($result = mysqli_query($conn, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result);
+            
+            $merchandiser_name =$row['first_name'];
+            $contactno =$row['contact_no'];
+        }else {
+            echo "0 results";
+        } 
+    }else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+    }
+
+?>
+
 <!DOCTYPE html>
 <head>
     <title>View Order</title>
@@ -98,7 +132,7 @@
 <body>
         <div id="breadcrumb">
             <a href="customer_home.php">Home </a> >
-            <a href="view_all_order.html">View All Orders </a> > View Order
+            <a href="view_all_order.php">View All Orders </a> > View Order
         </div>
     <div class="ViewRow">
         <div class="section-header text-center">
@@ -109,35 +143,71 @@
     <div class="ViewRow">
         <div class="box">
             <form action="">
-                <input type="text" name="designname"style="width: 100%;" placeholder="Sport T-shirt" disabled>
+            <?php
+                $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design INNER JOIN design_quotation ON publish_status = 'publish' AND design_quotation.design_id=costume_design.design_id AND design_quotation.quotation_id=$quotation_id;";
+                if($result = mysqli_query($conn, $sql)){
+                    if(mysqli_num_rows($result) > 0){
+                        $row = mysqli_fetch_array($result);
+                        
+                        $costume_name =$row['costume_name'];
+
+                    }else {
+                        echo "0 results";
+                    } 
+                }else{
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                }
+            
+                ?>   
+                
+                <label for="fname">Design Name :</label>
+                <input type="text"  name="design_name" style="width: 100%;" value="<?php echo $costume_name;?>" disabled />
                 <label for="fname">Merchandiser Name :</label>
-                <input type="text"  name="merchandisername"style="width: 100%;" placeholder="Kamal Perera" disabled>
-                <label for="fname">Merchandiser Contact No :</label>
-                <input type="text" name="contacno"style="width: 100%;" placeholder="94 123 456 789" disabled>
+                <input type="text"  name="merchandiser_name"style="width: 100%;" value="<?php echo $merchandiser_name;?>" disabled />
+                <label for="fname">Merchandiser Contact No:</label>
+                <input type="text"  name="contact_no"style="width: 100%;" value="<?php echo $contactno;?>" disabled />
               </form>
         </div>
     </div>
+
+    <?php 
+    $sql = "SELECT * FROM costume_design INNER JOIN design_quotation ON costume_design.design_id = design_quotation.design_id AND design_quotation.quotation_id=$quotation_id;";
+    $path = mysqli_query($conn, $sql);
+    if($result = mysqli_query($conn, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result);
+            $design_name = $row["name"];
+            
+    ?>
     <div class="ViewRow">
         <div class="box">
             <div class="designimage">
-                <img src="../image/lorem_tshirt.PNG">
+                <img src="../front-view-image/<?php echo $row["front_view"]; ?>">
                 <center>Front View</center>
             </div>
             <div class="designimage">
-                <img src="../image/left.PNG">
-                <center>Left View</center>
-            </div>
-            <div class="designimage">
-                <img src="../image/back.PNG">
+                <img src="../rear-view-image/<?php echo $row["rear_view"]; ?>">
                 <center>Back View</center>
             </div>
             <div class="designimage">
-                <img src="../image/right.PNG">
+                <img src="../left-view-image/<?php echo $row["left_view"]; ?>">
+                <center>Left View</center>
+            </div>
+            <div class="designimage">
+                <img src="../right-view-image/<?php echo $row["right_view"]; ?>">
                 <center>Right View</center>
             </div>
         </div>   
     </div>
-    <div class="ViewRow">
+<?php }else {
+            echo "0 results";
+        } 
+    }else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+    }?>
+
+
+    <!--<div class="ViewRow">
         <div class="box">
             <form action="">
                 <label for="fname">Quotation Created On :</label>
@@ -146,58 +216,17 @@
                 <input type="text" id="fname" name="fname"style="width: 100%;" disabled placeholder="2022-11-18">
               </form>
         </div>
-    </div>
+    </div>-->
     <div class="ViewRow">
         <div class="box" style="display: block;">
             <center>
             <div class="section-header text-center">
-                <h3 style="color: red;">Place Order Now ..!</h3>
+                <h3 style="color: red;">Payment ..!</h3>
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />
             <form action="">
-                <!--<table>
-                    <tr>
-                        <th style="padding: 5px; ">Size</th>
-                        <th style="padding-left: 20px;">Quantity</th>
-                        <th >Price</th>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">XS</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XS"style="width: 40%" disabled placeholder="10"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="XSP"style="width: 80%" disabled placeholder="10 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">S</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="S"style="width: 40%" disabled placeholder="5"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="SP"style="width: 80%" disabled placeholder=" 5 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">M</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="M"style="width: 40%" disabled placeholder="10"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="MP"style="width: 80%" disabled placeholder="12 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">L</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="L"style="width: 40%" disabled placeholder="5"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="LP"style="width: 80%" disabled placeholder=" 6 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">XL</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XL"style="width: 40%" disabled placeholder="4"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="XLP"style="width: 80%" disabled placeholder=" 6 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;">XXL</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"><input type="text" id="" name="XXL"style="width: 40%" disabled placeholder="2"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="XXLP"style="width: 80%" disabled placeholder=" 3 000"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 5px;"> Total Price</td>
-                        <td style="padding-left: 20px; display: flex; justify-content: center;"></td>
-                        <td style="padding-left: 20px;"><input type="text" id="" name="totalprice"style="width: 80%" disabled placeholder="32 000"></td>
-                    </tr>
-                </table>-->
+
                 <?php echo $costume_list; ?>
 
 
@@ -207,10 +236,24 @@
     </div>
     <div class="ViewRow">
         <div class="box">
-            <form action="">
+            <form action="payment.html">
                 <label for="fname">Order Deadline :</label>
-                <input type="text" id="fname" name="fname"style="width: 100%;" disabled placeholder="2022-12-20">
-
+                <input type="text" name="order_deadline"style="width: 100%;" disabled value="<?php echo $order_deadline?>">
+                <br />
+                <br />
+                <?php
+                if($order_status == "confirmed"){
+                    echo "<center>";
+                    echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
+                    echo "</center>";
+                }else if($order_status == "reject"){
+                    echo "<label for='reason'>Reason :</label>";
+                    echo "<input type='text' name='reason' style='width: 100%;' disabled >";
+                }else if($order_status == "complete"){
+                    
+                    echo "<input type='text' name='compete' style='width: 100%;' disabled placeholder='You Order is Completed' >";
+                }
+                ?>
               </form>
         </div>
     </div>
