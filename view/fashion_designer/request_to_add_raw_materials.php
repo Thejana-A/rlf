@@ -1,28 +1,34 @@
+<?php
+    error_reporting(E_ERROR | E_PARSE);
+?>
 <?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
-	<head>
-	      <Meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <head>
+          <Meta name="viewpoint" content="width=device-width, initial-scale=1">
               <title> Request to add Raw materials </title>
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
-	</head>
+    </head>
 
 <body>
-	<?php include 'header.php';?>
+    <?php include 'header.php';?>
 
-	<div id="page-body">
+    <div id="page-body">
             <?php include 'leftnav.php';?>
 
-	<div id="page-content">
+    <div id="page-content">
                 <div id="breadcrumb">
                     <a href="#">Welcome </a> >
                     <a href="#">Login </a> >
                     <a href="#">Fashion Designer </a> > Request to add Raw materials
                 </div>
 
-	<div id="form-box">
-                    <form method="post" action="">
+    <div id="form-box">
+                    <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
+                    <input type="text" hidden="true" name="employee_id" value="<?php echo $_SESSION["fashion_designer_id"]; ?>">
+                    
                         <center>
                             <h2>Raw Material Request Form</h2>
                         </center>
@@ -32,7 +38,7 @@
                             Material Type : 
                         </div>
                         <div class="form-row-data">
-                            <input type="text" name="" id="" />
+                            <input type="text" name="name" id="name" required/>
                         </div>
                     </div>
                     <div class="form-row">
@@ -40,7 +46,7 @@
                             Design view : 
                         </div>
                         <div class="form-row-data">
-                            <input type="file" name="" id="" />
+                        <input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg, image/tiff" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -48,12 +54,12 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="" id="">
-                                    <option>XS</option>
+                                <select name="size" id="size">
+                                    <option value="XS">XS</option>
                                     <option>S</option>
                                     <option>M</option>
-				                    <option>L</option>
-				                    <option>XL</option>
+                                    <option>L</option>
+                                    <option>XL</option>
                                     <option>XXL</option>
                                 </select>
                             </div>
@@ -78,7 +84,7 @@
                                Description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="" rows="4" cols="30"></textarea>
+                                <textarea id="" name="description" rows="4" cols="30"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -90,9 +96,9 @@
                             </div>
                         </div> 
                     </form>
-		        </div>
-	        </div>
-	    </div>
+                </div>
+            </div>
+        </div>
                     
 
 
