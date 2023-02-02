@@ -1,4 +1,20 @@
+<?php session_start();
+    error_reporting(E_ERROR | E_PARSE);
+    $sname= "localhost";
+    $unmae= "root";
+    $password = "";
+    $db_name = "rlf";
+    $conn = mysqli_connect($sname, $unmae, $password, $db_name);
 
+    $order_id = $_GET['order_id'];
+    $quotation_id = $_GET['quotation_id'];
+    $total_price = $_GET['total_price'];
+    $costume_name = $_GET['costume_name'];
+
+    $advance_payment = ($total_price*40)/100;
+    $balance_payment = ($total_price-$advance_payment);
+    //print_r($quotation_id);
+?>
 <!DOCTYPE html>
 <head>
     <title>Payment</title>
@@ -17,20 +33,21 @@ padding: 0;">
 <form action="" method="post"  class="payment">
 
     <label for="name"><b>Customer Name</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
+    <input type="text"  value="<?php echo  $_SESSION['first_name']." ".$_SESSION['last_name'] ;?>" name="name" disabled>
 
     <input type="hidden" name="user_id" value="">
+
     <label for="username"><b>Address</b></label>
-    <input type="text" placeholder="" name="address" required>
+    <input type="text" value="<?php echo $_SESSION['city']?>" name="address" disabled>
 
         <label for="email"><b>Contact Number</b></label>
-    <input type="text" placeholder="" name="con" required>
+    <input type="text" value="<?php echo $_SESSION['contact_no']?>" name="con" disabled>
 
     <label for="contact"><b>Design Name</b></label>
-    <input type="text" placeholder="Sport t-shirt" name="designname" required>
+    <input type="text" value="<?php echo $costume_name ?>" name="designname" disabled>
 
-        <label for="address"><b>Price</b></label>
-    <input type="text" placeholder="Rs.32 000.00" name="price" required>
+    <label for="address"><b>Price</b></label>
+    <input type="text" value="Rs <?php echo $advance_payment ?>" name="price" disabled>
 
 
     <br />

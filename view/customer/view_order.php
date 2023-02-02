@@ -34,6 +34,10 @@
 
             $order_deadline = $row["expected_delivery_date"];
             $order_status = $row["order_status"];
+            $advance_payment =$row["advance_payment"];
+            $advance_payment_date = $row["advance_payment_date"];
+            $balance_payment =$row["balance_payment"];
+            $dispatch_date = $row["dispatch_date"];
 
         }else {
             echo "0 results";
@@ -244,7 +248,12 @@
     </div>
     <div class="ViewRow">
         <div class="box">
-            <form action="payment.html">
+        <form action="payment.php">
+                <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+                <input type="hidden" name="quotation_id" value="<?php echo $quotation_id; ?>">
+                <input type="hidden" name="total_price" value="<?php echo $total_price; ?>">
+                <input type="hidden" name="costume_name" value="<?php echo $costume_name; ?>">
+
                 <label for="fname">Order Deadline :</label>
                 <input type="text" name="order_deadline"style="width: 100%;" disabled value="<?php echo $order_deadline?>">
                 <br />
@@ -252,14 +261,27 @@
                 <?php
                 if($order_status == "confirmed"){
                     echo "<center>";
+                    
                     echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
+                   
                     echo "</center>";
                 }else if($order_status == "reject"){
                     echo "<label for='reason'>Reason :</label>";
                     echo "<input type='text' name='reason' style='width: 100%;' disabled >";
                 }else if($order_status == "complete"){
-                    
-                    echo "<input type='text' name='compete' style='width: 100%;' disabled placeholder='You Order is Completed' >";
+                    echo "<center>";
+                    echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Completed' >";
+                    echo "</center>";
+                    echo "<br />";
+                    echo "<br />";
+                    echo "<label for='reason'>Advance Payment :</label>";
+                    echo "<input type='text' name='advance_payment' style='width: 100%;' disabled value= Rs.".$advance_payment." >";
+                    echo "<label for='reason'>Advance payment Date :</label>";
+                    echo "<input type='text' name='reason' style='width: 100%;' disabled value=".$advance_payment_date." >";
+                    echo "<label for='reason'>Balance Payment :</label>";
+                    echo "<input type='text' name='balance_payment' style='width: 100%;' disabled value=Rs.".$balance_payment.">";
+                    echo "<label for='reason'>Dispatch Date :</label>";
+                    echo "<input type='text' name='dispatch_date' style='width: 100%;' disabled value=".$dispatch_date.">";
                 }
                 ?>
               </form>
