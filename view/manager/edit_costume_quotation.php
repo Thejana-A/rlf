@@ -22,9 +22,11 @@
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
+            $sql_costume_order = "SELECT * FROM costume_order WHERE quotation_id = '$quotationID';";  
+            $costume_order_result = mysqli_query($conn, $sql_costume_order);  
             
-            $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";
-                             
+            $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";            
             if($result = mysqli_query($conn, $sql_costume_quotation)){
                 if(mysqli_num_rows($result) > 0){
                     $costumeCount = 0; 
@@ -256,14 +258,31 @@
                                 <textarea name="approval_description" rows="4" cols="40"><?php echo $row["approval_description"]; ?></textarea>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <?php 
+                                    if(mysqli_num_rows($costume_order_result)>0){
+                                        echo "<a style='text-decoration:none;' href='view_costume_order.php?quotation_id=".$row["quotation_id"]."' >View costume order</a>";
+                                    }
+                                ?>
+                            </div>
+                            <div class="form-row-data">
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" name="update_costume_quotation" />
+                                <?php 
+                                    if(mysqli_num_rows($costume_order_result)==0){
+                                        echo "<input type='submit' value='Save' name='update_costume_quotation' />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' name='update_costume_quotation' disabled />";
+                                    }
+                                ?>
                             </div>
                             <div class="form-row-reset">
                                 <?php 
-                                    if(($row["manager_approval"] == "approve")&&($row["valid_till"])>Date("Y-m-d")){
+                                    if(($row["manager_approval"] == "approve")&&($row["valid_till"])>Date("Y-m-d")&&(mysqli_num_rows($costume_order_result)==0)){
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' />";
                                     }else{
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' disabled />";
@@ -294,7 +313,6 @@
             document.getElementById("valid_till").setAttribute("min", min_valid_till);
             document.getElementById("valid_till").setAttribute("max", max_valid_till);
         </script>
-
 
     </body> 
 </html>

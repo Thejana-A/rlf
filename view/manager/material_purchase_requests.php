@@ -62,7 +62,6 @@
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
                             $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
                             $search_output.= "<span class='manager-ID-column'>".$search_row["order_id"]."</span><span style='padding-left:24px;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["expected_delivery_date"]."</span><span>".$search_row["dispatch_date"]."</span>";
-                            //$search_output.= "<input type='submit' class='grey' value='View' />";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $search_output.= "</tr></table>"; 
@@ -87,7 +86,6 @@
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
                             $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
                             $output.= "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span><span>".$row["dispatch_date"]."</span>";
-                            //$output.= "<input type='submit' class='grey' value='View' />";
                             $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $output.= "</tr></table>"; 

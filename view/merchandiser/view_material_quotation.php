@@ -8,17 +8,20 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
             }
 
-            require_once('../../model/database.php');
-            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
-            if($conn->connect_error){
-                die("Connection Faild: ". $conn->connect_error);
-            }
+            $sql_material_purchase_request = "SELECT * FROM raw_material_order WHERE quotation_id = ".$row["quotation_id"].";";  
+            $material_purchase_request_result = mysqli_query($conn, $sql_material_purchase_request);
 
             $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = ".$row["supplier_id"].";";
@@ -110,6 +113,7 @@
                     <form method="post" name="MaterialQuotationForm" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>View raw material quotation</h2>
                         </center>
@@ -247,6 +251,17 @@
                                 <input type="text" hidden="true" name="approval_date" value="<?echo date("Y-m-d"); ?>" />
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <?php 
+                                    if(mysqli_num_rows($material_purchase_request_result)>0){
+                                        echo "<a style='text-decoration:none;' href='view_material_purchase_request.php?quotation_id=".$row["quotation_id"]."' >View material purchase request</a>";
+                                    }
+                                ?>
+                            </div>
+                            <div class="form-row-data">
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-submit">
@@ -260,7 +275,7 @@
                             </div>
                             <div class="form-row-reset">
                                 <?php
-                                    if(($row["supplier_approval"] == "reject")||($row["supplier_approval"] == null)){
+                                    if(($row["supplier_approval"] == "reject")||($row["supplier_approval"] == null)||(mysqli_num_rows($material_purchase_request_result)>0)){
                                         echo "<input type='submit' value='Send purchase request' disabled />";
                                     }else{
                                         echo "<input type='submit' value='Send purchase request' name='add_material_order' />";

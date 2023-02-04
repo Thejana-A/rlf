@@ -69,6 +69,7 @@
                     <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="supplier/add" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Add suppliers</h2>
                         </center>
@@ -156,7 +157,7 @@
                                     require_once('../../model/DBConnection.php');
                                     $connObj = new DBConnection();
                                     $conn = $connObj->getConnection();
-                                    $sql = "SELECT material_id, name FROM raw_material";
+                                    $sql = "SELECT material_id, name FROM raw_material where manager_approval = 'approve'";
                                     if($result = mysqli_query($conn, $sql)){
                                         if(mysqli_num_rows($result) > 0){
                                             echo "<select name='material_id[]' id='material_id' multiple size='2' required>";

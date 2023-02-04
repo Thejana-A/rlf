@@ -15,6 +15,8 @@
         public function insertQuantityReceived(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
+            $sql_delete_material = "DELETE FROM order_material_received WHERE order_id = '$this->orderID'";
+            $conn->query($sql_delete_material);
             for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
                 $sql = "INSERT INTO rlf.order_material_received (order_id, material_id, quantity_received) VALUES (?,?,?);";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -22,11 +24,13 @@
                     mysqli_stmt_execute($stmt);
                     $insertedRow = $conn -> affected_rows;
                     if($insertedRow == -1){
-                        echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+                        ?><script>
+                        alert("Sorry! An error occured");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
                         $sql_update_dispatch_date = "UPDATE raw_material_order SET `dispatch_date` = '$this->dispatchDate' WHERE `order_id` = '$this->orderID'";
                         if ($conn->query($sql_update_dispatch_date) === TRUE) {
-                            //echo "Record updated successfully";
                             ?><script>
                             alert("Goods received notice was saved successfully");
                             window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -34,10 +38,6 @@
                         } else {
                             echo "Error : " . $conn->error;
                         }
-                        /*echo "<br><table>";
-                        echo "<tr><td>Raw material ID </td><td> : ".$this->materialID[$materialCount]."</td></tr>";
-                        echo "<tr><td>Received quantity </td><td> : ".$this->quantityReceived[$materialCount]."</td></tr>";
-                        echo "</table>"; */
                     }	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -47,6 +47,39 @@
             $stmt->close(); 	
             $conn->close(); 
         }
+        /*public function insertQuantityReceived(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
+                $sql = "INSERT INTO rlf.order_material_received (order_id, material_id, quantity_received) VALUES (?,?,?);";
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "iid", $this->orderID, $this->materialID[$materialCount], $this->quantityReceived[$materialCount]);
+                    mysqli_stmt_execute($stmt);
+                    $insertedRow = $conn -> affected_rows;
+                    if($insertedRow == -1){
+                        ?><script>
+                        alert("Sorry! An error occured");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
+                    }else{
+                        $sql_update_dispatch_date = "UPDATE raw_material_order SET `dispatch_date` = '$this->dispatchDate' WHERE `order_id` = '$this->orderID'";
+                        if ($conn->query($sql_update_dispatch_date) === TRUE) {
+                            ?><script>
+                            alert("Goods received notice was saved successfully");
+                            window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php  
+                        } else {
+                            echo "Error : " . $conn->error;
+                        }
+                    }	
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                
+            }	
+            $stmt->close(); 	
+            $conn->close(); 
+        } */
 
         public function viewQuantityReceived(){
             $connObj = new DBConnection();

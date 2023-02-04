@@ -37,6 +37,7 @@
                     <form method="post" name="rawMaterialForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Add raw material</h2>
                         </center>

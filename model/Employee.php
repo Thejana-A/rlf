@@ -393,7 +393,7 @@
                 echo "Please try again";
             }
         }
-        public function requestForgotPassword(){
+        /*public function requestForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "SELECT * from employee where email='$this->email';";
@@ -419,7 +419,102 @@
                 ?><script>alert("Sorry! Your email is invalid");</script><?php
                 echo "Enter your email again";
             }
-        }
+        } */
+        public function requestForgotPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql_employee = "SELECT * from employee where email='$this->email';";
+            $result_employee = $conn->query($sql_employee);
+            $row_employee = $result_employee->fetch_assoc();
+            $sql_customer = "SELECT * from customer where email='$this->email';";
+            $result_customer = $conn->query($sql_customer);
+            $row_customer = $result_customer->fetch_assoc();
+            $sql_supplier = "SELECT * from supplier where email='$this->email';";
+            $result_supplier = $conn->query($sql_supplier);
+            $row_supplier = $result_supplier->fetch_assoc();
+            if($this->email == $row_employee["email"]){
+                $OTP = rand(1000,9999);
+                $message = "Click <a href='http://localhost/rlf/view/merchandiser/reset_forgot_password.php?email=".$this->email."'>here</a> to reset password.";
+                $sendMail = new SendMail($row_employee["first_name"], $row_employee["last_name"], $this->email, $OTP, $message); 
+                $sendMail->sendTheEmail();
+                $sql_update = "UPDATE employee SET email_otp = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($OTP));
+                    mysqli_stmt_execute($stmt);
+                    ?><script>alert("Check your email inbox");</script><?php
+                    echo "Use the OTP code and link in your email to reset your password";
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else if($this->email == $row_customer["email"]){
+                $OTP = rand(1000,9999);
+                $message = "Click <a href='http://localhost/rlf/view/customer/reset_forgot_password.php?email=".$this->email."'>here</a> to reset password.";
+                $sendMail = new SendMail($row_customer["first_name"], $row_customer["last_name"], $this->email, $OTP, $message); 
+                $sendMail->sendTheEmail();
+                $sql_update = "UPDATE customer SET email_otp = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($OTP));
+                    mysqli_stmt_execute($stmt);
+                    ?><script>alert("Check your email inbox");</script><?php
+                    echo "Use the OTP code and link in your email to reset your password";
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else if($this->email == $row_supplier["email"]){
+                $OTP = rand(1000,9999);
+                $message = "Click <a href='http://localhost/rlf/view/supplier/reset_forgot_password.php?email=".$this->email."'>here</a> to reset password.";
+                $sendMail = new SendMail($row_supplier["first_name"], $row_supplier["last_name"], $this->email, $OTP, $message); 
+                $sendMail->sendTheEmail();
+                $sql_update = "UPDATE supplier SET email_otp = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($OTP));
+                    mysqli_stmt_execute($stmt);
+                    ?><script>alert("Check your email inbox");</script><?php
+                    echo "Use the OTP code and link in your email to reset your password";
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry! Your email is invalid");</script><?php
+                echo "Enter your email again";
+            }
+        } 
+        /*public function resetForgotPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "SELECT * from employee where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->emailOTP) == $row["email_otp"]){
+                $sql_update = "UPDATE employee SET password = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    $validValue = 1;
+                    mysqli_stmt_bind_param($stmt, "s", md5($this->password));
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
+                        echo "Please try again later.";
+                    }else{
+                        ?><script>alert("Password was changed successfully");</script><?php
+                        echo "Log in with your new password";
+                    }
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
+                echo "Please try again";
+            } 
+        } */
         public function resetForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -449,6 +544,6 @@
                 ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
                 echo "Please try again";
             } 
-        }
+        } 
     }
 ?>

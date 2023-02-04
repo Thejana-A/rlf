@@ -8,18 +8,23 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-
-            $quotationID = $row["quotation_id"];
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+            
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_costume_order = "SELECT order_id, costume_quotation.quotation_id, customer.customer_id, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no, customer.email, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, advance_payment, advance_payment_date, order_status, quality_status, quality_status_description, balance_payment, order_placed_on, expected_delivery_date, dispatch_date FROM costume_quotation, costume_order, employee, customer WHERE costume_quotation.merchandiser_id = employee.employee_id AND costume_quotation.customer_id = customer.customer_id AND costume_order.quotation_id = costume_quotation.quotation_id AND costume_order.quotation_id = ".$_GET["quotation_id"].";";
+                $result_view_costume_order = mysqli_query($conn, $sql_view_costume_order);
+                $row = mysqli_fetch_array($result_view_costume_order);
+            }
+
+            $quotationID = $row["quotation_id"];
         
             $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";
                              
@@ -341,7 +346,7 @@
                                 Dispatched date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="dispatch_date" id="dispatch_date" value="<?php echo $row["dispatch_date"]; ?>" />
+                                <input type="date" name="dispatch_date" id="dispatch_date" value="<?php echo $row["dispatch_date"]; ?>" <?php echo ($row["quality_status"]=="good")?"":"readonly" ?> />
                             </div>
                         </div>
                         <div class="form-row">

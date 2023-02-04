@@ -20,6 +20,9 @@
                 die("Connection Faild: ". $conn->connect_error);
             }
 
+            $sql_costume_order = "SELECT * FROM costume_order WHERE quotation_id = '$quotationID';";  
+            $costume_order_result = mysqli_query($conn, $sql_costume_order);  
+
             $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";
                              
             if($result = mysqli_query($conn, $sql_costume_quotation)){
@@ -225,6 +228,17 @@
                                 <textarea name="approval_description" rows="4" cols="40" readonly><?php echo $row["approval_description"]; ?></textarea>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <?php 
+                                    if(mysqli_num_rows($costume_order_result)>0){
+                                        echo "<a style='text-decoration:none;' href='view_costume_order.php?quotation_id=".$row["quotation_id"]."' >View costume order</a>";
+                                    }
+                                ?>
+                            </div>
+                            <div class="form-row-data">
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-submit">
@@ -238,7 +252,7 @@
                             </div>
                             <div class="form-row-reset">
                                 <?php 
-                                    if(($row["manager_approval"] == "approve")&&($row["valid_till"])>Date("Y-m-d")){
+                                    if(($row["manager_approval"] == "approve")&&(($row["valid_till"])>Date("Y-m-d"))&&(mysqli_num_rows($costume_order_result)==0)){
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' />";
                                     }else{
                                         echo "<input type='submit' value='Add costume order' name='add_costume_order' disabled />";

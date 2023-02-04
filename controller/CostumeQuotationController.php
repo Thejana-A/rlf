@@ -26,20 +26,26 @@
             break;
         case "manager_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             if(isset($_POST['update_costume_quotation'])){ 
                 $costumeQuotationModel->updateCostumeQuotation();
             }else if(isset($_POST['add_costume_order'])){
-                header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data[]=$row");
+                //header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data[]=$row");
+                header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data=true");
             }
             break;
         case "merchandiser_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             if(isset($_POST['update_costume_quotation'])){ 
                 $costumeQuotationModel->updateCostumeQuotation();
             }else if(isset($_POST['add_costume_order'])){
-                header("location: http://localhost/rlf/view/merchandiser/add_costume_order_onsite.php?data[]=$row");
+                //header("location: http://localhost/rlf/view/merchandiser/add_costume_order_onsite.php?data[]=$row");
+                header("location: http://localhost/rlf/view/merchandiser/add_costume_order_onsite.php?data=true");
             }
             break;
     } 

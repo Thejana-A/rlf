@@ -61,44 +61,48 @@
             if($nicFrontImageResult&&$nicRearImageResult&&$businessCertificateResult) { 
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
-                $OTP = rand(1000,9999);
-                $message = "Click <a href='http://localhost/rlf/view/supplier/verify_email.php?email=".$this->email."'>here</a> for email verification.";
-                $sendMail = new SendMail($this->firstName, $this->lastName, $this->email, $OTP, $message); 
-                $sendMail->sendTheEmail();
-                $sql = "INSERT INTO supplier (first_name, last_name, NIC , email, password , contact_no, NIC_front_image, NIC_rear_image, business_certificate, city, verify_status, email_otp) SELECT ?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $nicFrontImage, $nicRearImage, $businessCertificate, $this->city, $this->verifyStatus, md5($OTP));
-                    mysqli_stmt_execute($stmt);
-                    $this->supplierID = $conn->insert_id;
-                    $publicSupplierID = $this->supplierID;
-                    if($this->supplierID == 0){
-                        echo "Sorry ! That email already exists.";
-                    }else{
-                        /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
-                        echo "New supplier was added";
-                        echo "<table>";
-                        echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
-                        echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-                        echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-                        echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-                        echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-                        echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-                        echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                        echo "</table>";
-                        echo "</div></center>"; */
-                        $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
-                        $materialSupplierModel->insertMaterialSupplied();
-                        ?><script>
-                        alert("Supplier was added successfully");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
-                        </script><?php  
+                $sql_customer = "SELECT * FROM customer where email = '$this->email';";
+                $result_customer = $conn->query($sql_customer);
+                $sql_employee = "SELECT * FROM employee where email = '$this->email';";
+                $result_employee = $conn->query($sql_employee);
+                if(($result_customer->num_rows) > 0){
+                    ?><script>
+                    alert("Sorry ! That email already exists.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php 
+                }else if(($result_employee->num_rows) > 0){
+                    ?><script>
+                    alert("Sorry ! That email already exists.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php 
+                }else{
+                    $OTP = rand(1000,9999);
+                    $message = "Click <a href='http://localhost/rlf/view/supplier/verify_email.php?email=".$this->email."'>here</a> for email verification.";
+                    $sendMail = new SendMail($this->firstName, $this->lastName, $this->email, $OTP, $message); 
+                    $sendMail->sendTheEmail();
+                    $sql = "INSERT INTO supplier (first_name, last_name, NIC , email, password , contact_no, NIC_front_image, NIC_rear_image, business_certificate, city, verify_status, email_otp) SELECT ?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT supplier_id FROM supplier WHERE email = '$this->email')";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $nicFrontImage, $nicRearImage, $businessCertificate, $this->city, $this->verifyStatus, md5($OTP));
+                        mysqli_stmt_execute($stmt);
+                        $this->supplierID = $conn->insert_id;
+                        $publicSupplierID = $this->supplierID;
+                        if($this->supplierID == 0){
+                            echo "Sorry ! That email already exists.";
+                        }else{
+                            $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
+                            $materialSupplierModel->insertMaterialSupplied();
+                            ?><script>
+                            alert("Supplier was added successfully");
+                            window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php  
+                        }
+                    } else {		
+                        echo "Error : ".$sql;			
                     }
-                } else {		
-                    echo "Error : ".$sql;			
+                        
+                    $stmt->close(); 
+                    $conn->close();
                 }
-                    
-                $stmt->close(); 
-                $conn->close();
             } else {		
                 echo "Sorry !!! There was an error in uploading your file";			
             }
@@ -343,5 +347,36 @@
                 echo "Please try again";
             }
         }
+
+        public function resetForgotPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "SELECT * from supplier where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->emailOTP) == $row["email_otp"]){
+                $sql_update = "UPDATE supplier SET password = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    $validValue = 1;
+                    mysqli_stmt_bind_param($stmt, "s", md5($this->password));
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
+                        echo "Please try again later.";
+                    }else{
+                        ?><script>alert("Password was changed successfully");</script><?php
+                        echo "Log in with your new password";
+                    }
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
+                echo "Please try again";
+            } 
+        } 
     }
 ?>

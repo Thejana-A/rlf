@@ -1,4 +1,4 @@
-<?php /*require_once 'redirect_login.php' */ ?>
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,19 +7,22 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
             $quotationID = $row["quotation_id"];
-            $conn = new mysqli("localhost", "root", "", "rlf");
         
-            if($conn->connect_error){
-                die("Connection Faild: ". $conn->connect_error);
-            }
             $sql_costume_quotation = "SELECT costume_design.design_id, name, quantity, unit_price FROM costume_design, design_quotation WHERE design_quotation.design_id = costume_design.design_id AND design_quotation.quotation_id = ".$row["quotation_id"].";";
-                             
+
             if($result = mysqli_query($conn, $sql_costume_quotation)){
                 if(mysqli_num_rows($result) > 0){
                     $costumeCount = 0; 
@@ -62,14 +65,15 @@
                 } 
                 document.getElementById("total_price").value = totalPrice;
                 document.getElementById("total_quantity").value = totalQuantity;
+                document.getElementById("advance_payment").value = (totalPrice/10)*4;
             } 
 
             function checkAdvancePayment(){
                 var advancePayment = document.getElementById("advance_payment").value;
                 var advancePaymentDate = document.getElementById("advance_payment_date").value;
                 var expectedDeliveryDate = document.getElementById("expected_delivery_date").value;
-                if(advancePayment < (totalPrice/2)){
-                    alert("Advance payment should be at least 50% of total order value");
+                if(advancePayment < (totalPrice/10)*4){
+                    alert("Advance payment should be at least 40% of total order value");
                     return false;
                 }else if(advancePayment > totalPrice){
                     alert("Advance payment should be less than total order value");
