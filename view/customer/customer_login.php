@@ -23,7 +23,7 @@ margin: 0;
 padding: 0;">
 
   <form action="../RouteHandler.php" method="post" class="container">
-  <input type="text" hidden="true" name="framework_controller" value="customer/login" />
+  <input type="text" hidden="true" name="framework_controller" value="employee/login" />
 
       <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="200px"/></div>
       <h2>Login</h2></center>

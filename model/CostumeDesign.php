@@ -114,6 +114,16 @@
             }   
         }
 
+            public function addCustomizedDesign(){
+                foreach ($this->size as $size) {
+                    $name = $this->name."-".$size;
+                    //print_r($_POST);
+                    $this->add();
+                }
+                  
+            }
+        
+        
         public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
