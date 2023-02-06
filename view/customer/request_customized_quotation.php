@@ -126,7 +126,7 @@
 
     <div id="form-box">
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                            <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
+                            <input type="text" hidden="true" name="framework_controller" value="costume_design/add_customized_design" />
                             <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                             <center>
                                 <h2>Request Customized Design</h2>
@@ -140,6 +140,22 @@
                                     <input type="text" name="name" id="name" required />
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Size : 
+                                </div>
+                                <div class="form-row-data">
+                                <select name="size[]" multiple required>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                    
+                                </select>
+                                </div>
+                            </div>
 
                             
                             
@@ -148,7 +164,7 @@
                                     Front view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff"  />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -156,7 +172,7 @@
                                     Rear view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff"  />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -164,7 +180,7 @@
                                     Left view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -172,7 +188,7 @@
                                     Right view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff"  />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -184,7 +200,7 @@
                                 </div>
                             </div>
 
-                            <input type="text" hidden="true" name="customized_design_approval" value="approve" />
+                            
 
                             <div class="form-row">
                                 <div class="form-row-submit">

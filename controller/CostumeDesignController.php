@@ -8,6 +8,9 @@
         case "add":
             $costumeDesignModel->addDesign();
             break;
+        case "add_customized_design":
+            $costumeDesignModel->addCustomizedDesign();
+            break;
         case "manager_view":
             $costumeDesignModel = new CostumeDesign($_POST); 
             $data = $costumeDesignModel->viewDesign();
