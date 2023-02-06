@@ -315,7 +315,39 @@
         public function logout() {
             header("location: http://localhost/rlf/view/supplier/login.php");
         }
+        public function resetPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->supplierID = $_POST["supplier_id"];
+            $sql = "SELECT * from supplier where supplier_id = '$this->supplierID';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if(md5($this->password) == $row["password"]){
+                $sql_reset_password = "UPDATE supplier SET password=? WHERE supplier_id='$this->supplierID'";        
+                if ($stmt = mysqli_prepare($conn, $sql_reset_password)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($_POST["new_password"]));
+                    mysqli_stmt_execute($stmt);
+                    $affectedRows = mysqli_stmt_affected_rows($stmt);
+                    if($affectedRows == -1){
+                        ?><script>
+                        alert("Sorry ! Password wasn't updated.")
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
+                    }else{
+                        ?><script>
+                        alert("Password was updated successfully")
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                        </script><?php  
+                    }
+                }
+            }else{
+                ?><script>
+                alert("Sorry ! Your current password is wrong.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
+            } 
 
+        }
 
         public function verifyEmail() {
             $connObj = new DBConnection();
@@ -348,6 +380,33 @@
             }
         }
 
+        public function requestForgotPassword(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $sql = "SELECT * from supplier where email='$this->email';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            if($this->email == $row["email"]){
+                $OTP = rand(1000,9999);
+                $message = "Click <a href='http://localhost/rlf/view/supplier/login/reset_forgot_password.php?email=".$this->email."'>here</a> to reset password.";
+                $sendMail = new SendMail($row["first_name"], $row["last_name"], $this->email, $OTP, $message); 
+                $sendMail->sendTheEmail();
+                $sql_update = "UPDATE supplier SET email_otp = ? WHERE email = '$this->email'";        
+                if ($stmt = mysqli_prepare($conn, $sql_update)) {
+                    mysqli_stmt_bind_param($stmt, "s", md5($OTP));
+                    mysqli_stmt_execute($stmt);
+                    ?><script>alert("Check your email inbox");</script><?php
+                    echo "Use the OTP code and link in your email to reset your password";
+                } else {
+                    echo "Error: <br>" . mysqli_error($conn);
+                } 
+                $stmt->close(); 
+                $conn->close();
+            }else{
+                ?><script>alert("Sorry! Your email is invalid");</script><?php
+                echo "Enter your email again";
+            }
+        }
         public function resetForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -377,6 +436,6 @@
                 ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
                 echo "Please try again";
             } 
-        } 
+        }
     }
 ?>
