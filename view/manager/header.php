@@ -5,7 +5,7 @@
         <center><a href="#"><img src="../icons/rlf_logo.png" /></a></center>
     </span> 
     <span id="logout-button-span">
-        <a href="./login.php" id="logout-button">Logout</a>
+        <a href="../customer/customer_login.php" id="logout-button">Logout</a>
     </span>  
 </div>
 

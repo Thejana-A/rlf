@@ -3,9 +3,11 @@
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     $_SESSION["email"] = "";
     $_SESSION["customer_id"] = "";
+    $_SESSION["username"] = "";
+    $_SESSION["employee_id"] = "";
+    $_SESSION["supplier_id"] = "";
+    $_SESSION["user_type"] = "";
 
-    
-    
 ?>
 <!DOCTYPE html>
 <head>
@@ -24,6 +26,7 @@ padding: 0;">
 
   <form action="../RouteHandler.php" method="post" class="container">
   <input type="text" hidden="true" name="framework_controller" value="employee/login" />
+  <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 
       <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="200px"/></div>
       <h2>Login</h2></center>

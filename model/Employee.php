@@ -274,8 +274,12 @@
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php  
             }  
-            $conn->close();
-            /*$connObj = new DBConnection();
+            $conn->close(); 
+        }
+        
+
+        /*public function login() {   
+            $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $sql = "SELECT * from employee where email='$this->email';";
             $result = $conn->query($sql);
@@ -320,11 +324,11 @@
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php  
             }  
-            $conn->close();   */
-        }
+            $conn->close();   
+        }  */
 
         public function logout() {
-                header("location: http://localhost/rlf/view/merchandiser/login.php");
+                header("location: http://localhost/rlf/view/customer/customer_login.php");
         }
 
         public function resetPassword(){

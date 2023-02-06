@@ -56,7 +56,7 @@
                     }
                     
                 }else {
-                    echo "0 results";
+                    //echo "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
@@ -136,6 +136,9 @@
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="customized_design_approval" value="<?php $row["customized_design_approval"] ?>" />
+                        <input type="text" hidden="true" name="design_approval_date" value="<?php $row["design_approval_date"] ?>" />
+                        <input type="text" hidden="true" name="design_approval_description" value="<?php $row["design_approval_description"] ?>" />
                         <center>
                             <h2>Edit costume design</h2>
                         </center>

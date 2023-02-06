@@ -139,6 +139,7 @@
                             </div>
 
                             <input type="text" hidden="true" name="customized_design_approval" value="approve" />
+                            <input type="text" hidden="true" name="design_approval_date" value="<?php echo Date("Y-m-d") ?>" />
 
                             <div class="form-row">
                                 <div class="form-row-theme">
