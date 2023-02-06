@@ -70,14 +70,14 @@
                 $costume_list .= "</tr>";
             }
             
-            //if(($row["manager_approval"] == "approve")){
+            if($manager_approval == "approve"){
                 $costume_list .= "<tr>";
                 $costume_list .= "<td style='padding-left: 5px;'><b>Total Price</b></td>";
                 $costume_list .= "<td style='padding-left: 5px;'></td>";
                 $costume_list .= "<td style='padding-left: 5px;'></td>";
                 $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$total_price."'></td>";
                 $costume_list .= "</tr>";
-            //}
+            }
             
 
             $costume_list .= "</table>";
@@ -216,7 +216,11 @@
                 <?php echo $costume_list; ?>
                 <?php             
                     if(( $manager_approval != "approve")){
-                        echo "<input type='submit' class='Quotationbtn' name='update' value='Edit'>";
+                        echo "<form method='post' name='costumeQuotationForm' action='../RouteHandler.php'>";
+                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/manager_update'/>";
+                        echo "<input type='text' hidden='true'  name='home_url' value='customer/customer_home.php' />";
+                        echo "<input type='submit' class='Quotationbtn' name='update_costume_quotation' value='Edit'>";
+                        echo "</form>";
                     }  
                 ?>
                 
@@ -227,6 +231,7 @@
     </div>
     <?php             
     if(( $manager_approval == "approve")){  
+
     echo "<div class='ViewRow'>" ;
         echo "<div class='box'>";
                 echo "<form method='post' name='costumeOrderForm' action='../RouteHandler.php'>";

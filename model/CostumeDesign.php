@@ -117,8 +117,8 @@
             public function addCustomizedDesign(){
                 foreach ($this->size as $size) {
                     $name = $this->name."-".$size;
-                    //print_r($_POST);
-                    $this->add();
+                    print_r($_POST);
+                    echo "<br>";
                 }
                   
             }
