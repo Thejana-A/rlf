@@ -5,6 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>View raw material</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
+        <?php
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }
+        ?>
+    
     </head>
 
     <body>
@@ -22,24 +30,11 @@
 
                 <div id="form-box-small">
                 <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="raw_material/view" />
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_view" />
                         <center>
                             <h2> Raw material details</h2>
                         </center>
-                        <?php 
-                            require_once('../../model/DBConnection.php');
-                            $connObj = new DBConnection();
-                            $conn = $connObj->getConnection();
-                            if(isset($_GET['material_id'])){
-                                $material_id = $_GET['material_id'];
-                                $sql = "SELECT material_id, name, size, measuring_unit, description, image FROM raw_material WHERE material_ID = '$material_id' ";
-                                $result = mysqli_query($conn, $sql);
-                           
-                                if(mysqli_num_rows($result) > 0)
-                                {
-                                    foreach($result as $row)
-                                    {
-                                        ?>
+    
                             <div class="form-row">
                             <div class="form-row-theme">
                                 Raw material ID : 
@@ -90,27 +85,6 @@
 
                             </div>
                         </div>
-
-
- 
-                        
-
-
-
-                            <?php                                   
-                                    }
-                                }
-                                else {
-                                    echo "0 results";
-                                }
-                            }else{
-                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                            }
-                            mysqli_close($conn);
-                        ?>
-                        <?php
-
-                        ?>
                
                     </div>
                 </div>  

@@ -44,15 +44,21 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $sql = "SELECT material_id, name  FROM raw_material WHERE manager_approval = 'approve' ORDER BY material_id ASC";
+                            $sql = "SELECT material_id, name, measuring_unit, quantity_in_stock FROM raw_material WHERE `manager_approval` = 'approve';";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_view' />";
+                                        echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
                                         echo "<span class='raw_material-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span>";
-                                        echo "<span></span>";
-                                        echo "<a href=./view_raw_materials.php?material_id=".$row["material_id"]." class='grey'>View</a>";
+                                        echo "<table align='right' style='margin-right:200px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' align='right' class='grey' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        //echo "<input type='submit' class='grey' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
                                         echo "</div>";
                                     }
                                 }else {

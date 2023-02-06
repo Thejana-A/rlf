@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 		</div>
 		<form name="loginForm" id="loginForm" method="post" action="../../RouteHandler.php">
         <input type="text" hidden="true" name="framework_controller" value="supplier/login" />
+		<input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 		<h1>Login</h1>
 		<div>
 			<label for="email">Email</label>
@@ -53,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 		<div>
 			<label for="password">Password</label>
 			<input type="password" name="password" placeholder="Password"><br>
-			<a href = "#">Forgot password? </a>
+			<a href = "request_forgot_password.php">Forgot password? </a>
 
 			
 			<input type="submit" value="Login">

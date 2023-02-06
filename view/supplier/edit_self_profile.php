@@ -5,6 +5,63 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit self profile</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
+        <?php
+            $employeeID = $_SESSION["supplier_id"];
+            $conn = new mysqli("localhost", "root", "", "rlf");
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+            $sql = "SELECT * FROM supplier WHERE supplier_id = '$supplierID';";
+                             
+            if($result = mysqli_query($conn, $sql)){
+                if(mysqli_num_rows($result) > 0){
+                    $row = mysqli_fetch_array($result);
+                }
+            }
+        ?>
+        <script>
+            function validateEditProfileForm(){
+                var first_name = document.forms["supplierForm"]["first_name"].value;
+                var last_name = document.forms["supplierForm"]["last_name"].value;
+                var NIC = document.forms["supplierForm"]["NIC"].value;
+                const date = new Date();
+                if (/^[a-zA-Z\s]+$/.test(first_name) == false) {
+                    alert("First name must have only letters and spaces");
+                    return false;
+                }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
+                    alert("Last name must have only letters and spaces");
+                    return false;
+                }else if ((NIC.length != 10)&&(NIC.length != 12)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            function validateResetPassword(){
+                var newPassword = document.forms["resetPasswordForm"]["new_password"].value;
+                var confirmPassword = document.forms["resetPasswordForm"]["confirm_password"].value;
+                if(newPassword.length < 8){
+                    alert("New password should have at least 8 characters");
+                    return false;
+                }else if(newPassword != confirmPassword){
+                    alert("Confirm new password correctly");
+                    return false;
+                }else{
+                    return true;
+                } 
+            }
+            </script>
     </head>
 
     <body>
@@ -20,9 +77,10 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" name="supplierForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="supplier/edit_self_profile" />
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
+                    <form method="post" name="supplierForm" action="../RouteHandler.php" onSubmit="return validateEditProfileForm()" enctype="multipart/form-data">
+                    <input type="text" hidden="true" name="framework_controller" value="supplier/update" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/home.php" />
+                    <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />    
                         <center>
                             <h2>Edit profile</h2>
                         </center>
@@ -118,7 +176,10 @@
                 </div>  
                 
                 <div id="form-box-small">
-                    <form method="post" action="">
+                <form method="post" name="resetPasswordForm" action="../RouteHandler.php" onSubmit="return validateResetPassword()">
+                        <input type="text" hidden="true" name="framework_controller" value="supplier/reset_password" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Reset password</h2>
                         </center>
@@ -127,7 +188,8 @@
                                 Current password : 
                             </div>
                             <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="password" name="password" />
+                                <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -135,7 +197,7 @@
                                 New password : 
                             </div>
                             <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="password" name="new_password" id="new_password" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -143,7 +205,7 @@
                                 Confirm password : 
                             </div>
                             <div class="form-row-data">
-                                <input type="password" name="" id="" />
+                                <input type="password" name="confirm_password" id="confirm_password" required/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -154,13 +216,11 @@
                                 <input type="reset" value="Cancel" />
                             </div>
                         </div> 
-                  
-                </div> 
             
                           </form>
             </div> 
         </div> 
-
+        </div> 
         <?php include 'footer.php';?>
 
     </body> 

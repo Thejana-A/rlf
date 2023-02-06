@@ -12,7 +12,8 @@
         <?php include 'header.php';?>
 
         <div id="page-body">
-            <?php include 'leftnav.php';?>
+        <?php include 'leftnav.php';
+            require_once('../../model/DBConnection.php');?>
 
             <div id="page-content">
                 <div id="breadcrumb">
@@ -46,18 +47,19 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $supplierID = $_SESSION["supplier_id"];
-                            $sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material WHERE supplier_id = '$supplierID'";
+                            $sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material WHERE supplier_id =  ".$_SESSION["supplier_id"].";";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
                                         $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="reject")?"red":"grey");
                                         echo "<div class='item-data-row'>";
                                         echo "<form method='post' action='../RouteHandler.php'>";
-                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_view' />";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_operation' />";
                                         echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".(($row["manager_approval"])==""?"Pending":$row["manager_approval"])."</span>";
-                                        echo "<a href=./view_raw_material_request.php?material_id=".$row["material_id"]." class='".$class."'> View </a>";
+                                        echo "<table align='right' style='margin-right:80px;' class='two-button-table'><tr>";
+                                        echo "</tr></table>"; 
+                                        echo "<input type='submit' class='".$class."' value='View' />";
                                         echo "<hr class='manager-long-hr' />";
                                         echo "</form>";
                                         echo "</div>";
@@ -69,7 +71,7 @@
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                             }
                             mysqli_close($conn);
-                            ?>
+                        ?>
                             <!--
                         <div class="item-data-row">
                             <span>0001</span>

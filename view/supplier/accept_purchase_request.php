@@ -3,11 +3,66 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Accept purchase request</title>
+        <title>View purchase request</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
+    
+        <?php
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            if(isset($_GET['data'])){ 
+                parse_str($_SERVER['REQUEST_URI'],$row);
+                //print_r($row);
+            }
+
+            $conn = new mysqli("localhost", "root", "", "rlf");
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+            $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id'];
+            $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = ".$row["supplier_id"].";";
+            
+            if($result = mysqli_query($conn, $sql_quotation_material)){
+                $materialCount = 0;
+                $presentMaterialList = "";
+                if(mysqli_num_rows($result) > 0){
+                    while($quotation_material_row = mysqli_fetch_array($result)){
+                        $presentMaterialList .= "<div class='form-row'>";
+                        $presentMaterialList .= "<div class='form-row-theme'>";
+                        $presentMaterialList .= "<input type='text' name='material_id[]' value='".$quotation_material_row["material_id"]." - ".$quotation_material_row["name"]." (".$quotation_material_row["measuring_unit"].")' readonly />";
+                        $presentMaterialList .= "</div>";
+                        $presentMaterialList .= "<div class='form-row-data'>";
+                        $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
+                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' readonly /> ";
+                        $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."'class='column-textfield' readonly />";
+                        $presentMaterialList .= "</div>";
+                        $presentMaterialList .= "</div>";
+                        $materialCount++;
+                    }
+                    
+                }else {
+                    echo "0 results";
+                }
+            }else{
+                echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
+            } 
+        ?>
+
+<script>
+            var materialCount = "<?php echo $materialCount; ?>";
+            function setPrice(){
+                var totalPrice = 0;
+                for(let i = 0;i < materialCount;i++){
+                    var quantity = document.getElementById("request_quantity_"+i).value;
+                    var unitPrice = document.getElementById("unit_price_"+i).value;
+                    document.getElementById("material_price_"+i).value = quantity*unitPrice;
+                    totalPrice = totalPrice + (quantity*unitPrice); 
+                } 
+                document.getElementById("total_price").value = totalPrice;
+                document.getElementById("payment").value = totalPrice;
+            } 
+            </script>
     </head>
 
-    <body>
+    <body onLoad="setPrice()">
         <?php include 'header.php';?>
         <div id="page-body">
             
@@ -17,20 +72,23 @@
                 <div id="breadcrumb">
                     <a href="index.php">Welcome </a> >
                     <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> >Accept purchase requests 
+                    <a href="home.php">Supplier </a> >View purchase requests 
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                <form method="post" name="materialOrderForm" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material_order/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <center>
-                            <h2>Accept purchase request</h2>
+                            <h2>View purchase request</h2>
                         </center>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Purchase request ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="0001" readonly />
+                                <input type="text" name="order_id" id="" value="<?php echo $row["order_id"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,7 +96,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="11"readonly />
+                                <input type="text" name="quotation_id" id="" value="<?php echo $row["quotation_id"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -46,7 +104,7 @@
                                 Supplier ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="8" readonly />
+                                <input type="text" name="supplier_id" id="" value="<?php echo $row["supplier_id"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -54,7 +112,7 @@
                                 Valid till : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="2023-1-15"readonly />
+                                <input type="text" name="valid_till" id="" value="<?php echo $row["valid_till"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -62,7 +120,7 @@
                                 Expected Delivery Date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="2022-10-05"readonly />
+                                <input type="text" name="expected_delivery_date" id="" value="<?php echo $row["expected_delivery_date"] ?>" readonly />
                             </div>
                         </div>
                         
@@ -74,11 +132,13 @@
                             </div>
                             <div class="form-row-data">
                                 <span><b>Quantity</b></span>
-                                <span><b>Measuring Unit</b></span>
+                                <span><b>Unit Price</b></span>
                                 <span><b>Price(LKR)</b></span>
                             </div>
                         </div>
-                        <div class="form-row">
+
+                        <?php echo $presentMaterialList; ?>
+                        <!--<div class="form-row">
                             <div class="form-row-theme">
                                 <select name="" id="" readonly>
                                     <option disabled>ID - Material name</option>
@@ -122,52 +182,33 @@
                                 <input type="text" name="" id="" class="column-textfield" value="yards" readonly />
                                 <input type="text" name="" id="" class="column-textfield" value="1500" readonly />
                             </div>
-                        </div>
+                        </div>-->
                         
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total price (LKR) :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value="4500"readonly />
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Status (By supplier) :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="60%">
-                                    <tr>
-                                        <td>
-                                            <input type="radio" name="acceptance" class="input-radio" id="" /> Accepted
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="acceptance" class="input-radio" id=""  /> Rejected
-                                        </td>
-                                    </tr>
-                                </table>
+                                <input type="text" name="total_price" id="total_price" readonly />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Acceptance description :
+                                Dispatch Date : 
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="" rows="4" cols="40" ></textarea>
+                                <input type="text" name="dispatch_date" id="" value="<?php echo $row["dispatch_date"] ?>" readonly />
                             </div>
                         </div>
-        
-                        
                         <div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Send" />
+                            <div class="form-row-theme">
+                                Payment Date : 
                             </div>
-                            <div class="form-row-reset">
-                                <input type="submit" value="Cancel" />
+                            <div class="form-row-data">
+                                <input type="text" name="payment_date" id="" value="<?php echo $row["payment_date"] ?>" readonly />
                             </div>
-                        </div> 
+                        </div>
+                        
                     </form>
                 </div>   
             </div> 

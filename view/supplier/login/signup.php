@@ -3,7 +3,9 @@
 <head>
 	<title>Signup</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel = "stylesheet" href="../css/login.css">
+	    <link rel="stylesheet" type="text/css" href="../css/data_form_style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/view_list_style.css" />
+	    <link rel = "stylesheet" href="login.css">
 	<script>
             function validateForm(){
                 var first_name = document.forms["supplierForm"]["first_name"].value;
@@ -51,43 +53,89 @@
             
     </script>           
 </head>
-<body>
-<div class="form-container">
+<body style="background-image: url('../../icons/login_bg.jpeg');">
+<center>
+        <div id="signup-box">
 	
 			<form method="post" class="signup" name="supplierForm"  onSubmit="return validateForm()" action="../../RouteHandler.php" enctype ="multipart/form-data">
             <input type="text" hidden="true" name="framework_controller" value="supplier/sign_up" />
 			<input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-			<center><h1>Signup</h1></center>
 			
-				<label for="first_name">First Name</label>
-				<input type="text" name="first_name" placeholder="Enter First Name" required>
 			
-				<label for="last_name">Last Name</label>
-				<input type="text" name="last_name" placeholder="Enter Last Name" required>
-			
-				<label for="NIC">NIC</label>
-				<input type="text" name="NIC" placeholder="Enter your NIC" required>
-			
-				<label for="email">Email</label>
-				<input type="email" name="email" placeholder="name@gmail.com" required>
-			
-				<label for="contact_no">Contact Number</label>
-				<input type="tel" name="contact_no"  pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
-			
-				<label for="city">City</label>
-				<input type="text" name="city" placeholder="Enter City" required>
-			
-				<label for="NIC_front_image">NIC Front Image</label>
-                <input type="file" name="NIC_front_image"  accept="image/png, image/gif, image/jpeg, image/tiff" required>
-            
-				<label for="NIC_rear_image">NIC Rear Image</label>
-                <input type="file" name="NIC_rear_image"  accept="image/png, image/gif, image/jpeg, image/tiff" required>
-            
-				<label for="business_certificate">Business Certificate</label>
-                <input type="file" name="business_certificate"  accept="image/png, image/gif, image/jpeg, image/tiff" required>
-            
-				<label for="material_id">Raw materials</label>
-				<?php 
+			<table>
+                    <tr>
+                        <td>
+                            <center>
+                                <img src="../../icons/login_logo.png" />
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <center>
+                                <h2>Supplier Signup</h2>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            <b>First name : </b> <br />
+                            <input type="text" name="first_name" id="first_name" placeholder ="Enter first name" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            <b>Last name : </b> <br />
+                            <input type="text" name="last_name" id="last_name"  placeholder ="Enter last name" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            <b>NIC : </b> <br />
+                            <input type="text" name="NIC" id="NIC" placeholder ="Enter your NIC" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            <b>Email : </b> <br />
+                            <input type="email" name="email" id="email" placeholder ="name@gmail.com" required />
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="data-box">
+                            <b>Contact number : </b> <br />
+                            <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" required />
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="data-box">
+                            <b>City : </b> <br />
+                            <input type="text" name="city" id="city" placeholder ="Enter city" required />
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="data-box">
+							<b>NIC Front Image : </b> <br />
+                            <input type="file" name="NIC_front_image" id="NIC_front_image" accept="image/png, image/gif, image/jpeg, image/tiff" required>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="data-box">
+							<b>NIC Rear Image : </b> <br />
+                            <input type="file" name="NIC_rear_image" id="NIC_rear_image" accept="image/png, image/gif, image/jpeg, image/tiff" required>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="data-box">
+							<b>Business Certificate : </b> <br />
+                            <input type="file" name="business_certificate" id="business_certificate" accept="image/png, image/gif, image/jpeg, image/tiff" required>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="data-box">
+							<b>Raw materials : </b> <br />
+                            <?php 
 					$conn = new mysqli("localhost", "root", "", "rlf");
 					if($conn->connect_error){
 						die("Connection Failed: ". $conn->connect_error);
@@ -109,16 +157,41 @@
 					}
 					mysqli_close($conn);
 				?>
-            
-				<label for="password">Password</label>
-				<input type="password" name="password" placeholder="Enter Password" required>
+                        </td>
+                    </tr>
 			
-				<label for="confirm_password">Confirm Password</label>
-				<input type="password" name="confirm_password" placeholder="Enter Confirm Password" required>
 				
-			
-				<input type="submit" value="Signup">
-				<p>Have an account already? <a href = "login.php">Log in</a></p>
-			</form>
+              <tr>
+                        <td class="data-box">
+                            <b>Password : </b> <br />
+                            <input type="password" name="password" id="password" placeholder ="Enter password" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data-box">
+                            <b>Confirm password : </b> <br />
+                            <input type="password" name="confirm_password" id="confirm_password" placeholder ="Enter confirm password" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <center>
+                                <input type="submit" value="Save" class="login-button" />
+                            <center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <center>
+                                <input type="reset" value="Cancel" class="login-button" />
+                            <center>
+                            <p>Have an account already? <a href = "login.php">Log in</a></p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </form>
+        </div>  
+        </center>
 </body>
 </html>
