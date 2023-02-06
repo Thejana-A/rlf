@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="stylesheet" type="text/css" href="../css/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/view_list_style.css" />
+        
 	    <link rel = "stylesheet" href="login.css">
 	<script>
             function validateForm(){
@@ -54,6 +55,7 @@
     </script>           
 </head>
 <body style="background-image: url('../../icons/login_bg.jpeg');">
+<button type="button" onclick="goback()" class="back">Go Back</button>
 <center>
         <div id="signup-box">
 	
@@ -193,5 +195,11 @@
             </form>
         </div>  
         </center>
+    <script>
+    function goback(){
+        window.location.href = "../../../index.php";
+
+    }
+    </script>
 </body>
 </html>

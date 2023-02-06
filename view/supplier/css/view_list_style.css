@@ -265,6 +265,22 @@
     margin-left:10px;
     width:56%;
   }
+
+  .back {
+    width: 10%;
+    outline: none;
+    border: 0;
+    padding: 10px 7px;
+    text-transform: uppercase;
+    margin: 10px;
+    background-color: rgb(238, 143, 9);
+    text-align: center;
+    color: whitesmoke;
+    float: right;
+    right: 10%;
+  
+    position: relative;
+  }
   @media (max-width: 1200px) {
     #material-price-box {
       width: 80%;

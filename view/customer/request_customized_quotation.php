@@ -6,18 +6,15 @@
     <title>Customized Request Qutation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="customer_css.css" />
+    <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
 </head>
 <body>
         <div id="breadcrumb">
             <a href="customer_home.php">Home </a> > Request Customized Design
         </div>
-    <div class="ViewRow">
-        <div class="section-header text-center">
-            <h2>Request Customized Design</h2>
-        </div>
-    </div>
 
-    <div class="ViewRow">
+
+    <!--<div class="ViewRow">
         <div class="box">
             <form action="">
                 <label for="fname">Propased Name :</label>
@@ -125,37 +122,83 @@
             </center>
         </div>
         
-    </div>
-    <footer class="footer">
-        <div id="page-footer">
-            <hr color="#cccccc" size="8px" width="100%" style="margin:0;" /> 
-            <div id="footer-left-column">
-                <b>Contact us</b><br /><br />
-                <span><img src="../Icon/call.png" />&nbsp +94 774 719 095 </span><br />
-                <span><img src="../icon/email.png" />&nbsp rlfapparel@gmail.com </span><br />
-                <span><img src="../icon/loc.png" />&nbsp 341/c/194 , 6th Lane ,<br />&nbsp Mahayaya Watta , Piliyandala </span>
-                
-            </div>
-            <div id="footer-middle-column">
-                <b>Follow us</b><br /><br />
-                <a href="#"><img src="../icon/insta.png" /></a>
-                <a href="#"><img src="../icon/fb.png" /></a>
-                <a href="#"><img src="../icon/twitter.png" /></a>
-                <br /><br />
-                <b>Pay with</b><br /><br />
-                <img src="../icon/visa.png" id="visa-card-icon" />
-            </div>
-            <div id="footer-right-column">
-                <b>Your message</b><br /><br />
-                <form method="post" action="">
-                    <input type="text" name="name" width="30%" placeholder="Name" /><br />
-                    <input type="text" name="email" width="30%" placeholder="Email" /><br />
-                    <textarea name="message" rows="4" cols="30" placeholder="Message"></textarea><br />
-                    <input type="submit" value="Send" />
-                </form>
-            </div>
-        </div>
+    </div>-->
 
-    </footer>
+    <div id="form-box">
+                        <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                            <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
+                            <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
+                            <center>
+                                <h2>Request Customized Design</h2>
+                            </center>
+                            
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Proposed Name : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="text" name="name" id="name" required />
+                                </div>
+                            </div>
+
+                            
+                            
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Front view : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Rear view : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Left view : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Right view : 
+                                </div>
+                                <div class="form-row-data">
+                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Description
+                                </div>
+                                <div class="form-row-data">
+                                    <textarea rows="4" cols="40" name="description" id="description" required></textarea>
+                                </div>
+                            </div>
+
+                            <input type="text" hidden="true" name="customized_design_approval" value="approve" />
+
+                            <div class="form-row">
+                                <div class="form-row-submit">
+                                    <a href="request_customized_quotation.php">
+                                        <input type="submit" value="Request Design Quotation" />
+                                    </a>
+                                </div>
+                                <div class="form-row-reset">
+                                    <input type="reset" value="Cancel" />
+                                </div>
+                            </div> 
+                        </form>
+                    </div> 
+
+    <?php include 'footer.php';?>
 </body>
 </html>

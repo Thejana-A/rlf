@@ -26,7 +26,7 @@ padding: 0;">
   <input type="text" hidden="true" name="framework_controller" value="customer/login" />
 
       <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="200px"/></div>
-      <h2>Customer Login</h2></center>
+      <h2>Login</h2></center>
 
     <?php if (isset($_GET['error'])) { ?>
 
@@ -47,7 +47,7 @@ padding: 0;">
         <option value="merchandiser">Merchandiser</option>
         <option value="fashiondesigner">Fashion Designer</option>
       </select>-->
-      <a href="#" style="float:right;">forgot Password ?</a> 
+      <a href="../merchandiser/request_forgot_password.php" style="float:right;">forgot Password ?</a> 
       <br />
       <br />
       <br />
@@ -55,7 +55,7 @@ padding: 0;">
       Don't have any account
       <br />
       <br/>
-      <a href="customer_signup.php" style="color: red;">Create one Now..!</a> 
+      <a href="signup_as.html" style="color: red;">Create one Now..!</a> 
 
     </form>
 

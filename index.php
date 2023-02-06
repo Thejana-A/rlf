@@ -24,7 +24,7 @@
                     <button id="signupbutton" onclick="window.location.href='view/customer/signup_as.html';">
                         Signup
                     </button>
-                    <button id="loginbutton" onclick="window.location.href='view/customer/login_as.html';">
+                    <button id="loginbutton" onclick="window.location.href='view/customer/customer_login.php';">
                         Login
                     </button>
                 </span>

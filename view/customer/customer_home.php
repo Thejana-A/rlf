@@ -52,7 +52,7 @@ $result = $conn->query($sql);
 <body>
     <div class="home-webbanner">
         <img src="../image/homepage.png" />
-        <button class="RequestCustomizedQuotationBtn" onclick="location.href='request_customized_quotation.html';">Request Customized Design</button>
+        <button class="RequestCustomizedQuotationBtn" onclick="location.href='request_customized_quotation.php';">Request Customized Design</button>
     </div>
     
     <div class="section-header text-center">
