@@ -8,7 +8,8 @@
               <?php   
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
@@ -102,20 +103,6 @@
                             </div>
                         </div>
 
-                        <!--<div class="form-row">
-                            <div class="form-row-theme">
-                                Raw materials : 
-                            </div>
-                            <div class="form-row-data">
-                                <select name="material_id" id="material_id" multiple size="2">
-                                    <option disabled>ID - Material name</option>
-                                    <option>0004 - Black Thread-S</option>
-                                    <option>0014 - Blue Thread-S</option>
-                                    <option>0022 - Red anchor button-L</option>
-                                </select>
-                            </div>
-                        </div> -->
-
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Appearance :
@@ -127,38 +114,7 @@
                                 <img src="../right-view-image/<?php echo $row["right_view"]; ?>" alt="right-view" class="design-view" /> 
                             </div>
                         </div>
-                    <!--    <div class="form-row">
-                            <div class="form-row-theme">
-                                Front view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="front_view" id="front_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Rear view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="rear_view" id="rear_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Left view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="left_view" id="left_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Right view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="right_view" id="right_view" />
-                            </div>
-                        </div>-->
+
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Description

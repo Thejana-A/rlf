@@ -6,6 +6,13 @@
               <title> View Request </title>
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/view_list_style.css" />
+              <?php
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }
+        ?>
 	</head>
 
 <body>
@@ -22,17 +29,20 @@
                     <a href="#">View Requests </a> > View 
                 </div>
 
-                    <div id="form-box">
+                    
+                <div id="form-box">
+                    <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
                         <center>
                             <h2>Requests</h2>
                         </center>
-
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Material ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="material_id"  id="material_id" value = "" readonly  />
+                                <input type="text" name="material_id"  id="material_id" value = "<?php echo $row["material_id"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -40,7 +50,7 @@
                                 Material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" value = "" readonly />
+                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" />
                             </div>
                         </div>
 
@@ -49,7 +59,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="size" id="size" value = "" readonly />
+                                <input type="text" name="size" id="size" value = "<?php echo $row["size"];?>" />
                             </div>
                         </div>
 
@@ -58,14 +68,7 @@
                                 Measuring Unit : 
                             </div>
                             <div class="form-row-data">
-                                <select name="measuring_unit" id="" >
-                                    <option value="units">Units</option>
-                                    <option value="metre">metre</option>
-                                    <option value="kilogram">kilogram</option>
-                                    <option value="litre">litre</option>
-                                    <option value="yards">yards</option>
-                                    <option value="m^2">m^2</option>
-                                </select>
+                                <input type="text" name="measuring_unit" id="measuring_unit" value = "<?php echo $row["measuring_unit"];?>" />
                             </div>
                         </div>
                         
@@ -93,7 +96,7 @@
                                 Acceptance description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="approval_description" id="approval_description" value = "" rows="4" cols="40" readonly ></textarea>
+                                <textarea name="approval_description" id="approval_description" rows="4" cols="40" readonly ><?php echo $row["approval_description"];?></textarea>
                             </div>
                         </div>
 
@@ -102,55 +105,31 @@
                                 Raw material description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="description" id="description" rows="4" cols="40" readonly ></textarea>
+                                <textarea id="" name="description" id="description" rows="4" cols="40" ><?php echo $row["description"];?></textarea>
                             </div>
                         </div>
-                            
-
-                <!--    <div class="item-list">
-                        <div class="item-heading-row">
-                            <b>Design ID</b>
-                            <b>Design name</b>
-                            <b>Published Date</b>
-                            <b>Status</b>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0003</span>
-                            <span>Linen black</span>
-                            <span>11.11.2022</span>
-                            <span>Pending</span>
-                            <a href="#" class="grey">View</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0006</span>
-                            <span>silk sky blue</span>
-                            <span>25.10.2022</span>
-                            <span>Approved</span>
-                            <a href="#" class="grey">View</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0010</span>
-                            <span>fabrics black</span>
-                            <span>10.05.2022</span>
-                            <span>Approved</span>
-                            <a href="#" class="grey">View</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                        <div class="item-data-row">
-                            <span>0011</span>
-                            <span>Linen red</span>
-                            <span>01.02.2022</span>
-                            <span>Approved</span>
-                            <a href="#" class="grey">View</a>
-                            <hr class="manager-long-hr" />
-                        </div>
-                    </div>-->
-
-
-                </div>
+                        <div class="form-row">
+                            <div class="form-row-submit">
+                                <?php 
+                                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
+                                        echo "<input type='submit' name='edit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' name='edit' />";
+                                    }
+                                ?>
+                            </div>
+                            <div class="form-row-reset">
+                                <?php 
+                                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
+                                        echo "<input type='submit' name='delete' value='Delete'  disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Delete' name='delete' />";
+                                    }
+                                ?>
+                            </div>
+                        
+                    </form>
+                </div>   
                          
             </div> 
         </div> 

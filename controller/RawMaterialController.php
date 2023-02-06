@@ -29,6 +29,16 @@
                 header("location: http://localhost/rlf/view/fashion_designer/raw_materials.php?data=true");
                 break;
 
+            case "fashion_designer_request_view":
+                $rawMaterialModel = new RawMaterial($_POST); 
+                $data = $rawMaterialModel->viewRawMaterial();
+                //$row = http_build_query($data); 
+                session_start();
+                $_SESSION["row"] = $data;
+                //header("location: http://localhost/rlf/view/fashion_designer/requests.php?data[]=$row");
+                header("location: http://localhost/rlf/view/fashion_designer/requests.php?data=true");
+                break;
+
         case "manager_view":
             $rawMaterialModel = new RawMaterial($_POST); 
             $data = $rawMaterialModel->viewRawMaterial();
