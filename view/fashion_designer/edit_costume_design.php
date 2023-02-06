@@ -128,7 +128,10 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="">
+                <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <center>
                             <h2>Edit costume design</h2>
                         </center>
@@ -240,9 +243,12 @@
                 </div>   
 
                 <div id="form-box">
-                    <form method="post" action="">
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update_price" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <center>
-                            <h2>Material description</h2>
+                            <h2>Price description</h2>
                         </center>
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -259,15 +265,18 @@
                             <div class="form-row-data">
                                 <span><b>Quantity</b></span>
                                 <span><b>Unit price(LKR)</b></span>
-                                <span><b>Price(LKR)</b></span><button onclick="addCode();setOriginalPrice();"> + </button>
+                                <span><b>Price(LKR)</b></span>
                             </div>
                         </div>
 
                         <div id="form_body">
-                            <?php echo $presentMaterialList; ?>
+                            <?php 
+                                echo $presentMaterialList;
+                                mysqli_close($conn);  
+                            ?>
+                            
                         </div>
 
-                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total material price (LKR) :
@@ -281,29 +290,66 @@
                                 <b>Final price (LKR) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" />
+                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" readonly />
                             </div>
                         </div>
-                        <input type="text" hidden="true" name="material_price_approval" value="<?php echo $row["material_price_approval"]; ?>" readonly>
-                        <input type="text" hidden="true" name="material_price_description" value="<?php echo $row["material_price_description"]; ?>" readonly>
-                        
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                <b>Approval for material price (By manager) :</b>
+                            </div>
+                            <div class="form-row-data">
+                                <table width="60%">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="material_price_approval" value="approve" class="input-radio" <?php echo ($row["material_price_approval"] == "approve")?'checked':'disabled' ?> /> Approve
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="material_price_approval" value="reject" class="input-radio" <?php echo ($row["material_price_approval"] == "reject")?'checked':'disabled' ?> readonly /> Reject
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Approval description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea rows="4" cols="40" name="material_price_description" readonly><?php echo $row["material_price_description"]; ?></textarea>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Publish status :
                             </div>
                             <div class="form-row-data">
-                                <input type="checkbox" name="publish_status" id="publish_status" class="input-checkbox" value="publish" <?php echo ($row["publish_status"] == "publish")?'checked':'' ?> /> Published
+                                <input type="checkbox" name="publish_status" id="publish_status" class="input-checkbox" value="publish" <?php echo ($row["publish_status"] == "publish")?'checked':'' ?> readonly /> Published
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' />";
+                                    }
+                                ?>   
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }
+                                ?>   
                             </div>
-                        </div> 
+                        </div>
+                        
                     </form>
                 </div>   
             </div> 
