@@ -44,6 +44,7 @@
             //$_SESSION["row"] = $data;
             //$costumeQuotationModel->updateCostumeQuotation();
             print_r($_POST);
+            
             break;
 
         case "merchandiser_update":

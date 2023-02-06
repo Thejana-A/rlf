@@ -38,7 +38,7 @@
 
 
 <div id="main">
-    <iframe src="index-main.php" name="iframe_a" class="iframe"></iframe>
+    <iframe src="view/customer/index_home.php" name="iframe_a" class="iframe"></iframe>
   </div>
 <div>
  <!--      <section style="margin-top:150px;" class="content">
