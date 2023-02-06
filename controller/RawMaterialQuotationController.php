@@ -32,7 +32,8 @@
             $rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
             $data = $rawMaterialQuotationModel->viewMaterialQuotation();
             $row = http_build_query($data); 
-            header("location: http://localhost/rlf/view/supplier/send_quotation.php?data[]=$row");
+            //header("location: http://localhost/rlf/view/supplier/send_quotation.php?data[]=$row");
+            header("location: http://localhost/rlf/view/supplier/send_quotation.php?data=true");
             break;
         case "update":
             if(isset($_POST['update_material_quotation'])){ 

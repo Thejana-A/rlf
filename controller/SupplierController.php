@@ -13,8 +13,9 @@
             $data = $supplierModel->viewSupplier();
             $row = http_build_query($data); 
             if(isset($_POST['view'])){ 
-                header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data[]=$row");
-            break;
+                //header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data[]=$row");
+                header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data=true");
+                break;
             }
         case "manager_view":
             //$supplierModel = new Supplier($_POST); 
@@ -53,6 +54,9 @@
             break;
         case "sign_up":
             $supplierModel->signUp();
+            break;
+        case "reset_password":
+            $supplierModel->resetPassword();
             break;
 
         case "verify_email":
