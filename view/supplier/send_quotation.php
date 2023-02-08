@@ -8,7 +8,8 @@
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
-                parse_str($_SERVER['REQUEST_URI'],$row);
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
                 //print_r($row);
             }
 
@@ -16,7 +17,7 @@
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
-            $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$_GET['quotation_id'];
+            $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = ".$row["supplier_id"].";";
             
             if($result = mysqli_query($conn, $sql_quotation_material)){
@@ -87,7 +88,10 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value ="<?php echo $row["quotation_id"]; ?>" readonly/>
+                                <input type="text" name="quotation_id" value ="<?php echo $row["quotation_id"]; ?>" readonly/>
+                                <input type="text" hidden ="true" name="payment_date" value ="<?php echo $row["payment_date"]; ?>" />
+                                <input type="text" hidden ="true" name="manager_approval" value ="<?php echo $row["manager_approval"]; ?>" />
+                                <input type="text" hidden ="true" name="approval_date" value ="<?php echo $row["approval_date"]; ?>" />                            
                             </div>
                         </div>
                         <div class="form-row">
@@ -95,7 +99,7 @@
                                 Merchandiser ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value ="<?php echo $row["merchandiser_id"]; ?>" readonly />
+                                <input type="text" name="merchandiser_id" value ="<?php echo $row["merchandiser_id"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -103,7 +107,7 @@
                                 Merchandiser name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="" id="" value ="<?php echo $row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]; ?>"" readonly/>
+                                <input type="text" name="merchandiser_name" value ="<?php echo $row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]; ?>"" readonly/>
                             </div>
                         </div>
             
@@ -113,16 +117,7 @@
                                 Requested on :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" value ="<?php echo $row["request_date"]; ?>" readonly/>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Valid till :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="" id="" value ="<?php echo $row["valid_till"]; ?>" readonly/>
+                                <input type="date" name="request_date" value ="<?php echo $row["request_date"]; ?>" readonly/>
                             </div>
                         </div>
 
@@ -204,7 +199,15 @@
                                 Quotation issued date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" value = "<?php echo $row["request_date"]; ?>"readonly />
+                                <input type="date" name=""  value = "<?php echo ($row["request_date"]=="")?Date("Y-m-d"):$row["request_date"] ?>" readonly />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Valid till :
+                            </div>
+                            <div class="form-row-data">
+                                <input type="date" name="valid_till" value = "<?php echo $row["valid_till"]; ?>"  readonly/>
                             </div>
                         </div>
                         
@@ -214,7 +217,7 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="" id="" value = "<?php echo $row["expected_delivery_date"]; ?>" readonly/>
+                                <input type="date" name="expected_delivery_date" value = "<?php echo $row["expected_delivery_date"]; ?>" readonly/>
                             </div>
                         </div>
                         
@@ -241,7 +244,7 @@
                                 Acceptance description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="" rows="4" cols="40" ></textarea>
+                                <textarea name="approval_description" rows="4" cols="40" ></textarea>
                             </div>
                         </div>
 

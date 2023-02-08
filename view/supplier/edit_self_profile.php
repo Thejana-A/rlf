@@ -78,8 +78,8 @@
 
                 <div id="form-box-small">
                     <form method="post" name="supplierForm" action="../RouteHandler.php" onSubmit="return validateEditProfileForm()" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="supplier/update" />
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/home.php" />
+                    <input type="text" hidden="true" name="framework_controller" value="supplier/edit_self_profile" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                     <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />    
                         <center>
                             <h2>Edit profile</h2>

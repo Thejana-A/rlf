@@ -30,7 +30,9 @@
         case "supplier_view":
             $data = $rawMaterialOrderModel->viewMaterialOrder();
             //print_r($data);
-            $row = http_build_query($data); 
+            //$row = http_build_query($data);
+            session_start();
+            $_SESSION["row"] = $data; 
             //header("location: http://localhost/rlf/view/supplier/accept_purchase_request.php?data[]=$row");
             header("location: http://localhost/rlf/view/supplier/accept_purchase_request.php?data=true");
             break;

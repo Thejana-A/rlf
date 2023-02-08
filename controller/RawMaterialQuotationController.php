@@ -31,7 +31,9 @@
         case "supplier_view":
             $rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
             $data = $rawMaterialQuotationModel->viewMaterialQuotation();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             //header("location: http://localhost/rlf/view/supplier/send_quotation.php?data[]=$row");
             header("location: http://localhost/rlf/view/supplier/send_quotation.php?data=true");
             break;

@@ -277,7 +277,31 @@
         }
 
         public function editSelfProfile() {
-            $this->update();
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            $this->supplierID = $_POST["supplier_id"];
+            $sql = "UPDATE supplier SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=?, verify_status=? WHERE supplier_id='$this->supplierID'";        
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city, $this->verifyStatus);
+                mysqli_stmt_execute($stmt);
+                $affectedRows = mysqli_stmt_affected_rows($stmt);
+                if($affectedRows == -1){
+                    ?><script>
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
+                }else{
+                    ?><script>
+                    alert("Supplier was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php 
+                }
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
+            $conn->close();
+
         }
         public function signUp(){
             $this->add();
@@ -421,11 +445,13 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
-                        echo "Please try again later.";
+                        ?><script>alert("Sorry ! Password wasn't changed");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
                     }else{
-                        ?><script>alert("Password was changed successfully");</script><?php
-                        echo "Log in with your new password";
+                        ?><script>alert("Password was changed successfully");
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
+                        </script><?php
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -433,8 +459,9 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
+                ?><script>alert("Sorry ! Your OTP code is incorrect");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php
             } 
         }
     }
