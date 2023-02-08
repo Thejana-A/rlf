@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>View puchase requests</title>
+        <title>View purchase requests</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
     </head>
@@ -52,7 +52,6 @@
                                         echo "<form method='post' action='../RouteHandler.php'>";
                                         echo "<input type='text' hidden='true' name='framework_controller' value='raw_material_order/supplier_view' />";
                                         echo "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
-                                        echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span>";
                                         //echo "<input type='submit' class='grey' value='View' />";
                                         echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";

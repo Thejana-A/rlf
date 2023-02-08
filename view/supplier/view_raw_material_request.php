@@ -6,12 +6,20 @@
         <title>View Raw material request</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <?php
+             error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
             }
-        ?>    
+            $materialID = $row["material_id"];
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
+   ?>    
     </head>
 
     <body>
@@ -30,7 +38,10 @@
                 <div id="form-box">
                     <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_operation" />
+                    <input type="text" name="approval_date" hidden="true" value="<?php echo $_SESSION["approval_date"]; ?>" />
+                    <input type="text" name="quantity_in_stock" hidden="true" value="<?php echo $_SESSION["quantity_in_stock"]; ?>"/>
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>View Raw material request</h2>
                         </center>
@@ -41,6 +52,8 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="material_id"  id="material_id" value = "<?php echo $row["material_id"];?>" readonly />
+                                <input type="text" hidden="true" name="approval_date" value="<?php echo $row["approval-date"]; ?>" />
+                                <input type="text" hidden="true" name="quantity_in_stock" value="<?php echo $row["quantitiy_in_stock"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -80,13 +93,14 @@
                                 Measuring Unit : 
                             </div>
                             <div class="form-row-data">
-                            <?php
-                                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='text' name='measuring_unit' value='".$row["measuring_unit"]."' readonly />"; 
-                                    }else{
-                                        echo "<input type='text' value='".$row["measuring_unit"]."' name='measuring_unit' />";
-                                    }
-                                ?>
+                            <select name="measuring_unit" id="measuring_unit">
+                                    <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
+                                    <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
+                                    <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
+                                    <option value="litre" <?php echo ($row["measuring_unit"]=="l")?'selected':'' ?>>litre</option>
+                                    <option value="yards" <?php echo ($row["measuring_unit"]=="yards")?'selected':'' ?>>yards</option>
+                                    <option value="m^2" <?php echo ($row["measuring_unit"]=="m^2")?'selected':'' ?>>m^2</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">

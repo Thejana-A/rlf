@@ -6,14 +6,27 @@
         <title>View raw material</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <?php
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
             }
-        ?>
-    
-    </head>
+            
+            $materialID = $row["material_id"];
+            $supplierID = $_SESSION["supplier_id"];
+
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
+            $sql_material_supplier = "SELECT supplier.supplier_id , supplier.first_name, supplier.last_name FROM `supplier` INNER JOIN `material_supplier` ON material_supplier.supplier_id = supplier.supplier_id WHERE material_supplier.material_id = '$materialID' AND `verify_status` = 'approve';";
+            $sql_all_supplier = "SELECT supplier_id, first_name, last_name FROM `supplier` where `verify_status` = 'approve';"; 
+   ?>
+   
+            </head>
 
     <body>
         <?php include 'header.php';?>

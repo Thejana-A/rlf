@@ -26,7 +26,7 @@
                         <h2>All Raw Materials</h2>
                     </center>
 
-                    <form method="post" action="" class="search-panel">
+                    <form method="post" action="all_raw_materials.php" class="search-panel">
                         
                         <input type="text" name="" id="" placeholder="Search" class="text-field" />
                         <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />

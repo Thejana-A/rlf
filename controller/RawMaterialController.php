@@ -52,17 +52,18 @@
             //header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data[]=$row");
             header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data=true");
             break;
-        case "supplier_operation":
+        case "supplier_request_view":
             $rawMaterialModel = new RawMaterial($_POST); 
             $data = $rawMaterialModel->viewRawMaterial();
             //$row = http_build_query($data); 
             session_start();
             $_SESSION["row"] = $data;
-                //header("location: http://localhost/rlf/view/supplier/view_raw_material_request.php?data[]=$row");
-                header("location: http://localhost/rlf/view/supplier/view_raw_material_request.php?data=true");
-            if(isset($_POST['edit'])){ 
+            //header("location: http://localhost/rlf/view/merchandiser/view_raw_material.php?data[]=$row");
+            header("location: http://localhost/rlf/view/supplier/view_raw_material_request.php?data=true");
+            break;
+        case "supplier_operation":
+            if(isset($_POST['edit'])){                 
                 $rawMaterialModel->updateRawMaterial();
-                break; 
             }else if(isset($_POST['delete'])){
                 $rawMaterialModel->deleteRawMaterial();
             }

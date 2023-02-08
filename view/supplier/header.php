@@ -11,7 +11,7 @@
                 </center>
             </span>
     <span id="logout-button-span">
-        <a href="./login/login.php" id="logout-button">Logout</a>
+        <a href="../customer/customer_login.php" id="logout-button">Logout</a>
     </span>  
 </div>
 

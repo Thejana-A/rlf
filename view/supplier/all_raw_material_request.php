@@ -54,7 +54,7 @@
                                         $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="reject")?"red":"grey");
                                         echo "<div class='item-data-row'>";
                                         echo "<form method='post' action='../RouteHandler.php'>";
-                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_operation' />";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_request_view' />";
                                         echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
                                         echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span><span>".(($row["manager_approval"])==""?"Pending":$row["manager_approval"])."</span>";
                                         echo "<table align='right' style='margin-right:80px;' class='two-button-table'><tr>";
