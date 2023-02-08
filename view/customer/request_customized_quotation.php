@@ -1,4 +1,5 @@
 <?php
+ session_start();
  error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 <!DOCTYPE html>
@@ -128,6 +129,7 @@
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/add_customized_design" />
                             <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
+                            <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"] ?>" />
                             <center>
                                 <h2>Request Customized Design</h2>
                             </center>

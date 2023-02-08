@@ -1,4 +1,4 @@
-<?php require_once 'redirect.php' ?>
+<?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,120 +21,45 @@
                     <a href="home.php">Fashion Designer</a> >View Requests 
                 </div>
 
-                <div id="form-box">
-                    <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
-                        <center>
-                            <h2>View Requests</h2>
-                        </center>
+                <div id="list-box">
+                    <center>
+                        <h2>Raw materials</h2>
+                    </center>
+                    <center>
+                        <form method="post" action="" class="search-panel">    
+                            <input type="text" name="" id="" placeholder="Search" class="text-field" />
+                            <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                        </form>
+                    </center>
+                    <div class="item-list">
+                        <div class="item-heading-row">
+                            <b>Material ID</b>
+                            <b>Material name</b>
+                            <b>Measuring unit</b>
+                            <hr class="manager-long-hr" />
+                        </div>
                         <?php 
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            if(isset($_GET['material_id'])){
-                                $material_id = $_GET['material_id'];
-                                $sql = "SELECT material_id, name, size, measuring_unit, description, image, manager_approval, approval_description FROM raw_material WHERE material_ID = '$material_id' ";
-                                $result = mysqli_query($conn, $sql);
-                           
-                                if(mysqli_num_rows($result) > 0)
-                                {
-                                    foreach($result as $row)
-                                    {
-                                        ?>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Material ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="material_id"  id="material_id" value = "<?php echo $row["material_id"];?>"readonly  />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Material name : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" readonly />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Size : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="size" id="size" value = "<?php echo $row["size"];?>" readonly />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Measuring Unit : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="measuring_unit" id="measuring_unit" value = "<?php echo $row["measuring_unit"];?>" readonly />
-                            </div>
-                        </div>
-                        
-                        
-                        
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Status (By manager) :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="60%">
-                                    <tr>
-                                        <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" id="" <?php echo ($row["manager_approval"]=="approve")?'checked':'disabled' ?> /> Accepted
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" id="" <?php echo ($row["manager_approval"]=="reject")?'checked':'disabled' ?> /> Rejected
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Acceptance description :
-                            </div>
-                            <div class="form-row-data">
-                                <textarea name="approval_description" id="approval_description" rows="4" cols="40" readonly ><?php echo $row["approval_description"];?></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Raw material description :
-                            </div>
-                            <div class="form-row-data">
-                                <textarea id="" name="description" id="description" rows="4" cols="40" readonly ><?php echo $row["description"];?></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <?php 
-                                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='submit' name='edit' value='Save' disabled />";
-                                    }else{
-                                        echo "<input type='submit' value='Save' name='edit' />";
+                            $sql = "SELECT material_id, name, measuring_unit, quantity_in_stock FROM raw_material WHERE fashion_designer_id = ".$_SESSION["employee_id"].";";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material/fashion_designer_request_view' />";
+                                        echo "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span>";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='grey' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        //echo "<input type='submit' class='grey' value='View' />";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
                                     }
-                                ?>
-                            </div>
-                            <div class="form-row-reset">
-                                <?php 
-                                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='submit' name='delete' value='Delete'  disabled />";
-                                    }else{
-                                        echo "<input type='submit' value='Delete' name='delete' />";
-                                    }
-                                ?>
-                            </div>
-                        <?php                                   
-                                    }
-                                }
-                                else {
+                                }else {
                                     echo "0 results";
                                 }
                             }else{
@@ -142,12 +67,11 @@
                             }
                             mysqli_close($conn);
                         ?>
-                        <?php
+                        
+                    </div>
 
-                        ?>
-                    </form>
-                </div>   
-            </div> 
+
+                </div>            </div> 
         </div> 
 
         <?php include 'footer.php';?>

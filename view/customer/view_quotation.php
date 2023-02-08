@@ -70,14 +70,14 @@
                 $costume_list .= "</tr>";
             }
             
-            //if(($row["manager_approval"] == "approve")){
+            if($manager_approval == "approve"){
                 $costume_list .= "<tr>";
                 $costume_list .= "<td style='padding-left: 5px;'><b>Total Price</b></td>";
                 $costume_list .= "<td style='padding-left: 5px;'></td>";
                 $costume_list .= "<td style='padding-left: 5px;'></td>";
                 $costume_list .= "<td style='padding-left: 10px;'><input type='text' name='final_price[]' style='width: 50%' disabled value='".$total_price."'></td>";
                 $costume_list .= "</tr>";
-            //}
+            }
             
 
             $costume_list .= "</table>";
@@ -208,15 +208,24 @@
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />
-            <form method="post" name="" onSubmit="" action="">
+            <form method="post">
                 <label for="requestdate">Request Date :</label>
                 <input type="text" name="request_date" value="<?php echo $request_date ?>" disabled />
                 <br />
 
                 <?php echo $costume_list; ?>
-                <?php             
+                
+                <?php 
+
                     if(( $manager_approval != "approve")){
-                        echo "<input type='submit' class='Quotationbtn' name='update' value='Edit'>";
+                        echo "<form method='post' name='costumeQuotationForm' action='../RouteHandler.php'>";
+                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/customer_update'/>";
+                        echo "<input type='text' hidden='true'  name='home_url' value='customer/customer_home.php' />";
+                        echo "<input type='text' hidden='true'  name='page_url' value='".$_SERVER['REQUEST_URI']."' />";
+                        echo "<input type='text' hidden='true' name='request_date' value='".date("Y-m-d")."' />";
+                        //echo $costume_list;
+                        echo "<input type='submit' value='Edit' class='Quotationbtn'>";
+                        echo "</form>";
                     }  
                 ?>
                 
@@ -227,11 +236,12 @@
     </div>
     <?php             
     if(( $manager_approval == "approve")){  
+
     echo "<div class='ViewRow'>" ;
         echo "<div class='box'>";
                 echo "<form method='post' name='costumeOrderForm' action='../RouteHandler.php'>";
                 echo "<input type='text' hidden='true' name='framework_controller' value='costume_order/add' />";
-                echo "<input type='text' hidden='true' name='home_url' value='customer/customer_home.php' />";
+                echo "<input type='text' hidden='true' name='home_url' value='customer/customer_home.php' />"; 
                 echo "<input type='text' hidden='true' name='order_placed_on' value='".date("Y-m-d")."' />";
                 echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
                 echo "<label for='fname'>Order Deadline :</label>";

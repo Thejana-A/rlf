@@ -86,17 +86,6 @@
                     if($this->designID == 0){
                         echo "Sorry ! That design name already exists.";
                     }else{
-                        /*echo "New costume design was added successfully";
-                        echo "<table>";
-                        echo "<tr><td>Design ID </td><td>: $this->designID</td></tr>";
-                        echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                        echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                        echo "<tr><td>Front view </td><td>: $this->frontView</td></tr>"; 
-                        echo "<tr><td>Rear view </td><td>: $this->rearView</td></tr>"; 
-                        echo "<tr><td>Left view </td><td>: $this->leftView</td></tr>"; 
-                        echo "<tr><td>Left view </td><td>: $this->rightView</td></tr>"; 
-                        echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                        echo "</table>";*/
                         $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
                         $designMaterialModel->insertMaterialQuantity();
                         ?><script>
@@ -114,14 +103,72 @@
             }   
         }
 
-            public function addCustomizedDesign(){
+        public function addCustomizedDesign(){
+            while (true) {
+                $newFrontImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
+                if (!file_exists("../view/front-view-image/".$newFrontImage)) break;
+            }
+            while (true) {
+                $newRearImage = uniqid().".".explode("/", $_FILES["rear_view"]["type"])[1];
+                if (!file_exists("../view/rear-view-image/".$newRearImage)) break;
+            }
+            while (true) {
+                $newLeftImage = uniqid().".".explode("/", $_FILES["left_view"]["type"])[1];
+                if (!file_exists("../view/left-view-image/".$newLeftImage)) break;
+            }
+            while (true) {
+                $newRightImage = uniqid().".".explode("/", $_FILES["right_view"]["type"])[1];
+                if (!file_exists("../view/right-view-image/".$newRightImage)) break;
+            }
+            
+            $frontImageTarget = "../view/front-view-image/".$newFrontImage;
+            $rearImageTarget = "../view/rear-view-image/".$newRearImage;
+            $leftImageTarget = "../view/left-view-image/".$newLeftImage;
+            $rightImageTarget = "../view/right-view-image/".$newRightImage;	
+
+            $tempFrontImage = $_FILES["front_view"]["tmp_name"];
+            $tempRearImage = $_FILES["rear_view"]["tmp_name"];
+            $tempLeftImage = $_FILES["left_view"]["tmp_name"];
+            $tempRightImage = $_FILES["right_view"]["tmp_name"];
+
+            $frontImageResult = move_uploaded_file($tempFrontImage, $frontImageTarget);
+            $rearImageResult = move_uploaded_file($tempRearImage, $rearImageTarget);
+            $leftImageResult = move_uploaded_file($tempLeftImage, $leftImageTarget);
+            $rightImageResult = move_uploaded_file($tempRightImage, $rightImageTarget);
+            if($frontImageResult&&$rearImageResult&&$leftImageResult&&$rightImageResult) { 
+                $connObj = new DBConnection();
+                $conn = $connObj->getConnection();
                 foreach ($this->size as $size) {
                     $name = $this->name."-".$size;
-                    //print_r($_POST);
-                    $this->add();
+                    $sql = "INSERT INTO costume_design (name, size, front_view, rear_view, left_view, right_view, publish_status, material_price_approval, material_price_description, description, final_price, customized_design_approval, design_approval_description, design_approval_date, customer_id, merchandiser_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT design_id FROM costume_design WHERE name = '$this->name')";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $name, $size, $newFrontImage, $newRearImage, $newLeftImage, $newRightImage, $this->publishStatus, $this->materialPriceApproval, $this->materialPriceDescription, $this->description, $this->finalPrice, $this->customizedDesignApproval, $this->designApprovalDescription, $this->designApprovalDate, $this->customerID, $this->merchandiserID, $this->fashionDesignerID);
+                        mysqli_stmt_execute($stmt);
+                        $this->designID = $conn->insert_id;
+                        
+                    } else {
+                        echo "Error: <br>" . mysqli_error($conn);
+                    } 
+                    
                 }
-                  
+                if($this->designID == 0){
+                    ?><script>
+                    alert("Sorry ! That design name already exists.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
+                }else{
+                    ?><script>
+                    alert("New costume design was added successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
+                } 
+                $stmt->close();
+                $conn->close();  				
+            }else{			
+                echo "Sorry !!! There was an error in uploading your file";			
             }
+                
+        }
         
         
         public function view(){
@@ -214,9 +261,9 @@
             } 
              
 
-            $sql = "UPDATE costume_design SET name=?, size=?, description=?, merchandiser_id = ?, fashion_designer_id=? WHERE design_id='$this->designID'";        
+            $sql = "UPDATE costume_design SET name=?, size=?, description=?, customized_design_approval=?, design_approval_description=?, design_approval_date=?, merchandiser_id = ?, fashion_designer_id=? WHERE design_id='$this->designID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssii", $this->name, $this->size, $this->description, $this->merchandiserID, $this->fashionDesignerID);
+                mysqli_stmt_bind_param($stmt, "ssssssii", $this->name, $this->size, $this->description, $this->customizedDesignApproval, $this->designApprovalDescription, $this->DesignApprovalDate, $this->merchandiserID, $this->fashionDesignerID);
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){

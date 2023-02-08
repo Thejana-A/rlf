@@ -95,9 +95,11 @@
                 </div>
 
                 <!--<div id="form-box-ultra-small">-->
-                <div id="form-box">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                <div id="form-box-ultra-small">
+                    <form method="post" action="../RouteHandler.php">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Customized costume design</h2>
                         </center>
@@ -200,7 +202,7 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
+                        <!--<div class="form-row">
                             <div class="form-row-theme">
                                 <b>ID - Material name (unit)</b>
                             </div>
@@ -209,11 +211,11 @@
                                 <span><b>Unit price(LKR)</b></span>
                                 <span><b>Price(LKR)</b></span>
                             </div>
-                        </div>
+                        </div> 
 
-                        <div id="form_body">
-                            <?php echo $presentMaterialList; ?>
-                        </div>
+                        <div id="form_body">  -->
+                            <?php /* echo $presentMaterialList; */ ?>
+                        <!--</div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total material price (LKR) :
@@ -221,7 +223,7 @@
                             <div class="form-row-data">
                                 <input type="text" name="total_material_price" id="total_material_price" readonly />
                             </div>
-                        </div>
+                        </div>  -->
 
 
                         <div class="form-row">
@@ -304,7 +306,8 @@
                                 Approval description :
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="material_price_description"><?php echo $row["material_price_description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="design_approval_description"><?php echo $row["design_approval_description"]; ?></textarea>
+                                <input type="text" hidden="true" name="design_approval_date" value="<?php ($row["design_approval_date"] == "")? Date("Y-m-d"):$row["design_approval_date"] ?>" />
                             </div>
                         </div>
 

@@ -36,6 +36,17 @@
                 header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data=true");
             }
             break;
+        case "customer_update":
+            
+            //$data = $costumeQuotationModel->viewCostumeQuotation(); 
+            //$row = http_build_query($data); 
+            //session_start();
+            //$_SESSION["row"] = $data;
+            //$costumeQuotationModel->updateCostumeQuotation();
+            print_r($_POST);
+            
+            break;
+
         case "merchandiser_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();
             //$row = http_build_query($data); 
