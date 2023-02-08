@@ -42,8 +42,8 @@
             //$row = http_build_query($data); 
             //session_start();
             //$_SESSION["row"] = $data;
-            //$costumeQuotationModel->updateCostumeQuotation();
-            print_r($_POST);
+            $costumeQuotationModel->updateCostumeQuotation();
+            //print_r($_POST);
             
             break;
 

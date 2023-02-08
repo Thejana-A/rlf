@@ -48,6 +48,27 @@
             //header("location: http://localhost/rlf/view/manager/view_customized_design.php?data[]=$row");
             header("location: http://localhost/rlf/view/manager/view_customized_design.php?data=true");
             break;
+        
+        case "customer_view_customized_design":
+            $costumeDesignModel->viewDesign();
+            //$costumeDesignModel = new CostumeDesign($_POST); 
+            //$data = $costumeDesignModel->viewDesign();
+            //$row = http_build_query($data); 
+            /*session_start();
+            $_SESSION["row"] = $data;
+            //header("location: http://localhost/rlf/view/manager/view_customized_design.php?data[]=$row");
+            header("location: http://localhost/rlf/view/manager/view_customized_design.php?data=true");*/
+            break;
+
+        case "customer_operation":
+            if(isset($_POST['edit'])){ 
+                $costumeDesignModel->updateDesign();
+                
+            }else if(isset($_POST['delete'])){
+                $costumeDesignModel->deleteDesign();
+            }
+            break;  
+
         case "merchandiser_view":
             $costumeDesignModel = new CostumeDesign($_POST); 
             $data = $costumeDesignModel->viewDesign();
