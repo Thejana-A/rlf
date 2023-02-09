@@ -22,7 +22,10 @@
         </script>
     </head>
     <body>
-    <div id="page-content">       
+    <div id="breadcrumb">
+            <a href="customer_home.php">Home </a> > Reset Password
+    </div>
+    <div id="page-content" style=" display:flex; justify-content: center;">       
         <div id="form-box-small">
             <form method="post" name="resetPasswordForm" action="../RouteHandler.php" onSubmit="return validateResetPassword()">
                 <input type="text" hidden="true" name="framework_controller" value="customer/reset_password" />

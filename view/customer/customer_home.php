@@ -13,6 +13,7 @@ $result = $conn->query($sql);
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="customer_css.css" />
+    <!--<link rel="stylesheet" type="text/css" href="home_css.css" />-->
     <style>
 
         div.desc {
@@ -24,10 +25,15 @@ $result = $conn->query($sql);
         height: auto;
         }
 
+        .gallery{
+            border-top-style: dotted;
+        }
+
         .responsive {
         padding: 0 6px;
         float: left;
         width: 24.99999%;
+        
         }
 
         @media only screen and (max-width: 700px) {
@@ -71,14 +77,14 @@ $result = $conn->query($sql);
             if ($result_costume->num_rows > 0) {
                 while ($row = $result_costume->fetch_assoc()) { ?>
                     
-                    <div class="responsive">
+                <div class="responsive">
                 <div class="gallery">
                     <input type="hidden" name="design_id"  value="<?php echo $row['design_id']; ?>">
                     <a href="design_view.html">
-                                <img  src="../front-view-image/<?php echo $row["front_view"]; ?>" width="20px" height="auto"/>
-                                <div class="desc">
-                                    <h3><?php echo $costume_name[$i]; ?></h3>
-                                </div>
+                        <img src="../front-view-image/<?php echo $row["front_view"]; ?>" width="20px" height="auto"/>
+                            <div class="desc">
+                                <h3><?php echo $costume_name[$i]; ?></h3>
+                            </div>
                     </a>  
                     <center>
                     <button class="Quotationbtn" onclick="location.href='request_quotation.php?design_id=<?php echo $row['design_id'] ?>&design_name=<?php echo $costume_name[$i] ?>'">
