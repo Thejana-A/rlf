@@ -76,7 +76,7 @@
                         
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Status (By manager) :
+                                Status (By manager) 
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">

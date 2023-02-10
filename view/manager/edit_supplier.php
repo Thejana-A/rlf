@@ -342,7 +342,7 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" />
+                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" required />
                             </div>
                         </div>
                         <div class="form-row">

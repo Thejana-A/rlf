@@ -23,8 +23,8 @@
 			
                 <div class="form-row" style="width:115%;">
                     <div class="form-row-theme">
-                        <div id="list-box-home" style="flex: 65%;box-sizing: border-box;background-color:#ffcc99;border-radius:6px;padding:30px;margin:10px;clear:inherit; font-family:sans-serif;width:195%;margin-top:20px;margin-right:80px;height:245px;">
-                            <h2>Hi <?php echo $_SESSION["username"]; ?>,</h2>
+                        <div id="list-box-home" style="color:#330099;flex: 65%;box-sizing: border-box;background-color:#ffcc99;border-radius:6px;padding:30px;margin:10px;clear:inherit; font-family:sans-serif;width:195%;margin-top:20px;margin-right:80px;height:245px;">
+                            <h2>Hi <?php echo $_SESSION["first_name"]; ?>,</h2>
                             <h4>Welcome you to RLF Apparel Factory !</h4><br>
                             <h4>You have following upcoming tasks today.</h4>
                         </div>

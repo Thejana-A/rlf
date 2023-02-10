@@ -133,6 +133,10 @@
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
+                        <input type="text" hidden="true" name="customized_design_approval" value="<?php echo $row["customized_design_approval"] ?>" />
+                        <input type="text" hidden="true" name="design_approval_date" value="<?php echo $row["design_approval_date"] ?>" />
+                        <input type="text" hidden="true" name="design_approval_description" value="<?php echo $row["design_approval_description"] ?>" />
+                        
                         <center>
                             <h2>Edit costume design</h2>
                         </center>
@@ -229,7 +233,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="merchandiser_id" value="<?php echo $row["merchandiser_id"]; ?>" readonly>
-                                <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" readonly>
+                                <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -266,7 +270,7 @@
                             <div class="form-row-data">
                                 <span><b>Quantity</b></span>
                                 <span><b>Unit price(LKR)</b></span>
-                                <span><b>Price(LKR)</b></span>
+                                <span><b>Price(LKR)</b></span><button onclick="addCode();setOriginalPrice();"> + </button>
                             </div>
                         </div>
 

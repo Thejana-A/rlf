@@ -261,7 +261,13 @@
             } 
              
 
-            $sql = "UPDATE costume_design SET name=?, size=?, description=?, customized_design_approval=?, design_approval_description=?, design_approval_date=?, merchandiser_id = ?, fashion_designer_id=? WHERE design_id='$this->designID'";        
+            $sql = "UPDATE costume_design SET name=?, size=?, description=?, customized_design_approval=?, design_approval_description=?, design_approval_date=?, merchandiser_id = ?, fashion_designer_id=? WHERE design_id='$this->designID'";
+            if($this->merchandiserID == ''){
+                $this->merchandiserID = NULL;
+            }
+            if($this->fashionDesignerID == ''){
+                $this->fashionDesignerID = NULL;
+            }        
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "ssssssii", $this->name, $this->size, $this->description, $this->customizedDesignApproval, $this->designApprovalDescription, $this->DesignApprovalDate, $this->merchandiserID, $this->fashionDesignerID);
                 mysqli_stmt_execute($stmt);
@@ -270,16 +276,6 @@
                     echo "Sorry ! Couldn't update.";
                 }else{
                     echo "Design was updated successfully";
-                    /*echo "<table>";
-                    echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
-                    echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                    echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                    echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                    echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
-                    echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                    echo "<tr><td>Manager's approval </td><td>: $this->managerApproval</td></tr>"; 
-                    echo "<tr><td>Approval description </td><td>: $this->approvalDescription</td></tr>"; 
-                    echo "</table>"; */
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

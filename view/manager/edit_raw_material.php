@@ -45,6 +45,9 @@
                 }else if((quotation_id.split("-")[1] < parseFloat(quantity))&&(store_action == "store")){
                     alert("Sorry, quantity can't exceed quotation quantity");
                     return false;
+                }else if((typeof quotation_id.split("-")[1] === 'undefined')&&(store_action == "store")){
+                    alert("A quotation should be selected");
+                    return false;
                 }else{
                     return true;
                 }
@@ -76,6 +79,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
+                        <input type="text" name="approval_date" hidden="true" value="<?php echo Date("Y-m-d"); ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <center>
                             <h2>Edit raw material</h2>

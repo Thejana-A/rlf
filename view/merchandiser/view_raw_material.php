@@ -45,9 +45,12 @@
                 }else if((quotation_id.split("-")[1] < parseFloat(quantity))&&(store_action == "store")){
                     alert("Sorry, quantity can't exceed quotation quantity");
                     return false;
+                }else if((typeof quotation_id.split("-")[1] === 'undefined')&&(store_action == "store")){
+                    alert("A quotation should be selected");
+                    return false;
                 }else{
                     return true;
-                }
+                } 
             }
 
             function disableQuotationID(){

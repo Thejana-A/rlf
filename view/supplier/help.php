@@ -21,7 +21,7 @@
                      Help
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box" style="width:110%;">
                     <center>
                         <h2>Help</h2>
                     </center>    

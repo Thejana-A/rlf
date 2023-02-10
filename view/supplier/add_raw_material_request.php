@@ -51,13 +51,12 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="size" id="">
-                                    <option>XS</option>                                 
-                                    <option>S</option>
-                                    <option>M</option>
-                                    <option>L</option>
-                                    <option>XL</option>
-                                    <option>XXL</option>
-                                    <option>XXXL</option>
+                                    <option value="XS">XS</option>                                 
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
                                 </select>
                             </div>
                         </div>

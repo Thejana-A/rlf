@@ -2,7 +2,7 @@
     session_start();
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     if($_SESSION["supplier_id"]==""){
-        header("location:http://localhost/rlf/view/supplier/login/login.php");
+        header("location:http://localhost/rlf/view/customer/customer_login.php");
         die();
     }
 ?>

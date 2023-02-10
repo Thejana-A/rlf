@@ -229,7 +229,7 @@
                                 Quotation Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" />
+                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" required />
                             </div>
                         </div>
                         

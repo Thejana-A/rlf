@@ -66,6 +66,8 @@
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
                             <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                             <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $_SESSION["employee_id"]; ?>" />
+                            <input type="text" hidden="true" name="customized_design_approval" value="approve" />
+                            <input type="text" hidden="true" name="design_approval_date" value="<?php echo Date("Y-m-d") ?>" />
                             <center>
                                 <h2>Create costume design</h2>
                             </center>
