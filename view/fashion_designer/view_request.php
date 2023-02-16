@@ -23,7 +23,7 @@
 
                 <div id="list-box">
                     <center>
-                        <h2>Raw materials</h2>
+                        <h2>Request</h2>
                     </center>
                     <center>
                         <form method="post" action="" class="search-panel">    

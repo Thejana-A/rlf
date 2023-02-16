@@ -32,7 +32,10 @@
                     
                 <div id="form-box">
                     <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material/fashion_designer_operation" />
+                    <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $_SESSION["employee_id"] ?>" />
+                    <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <center>
                             <h2>Requests</h2>
                         </center>

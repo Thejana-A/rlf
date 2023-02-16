@@ -27,7 +27,7 @@
                     <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
-                    <input type="text" hidden="true" name="employee_id" value="<?php echo $_SESSION["fashion_designer_id"]; ?>">
+                    <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $_SESSION["employee_id"]; ?>">
                     
                         <center>
                             <h2>Raw Material Request Form</h2>

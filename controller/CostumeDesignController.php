@@ -11,7 +11,11 @@
         case "add_customized_design":
             $costumeDesignModel->addCustomizedDesign();
             break;
-        case "manager_view":
+        case "manager_view_general_design":
+            $designName = $args["name"];
+            header("location: http://localhost/rlf/view/manager/view_costume_design.php?name=$designName");
+            break;
+        case "manager_view_size":
             $costumeDesignModel = new CostumeDesign($_POST); 
             $data = $costumeDesignModel->viewDesign();
             //$row = http_build_query($data); 

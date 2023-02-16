@@ -79,6 +79,14 @@
                 $rawMaterialModel->deleteRawMaterial();
             }
             break;    
+        case "fashion_designer_operation":
+            if(isset($_POST['edit'])){   
+                //print_r($_POST);              
+                $rawMaterialModel->updateRawMaterial();
+            }else if(isset($_POST['delete'])){
+                $rawMaterialModel->deleteRawMaterial();
+            }
+            break;    
         case "update":
             $rawMaterialModel->updateRawMaterial();
             break;

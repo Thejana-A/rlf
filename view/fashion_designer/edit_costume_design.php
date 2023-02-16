@@ -238,10 +238,22 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' />";
+                                    }
+                                ?>   
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php 
+                                    if($row["material_price_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }
+                                ?>   
                             </div>
                         </div> 
                     </form>

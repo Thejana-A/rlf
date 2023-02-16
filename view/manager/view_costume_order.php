@@ -281,10 +281,10 @@
                                     <tr>
                                         <td>
                                             <input type="text" name="order_status" hidden="true" value="<?php echo ($row["order_status"] == "confirmed")?'confirmed':($row["order_status"] == "pending"?'pending':'') ?>" />
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'disabled') ?> value="accepted" /> Accept
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'') ?> value="accepted" /> Accept
                                         </td>
                                         <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'disabled') ?> value="rejected" /> Reject
+                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'') ?> value="rejected" /> Reject
                                         </td>
                                     </tr>
                                 </table>

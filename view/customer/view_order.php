@@ -226,12 +226,12 @@
             <center>
             <div class="section-header text-center">
                 <?php
-                    if($order_status == "confirmed"){
+                    if($order_status == "accepted"){
                         echo "<h3 style='color: red;'>Payment..!</h3>";
                     }else if($order_status == "complete"){
                         echo "<h3 style='color: red;'>Your Order is Completed..!</h3>";
-                    }else if($order_status == "reject"){
-                        echo "<h3 style='color: red;'>Your Order is Rejected..!</h3>";
+                    }else if($order_status == "rejected"){
+                        echo "<h3 style='color: red;'>Your Order is rejected..!</h3>";
                     }
                 ?>
             </div>
@@ -259,15 +259,15 @@
                 <br />
                 <br />
                 <?php
-                if($order_status == "confirmed"){
+                if($order_status == "accepted"){
                     echo "<center>";
                     
                     echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
                    
                     echo "</center>";
-                }else if($order_status == "reject"){
+                }else if($order_status == "rejected"){
                     echo "<label for='reason'>Reason :</label>";
-                    echo "<input type='text' name='reason' style='width: 100%;' disabled >";
+                    echo "<input type='text' name='reason' placeholder='Deadline can not be achieved' style='width: 100%;' disabled >";
                 }else if($order_status == "complete"){
                     echo "<center>";
                     echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Completed' >";

@@ -1,4 +1,5 @@
 <?php
+    session_start();
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     class DesignMaterial{
@@ -38,7 +39,51 @@
                     $stmt->close(); 
 
                 }
-            }		
+            }	
+            $conn->close(); 
+            if($_SESSION["costumeIDArrayCount"] < count($_SESSION["costumeIDArray"])){
+                $_SESSION["costumeIDArrayCount"] = $_SESSION["costumeIDArrayCount"]+1;
+                ?><script>
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
+            }	
+            if($_SESSION["costumeIDArrayCount"] == count($_SESSION["costumeIDArray"])){
+                $_SESSION["costumeIDArrayCount"] = 0;
+                $_SESSION["costumeIDArray"] = array();
+                $_SESSION["costumeNameArray"] = array();
+                ?><script>
+                alert("Raw materials were added successfully");
+                window.location.href = '<?php echo $_POST["home_url"]; ?>';
+                </script><?php  
+            }
+        }
+
+        public function update(){
+            $connObj = new DBConnection();
+            $conn = $connObj->getConnection();
+            for($materialCount = 0;$materialCount<count($this->materialID);$materialCount++){
+                if($this->quantity[$materialCount] > 0){
+                    $sql = "INSERT INTO rlf.design_material (design_id, material_id, unit_price, quantity) VALUES (?,?,?,?);";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
+                        mysqli_stmt_execute($stmt);
+                        $insertedRow = $conn -> affected_rows;
+                        if($insertedRow == -1){
+                            echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+                        }else{
+                            /*echo "<br><table>";
+                            echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
+                            echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$materialCount]."</td></tr>";
+                            echo "<tr><td>Quantity </td><td>:". $this->quantity[$materialCount]."</td></tr>"; 
+                            echo "</table>";*/
+                        }             
+                    } else {
+                        echo "Error: <br>" . mysqli_error($conn);
+                    } 
+                    $stmt->close(); 
+
+                }
+            }	
             $conn->close(); 
         }
 
@@ -60,37 +105,6 @@
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
             mysqli_close($conn);
-        }
-
-        public function update(){
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $this->RawMaterialID = $_POST["material_id"];    
-            $sql = "UPDATE raw_material SET name=?, size=?, image=?, description=?, manager_approval=?, approval_description=?, approval_date=?, measuring_unit=?, quantity_in_stock=?, supplier_id=?, fashion_designer_id=? WHERE material_id='$this->materialID'";        
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssssii", $this->name, $this->size, $this->image, $this->description, $this->manager_approval, $this->approval_description, $this->approval_date, $this->measuring_unit, $this->quantity_in_stock, $this->supplierID, $this->fashionDesignerID);
-                mysqli_stmt_execute($stmt);
-                $affectedRows = mysqli_stmt_affected_rows($stmt);
-                if($affectedRows == -1){
-                    echo "Sorry ! That username already exists.";
-                }else{
-                    echo "RawMaterial was updated successfully";
-                    echo "<table>";
-                    echo "<tr><td>Raw material ID </td><td>: $this->materialID</td></tr>";
-                    echo "<tr><td>Name </td><td>: $this->name</td></tr>";
-                    echo "<tr><td>Size </td><td>: $this->size</td></tr>"; 
-                    echo "<tr><td>Image </td><td>: $this->image</td></tr>"; 
-                    echo "<tr><td>Measuring unit </td><td>: $this->measuringUnit</td></tr>"; 
-                    echo "<tr><td>Description </td><td>: $this->description</td></tr>"; 
-                    echo "<tr><td>Manager's approval </td><td>: $this->managerApproval</td></tr>"; 
-                    echo "<tr><td>Approval description </td><td>: $this->approvalDescription</td></tr>"; 
-                    echo "</table>";
-                }
-            } else {
-                echo "Error: <br>" . mysqli_error($conn);
-            } 
-            $stmt->close(); 
-            $conn->close(); 
         }
 
         public function delete(){

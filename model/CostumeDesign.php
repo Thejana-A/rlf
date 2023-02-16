@@ -1,4 +1,5 @@
 <?php
+    session_start();
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/DesignMaterial.php');
@@ -42,8 +43,7 @@
         }
 
         public function add(){
-            //print_r($_POST);
-            while (true) {
+            /*while (true) {
                 $newFrontImage = uniqid().".".explode("/", $_FILES["front_view"]["type"])[1];
                 if (!file_exists("../view/front-view-image/".$newFrontImage)) break;
             }
@@ -74,33 +74,50 @@
             $rearImageResult = move_uploaded_file($tempRearImage, $rearImageTarget);
             $leftImageResult = move_uploaded_file($tempLeftImage, $leftImageTarget);
             $rightImageResult = move_uploaded_file($tempRightImage, $rightImageTarget);
-            if($frontImageResult&&$rearImageResult&&$leftImageResult&&$rightImageResult) { 
+            if($frontImageResult&&$rearImageResult&&$leftImageResult&&$rightImageResult) { */
                 $connObj = new DBConnection();
                 $conn = $connObj->getConnection();
-                $sql = "INSERT INTO costume_design (name, size, front_view, rear_view, left_view, right_view, publish_status, material_price_approval, material_price_description, description, final_price, customized_design_approval, design_approval_description, design_approval_date, customer_id, merchandiser_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT design_id FROM costume_design WHERE name = '$this->name')";
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $this->name, $this->size, $newFrontImage, $newRearImage, $newLeftImage, $newRightImage, $this->publishStatus, $this->materialPriceApproval, $this->materialPriceDescription, $this->description, $this->finalPrice, $this->customizedDesignApproval, $this->designApprovalDescription, $this->designApprovalDate, $this->customerID, $this->merchandiserID, $this->fashionDesignerID);
-                    mysqli_stmt_execute($stmt);
-                    $this->designID = $conn->insert_id;
-                    $publicDesignID = $this->designID;
-                    if($this->designID == 0){
-                        echo "Sorry ! That design name already exists.";
-                    }else{
-                        $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
-                        $designMaterialModel->insertMaterialQuantity();
-                        ?><script>
-                        alert("New costume design was added successfully");
-                        window.location.href='<?php echo $_POST["home_url"]; ?>';
-                        </script><?php  
-                    }
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                } 
-                $stmt->close(); 
+                $costumeCount = 0;
+                $_SESSION["costumeIDArray"] = array();
+                $_SESSION["costumeNameArray"] = array();
+                $_SESSION["costumeIDArrayCount"] = 0;
+                foreach ($this->size as $size) {
+                    $name = $this->name."-".$size;
+                    $sql = "INSERT INTO costume_design (name, size, front_view, rear_view, left_view, right_view, publish_status, material_price_approval, material_price_description, description, final_price, customized_design_approval, design_approval_description, design_approval_date, customer_id, merchandiser_id, fashion_designer_id) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT design_id FROM costume_design WHERE name = '$this->name')";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "ssssssssssssssiii", $name, $size, $newFrontImage, $newRearImage, $newLeftImage, $newRightImage, $this->publishStatus, $this->materialPriceApproval, $this->materialPriceDescription, $this->description, $this->finalPrice, $this->customizedDesignApproval, $this->designApprovalDescription, $this->designApprovalDate, $this->customerID, $this->merchandiserID, $this->fashionDesignerID);
+                        mysqli_stmt_execute($stmt);
+                        $this->designID = $conn->insert_id;
+                        if($this->designID > 0){
+                            $_SESSION["costumeIDArray"][$costumeCount] = $this->designID;
+                            $_SESSION["costumeNameArray"][$costumeCount] = $name;
+                            $costumeCount++;
+                            ?><script>
+                            var designName = "<?php echo $name; ?>";
+                            var message = "New costume design was added successfully - ".concat(designName);
+                            alert(message);
+                            </script><?php  
+                        }else{
+                            ?><script>
+                            var designName = "<?php echo $name; ?>";
+                            var message = "Sorry ! Design name already exists - ".concat(designName);
+                            alert(message);
+                            </script><?php  
+                        }
+                        
+                    } else {
+                        echo "Error: <br>" . mysqli_error($conn);
+                    } 
+                    
+                }
+                ?><script>
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
+                $stmt->close();
                 $conn->close();  				
-            }else{			
+            /*}else{			
                 echo "Sorry !!! There was an error in uploading your file";			
-            }   
+            } */
         }
 
         public function addCustomizedDesign(){
@@ -302,7 +319,7 @@
                     $sql_reset_material = "DELETE FROM design_material WHERE design_id = '$this->designID'";
                     $conn->query($sql_reset_material);
                     $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
-                    $designMaterialModel->insertMaterialQuantity();
+                    $designMaterialModel->updateMaterialQuantity();
                     ?><script>
                     alert("Price description was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
