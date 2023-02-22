@@ -22,6 +22,10 @@
             $designName = $args["name"];
             header("location: http://localhost/rlf/view/merchandiser/view_costume_design.php?name=$designName");
             break;
+        case "fd_view_general_design";
+            $designName = $args["name"];
+            header("location: http://localhost/rlf/view/fashion_designer/view_general_design.php?name=$designName");
+            break;
         case "manager_view":
             $costumeDesignModel = new CostumeDesign($_POST); 
             $data = $costumeDesignModel->viewDesign();

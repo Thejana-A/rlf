@@ -157,22 +157,6 @@
                                 <input type="text" name="name" value="<?php echo $row["name"]; ?>" />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Size : 
-                            </div>
-                            <div class="form-row-data">
-                                <select name="size">
-                                    <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
-                                    <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
-                                    <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
-                                    <option value="L" <?php echo ($row["size"] == "L")?'selected':'' ?>>L</option>
-                                    <option value="XL" <?php echo ($row["size"] == "XL")?'selected':'' ?>>XL</option>
-                                    <option value="XXL" <?php echo ($row["size"] == "XXL")?'selected':'' ?>>XXL</option>
-                                    <option value="XXXL" <?php echo ($row["size"] == "XXXL")?'selected':'' ?>>XXXL</option>
-                                </select>
-                            </div>
-                        </div>
 
 
                         <div class="form-row">
@@ -186,56 +170,7 @@
                                 <img src="../right-view-image/<?php echo $row["right_view"]; ?>" alt="right-view" class="design-view" /> 
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Front view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="front_view" id="front_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Rear view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="rear_view" id="rear_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Left view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="left_view" id="left_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Right view : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="file" name="right_view" id="right_view" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Description
-                            </div>
-                            <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description"><?php echo $row["description"]; ?></textarea>
-                            </div>
-                        </div>
-                    
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Merchandiser : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="merchandiser_id" value="<?php echo $row["merchandiser_id"]; ?>" readonly>
-                                <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" />
-                            </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <?php 
@@ -265,7 +200,7 @@
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <center>
-                            <h2>Price description</h2>
+                            <h2>Material description</h2>
                         </center>
                         <div class="form-row">
                             <div class="form-row-theme">
