@@ -8,6 +8,9 @@
         case "add":
             $costumeDesignModel->addDesign();
             break;
+        case "add_new_size":
+            $costumeDesignModel->addNewSize();
+            break;
         case "add_customized_design":
             $costumeDesignModel->addCustomizedDesign();
             break;
@@ -15,7 +18,11 @@
             $designName = $args["name"];
             header("location: http://localhost/rlf/view/manager/view_costume_design.php?name=$designName");
             break;
-        case "manager_view_size":
+        case "merchandiser_view_general_design":
+            $designName = $args["name"];
+            header("location: http://localhost/rlf/view/merchandiser/view_costume_design.php?name=$designName");
+            break;
+        case "manager_view":
             $costumeDesignModel = new CostumeDesign($_POST); 
             $data = $costumeDesignModel->viewDesign();
             //$row = http_build_query($data); 

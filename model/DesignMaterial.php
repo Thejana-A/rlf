@@ -46,7 +46,7 @@
                 ?><script>
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php  
-            }	
+            }
             if($_SESSION["costumeIDArrayCount"] == count($_SESSION["costumeIDArray"])){
                 $_SESSION["costumeIDArrayCount"] = 0;
                 $_SESSION["costumeIDArray"] = array();

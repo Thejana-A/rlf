@@ -50,7 +50,7 @@
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_general_design' />";
                             $search_output.= "<input type='text' hidden='true' name='name' value='".$costumeNameResult."' />";
                             $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:20%;'>".$search_costume_row["merchandiser_first_name"]." ".$search_costume_row["merchandiser_last_name"]."</span><span style='width:30%;'>".$search_costume_row["fd_first_name"]." ".$search_costume_row["fd_last_name"]."</span>";
-                            $search_output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
+                            $search_output.= "<table align='right' style='margin-right:24px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $search_output.= "</tr></table>";
                             $search_output.= "<hr class='manager-long-hr' />";
@@ -104,7 +104,7 @@
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_general_design' />";
                             $output.= "<input type='text' hidden='true' name='name' value='".$costume_name[$i]."' />";
                             $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:20%;'>".$costume_row["merchandiser_first_name"]." ".$costume_row["merchandiser_last_name"]."</span><span style='width:30%;'>".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]."</span>";
-                            $output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
+                            $output.= "<table align='right' style='margin-right:24px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $output.= "</tr></table>";
                             $output.= "<hr class='manager-long-hr' />";

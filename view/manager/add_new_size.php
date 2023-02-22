@@ -13,7 +13,18 @@
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
-            
+            if(isset($_GET['name'])){
+                $designName = $_GET['name'];
+                $sql = "SELECT * FROM costume_design WHERE `name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___' LIMIT 1;";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    //print_r($row);
+                } else {
+                    echo "0 results";
+                }
+            }
 
             $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve'";
             $materialCount = 0;
@@ -68,6 +79,7 @@
                 </form>
                 <div id="form-box">
                     <form method="post" name="materialForm" action="../RouteHandler.php">
+
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="framework_controller" value="design_material/add_material_quantity" />
@@ -159,141 +171,86 @@
                         <a href="#">Manager </a> >
                         <a href="#">View costume designs </a> > Create 
                     </div>
-                    <div id="form-box-small">
+                    <div id="form-box-ultra-small">
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
-                            <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
+                            <input type="text" hidden="true" name="framework_controller" value="costume_design/add_new_size" />
                             <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                             <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                            <center>
-                                <h2>Create costume design</h2>
-                            </center>
                             
+                            <center>
+                                <h2>Costume design details</h2>
+                            </center>
                             <div class="form-row">
                                 <div class="form-row-theme">
                                     Design name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" required />
+                                    <input type="text" name="name" id="name" value="<?php echo $designName; ?>" required readonly />
                                     <input type="text" hidden="true" name="customized_design_approval" value="approve" />
                                     <input type="text" hidden="true" name="design_approval_date" value="<?php echo Date("Y-m-d") ?>" />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-row-theme">
-                                    Size : 
+                                    Appearance :
                                 </div>
                                 <div class="form-row-data">
-                                <select name="size[]" multiple required>
-                                    <option value="XS">XS</option>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                    
-                                </select>
+                                    <img src="../front-view-image/<?php echo $row["front_view"]; ?>" alt="front-view" class="design-view" />
+                                    <img src="../rear-view-image/<?php echo $row["rear_view"]; ?>" alt="rear-view" class="design-view" /><br />
+                                    <img src="../left-view-image/<?php echo $row["left_view"]; ?>" alt="left-view" class="design-view" />
+                                    <img src="../right-view-image/<?php echo $row["right_view"]; ?>" alt="right-view" class="design-view" /> 
                                 </div>
                             </div>
-
+                            <input type="text" hidden="true" name="front_view" id="front_view" value="<?php echo $row["front_view"] ?>" readonly />
+                            <input type="text" hidden="true" name="rear_view" id="rear_view" value="<?php echo $row["rear_view"] ?>" readonly />
+                            <input type="text" hidden="true" name="left_view" id="left_view" value="<?php echo $row["left_view"] ?>" readonly />
+                            <input type="text" hidden="true" name="right_view" id="right_view" value="<?php echo $row["right_view"] ?>" readonly />
                             
-                            
-                            <div class="form-row">
-                                <div class="form-row-theme">
-                                    Front view : 
-                                </div>
-                                <div class="form-row-data">
-                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row-theme">
-                                    Rear view : 
-                                </div>
-                                <div class="form-row-data">
-                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row-theme">
-                                    Left view : 
-                                </div>
-                                <div class="form-row-data">
-                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row-theme">
-                                    Right view : 
-                                </div>
-                                <div class="form-row-data">
-                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
-                                </div>
-                            </div>
                             <div class="form-row">
                                 <div class="form-row-theme">
                                     Description
                                 </div>
                                 <div class="form-row-data">
-                                    <textarea rows="4" cols="40" name="description" id="description" required></textarea>
+                                    <textarea rows="4" cols="40" name="description" id="description" readonly required><?php echo $row["description"] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-row-theme">
-                                    Fashion designer : 
+                                    Fashion designer ID : 
                                 </div>
                                 <div class="form-row-data">
-                                    <?php 
-                                        $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type = 'fashion designer' AND active_status = 'enable'";
-                                        if($result = mysqli_query($conn, $sql)){
-                                            if(mysqli_num_rows($result) > 0){
-                                                echo "<select name='fashion_designer_id' id='fashion_designer_id' required>";
-                                                echo "<option selected disabled>ID - Fashion designer</option>";
-                                                while($fashion_designer_row = mysqli_fetch_array($result)){
-                                                    if($fashion_designer_row["employee_id"] == $row["fashion_designer_id"]){
-                                                        echo "<option value='".$fashion_designer_row["employee_id"]."' selected>".$fashion_designer_row["employee_id"]." - ".$fashion_designer_row["first_name"]." ".$fashion_designer_row["last_name"]."</option>";
-                                                    }else{
-                                                        echo "<option value='".$fashion_designer_row["employee_id"]."'>".$fashion_designer_row["employee_id"]." - ".$fashion_designer_row["first_name"]." ".$fashion_designer_row["last_name"]."</option>";
-                                                    }   
-                                                }
-                                                echo "</select>";
-                                            }else {
-                                                echo "0 results";
-                                            }
-                                        }else{
-                                            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                                        }
-                                    ?>
+                                    <input type="text" name="fashion_designer_id" id="fashion_designer_id" value="<?php echo $row["fashion_designer_id"] ?>" readonly />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-row-theme">
-                                    Merchandiser : 
+                                    Merchandiser ID : 
                                 </div>
                                 <div class="form-row-data">
-                                    <?php 
-                                        $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type='merchandiser' AND active_status = 'enable'";
-                                        if($result = mysqli_query($conn, $sql)){
-                                            if(mysqli_num_rows($result) > 0){
-                                                echo "<select name='merchandiser_id' id='merchandiser_id' required>";
-                                                echo "<option disabled selected>ID - Merchandiser</option>";
-                                                while($merchandiser_row = mysqli_fetch_array($result)){
-                                                    if($merchandiser_row["employee_id"] == $row["merchandiser_id"]){
-                                                        echo "<option value='".$merchandiser_row["employee_id"]."' selected>".$merchandiser_row["employee_id"]." - ".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."</option>";
-                                                    }else{
-                                                        echo "<option value='".$merchandiser_row["employee_id"]."'>".$merchandiser_row["employee_id"]." - ".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."</option>";
-                                                    }
-                                                }
-                                                echo "</select>";
-                                            }else {
-                                                echo "0 results";
-                                            }
-                                        }else{
-                                            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                                        }
-                                    ?>
+                                    <input type="text" name="merchandiser_id" id="merchandiser_id" value="<?php echo $row["merchandiser_id"] ?>" readonly />
                                 </div>
                             </div>
 
+                            <center>
+                                <h2>Add new size</h2>
+                            </center>
+
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    Size : 
+                                </div>
+                                <div class="form-row-data">
+                                    <select name="size[]" multiple required>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="form-row-submit">
                                     <input type="submit" value="Save" />
@@ -303,6 +260,7 @@
                                     <input type="reset" value="Cancel" />
                                 </div>
                             </div> 
+
                         </form>
                     </div>    
 

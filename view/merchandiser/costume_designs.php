@@ -13,53 +13,88 @@
             $merchandiserID = $_SESSION["employee_id"];
             if(isset($_POST["search"])){
                 $searchbar = $_POST["searchbar"];
-                $search_sql = "SELECT design_id,name, size, fashion_designer_id, first_name, last_name FROM costume_design INNER JOIN employee ON employee_id = fashion_designer_id WHERE merchandiser_id = '$merchandiserID' AND (design_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR size LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%')";
                 $search_output = "";
                 $output = "";
-                if($search_result = mysqli_query($conn, $search_sql)){
-                    if(mysqli_num_rows($search_result) > 0){
-                        while($search_row = mysqli_fetch_array($search_result)){
+
+                $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id
+                    JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
+                    WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%') LIMIT 1)
+                    UNION
+                    (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id AND `fashion_designer_id` IS NULL
+                    WHERE e1.employee_id = $merchandiserID AND `name` LIKE '%$searchbar%' LIMIT 1);";
+                    $search_result_costume_row = $conn->query($search_sql_costume);
+                    if ($search_result_costume_row->num_rows > 0) {
+                        while ($search_costume_row = $search_result_costume_row->fetch_assoc()) { 
+                            $parts_of_name = explode('-', $search_costume_row["name"]);
+                            $last = array_pop($parts_of_name);
+                            $parts_of_name = array(implode('-', $parts_of_name), $last);
+                            $costumeNameResult = $parts_of_name[0]; 
+
                             $search_output.= "<div class='item-data-row'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view' />";
-                            $search_output.= "<input type='text' hidden='true' name='design_id' value='".$search_row["design_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["design_id"]."</span><span style='padding-left:10px;'>".$search_row["name"]."</span><span style='padding-left:25px;'>".$search_row["size"]."</span><span>".$search_row["first_name"]." ".$search_row["last_name"]."</span>";
-                            $search_output.= "<table align='right' style='margin-right:18px;' class='two-button-table'><tr>";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view_general_design' />";
+                            $search_output.= "<input type='text' hidden='true' name='name' value='".$costumeNameResult."' />";
+                            $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:30%;'>".$search_costume_row["fd_first_name"]." ".$search_costume_row["fd_last_name"]."</span>";
+                            $search_output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $search_output.= "</tr></table>"; 
+                            $search_output.= "</tr></table>";
                             $search_output.= "<hr class='manager-long-hr' />";
                             $search_output.= "</form>";
                             $search_output.= "</div>";
-                        }   
+                        }
                     }else{
-                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
                     }
-                }
             }else{
-                $sql = "SELECT design_id,name, size, fashion_designer_id, first_name, last_name FROM costume_design INNER JOIN employee ON employee_id = fashion_designer_id WHERE merchandiser_id = '$merchandiserID';";
                 $search_output = "";
                 $output = "";
-                if($result = mysqli_query($conn, $sql)){
-                    if(mysqli_num_rows($result) > 0){
-                        while($row = mysqli_fetch_array($result)){
-                            $output.= "<div class='item-data-row'>";
-                            $output.= "<form method='post' action='../RouteHandler.php'>";
-                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view' />";
-                            $output.= "<input type='text' hidden='true' name='design_id' value='".$row["design_id"]."' />";
-                            $output.= "<span class='manager-ID-column'>".$row["design_id"]."</span><span style='padding-left:10px;'>".$row["name"]."</span><span style='padding-left:25px;'>".$row["size"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span>";
-                            $output.= "<table align='right' style='margin-right:18px;' class='two-button-table'><tr>";
-                            $output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $output.= "</tr></table>"; 
-                            $output.= "<hr class='manager-long-hr' />";
-                            $output.= "</form>";
-                            $output.= "</div>";
+                $sql_costume = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE merchandiser_id = $merchandiserID AND customized_design_approval = 'approve';";
+                $sql_costume_result = $conn->query($sql_costume);
+                $costume_name = array();
+                if ($sql_costume_result->num_rows > 0) {
+                    while ($row = $sql_costume_result->fetch_assoc()) {
+                        array_push($costume_name , $row["costume_name"]);
+                    }
+                    //print_r($costume_name);
+                    for($i = 0;$i<count($costume_name);$i++){
+                        $sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                        FROM costume_design c 
+                        JOIN employee e1 ON c.merchandiser_id = e1.employee_id
+                        JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
+                        WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__' OR name LIKE '$costume_name[$i]-___') LIMIT 1)
+                        UNION
+                        (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
+                        FROM costume_design c 
+                        JOIN employee e1 ON c.merchandiser_id = e1.employee_id AND `fashion_designer_id` IS NULL
+                        WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__' OR name LIKE '$costume_name[$i]-___') LIMIT 1);";
+                        $result_costume_row = $conn->query($sql_costume);
+                        if ($result_costume_row->num_rows > 0) {
+                            while ($costume_row = $result_costume_row->fetch_assoc()) { 
+                                //$output.= $costume_name[$i]." - ".$costume_row["merchandiser_id"]." - ".$costume_row["merchandiser_first_name"]." ".$costume_row["merchandiser_last_name"]." - ".$costume_row["fashion_designer_id"]." - ".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]." - ".$costume_row["front_view"];
+                                //$output.= "<br />";   
+                                $output.= "<div class='item-data-row'>";
+                                $output.= "<form method='post' action='../RouteHandler.php'>";
+                                $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view_general_design' />";
+                                $output.= "<input type='text' hidden='true' name='name' value='".$costume_name[$i]."' />";
+                                $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:30%;'>".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]."</span><span><img src='../front-view-image/".$costume_row["front_view"]."' width='60px' />&nbsp;<img src='../rear-view-image/".$costume_row["rear_view"]."' width='60px' /></span>";
+                                $output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
+                                $output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                                $output.= "</tr></table>";
+                                $output.= "<hr class='manager-long-hr' />";
+                                $output.= "</form>";
+                                $output.= "</div>";
+                            }
                         }
-                    }else {
-                        $output.= "0 results";
                     }
                 }else{
-                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                    $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
                 }
+                
+                
             }
         ?>
 
@@ -90,10 +125,9 @@
                     </center>
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Design ID</b>
-                            <b>Design name</b>
-                            <b>Size</b>
-                            <b>Fashion designer</b>
+                            <b style="width:20%;">Design name</b>
+                            <b style="width:20%;">Fashion designer</b>
+                            <b style="margin-left:12%;">Appearance</b>
                             <hr class="manager-long-hr" />
                         </div>
                         <div id="content-list">
