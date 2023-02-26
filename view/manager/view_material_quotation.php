@@ -8,18 +8,22 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-
-            //$conn = new mysqli("localhost", "root", "", "rlf");
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_quotation = "SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id WHERE quotation_id = ".$_GET['quotation_id'].";";
+                $result_view_quotation = mysqli_query($conn, $sql_view_quotation);
+                $row = mysqli_fetch_array($result_view_quotation);
+            }
+            
 
             $sql_material_purchase_request = "SELECT * FROM raw_material_order WHERE quotation_id = ".$row["quotation_id"].";";  
             $material_purchase_request_result = mysqli_query($conn, $sql_material_purchase_request);  

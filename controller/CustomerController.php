@@ -49,6 +49,14 @@
         case "verify_email":
             $customerModel->verifyEmail();
             break;
+
+        case "reset_password":
+            $customerModel->resetPassword();
+            break;
+    
+        case "reset_forgot_password":
+            $customerModel->resetForgotPassword();
+            break;
         
     } 
     

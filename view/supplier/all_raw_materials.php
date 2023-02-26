@@ -21,7 +21,7 @@
                     <a href="home.php">Supplier </a> > All raw materials                    
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>All Raw Materials</h2>
                     </center>

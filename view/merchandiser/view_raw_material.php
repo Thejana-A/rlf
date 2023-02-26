@@ -35,15 +35,29 @@
                 var store_action = document.forms["storageLogForm"]["store_action"].value;
                 var quantity_in_stock = document.forms["storageLogForm"]["quantity_in_stock"].value;
                 var quantity = document.forms["storageLogForm"]["quantity"].value;
+                var quotation_id = document.forms["storageLogForm"]["quotation_id"].value;
                 if (store_action == "") {
                     alert("Storage action is required");
                     return false;
                 }else if((parseFloat(quantity_in_stock) < parseFloat(quantity))&&(store_action == "retrieve")){
                     alert("Sorry, quantity in stock isn't enough");
                     return false;
+                }else if((quotation_id.split("-")[1] < parseFloat(quantity))&&(store_action == "store")){
+                    alert("Sorry, quantity can't exceed quotation quantity");
+                    return false;
+                }else if((typeof quotation_id.split("-")[1] === 'undefined')&&(store_action == "store")){
+                    alert("A quotation should be selected");
+                    return false;
                 }else{
                     return true;
-                }
+                } 
+            }
+
+            function disableQuotationID(){
+                document.getElementById("quotation_id").disabled = true;
+            }
+            function enableQuotationID(){
+                document.getElementById("quotation_id").disabled = false;
             }
         </script>
     </head>
@@ -274,16 +288,33 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
+                                Quotation ID :
+                            </div>
+                            <div class="form-row-data">
+                                <select name="quotation_id" id="quotation_id">  
+                                    <option disabled>Quotation ID - Maximum quantity</option>
+                                    <?php
+                                        $sql_quotation = "SELECT raw_material_quotation.quotation_id, request_quantity FROM raw_material_quotation, raw_material_order, material_price WHERE raw_material_quotation.quotation_id = raw_material_order.quotation_id AND raw_material_quotation.quotation_id = material_price.quotation_id AND dispatch_date IS NOT NULL AND material_id = ".$row["material_id"];
+                                        $result_quotation = mysqli_query($conn, $sql_quotation);
+                                        while($row_result_quotation = mysqli_fetch_array($result_quotation)){
+                                            echo "<option value='".$row_result_quotation['quotation_id']."-".$row_result_quotation['request_quantity']."'>".$row_result_quotation['quotation_id']." - ".$row_result_quotation['request_quantity']." ".$row['measuring_unit']."</option>";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-row-theme">
                                 Action :
                             </div>
                             <div class="form-row-data">
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="store_action" class="input-radio" value="store" /> Store
+                                            <input type="radio" name="store_action" class="input-radio" value="store" onChange="enableQuotationID()" /> Store
                                         </td>
                                         <td>
-                                            <input type="radio" name="store_action" class="input-radio" value="retrieve" /> Retrieve
+                                            <input type="radio" name="store_action" class="input-radio" value="retrieve" onChange="disableQuotationID()" /> Retrieve
                                         </td>
                                     </tr>
                                 </table>
@@ -292,10 +323,22 @@
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
+                                <?php 
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }
+                                ?>
+                            </div>        
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php 
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }    
+                                ?>
                             </div>
                         </div> 
                     </form>

@@ -7,7 +7,7 @@
         private $quotationID;
         private $expectedDeliveryDate;
         private $supplierApproval;
-        private $approvalDescrition;
+        private $approvalDescription;
         private $requestDate;
         private $issueDate;
         private $validTill;
@@ -15,7 +15,7 @@
         function __construct($args) {
             $this->expectedDeliveryDate = $args["expected_delivery_date"];
             $this->supplierApproval = $args["supplier_approval"];
-            $this->approvalDescrition = $args["approval_description"];
+            $this->approvalDescription = $args["approval_description"];
             $this->requestDate = date("Y-m-d");
             $this->issueDate = $args["issue_date"];
             $this->validTill = $args["valid_till"];
@@ -144,8 +144,5 @@
         }
         
         
-        public function logout() {
-            header("location: http://localhost/rlf/view/merchandiser/login.php");
-        }
     }
 ?>

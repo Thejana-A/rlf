@@ -72,7 +72,16 @@
             header("location: http://localhost/rlf/view/supplier/view_raw_material_request.php?data=true");
             break;
         case "supplier_operation":
-            if(isset($_POST['edit'])){                 
+            if(isset($_POST['edit'])){   
+                //print_r($_POST);              
+                $rawMaterialModel->updateRawMaterial();
+            }else if(isset($_POST['delete'])){
+                $rawMaterialModel->deleteRawMaterial();
+            }
+            break;    
+        case "fashion_designer_operation":
+            if(isset($_POST['edit'])){   
+                //print_r($_POST);              
                 $rawMaterialModel->updateRawMaterial();
             }else if(isset($_POST['delete'])){
                 $rawMaterialModel->deleteRawMaterial();

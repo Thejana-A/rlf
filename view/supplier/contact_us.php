@@ -20,7 +20,7 @@
                      Contact Us
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Contact Us</h2>
                     

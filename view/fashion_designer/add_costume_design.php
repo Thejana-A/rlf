@@ -34,7 +34,7 @@
                 material_row += "<div class='form-row-data'>";
                 material_row += "<input type='text' class='column-textfield' name='material_size[]' id='material_size_"+materialCount+"' readonly />&nbsp";
                 material_row += "<input type='text' class='column-textfield' name='measuring_unit[]' id='measuring_unit_"+materialCount+"'readonly />&nbsp";
-                material_row += "<input type='number' step='0.001' min='0.001' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
+                material_row += "<input type='number' step='0.1' min='0.1' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
                 materialCount++; 
                 document.getElementById("form_body").innerHTML += material_row;
             }
@@ -66,6 +66,8 @@
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/add" />
                             <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                             <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $_SESSION["employee_id"]; ?>" />
+                            <input type="text" hidden="true" name="customized_design_approval" value="approve" />
+                            <input type="text" hidden="true" name="design_approval_date" value="<?php echo Date("Y-m-d") ?>" />
                             <center>
                                 <h2>Create costume design</h2>
                             </center>
@@ -173,7 +175,7 @@
                                     <div class="form-row-data">
                                         <input type="text" name="material_size[]" id="material_size_0" class="column-textfield" value="" readonly />
                                         <input type="text" name="measuring_unit[]" id="measuring_unit_0" class="column-textfield" value="" readonly />
-                                        <input type="number" step="0.001" min="0.001" name="quantity[]" id="quantity_0" class="column-textfield" required />
+                                        <input type="number" step="0.1" min="0.1" name="quantity[]" id="quantity_0" class="column-textfield" required />
                                         <button onclick="addCode()"> + </button>
                                     </div>
                                 </div>

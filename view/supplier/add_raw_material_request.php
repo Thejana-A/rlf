@@ -41,7 +41,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" required/>
+                                <input type="text" name="name" id="name" placeholder="Material Name-Size" required/>
                             </div>
                         </div>
 
@@ -51,13 +51,12 @@
                             </div>
                             <div class="form-row-data">
                                 <select name="size" id="">
-                                    <option>XS</option>                                 
-                                    <option>S</option>
-                                    <option>M</option>
-                                    <option>L</option>
-                                    <option>XL</option>
-                                    <option>XXL</option>
-                                    <option>XXXL</option>
+                                    <option value="XS">XS</option>                                 
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
                                 </select>
                             </div>
                         </div>

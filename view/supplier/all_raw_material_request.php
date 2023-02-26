@@ -65,7 +65,7 @@
                                         echo "</div>";
                                     }
                                 }else {
-                                    echo "0 results";
+                                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No requests";
                                 }
                             }else{
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);

@@ -14,15 +14,18 @@
             $this->storeAction = $args["store_action"];
             $this->quantityInStock = $args["quantity_in_stock"];
             $this->quantity = $args["quantity"];
+            $this->quotationID = explode("-",$args["quotation_id"])[0];
         }
 
         public function manageStorage(){
-            //print_r($_POST);
+            if($this->quotationID == ''){
+                $this->quotationID = NULL;
+            }
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $storage_log_sql = "INSERT INTO storage_log (merchandiser_id, material_id, time_stamp, store_action, quantity) VALUES (?,?,?,?,?);";
+            $storage_log_sql = "INSERT INTO storage_log (merchandiser_id, material_id, time_stamp, store_action, quantity, quotation_id) VALUES (?,?,?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $storage_log_sql)) {
-                mysqli_stmt_bind_param($stmt, "iissd", $this->merchandiserID, $this->materialID, $this->timeStamp, $this->storeAction, $this->quantity);
+                mysqli_stmt_bind_param($stmt, "iissdi", $this->merchandiserID, $this->materialID, $this->timeStamp, $this->storeAction, $this->quantity, $this->quotationID);
                 mysqli_stmt_execute($stmt);
                 $insertedRow = $conn -> affected_rows;
                 if($insertedRow == -1){
@@ -31,14 +34,7 @@
                     ?><script>
                     alert("Operation was successful.");
                     </script><?php  
-                    /*echo "Operation was successful!";
-                    echo "<table>";
-                    echo "<tr><td>Employee ID </td><td>: $this->merchandiserID</td></tr>";
-                    echo "<tr><td>Material ID </td><td>: $this->materialID</td></tr>";
-                    echo "<tr><td>Date & time </td><td>: $this->timeStamp</td></tr>"; 
-                    echo "<tr><td>Action </td><td>: $this->storeAction</td></tr>"; 
-                    echo "<tr><td>Quantity </td><td>: $this->quantity</td></tr>"; 
-                    echo "</table>"; */
+
                     if($this->storeAction == "store"){
                         $quantityInStock = $this->quantityInStock + $this->quantity;
                     }else{

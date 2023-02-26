@@ -33,7 +33,7 @@
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  /> ";
+                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' onChange='setPrice()' /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."'class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
@@ -201,7 +201,7 @@
                                 Quotation issued date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name=""  value = "<?php echo ($row["request_date"]=="")?Date("Y-m-d"):$row["request_date"] ?>" readonly />
+                                <input type="date" name="issue_date"  value = "<?php echo ($row["issue_date"]=="")?Date("Y-m-d"):$row["issue_date"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -246,7 +246,7 @@
                                 Acceptance description :
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="approval_description" <?php echo $row["approval_description"]; ?>></textarea>
+                                <textarea name="approval_description" rows="4" cols="40" ></textarea>
                             </div>
                         </div>
 

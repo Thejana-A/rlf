@@ -199,6 +199,8 @@ if(($_SESSION["customer_id"]=="")){
                         <a href="#">Notification</a>
                         <a href="view_all_quotation.php" target="iframe_a">View All Quotation</a>
                         <a href="view_all_order.php" target="iframe_a">View All Order</a>
+                        <a href="view_all_customized_design_request.php" target="iframe_a">View Customized Design Request</a>
+                        <a href="edit_self_profile.php" target="iframe_a"> Reset password </a>
                     </div>
 
                     <div id="main">
