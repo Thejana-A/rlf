@@ -47,7 +47,7 @@
                             require_once('../../model/DBConnection.php');
                             $connObj = new DBConnection();
                             $conn = $connObj->getConnection();
-                            $sql = "SELECT quotation_id,first_name, last_name,issue_date,valid_till  FROM raw_material_quotation INNER JOIN employee on raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = '$supplierID'";
+                            $sql = "SELECT quotation_id,first_name, last_name,issue_date,valid_till  FROM raw_material_quotation INNER JOIN employee on raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"].";";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){
