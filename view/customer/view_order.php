@@ -282,6 +282,20 @@
                     echo "<input type='text' name='balance_payment' style='width: 100%;' disabled value=Rs.".$balance_payment.">";
                     echo "<label for='reason'>Dispatch Date :</label>";
                     echo "<input type='text' name='dispatch_date' style='width: 100%;' disabled value=".$dispatch_date.">";
+                }else if($order_status == "confirmed"){
+                    echo "<center>";
+                    echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Confirmed' >";
+                    echo "</center>";
+                    echo "<br />";
+                    echo "<br />";
+                    echo "<label for='reason'>Advance Payment :</label>";
+                    echo "<input type='text' name='advance_payment' style='width: 100%;' disabled value= Rs.".$advance_payment." >";
+                    echo "<label for='reason'>Advance payment Date :</label>";
+                    echo "<input type='text' name='reason' style='width: 100%;' disabled value=".$advance_payment_date." >";
+                    echo "<label for='reason'>Balance Payment :</label>";
+                    echo "<input type='text' name='balance_payment' style='width: 100%;' disabled value=Rs.".$balance_payment.">";
+                    echo "<label for='reason'>Dispatch Date :</label>";
+                    echo "<input type='text' name='dispatch_date' style='width: 100%;' disabled value=".$dispatch_date.">";
                 }
                 ?>
               </form>

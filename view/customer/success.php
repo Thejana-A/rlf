@@ -22,8 +22,27 @@
       <div class="success-container">
         <?php
            if(isset($_GET["amount"]) && !empty($_GET["amount"])){
-               ?>
+        ?>
+        <?php
+        /*$servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "rlf";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "INSERT INTO custume_order (firstname, lastname, email)
+        VALUES ('John', 'Doe', 'john@example.com')";
+
+        $conn->close();*/
+        ?>
             <h3>Your Transaction has been Successfully Completed</h3>
+            <h3>Your Order is Confirmed </h3>
           <?php
            }
         ?>
