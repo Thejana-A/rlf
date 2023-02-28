@@ -54,7 +54,7 @@
                          ?>
                         
                         <div class="item-data-row">
-                            <?php $class = ($row["order_status"]=="reject")?"red":(($row["order_status"]== NULL)?"grey":"green");
+                            <?php $class = ($row["order_status"]=="rejected")?"red":(($row["order_status"]== NULL)?"grey":"green");
                              ?>
                             <span><?php echo $row['order_id']; ?></span>
                             <span><?php echo $row['order_placed_on']; ?></span>

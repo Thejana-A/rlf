@@ -203,10 +203,23 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Delete" />
+                                <?php 
+                                    if($row["merchandiser_id"] == NULL){
+                                        echo "<input type='submit' value='Delete' />";
+                                    }else{
+                                        echo "<input type='submit' value='Delete' disabled />";
+                                    }
+                                ?>
+                                
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php 
+                                    if($row["merchandiser_id"] == NULL){
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }
+                                ?>
                             </div>
                         </div> 
                     </form>

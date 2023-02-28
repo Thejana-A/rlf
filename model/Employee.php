@@ -255,6 +255,7 @@
                         session_start();
                         $_SESSION["email"] = $row_supplier["email"]; 
                         $_SESSION["username"] = $row_supplier["first_name"]." ".$row_supplier["last_name"]; 
+                        $_SESSION["first_name"] = $row_supplier["first_name"];
                         $_SESSION["supplier_id"] = $row_supplier["supplier_id"]; 
                         header("location: http://localhost/rlf/view/supplier/profile.php");   
                     }else{

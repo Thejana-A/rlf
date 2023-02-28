@@ -28,6 +28,9 @@
         case "costume_design":
             include_once ( __DIR__.'/CostumeDesignController.php');
             break;
+        case "design_material":
+            include_once ( __DIR__.'/DesignMaterialController.php');
+            break;
         case "costume_quotation":
             //print_r($_POST);
             include_once ( __DIR__.'/CostumeQuotationController.php');

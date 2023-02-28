@@ -87,21 +87,6 @@
                                 <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Size : 
-                            </div>
-                            <div class="form-row-data">
-                                <select name="size" disabled>
-                                    <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
-                                    <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
-                                    <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
-                                    <option value="L" <?php echo ($row["size"] == "L")?'selected':'' ?>>L</option>
-                                    <option value="XL" <?php echo ($row["size"] == "XL")?'selected':'' ?>>XL</option>
-                                    <option value="XXL" <?php echo ($row["size"] == "XXL")?'selected':'' ?>>XXL</option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -115,15 +100,9 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Description
-                            </div>
-                            <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description"><?php echo $row["description"]; ?></textarea>
-                            </div>
-                        </div>
-                    
+                        <center>
+                            <h2>Material Description</h2>
+                        </center>
                         <div class="form-row">
                                 <div class="form-row-theme">
                                     <b>ID - Material name</b>

@@ -12,8 +12,10 @@
                 $row = $_SESSION["row"];
                 //print_r($row);
             }
-
-            $conn = new mysqli("localhost", "root", "", "rlf");
+            $quotationID = $row["quotation_id"];
+            //$conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
@@ -31,7 +33,7 @@
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  /> ";
+                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' onChange='setPrice()' /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."'class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
@@ -76,7 +78,7 @@
 
                 <div id="form-box">
                 <form method="post" name="MaterialQuotationForm" action="../RouteHandler.php">
-                        <input type="text" hidden="true" name="framework_controller" value="raw_material_order/update" />
+                        <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <center>
@@ -89,9 +91,9 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="quotation_id" value ="<?php echo $row["quotation_id"]; ?>" readonly/>
-                                <input type="text" hidden ="true" name="payment_date" value ="<?php echo $row["payment_date"]; ?>" />
+
                                 <input type="text" hidden ="true" name="manager_approval" value ="<?php echo $row["manager_approval"]; ?>" />
-                                <input type="text" hidden ="true" name="approval_date" value ="<?php echo $row["approval_date"]; ?>" />                            
+                           
                             </div>
                         </div>
                         <div class="form-row">
@@ -199,7 +201,7 @@
                                 Quotation issued date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name=""  value = "<?php echo ($row["request_date"]=="")?Date("Y-m-d"):$row["request_date"] ?>" readonly />
+                                <input type="date" name="issue_date"  value = "<?php echo ($row["issue_date"]=="")?Date("Y-m-d"):$row["issue_date"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -207,7 +209,7 @@
                                 Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" value = "<?php echo $row["valid_till"]; ?>"  readonly/>
+                                <input type="date" name="valid_till" value = "<?php echo $row["valid_till"]; ?>"  required/>
                             </div>
                         </div>
                         
@@ -230,10 +232,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="acceptance" class="input-radio" id="" /> Accepted
+                                            <input type="radio" name="supplier_approval" value="approve" class="input-radio" id=""  <?php echo ($row["supplier_approval"] == "approve")?'checked':'' ?>/> Accepted
                                         </td>
                                         <td>
-                                            <input type="radio" name="acceptance" class="input-radio" id=""  /> Rejected
+                                            <input type="radio" name="supplier_approval" value="reject" class="input-radio" id="" <?php echo ($row["supplier_approval"] == "reject")?'checked':'' ?>  /> Rejected
                                         </td>
                                     </tr>
                                 </table>
@@ -244,16 +246,16 @@
                                 Acceptance description :
                             </div>
                             <div class="form-row-data">
-                                <textarea name="approval_description" rows="4" cols="40" ></textarea>
+                                <textarea rows="4" cols="40" name="approval_description"><?php echo $row["approval_description"]; ?></textarea>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Send" />
+                                <input type="submit"  name ="update_material_quotation" value="Save" />
                             </div>
                             <div class="form-row-reset">
-                                <input type="submit" value="Cancel" />
+                                <input type="reset" value="Cancel" />
                             </div>
                         </div> 
 

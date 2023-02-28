@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Edit costume design</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php 
             $conn = new mysqli("localhost", "root", "", "rlf");
         
@@ -57,6 +58,11 @@
             }else{
                 echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
             }  
+
+            $parts_of_name = explode('-', $row["name"]);
+            $last = array_pop($parts_of_name);
+            $parts_of_name = array(implode('-', $parts_of_name), $last);
+            $costumeNameResult = $parts_of_name[0]; 
         ?>
 
         <script>
@@ -102,11 +108,16 @@
                     <a href="#">View costume designs </a> > Edit
                 </div>
 
+                <div class="link-row" style="width:95%;">
+                    <a href="./view_costume_design.php?name=<?php echo $costumeNameResult ?>" class="right-button">View design</a>
+                </div><br />
                 <div id="form-box">
-                    <form method="post" action="">
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update_price" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
-                            <h2>Edit costume design</h2>
+                            <h2>Costume design details</h2>
                         </center>
 
                         <div class="form-row">
@@ -122,25 +133,9 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" disabled />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Size : 
-                            </div>
-                            <div class="form-row-data">
-                                <select name="size">
-                                    <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
-                                    <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
-                                    <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
-                                    <option value="L" <?php echo ($row["size"] == "L")?'selected':'' ?>>L</option>
-                                    <option value="XL" <?php echo ($row["size"] == "XL")?'selected':'' ?>>XL</option>
-                                    <option value="XXL" <?php echo ($row["size"] == "XXL")?'selected':'' ?>>XXL</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Appearance :
@@ -164,62 +159,9 @@
                                 <img src="../icons/right_view.png" alt="right-view" /> 
                             </div>
                         </div> -->
-                        
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Description
-                            </div>
-                            <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description" readonly><?php echo $row["description"]; ?></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Fashion designer : 
-                            </div>
-                            <div class="form-row-data">
-                                <?php 
-                                    $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type = 'fashion designer' AND active_status = 'enable'";
-                                    if($result = mysqli_query($conn, $sql)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            echo "<select name='fashion_designer_id' id='fashion_designer_id'>";
-                                            echo "<option disabled>ID - Fashion designer</option>";
-                                            while($fashion_designer_row = mysqli_fetch_array($result)){
-                                                if($fashion_designer_row["employee_id"] == $row["fashion_designer_id"]){
-                                                    echo "<option value='".$fashion_designer_row["employee_id"]."' selected>".$fashion_designer_row["employee_id"]." - ".$fashion_designer_row["first_name"]." ".$fashion_designer_row["last_name"]."</option>";
-                                                }else{
-                                                    echo "<option value='".$fashion_designer_row["employee_id"]."'>".$fashion_designer_row["employee_id"]." - ".$fashion_designer_row["first_name"]." ".$fashion_designer_row["last_name"]."</option>";
-                                                }   
-                                            }
-                                            echo "</select>";
-                                        }else {
-                                            echo "0 results";
-                                        }
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                                    }
-                                ?>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div id="form-box">
-                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
-                        <input type="text" hidden="true" name="framework_controller" value="costume_design/update_price" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <center>
                             <h2>Price description</h2>
                         </center>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Design ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="design_id" value="<?php echo $designID ?>" readonly />
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-row-theme">
                                 <b>ID - Material name (unit)</b>
@@ -234,21 +176,11 @@
                         <div id="form_body">
                             <?php 
                                 echo $materialList;
-                                mysqli_close($conn);  
+                                  
                             ?>
                             
                         </div>
 
-                        <!--<div class="form-row">
-                            <div class="form-row-theme">
-                                0002-Anchor button(units)
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="" id="" class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield" />
-                                <input type="text" name="" id="" class="column-textfield" disabled />
-                            </div>
-                        </div> -->
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Total material price (LKR) :
@@ -318,12 +250,13 @@
                                     }else{
                                         echo "<input type='reset' value='Cancel' />";
                                     }
+                                    mysqli_close($conn);
                                 ?>   
                             </div>
                         </div>
                         
                     </form>
-                </div>   
+                </div> 
             </div> 
         </div> 
 

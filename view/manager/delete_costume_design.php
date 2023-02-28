@@ -45,7 +45,25 @@
                     }
                     
                 }else {
-                    echo "0 results";
+                    //echo "0 results";
+                    $presentMaterialList.= "<div class='form-row'><div class='form-row-theme'>";
+                    $presentMaterialList.= "<select name='material_id[]' id='material_id[]' required>";
+                    $presentMaterialList.= "<option disabled>ID - Material name</option>";  
+                    if($result = mysqli_query($conn, $sql_all_material)){
+                        if(mysqli_num_rows($result) > 0){ 
+                            while($optional_row = mysqli_fetch_array($result)){
+                
+                                $presentMaterialList.= "<option value='".$optional_row["material_id"]."'>".$optional_row["material_id"]." - ".$optional_row["name"]." - (".$optional_row["measuring_unit"].")</option>";
+                
+                            }
+                        }
+                    }
+                    $presentMaterialList.= "</select></div>";
+                    $presentMaterialList.= "<div class='form-row-data'>";
+                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' required />&nbsp";
+                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' />&nbsp";
+                    $presentMaterialList.= "<input type='text' class='column-textfield' name='material_price[]' id='material_price_".$materialCount."' readonly /></div></div>";
+                    $materialCount++;
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);

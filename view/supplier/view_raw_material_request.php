@@ -38,8 +38,6 @@
                 <div id="form-box">
                     <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_operation" />
-                    <input type="text" name="approval_date" hidden="true" value="<?php echo $_SESSION["approval_date"]; ?>" />
-                    <input type="text" name="quantity_in_stock" hidden="true" value="<?php echo $_SESSION["quantity_in_stock"]; ?>"/>
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
@@ -52,8 +50,7 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="material_id"  id="material_id" value = "<?php echo $row["material_id"];?>" readonly />
-                                <input type="text" hidden="true" name="approval_date" value="<?php echo $row["approval-date"]; ?>" />
-                                <input type="text" hidden="true" name="quantity_in_stock" value="<?php echo $row["quantitiy_in_stock"]; ?>" />
+                                <input type="text" hidden="true" name="quantity_in_stock" value="0" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -127,9 +124,9 @@
                             <div class="form-row-data">
                         <?php
                             if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                            echo "<input type='file' name='image' accept='image/png, image/gif, image/jpeg, image/tiff' value= '".$row["image"]."' />";
+                                echo "<input type='file' name='image' accept='image/png, image/gif, image/jpeg, image/tiff' value= '".$row["image"]."' disabled />";
                             }else{
-                                echo "<input type='file' name= 'image' accept='image/png, image/gif, image/jpeg, image/tiff' value= '".$row["image"]."' />";
+                                echo "<input type='file' name='image' accept='image/png, image/gif, image/jpeg, image/tiff' value= '".$row["image"]."' />";
                             }
                             ?>
                             </div>  

@@ -40,7 +40,7 @@
                             <b>Issued date</b>
                             <b>Valid till</b>
 
-                            <hr />
+                            <hr class = "manager-long-hr" />
                         </div>
                         <?php 
                             $supplierID = $_SESSION["supplier_id"];
