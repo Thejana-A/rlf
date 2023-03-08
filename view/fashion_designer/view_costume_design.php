@@ -19,23 +19,23 @@
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
-                    WHERE (`name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%') AND c.fashion_designer_id = $_SESSION['employee_id'] LIMIT 1)
+                    WHERE (`name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%') AND c.fashion_designer_id = ".$_SESSION['employee_id']." LIMIT 1)
                     UNION
                     (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, '' AS merchandiser_first_name, '' AS merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
                     FROM costume_design c 
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id AND `merchandiser_id` IS NULL
-                    WHERE (`name` LIKE '%$searchbar%') AND c.fashion_designer_id = $_SESSION['employee_id'] LIMIT 1)
+                    WHERE (`name` LIKE '%$searchbar%') AND c.fashion_designer_id = ".$_SESSION['employee_id']." LIMIT 1)
                     UNION
                     (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id AND `fashion_designer_id` IS NULL
-                    WHERE (`name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%') AND c.fashion_designer_id = $_SESSION['employee_id'] LIMIT 1)
+                    WHERE (`name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%') AND c.fashion_designer_id = ".$_SESSION['employee_id']." LIMIT 1)
                     UNION
                     (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, '' AS merchandiser_first_name, '' AS merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
                     FROM costume_design c 
                     JOIN employee e1 ON `merchandiser_id` IS NULL
                     JOIN employee e2 ON `fashion_designer_id` IS NULL
-                    WHERE `name` LIKE '%$searchbar%' AND c.fashion_designer_id = $_SESSION['employee_id'] LIMIT 1);";
+                    WHERE `name` LIKE '%$searchbar%' AND c.fashion_designer_id = ".$_SESSION['employee_id']." LIMIT 1);";
                     $search_result_costume_row = $conn->query($search_sql_costume);
                     if ($search_result_costume_row->num_rows > 0) {
                         while ($search_costume_row = $search_result_costume_row->fetch_assoc()) { 
@@ -62,7 +62,7 @@
             }else{
                 $search_output = "";
                 $output = "";
-                $sql_costume = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE fashion_designer_id = $_SESSION['employee_id'];";
+                $sql_costume = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE fashion_designer_id = ".$_SESSION['employee_id'].";";
                 $sql_costume_result = $conn->query($sql_costume);
                 $costume_name = array();
                 if ($sql_costume_result->num_rows > 0) {

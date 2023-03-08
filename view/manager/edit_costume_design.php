@@ -48,7 +48,7 @@
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$design_material_row["material_id"]." - ".$design_material_row["name"]." (".$design_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
-                        $presentMaterialList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["quantity"]."' required /> ";
+                        $presentMaterialList .= "<input type='number' step='0.01' min='0' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["quantity"]."' required /> ";
                         $presentMaterialList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]'' id='material_price_".$materialCount."' class='column-textfield' value='' readonly />"; 
                         $presentMaterialList .= "</div>";
@@ -108,7 +108,7 @@
                 ?>
                 material_row += "</select></div>";
                 material_row += "<div class='form-row-data'>";
-                material_row += "<input type='number' step='0.001' min='0' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' onChange='setPrice("+materialCount+")' required />&nbsp";
+                material_row += "<input type='number' step='0.01' min='0' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' onChange='setPrice("+materialCount+")' required />&nbsp";
                 material_row += "<input type='number' step='0.01' min='0' class='column-textfield' name='unit_price[]' id='unit_price_"+materialCount+"' onChange='setPrice("+materialCount+")' />&nbsp";
                 material_row += "<input type='text' class='column-textfield' name='material_price[]' id='material_price_"+materialCount+"' readonly /></div></div>";
                 materialCount++;

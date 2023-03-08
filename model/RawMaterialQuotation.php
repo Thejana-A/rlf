@@ -110,6 +110,10 @@
                         $conn->query($sql_reset_material);
                         $materialPriceModel = new MaterialPrice($_POST, $publicQuotationID); 
                         $materialPriceModel->setQuantity();
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Material quotation was updated - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', 'material quotation');";
+                        $conn->query($sql_notification);
                         ?><script>
                         alert("Quotation was updated successfully");
                         window.location.href='<?php echo $_POST["home_url"]; ?>';
