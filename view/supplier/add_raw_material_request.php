@@ -68,9 +68,9 @@
                             <div class="form-row-data">
                                 <select name="measuring_unit" id="" >
                                     <option value="units">Units</option>
-                                    <option value="metre">metre</option>
-                                    <option value="kilogram">kilogram</option>
-                                    <option value="litre">litre</option>
+                                    <option value="m">metre</option>
+                                    <option value="kg">kilogram</option>
+                                    <option value="l">litre</option>
                                     <option value="yards">yards</option>
                                     <option value="m^2">m^2</option>
                                 </select>
