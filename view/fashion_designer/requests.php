@@ -53,7 +53,7 @@
                                 Material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" />
+                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" readonly/>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="size" id="size" value = "<?php echo $row["size"];?>" />
+                                <input type="text" name="size" id="size" value = "<?php echo $row["size"];?>" readonly />
                             </div>
                         </div>
 
@@ -71,7 +71,7 @@
                                 Measuring Unit : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="measuring_unit" id="measuring_unit" value = "<?php echo $row["measuring_unit"];?>" />
+                                <input type="text" name="measuring_unit" id="measuring_unit" value = "<?php echo $row["measuring_unit"];?>" readonly />
                             </div>
                         </div>
                         
@@ -108,7 +108,7 @@
                                 Raw material description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="" name="description" id="description" rows="4" cols="40" ><?php echo $row["description"];?></textarea>
+                                <textarea id="" name="description" id="description" rows="4" cols="40" readonly ><?php echo $row["description"];?></textarea>
                             </div>
                         </div>
                         <div class="form-row">
