@@ -39,7 +39,7 @@
                 material_row += "<div class='form-row-data'>";
                 material_row += "<input type='text' class='column-textfield' name='material_size[]' id='material_size_"+materialCount+"' readonly />&nbsp";
                 material_row += "<input type='text' class='column-textfield' name='measuring_unit[]' id='measuring_unit_"+materialCount+"' readonly />&nbsp";
-                material_row += "<input type='number' step='0.001' min='0.001' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
+                material_row += "<input type='number' step='0.01' min='0.01' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
                 materialCount++; 
                 document.getElementById("form_body").innerHTML += material_row;
             }
@@ -129,7 +129,7 @@
                                 <div class="form-row-data">
                                     <input type="text" name="material_size[]" id="material_size_0" class="column-textfield" value="" readonly />
                                     <input type="text" name="measuring_unit[]" id="measuring_unit_0" class="column-textfield" value="" readonly />
-                                    <input type="number" step="0.001" min="0.001" name="quantity[]" id="quantity_0" class="column-textfield" required />
+                                    <input type="number" step="0.01" min="0.01" name="quantity[]" id="quantity_0" class="column-textfield" required />
                                     <button onclick="addCode()"> + </button>
                                 </div>
                             </div>

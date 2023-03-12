@@ -27,7 +27,8 @@
                     $costumeNameList .= "<option readonly selected>ID - Costume</option>";
                     while($costume_name = mysqli_fetch_array($costumeNameResult)){
                         $costumeNameList .= "<option value='".$costumeNameCount."'>".$costume_name["costume_name"]."</option>";
-                        $costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price IS NOT NULL AND (name LIKE '".$costume_name["costume_name"]."-__' OR name LIKE '".$costume_name["costume_name"]."-_')";
+                        //$costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price IS NOT NULL AND (name LIKE '".$costume_name["costume_name"]."-__' OR name LIKE '".$costume_name["costume_name"]."-_')";
+                        $costume_quotation_sql = "SELECT design_id, name, final_price FROM costume_design WHERE final_price > 0 AND (name LIKE '".$costume_name["costume_name"]."-__' OR name LIKE '".$costume_name["costume_name"]."-_' OR name LIKE '".$costume_name["costume_name"]."-___')";
                         if($result = mysqli_query($conn, $costume_quotation_sql)){
                             if(mysqli_num_rows($result) > 0){
                                 $costumeCountForName = 0; ?>

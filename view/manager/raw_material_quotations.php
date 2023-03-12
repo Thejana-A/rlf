@@ -117,7 +117,7 @@
                     <a href="#">Manager </a> > Raw material quotations
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Raw material quotations</h2>
                     </center>

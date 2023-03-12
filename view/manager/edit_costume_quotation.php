@@ -9,20 +9,24 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-
-            $quotationID = $row["quotation_id"];
-            //$conn = new mysqli("localhost", "root", "", "rlf");
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
 
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_costume_quotation = "SELECT quotation_id, customer.customer_id, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no, customer.email, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, manager_approval, approval_description FROM costume_quotation, employee, customer where costume_quotation.merchandiser_id = employee.employee_id AND costume_quotation.customer_id = customer.customer_id AND quotation_id=".$_GET["quotation_id"].";";
+                $result_view_costume_quotation = mysqli_query($conn, $sql_view_costume_quotation);
+                $row = mysqli_fetch_array($result_view_costume_quotation);
+            }
+
+            $quotationID = $row["quotation_id"];
+            
             $sql_costume_order = "SELECT * FROM costume_order WHERE quotation_id = '$quotationID';";  
             $costume_order_result = mysqli_query($conn, $sql_costume_order);  
             
@@ -37,8 +41,8 @@
                         $costumeDesignList .= "<input type='text' name='design_id[]' value='".$sql_costume_quotation["design_id"]." - ".$sql_costume_quotation["name"]."' readonly />";
                         $costumeDesignList .= "</div>";
                         $costumeDesignList .= "<div class='form-row-data'>";
-                        $costumeDesignList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["quantity"]."' required /> ";
-                        $costumeDesignList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["unit_price"]."' readonly /> ";
+                        $costumeDesignList .= "<input type='number' step='1' min='0' name='quantity[]' id='quantity_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["quantity"]."' required /> ";
+                        $costumeDesignList .= "<input type='number' step='1' min='0' name='unit_price[]' id='unit_price_".$costumeCount."' onChange='setPrice(".$costumeCount.")' class='column-textfield' value='".$sql_costume_quotation["unit_price"]."' readonly /> ";
                         $costumeDesignList .= "<input type='text' name='costume_price[]'' id='costume_price_".$costumeCount."' class='column-textfield' value='' readonly />"; 
                         $costumeDesignList .= "</div>";
                         $costumeDesignList .= "</div>";

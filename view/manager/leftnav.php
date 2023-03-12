@@ -23,4 +23,5 @@
     </span>
     <a href="costume_orders.php">Costume orders</a>
     <a href="reports.php">Reports</a>
+    <a href="feedback.php">Feedback</a>
 </div>

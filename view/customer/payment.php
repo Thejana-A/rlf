@@ -30,30 +30,47 @@ background-attachment: fixed;
 margin: 0;
 padding: 0;">
 <button type="button" onclick="goback()" class="back">Go Back</button>
-<form action="" method="post"  class="payment">
+<form autocomplete="off" action="checkout-charge.php" method="post"  class="payment">
 
     <label for="name"><b>Customer Name</b></label>
     <input type="text"  value="<?php echo  $_SESSION['first_name']." ".$_SESSION['last_name'] ;?>" name="name" disabled>
 
     <input type="hidden" name="user_id" value="">
 
-    <label for="username"><b>Address</b></label>
+    <label for="address"><b>Address</b></label>
     <input type="text" value="<?php echo $_SESSION['city']?>" name="address" disabled>
 
-        <label for="email"><b>Contact Number</b></label>
+    <label for="email"><b>Contact Number</b></label>
     <input type="text" value="<?php echo $_SESSION['contact_no']?>" name="con" disabled>
 
     <label for="contact"><b>Design Name</b></label>
     <input type="text" value="<?php echo $costume_name ?>" name="designname" disabled>
 
-    <label for="address"><b>Price</b></label>
-    <input type="text" value="Rs <?php echo $advance_payment ?>" name="price" disabled>
+    <label for="address"><b>Price(Rs)</b></label>
+    <input type="text" value="<?php echo $advance_payment ?>" name="amount" disabled>
+
+
+    <input type="hidden"  value="<?php echo  $_SESSION['first_name']." ".$_SESSION['last_name'] ;?>" name="name">
+    <input type="hidden" value="<?php echo $_SESSION['city']?>" name="address">
+    <input type="hidden" value="<?php echo $_SESSION['contact_no']?>" name="con">
+    <input type="hidden" name="amount" value="<?php echo $advance_payment?>">
+    <input type="hidden" name="product_name" value="<?php echo $costume_name?>">
 
 
     <br />
     <br />
-    <button type="pay" class="btn" name="signup">Pay with Card</button>
+    <!--<button type="pay" class="btn" name="signup">Pay with Card</button>-->
 
+    <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_51Mg1uMKtrRPeZUTD5DADleqtWHCbg1DRUd8I0ivYuVt5crq5lfxSrAjyFJpsYwxB9fIUBOrQMqPtALMzt1cTgOOY006RIWo8Fp"
+        data-amount=<?php echo str_replace(",","",$advance_payment) * 100?>
+        data-name="<?php echo $costume_name?>"
+        data-description="<?php echo $costume_name?>"
+        data-image="<?php //echo $_GET["image"]?>"
+        data-currency="lkr"
+        data-locale="auto">
+    </script>
 
   </form>
   <script>
