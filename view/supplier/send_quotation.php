@@ -246,7 +246,7 @@
                                 Acceptance description :
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="approval_description"><?php echo $row["approval_description"]; ?></textarea>
+                                <textarea name="approval_description" rows="4" cols="40" ></textarea>
                             </div>
                         </div>
 

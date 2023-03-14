@@ -8,17 +8,18 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
+            //$conn = new mysqli("localhost", "root", "", "rlf");
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
             }else{
-                //$conn = new mysqli("localhost", "root", "", "rlf");
-                require_once('../../model/database.php');
-                $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
-                if($conn->connect_error){
-                    die("Connection Faild: ". $conn->connect_error);
-                }
 
                 $sql = "SELECT * FROM supplier WHERE supplier_id = ".$_GET["supplier_id"].";";
                 $result = $conn->query($sql);
@@ -31,10 +32,7 @@
             }
         
             $supplierID = $row["supplier_id"];
-            $conn = new mysqli("localhost", "root", "", "rlf");
-            if($conn->connect_error){
-                die("Connection Faild: ". $conn->connect_error);
-            }
+            
             $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = '$supplierID';";
             $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve'";
         ?>

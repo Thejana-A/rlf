@@ -124,9 +124,16 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! An error occured.";
+                    ?><script>
+                        alert("Sorry ! An error occured.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }else{
-                    echo "Customer was updated successfully";
+                    ?><script>
+                        alert("Customer was updated successfully");
+                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
+                    /*echo "Customer was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Customer ID </td><td>: $this->customerID</td></tr>";
                     echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
@@ -135,7 +142,7 @@
                     echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
                     echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
                     echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                    echo "</table>";
+                    echo "</table>";*/
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

@@ -90,7 +90,7 @@
                                 Measuring Unit : 
                             </div>
                             <div class="form-row-data">
-                            <select name="measuring_unit" id="measuring_unit">
+                            <select name="measuring_unit" required>
                                     <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
                                     <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
                                     <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
