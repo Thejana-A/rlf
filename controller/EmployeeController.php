@@ -19,7 +19,7 @@
                 header("location: http://localhost/rlf/view/manager/edit_employee.php?data=true");
             }else if(isset($_POST['delete'])){
                 //header("location: http://localhost/rlf/view/manager/delete_employee.php?data[]=$row");
-                header("location: http://localhost/rlf/view/manager/edit_employee.php?data=true");
+                header("location: http://localhost/rlf/view/manager/delete_employee.php?data=true");
             }
             break;
         case "update":

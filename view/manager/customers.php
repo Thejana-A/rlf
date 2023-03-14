@@ -79,10 +79,10 @@
                     <a href="#">Login </a> >
                     <a href="#">Manager </a> > Customers
                 </div>
-                <div class="link-row-small">
+                <div class="link-row">
                     <a href="./add_customers.php" class="right-button">Add new customer</a>
                 </div>
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Customers</h2>
                     </center>
