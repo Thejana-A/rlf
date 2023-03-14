@@ -1,51 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>success</title>
+    <title>Success</title>
     <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
         .success-container {
-            width:50%;
-            position:absolute;
-            top:30%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            color:#bdc3c7;
-            font-weight:bold;
+            width: 50%;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #bdc3c7;
+            font-weight: bold;
             font-family: "Poppins", sans-serif;
         }
     </style>
 </head>
 <body>
-      <div class="success-container">
+    <div class="success-container">
         <?php
-           if(isset($_GET["amount"]) && !empty($_GET["amount"])){
-        ?>
-        <?php
-        /*$servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "rlf";
+        if (isset($_GET["amount"]) && !empty($_GET["amount"])) {
+            /*$servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "rlf";
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+            $order_id = $_GET['order_id'];
+            echo $order_id;
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $sql = "UPDATE costume_order SET order_status='confirmed' WHERE order_id=$order_id";
+            if ($conn->query($sql) === TRUE) {*/
+                echo "Your transaction has been successfully completed.";
+                echo "Your order is confirmed.";
+          /*  } else {
+                echo "Error updating record: " . $conn->error;
+            }
+
+            $conn->close();*/
         }
-
-        $sql = "INSERT INTO custume_order (firstname, lastname, email)
-        VALUES ('John', 'Doe', 'john@example.com')";
-
-        $conn->close();*/
         ?>
-            <h3>Your Transaction has been Successfully Completed</h3>
-            <h3>Your Order is Confirmed </h3>
-          <?php
-           }
-        ?>
-      </div>  
+    </div>
 </body>
 </html>
