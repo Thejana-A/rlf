@@ -294,8 +294,7 @@
                     echo "<input type='text' name='reason' style='width: 100%;' disabled value=".$advance_payment_date." >";
                     echo "<label for='reason'>Balance Payment :</label>";
                     echo "<input type='text' name='balance_payment' style='width: 100%;' disabled value=Rs.".$balance_payment.">";
-                    echo "<label for='reason'>Dispatch Date :</label>";
-                    echo "<input type='text' name='dispatch_date' style='width: 100%;' disabled value=".$dispatch_date.">";
+                    
                 }
                 ?>
               </form>

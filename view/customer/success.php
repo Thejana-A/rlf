@@ -1,3 +1,41 @@
+
+<?php
+session_start();
+error_reporting(E_ERROR | E_PARSE);
+
+$sname = "localhost";
+$unmae = "root";
+$password = "";
+$db_name = "rlf";
+$conn = mysqli_connect($sname, $unmae, $password, $db_name);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$order_id = $_GET["order_id"];
+$balance_payment = $_GET["balance_payment"];
+
+// Prepare and bind statement
+$stmt = $conn->prepare("UPDATE costume_order SET order_status=?, advance_payment=?, advance_payment_date=?, balance_payment=? WHERE order_id=?");
+$stmt->bind_param("sisii", $status, $_GET["amount"], $advance_payment_date, $balance_payment, $order_id);
+
+$status = "confirmed";
+$advance_payment_date = date("Y-m-d");
+
+// Execute statement
+if ($stmt->execute()) {
+    echo "Balance Payment is " . $balance_payment;
+    
+} else {
+    echo "Error updating record: " . $conn->error;
+}
+
+// Close statement and connection
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,28 +60,10 @@
     <div class="success-container">
         <?php
         if (isset($_GET["amount"]) && !empty($_GET["amount"])) {
-            /*$servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "rlf";
 
-            $order_id = $_GET['order_id'];
-            echo $order_id;
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $sql = "UPDATE costume_order SET order_status='confirmed' WHERE order_id=$order_id";
-            if ($conn->query($sql) === TRUE) {*/
                 echo "Your transaction has been successfully completed.";
                 echo "Your order is confirmed.";
-          /*  } else {
-                echo "Error updating record: " . $conn->error;
-            }
 
-            $conn->close();*/
         }
         ?>
     </div>

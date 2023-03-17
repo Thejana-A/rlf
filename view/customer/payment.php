@@ -54,6 +54,7 @@ padding: 0;">
     <input type="hidden" value="<?php echo $_SESSION['city']?>" name="address">
     <input type="hidden" value="<?php echo $_SESSION['contact_no']?>" name="con">
     <input type="hidden" name="amount" value="<?php echo $advance_payment?>">
+    <input type="hidden" name="balance_payment" value="<?php echo $balance_payment?>">
     <input type="hidden" name="product_name" value="<?php echo $costume_name?>">
     <input type="hidden" name="order_id" value="<?php echo $order_id?>">
 
