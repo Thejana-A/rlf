@@ -42,7 +42,7 @@ $result = $conn->query($sql);
             
                 <div class="content">
                     <input type="hidden" name="design_id"  value="<?php echo $row['design_id']; ?>">
-                    <a href="design_view.html">
+                    <a href="design_view.php?design_id=<?php echo $row['design_id'] ?>&design_name=<?php echo $costume_name[$i] ?>">
                         <img src="../front-view-image/<?php echo $row["front_view"]; ?>" width="200px" height="auto"/>
                             <div class="desc">
                                 <h4><?php echo $costume_name[$i]; ?></h4>
