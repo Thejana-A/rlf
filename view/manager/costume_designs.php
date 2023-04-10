@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php
+            $_SESSION["view_costume_path"] = "costume_design";
             require_once('../../model/DBConnection.php');
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -16,7 +17,7 @@
                 $search_output = "";
                 $output = "";
 
-                $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                /*$search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
@@ -36,7 +37,28 @@
                     FROM costume_design c 
                     JOIN employee e1 ON `merchandiser_id` IS NULL
                     JOIN employee e2 ON `fashion_designer_id` IS NULL
-                    WHERE `name` LIKE '%$searchbar%' LIMIT 1);";
+                    WHERE `name` LIKE '%$searchbar%' LIMIT 1);"; */
+                $search_sql_costume = "(SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name, c.fashion_designer_id, c.merchandiser_id, c.front_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id
+                    JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
+                    WHERE `costume_name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%' LIMIT 1)
+                    UNION
+                    (SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name, c.fashion_designer_id, c.merchandiser_id, c.front_view, '' AS merchandiser_first_name, '' AS merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e2 ON c.fashion_designer_id = e2.employee_id AND `merchandiser_id` IS NULL
+                    WHERE `costume_name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%' LIMIT 1)
+                    UNION
+                    (SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name, c.fashion_designer_id, c.merchandiser_id, c.front_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id AND `fashion_designer_id` IS NULL
+                    WHERE `costume_name` LIKE '%$searchbar%' OR e1.first_name LIKE '%$searchbar%' OR e1.last_name LIKE '%$searchbar%' LIMIT 1)
+                    UNION
+                    (SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name, c.fashion_designer_id, c.merchandiser_id, c.front_view, '' AS merchandiser_first_name, '' AS merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
+                    FROM costume_design c 
+                    JOIN employee e1 ON `merchandiser_id` IS NULL
+                    JOIN employee e2 ON `fashion_designer_id` IS NULL
+                    WHERE `costume_name` LIKE '%$searchbar%' LIMIT 1);";
                     $search_result_costume_row = $conn->query($search_sql_costume);
                     if ($search_result_costume_row->num_rows > 0) {
                         while ($search_costume_row = $search_result_costume_row->fetch_assoc()) { 
@@ -128,9 +150,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> > View costume designs
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager > View costume designs
                 </div>
                 <div class="link-row-small">
                     <a href="./add_costume_design.php" class="right-button">Add new design</a>

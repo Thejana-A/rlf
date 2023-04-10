@@ -17,7 +17,7 @@
                 
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "ii", $this->supplierID, $this->materialID[$materialCount]);
-                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_execute($stmt);  	
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 }  

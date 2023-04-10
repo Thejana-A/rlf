@@ -140,10 +140,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Costume designs quotations </a> > Create a costume quotation
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser >
+                    <a href="costume_quotations.php">Costume designs quotations </a> > Create a costume quotation
                 </div>
 
                 <div id="form-box">

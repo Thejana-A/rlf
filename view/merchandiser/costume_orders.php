@@ -112,14 +112,14 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> > Costume orders
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser > Costume orders
                 </div>
                 
-                <div class="link-row">
+                <!--<div class="link-row">
                     <a href="./add_costume_order_onsite.php" class="right-button">Add new costume order</a>
-                </div>
+                </div> -->
                 <div id="list-box">
                     <center>
                         <h2>Costume orders</h2>

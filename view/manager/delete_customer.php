@@ -24,10 +24,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">Customers </a> > Delete
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="customers.php">Customers </a> > Delete
                 </div> 
 
                 <div id="form-box-small">
@@ -51,7 +51,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -59,7 +59,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -75,7 +75,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" readonly />
                             </div>
                         </div>
                         
@@ -84,7 +84,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"]; ?>" />
+                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"]; ?>" readonly />
                             </div>
                         </div>
                         
@@ -93,7 +93,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" />
+                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" readonly />
                             </div>
                         </div>
                         

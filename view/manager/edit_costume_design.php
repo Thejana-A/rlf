@@ -166,11 +166,17 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">View costume designs </a> >
-                    <a href="#">View </a> > Edit
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <?php
+                    if($_SESSION["view_costume_path"] == "costume_design"){
+                        echo "<a href='costume_designs.php'>View costume design </a>";
+                    }else{
+                        echo "<a href='customized_designs.php'>View customized design </a>";
+                    }
+                    ?> >
+                    <a href="javascript:history.back()">View </a> > Edit
                 </div>
 
                 <div class="link-row" style="width:95%;">

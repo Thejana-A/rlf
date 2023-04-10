@@ -62,10 +62,10 @@
             
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">Employees </a> > Add new employee
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="employees.php">Employees </a> > Add new employee
                 </div> 
 
                 <div id="form-box-small">
