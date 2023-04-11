@@ -61,16 +61,17 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">Employees </a> > Edit
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="employees.php">Employees </a> > Edit
                 </div> 
 
                 <div id="form-box-small">
                     <form method="post" name="employeeForm" action="../RouteHandler.php" onSubmit="return validateForm()">
                         <input type="text" hidden="true" name="framework_controller" value="employee/update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Edit employee</h2>
                         </center>

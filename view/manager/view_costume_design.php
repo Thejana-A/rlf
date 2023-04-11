@@ -8,14 +8,12 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php   
-
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
-
-            error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['name'])){ 
                 
                 $designName = $_GET['name'];
@@ -29,6 +27,19 @@
                     echo "0 results";
                 }
             }
+
+            $customer_sql = "SELECT customer.customer_id, first_name, last_name, email, contact_no FROM customer INNER JOIN costume_design ON costume_design.customer_id = customer.customer_id AND design_id = ".$row["design_id"].";";
+            if($customer_result = mysqli_query($conn, $customer_sql)){
+                if(mysqli_num_rows($customer_result) > 0){
+                    while($customer_row = mysqli_fetch_array($customer_result)){
+                        $customerName = $customer_row["first_name"]." ".$customer_row["last_name"];
+                        $customerEmail = $customer_row["email"];
+                        $customerContactNo = $customer_row["contact_no"];
+                    }
+                }
+            }else{
+                echo "ERROR: Could not able to execute $customer_sql. " . mysqli_error($conn);
+            } 
     
         ?>
             
@@ -42,10 +53,16 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">View costume design </a> > View
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <?php
+                    if($_SESSION["view_costume_path"] == "costume_design"){
+                        echo "<a href='costume_designs.php'>View costume design </a>";
+                    }else{
+                        echo "<a href='customized_designs.php'>View customized design </a>";
+                    } 
+                    ?> > View
                 </div>
 
                 <div class="link-row" style="margin-left:-15%;">
@@ -57,9 +74,7 @@
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
-                        <input type="text" hidden="true" name="customized_design_approval" value="<?php echo $row["customized_design_approval"] ?>" />
-                        <input type="text" hidden="true" name="design_approval_date" value="<?php echo $row["design_approval_date"] ?>" />
-                        <input type="text" hidden="true" name="design_approval_description" value="<?php echo $row["design_approval_description"] ?>" />
+                        <input type="text" hidden="true" name="design_approval_date" value="<?php ($row["design_approval_date"] == "")? Date("Y-m-d"):$row["design_approval_date"] ?>" />
                         <center>
                             <h2>Edit costume design</h2>
                         </center>
@@ -138,6 +153,58 @@
                                 <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
+
+                        
+                        <?php
+                            if($_SESSION["view_costume_path"] == "customized_design"){
+                                echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                        echo "Customer ID : ";
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                        echo "<input type='text' name='customer_id' id='customer_id' value='".$row["customer_id"]."' disabled />";
+                                    echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                        echo "Customer name : ";
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                        echo "<input type='text' name='customer_name' id='customer_name' value='".$customerName."' disabled />";
+                                    echo "</div>";
+                                echo "</div>"; 
+                                echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                        echo "Design approval :"; 
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                        echo "<table width='60%'>";
+                                            echo "<tr>";
+                                                echo "<td>";
+                                                    echo "<input type='radio' name='customized_design_approval' value='approve' class='input-radio' ".(($row["customized_design_approval"]=="approve")?'checked':'')." /> Approve";
+                                                echo "</td>";
+                                                echo "<td>";
+                                                    echo "<input type='radio' name='customized_design_approval' value='reject' class='input-radio' ".(($row["customized_design_approval"]=="reject")?'checked':'')." /> Reject";
+                                                echo "</td>";
+                                            echo "</tr>";
+                                        echo "</table>";
+                                    echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                        echo "Design approval description";
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                        echo "<textarea rows='4' cols='40' name='design_approval_description' id='design_approval_description'>".$row["design_approval_description"]."</textarea>";
+                                    echo "</div>";
+                                echo "</div>";  
+                            }else{
+                                echo "<input type='text' hidden='true' name='customized_design_approval' value='".$row["customized_design_approval"]."' />";
+                                echo "<input type='text' hidden='true' name='design_approval_description' value='".$row["design_approval_description"]."' />";
+                            }
+                        ?>
+                        
+
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Fashion designer : 
@@ -205,7 +272,7 @@
                     </form>
                 </div>   
 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Available sizes</h2>
                     </center>

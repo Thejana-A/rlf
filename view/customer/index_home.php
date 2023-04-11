@@ -3,6 +3,12 @@
 include "db_conn.php";
 
 session_start();
+$_SESSION["email"] = "";
+$_SESSION["customer_id"] = "";
+$_SESSION["username"] = "";
+$_SESSION["employee_id"] = "";
+$_SESSION["supplier_id"] = "";
+$_SESSION["user_type"] = "";
 
 //$sql = "SELECT * FROM costume_design where publish_status = 'publish';";
 $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE publish_status = 'publish';";
@@ -42,7 +48,7 @@ $result = $conn->query($sql);
             
                 <div class="content">
                     <input type="hidden" name="design_id"  value="<?php echo $row['design_id']; ?>">
-                    <a href="design_view.html">
+                    <a href="design_view.php?design_id=<?php echo $row['design_id'] ?>&design_name=<?php echo $costume_name[$i]?>">
                         <img src="../front-view-image/<?php echo $row["front_view"]; ?>" width="200px" height="auto"/>
                             <div class="desc">
                                 <h4><?php echo $costume_name[$i]; ?></h4>

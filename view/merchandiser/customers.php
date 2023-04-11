@@ -72,9 +72,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> > Customers
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser > Customers
                 </div>
                 
                 <div id="list-box-small">

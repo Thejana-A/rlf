@@ -153,3 +153,18 @@
     width:150px;
   }
   /*content data form end*/
+
+  input[type="text"]:read-only, input[type="date"]:read-only, input[type="email"]:read-only, input[type="tel"]:read-only, input[type="number"]:read-only, textarea:read-only, select:disabled{
+    /*background-color:rgba(0, 0, 0, 0);
+    border:none;
+    padding:3px;  */
+    /*opacity: 0.7;
+    color:#111111;
+    padding:2px;
+    border:2px solid #ffffff; */
+    /*opacity: 0.75;*/
+    background-color:rgba(255, 255, 255, 0.5);
+    color:rgba(0, 0, 0, 0.7);
+    padding:3px;
+    border:1px solid #aaaaaa; 
+  }

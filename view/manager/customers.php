@@ -75,14 +75,14 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> > Customers
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager > Customers
                 </div>
-                <div class="link-row-small">
+                <div class="link-row">
                     <a href="./add_customers.php" class="right-button">Add new customer</a>
                 </div>
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Customers</h2>
                     </center>

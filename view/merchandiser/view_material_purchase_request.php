@@ -122,10 +122,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Raw material purchase request </a> > View
+                <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser >
+                    <a href="material_purchase_requests.php">Raw material purchase request </a> > View
                 </div>
 
                 <div id="form-box">

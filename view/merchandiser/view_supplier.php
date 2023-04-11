@@ -82,10 +82,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">Suppliers </a> > View
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser >
+                    <a href="suppliers.php">Suppliers </a> > View
                 </div>
 
                 <div id="form-box">
@@ -187,7 +187,7 @@
                                     $all_material_select = "";
                                     if($result = mysqli_query($conn, $sql_all_material)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' readonly>";
+                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' disabled>";
                                             $all_material_select .= "<option disabled>ID - Material name</option>";
                                             while($all_material_row = mysqli_fetch_array($result)){
                                                 $all_material_select .= "<option value=".$all_material_row["material_id"];

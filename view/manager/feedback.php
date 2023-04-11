@@ -25,7 +25,7 @@
                             $search_output.= "</div>";
                         }   
                     }else{
-                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No results found &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     }
                 }
             }else{
@@ -36,7 +36,7 @@
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
                             $output.= "<div class='item-data-row'>";
-                            $output.= "<span style='width:15%;'>".$row["name"]."</span><span style='width:25%;'>".$row["email"]."</span><span style='width:200px;'>".$row["message"]."</span>";
+                            $output.= "<span style='width:15%;'>".$row["name"]."</span><span style='width:25%;'>".$row["email"]."</span><span style='width:200px;'>".$row["message"]."<br /><br /></span>";
                             $output.= "<hr />";
                             $output.= "</div>";
                         }
@@ -58,9 +58,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> > Feedback
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager > Feedback
                 </div>
                 
                 <div id="list-box-ultra-small">

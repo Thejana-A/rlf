@@ -154,10 +154,10 @@
 
                 <div id="page-content">
                     <div id="breadcrumb">
-                        <a href="#">Welcome </a> >
-                        <a href="#">Login </a> >
-                        <a href="#">Manager </a> >
-                        <a href="#">View costume designs </a> > Create 
+                        <a href="http://localhost/rlf">Welcome </a> >
+                        <a href="../customer/customer_login.php">Login </a> >
+                        Manager >
+                        <a href="costume_designs.php">View costume designs </a> > Create 
                     </div>
                     <div id="form-box-small">
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">

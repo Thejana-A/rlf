@@ -76,9 +76,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> > View raw materials
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager > View raw materials
                 </div>
                 <div class="link-row">
                     <a href="./material_storage_log.php" class="left-button">Material storage log</a>

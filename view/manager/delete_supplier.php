@@ -35,10 +35,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">Suppliers </a> > Delete
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="suppliers.php">Suppliers </a> > Delete
                 </div>
 
                 <div id="form-box-small">
@@ -62,7 +62,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"] ?>" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -70,7 +70,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"] ?>" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -78,7 +78,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"] ?>" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -86,7 +86,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="email" id="email" value="<?php echo $row["email"] ?>" />
+                                <input type="text" name="email" id="email" value="<?php echo $row["email"] ?>" readonly />
                             </div>
                         </div>
                         
@@ -95,7 +95,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" />
+                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" readonly />
                             </div>
                         </div>
 
@@ -122,7 +122,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" />
+                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" readonly />
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                                     $all_material_select = "";
                                     if($result = mysqli_query($conn, $sql_all_material)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' required>";
+                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' required disabled>";
                                             $all_material_select .= "<option disabled>ID - Material name</option>";
                                             while($all_material_row = mysqli_fetch_array($result)){
                                                 $all_material_select .= "<option value=".$all_material_row["material_id"];
@@ -178,10 +178,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="verify_status" value="approve" class="input-radio" <?php echo ($row["verify_status"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="verify_status" value="approve" class="input-radio" <?php echo ($row["verify_status"]=="approve")?'checked':'disabled' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="verify_status" value="deny" class="input-radio" <?php echo ($row["verify_status"]=="deny")?'checked':'' ?> /> Deny
+                                            <input type="radio" name="verify_status" value="deny" class="input-radio" <?php echo ($row["verify_status"]=="deny")?'checked':'disabled' ?> /> Deny
                                         </td>
                                     </tr>
                                 </table>

@@ -36,8 +36,8 @@
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$design_material_row["material_id"]." - ".$design_material_row["name"]." (".$design_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
-                        $presentMaterialList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["quantity"]."' required /> ";
-                        $presentMaterialList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' /> ";
+                        $presentMaterialList .= "<input type='number' step='0.001' min='0' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["quantity"]."' readonly /> ";
+                        $presentMaterialList .= "<input type='number' step='0.01' min='0' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' readonly /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]'' id='material_price_".$materialCount."' class='column-textfield' value='' readonly />"; 
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
@@ -47,8 +47,8 @@
                 }else {
                     //echo "0 results";
                     $presentMaterialList.= "<div class='form-row'><div class='form-row-theme'>";
-                    $presentMaterialList.= "<select name='material_id[]' id='material_id[]' required>";
-                    $presentMaterialList.= "<option disabled>ID - Material name</option>";  
+                    $presentMaterialList.= "<select name='material_id[]' id='material_id[]' disabled>";
+                    $presentMaterialList.= "<option disabled selected>ID - Material name</option>";  
                     if($result = mysqli_query($conn, $sql_all_material)){
                         if(mysqli_num_rows($result) > 0){ 
                             while($optional_row = mysqli_fetch_array($result)){
@@ -60,8 +60,8 @@
                     }
                     $presentMaterialList.= "</select></div>";
                     $presentMaterialList.= "<div class='form-row-data'>";
-                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' required />&nbsp";
-                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' />&nbsp";
+                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' readonly />&nbsp";
+                    $presentMaterialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' readonly />&nbsp";
                     $presentMaterialList.= "<input type='text' class='column-textfield' name='material_price[]' id='material_price_".$materialCount."' readonly /></div></div>";
                     $materialCount++;
                 }
@@ -94,10 +94,17 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">View costume designs </a> > Delete
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <?php
+                    if($_SESSION["view_costume_path"] == "costume_design"){
+                        echo "<a href='costume_designs.php'>View costume designs </a>";
+                    }else{
+                        echo "<a href='customized_designs.php'>View customized designs </a>";
+                    }
+                    ?> >
+                    <a href="javascript:history.back()">View </a> > Delete
                 </div>
 
                 <div id="form-box">
@@ -122,7 +129,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" required />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -130,7 +137,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size" required>
+                                <select name="size" disabled>
                                     <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
                                     <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
                                     <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
@@ -172,7 +179,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" readonly><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -184,7 +191,7 @@
                                     $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type = 'fashion designer' AND active_status = 'enable'";
                                     if($result = mysqli_query($conn, $sql)){
                                         if(mysqli_num_rows($result) > 0){
-                                            echo "<select name='fashion_designer_id' id='fashion_designer_id' required>";
+                                            echo "<select name='fashion_designer_id' id='fashion_designer_id' disabled>";
                                             echo "<option disabled>ID - Fashion designer</option>";
                                             while($fashion_designer_row = mysqli_fetch_array($result)){
                                                 if($fashion_designer_row["employee_id"] == $row["fashion_designer_id"]){
@@ -212,7 +219,7 @@
                                     $sql = "SELECT employee_id, first_name, last_name FROM employee where user_type='merchandiser' AND active_status = 'enable'";
                                     if($result = mysqli_query($conn, $sql)){
                                         if(mysqli_num_rows($result) > 0){
-                                            echo "<select name='merchandiser_id' id='merchandiser_id' required>";
+                                            echo "<select name='merchandiser_id' id='merchandiser_id' disabled>";
                                             echo "<option disabled>ID - Merchandiser</option>";
                                             while($merchandiser_row = mysqli_fetch_array($result)){
                                                 if($merchandiser_row["employee_id"] == $row["merchandiser_id"]){
@@ -290,7 +297,7 @@
                                 <b>Final price (LKR) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" />
+                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" readonly />
                             </div>
                         </div>
 
@@ -302,10 +309,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="material_price_approval" value="approve" class="input-radio" <?php echo ($row["material_price_approval"] == "approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="material_price_approval" value="approve" class="input-radio" <?php echo ($row["material_price_approval"] == "approve")?'checked':'disabled' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="material_price_approval" value="reject" class="input-radio" <?php echo ($row["material_price_approval"] == "reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="material_price_approval" value="reject" class="input-radio" <?php echo ($row["material_price_approval"] == "reject")?'checked':'disabled' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -317,7 +324,7 @@
                                 Approval description :
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="material_price_description"><?php echo $row["material_price_description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="material_price_description" disabled><?php echo $row["material_price_description"]; ?></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -325,7 +332,7 @@
                                 Publish status :
                             </div>
                             <div class="form-row-data">
-                                <input type="checkbox" name="publish_status" id="publish_status" class="input-checkbox" value="publish" <?php echo ($row["publish_status"] == "publish")?'checked':'' ?> /> Published
+                                <input type="checkbox" name="publish_status" id="publish_status" class="input-checkbox" value="publish" <?php echo ($row["publish_status"] == "publish")?'checked':'disabled' ?> /> Published
                             </div>
                         </div>
                         

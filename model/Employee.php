@@ -385,7 +385,7 @@
                         echo "Please try again";
                     }else{
                         ?><script>alert("Email was verified successfully and now you can log in");
-                        window.location.href='http://localhost/rlf/view/customer/login_as.html';
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
                         </script><?php
                     }
                 } else {

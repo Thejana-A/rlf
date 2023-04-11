@@ -81,7 +81,7 @@
                                 $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view_general_design' />";
                                 $output.= "<input type='text' hidden='true' name='name' value='".$costume_name[$i]."' />";
                                 $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:30%;'>".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]."</span><span><img src='../front-view-image/".$costume_row["front_view"]."' width='60px' />&nbsp;<img src='../rear-view-image/".$costume_row["rear_view"]."' width='60px' /></span>";
-                                $output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
+                                $output.= "<table align='right' style='margin-right:15px;' class='two-button-table'><tr>";
                                 $output.= "<td><input type='submit' class='grey' value='View' /></td>";
                                 $output.= "</tr></table>";
                                 $output.= "<hr class='manager-long-hr' />";
@@ -108,9 +108,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> > View costume designs
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser > View costume designs
                 </div>
                 
                 <div id="list-box-small">

@@ -39,10 +39,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">View raw materials </a> > Delete
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="raw_materials.php">View raw materials </a> > Delete
                 </div>
 
                 <div id="form-box-ultra-small">
@@ -66,7 +66,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" value="<?php echo $row["name"]; ?>" />
+                                <input type="text" name="name" id="name" value="<?php echo $row["name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -74,7 +74,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size" id="size">
+                                <select name="size" id="size" disabled>
                                     <option value="XS" <?php echo ($row["size"]=="XS")?'selected':'' ?>>XS</option>
                                     <option value="S" <?php echo ($row["size"]=="S")?'selected':'' ?>>S</option>
                                     <option value="M" <?php echo ($row["size"]=="M")?'selected':'' ?>>M</option>
@@ -89,7 +89,7 @@
                                 Measuring unit : 
                             </div>
                             <div class="form-row-data">
-                                <select name="measuring_unit" id="measuring_unit">
+                                <select name="measuring_unit" id="measuring_unit" disabled>
                                     <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
                                     <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
                                     <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
@@ -105,7 +105,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="description" name="description" rows="4" cols="40"><?php echo $row["description"]; ?></textarea>
+                                <textarea id="description" name="description" rows="4" cols="40" readonly><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -116,14 +116,14 @@
                                 <img src="../raw-material-image/<?php echo $row["image"]; ?>" class="material-image" />
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!--<div class="form-row">
                             <div class="form-row-theme">
                                 Update image : 
                             </div>
                             <div class="form-row-data">
                                 <input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg, image/tiff" />
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Quantity in stock : 
@@ -165,10 +165,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" value="approve" <?php echo ($row["manager_approval"] == "approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" class="input-radio" value="approve" <?php echo ($row["manager_approval"] == "approve")?'checked':'disabled' ?> /> Approve
                                         </td>
                                         <td> 
-                                            <input type="radio" name="manager_approval" class="input-radio" value="reject" <?php echo ($row["manager_approval"] == "reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="manager_approval" class="input-radio" value="reject" <?php echo ($row["manager_approval"] == "reject")?'checked':'disabled' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -179,7 +179,7 @@
                                 Approval description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="approval_description" name="approval_description" rows="4" cols="40"><?php echo $row["approval_description"]; ?></textarea>
+                                <textarea id="approval_description" name="approval_description" rows="4" cols="40" readonly><?php echo $row["approval_description"]; ?></textarea>
                             </div>
                         </div>
 

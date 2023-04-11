@@ -14,12 +14,15 @@
 
     $advance_payment = ($total_price*40)/100;
     $balance_payment = ($total_price-$advance_payment);
+
+    
     //print_r($quotation_id);
 ?>
 
 <?php
     include("config.php");
-
+    $order_id = $_POST['order_id'];
+    $balance_payment= $_POST['balance_payment'];
     $token = $_POST["stripeToken"];
     $contact_name = $_POST["name"];
     $token_card_type = $_POST["stripeTokenType"];
@@ -37,6 +40,7 @@
     ]);
 
     if($charge){
-      header("Location:success.php?amount=$amount");
+      
+      header("Location:success.php?amount=$amount&order_id=$order_id&balance_payment=$balance_payment");
     }
 ?>

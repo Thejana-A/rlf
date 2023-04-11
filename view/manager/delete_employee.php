@@ -24,10 +24,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">Employees </a> > Delete
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="employees.php">Employees </a> > Delete
                 </div> 
 
                 <div id="form-box-small">
@@ -51,7 +51,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" required />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -59,7 +59,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" required />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -67,7 +67,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" required />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -83,7 +83,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" value="<?php echo $row["contact_no"]; ?>" required />
+                                <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" value="<?php echo $row["contact_no"]; ?>" readonly />
                             </div>
                         </div>
                     
@@ -100,7 +100,7 @@
                                 Address line 1 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line1" value="<?php echo $row["address_line1"]; ?>" required />
+                                <input type="text" name="address_line1" value="<?php echo $row["address_line1"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -108,7 +108,7 @@
                                 Address line 2 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line2" value="<?php echo $row["address_line2"]; ?>" />
+                                <input type="text" name="address_line2" value="<?php echo $row["address_line2"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -116,7 +116,7 @@
                                 Address line 3 : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="address_line3" value="<?php echo $row["address_line3"]; ?>" />
+                                <input type="text" name="address_line3" value="<?php echo $row["address_line3"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -124,7 +124,7 @@
                                 Date of birth : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="DOB" id="DOB" value="<?php echo $row["DOB"]; ?>" required />
+                                <input type="date" name="DOB" id="DOB" value="<?php echo $row["DOB"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -143,10 +143,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" value="enable" <?php echo ($row["active_status"]=="enable")?'checked':'' ?> /> Enable
+                                            <input type="radio" name="active_status" class="input-radio" value="enable" <?php echo ($row["active_status"]=="enable")?'checked':'disabled' ?> /> Enable
                                         </td>
                                         <td>
-                                            <input type="radio" name="active_status" class="input-radio" value="disable" <?php echo ($row["active_status"]=="disable")?'checked':'' ?> /> Disable
+                                            <input type="radio" name="active_status" class="input-radio" value="disable" <?php echo ($row["active_status"]=="disable")?'checked':'disabled' ?> /> Disable
                                         </td>
                                     </tr>
                                 </table>

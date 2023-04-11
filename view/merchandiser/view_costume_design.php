@@ -42,10 +42,10 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
-                    <a href="#">View costume design </a> > View
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Merchandiser >
+                    <a href="costume_designs.php">View costume design </a> > View
                 </div>
 
                 <div id="form-box-ultra-small">
