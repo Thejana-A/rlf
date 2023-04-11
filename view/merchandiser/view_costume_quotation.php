@@ -87,6 +87,7 @@
                     <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/merchandiser_update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>View costume quotation</h2>
                         </center>

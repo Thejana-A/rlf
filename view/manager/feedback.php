@@ -20,7 +20,7 @@
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
                             $search_output.= "<div class='item-data-row'>";
-                            $search_output.= "<span style='width:15%;'>".$search_row["name"]."</span><span style='width:25%;'>".$search_row["email"]."</span><span style='width:200px;'>".$search_row["message"]."</span>";
+                            $search_output.= "<span style='width:15%;'>".$search_row["name"]."</span><span style='width:25%;'>".$search_row["email"]."</span><span style='width:200px;'>".$search_row["message"]."<br /><br /></span>";
                             $search_output.= "<hr />";
                             $search_output.= "</div>";
                         }   

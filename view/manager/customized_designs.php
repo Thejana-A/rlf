@@ -22,7 +22,6 @@
                 $searchbar = $_POST["searchbar"];
                 $search_output = "";
                 $output = "";
-
                 $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.customer_id, c.front_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id
@@ -151,7 +150,7 @@
                         <h2>Customized costume designs</h2>
                     </center>
 
-                    <form method="post" action="costomized_designs.php" class="search-panel">
+                    <form method="post" action="customized_designs.php" class="search-panel">
                         
                         <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
                         <input type="submit" value="search" name="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />

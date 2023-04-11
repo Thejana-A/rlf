@@ -45,9 +45,9 @@
             mysqli_close($conn);
         }
 
-        public function delete(){
+        /*public function delete(){
 
-        }
+        } */
 
         public function insertMaterialSupplied() {
             $this->add();
@@ -56,9 +56,9 @@
         public function viewMaterialSupplied() {
             $this->view();
         }
-        public function deleteMaterialSupplied() {
+        /*public function deleteMaterialSupplied() {
             $this->delete();
-        }
+        } */
     
         
     }

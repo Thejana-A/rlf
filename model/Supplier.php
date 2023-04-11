@@ -87,7 +87,10 @@
                         $this->supplierID = $conn->insert_id;
                         $publicSupplierID = $this->supplierID;
                         if($this->supplierID == 0){
-                            echo "Sorry ! That email already exists.";
+                            ?><script>
+                            alert("Sorry ! That email already exists.");
+                            window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php  
                         }else{
                             $materialSupplierModel = new MaterialSupplier($_POST, $publicSupplierID); 
                             $materialSupplierModel->insertMaterialSupplied();
@@ -104,7 +107,10 @@
                     $conn->close();
                 }
             } else {		
-                echo "Sorry !!! There was an error in uploading your file";			
+                ?><script>
+                alert("Sorry !!! There was an error in uploading your file");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 			
             }
         }
 
@@ -186,16 +192,23 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                    /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                     echo "Sorry ! An error occured.";
-                    echo "</div></center>";
+                    echo "</div></center>"; */
+                    ?><script>
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 }else{
                     $sql_reset_material = "DELETE FROM material_supplier WHERE supplier_id = '$this->supplierID'";
                     $conn->query($sql_reset_material);
                     $materialSupplierModel = new MaterialSupplier($_POST, $this->supplierID); 
                     $materialSupplierModel->insertMaterialSupplied();
-                    
-                    echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
+                    ?><script>
+                    alert("Supplier was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php
+                    /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
                     echo "Supplier was updated successfully";
                     echo "<table>";
                     echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
@@ -207,7 +220,7 @@
                     echo "<tr><td>City </td><td>: $this->city</td></tr>";
                     echo "<tr><td>Verify status </td><td>: $this->verifyStatus</td></tr>";
                     echo "</table>";
-                    echo "</div></center>";
+                    echo "</div></center>"; */
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -240,13 +253,13 @@
                         $affectedRows = mysqli_stmt_affected_rows($stmt);
                         if($affectedRows == -1){
                             ?><script>
-                                alert("Sorry ! That supplier can't be deleted.");
-                                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            alert("Sorry ! That supplier can't be deleted.");
+                            window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php
                         }else{
                             ?><script>
-                                alert("Supplier was deleted successfully");
-                                window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            alert("Supplier was deleted successfully");
+                            window.location.href='<?php echo $_POST["home_url"]; ?>';
                             </script><?php
                         }
                     }
@@ -322,16 +335,22 @@
                         $_SESSION["supplier_id"] = $row["supplier_id"]; 
                         header("location: http://localhost/rlf/view/supplier/profile.php");   
                     }else{
-                        ?><script>alert("Your email isn't verified");</script><?php
-                        echo "Please verify email and try again.";
+                        ?><script>
+                        alert("Your email isn't verified.<br />Please verify email and try again.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php 
                     }  
                 }else{
-                    ?><script>alert("Your account is inactive");</script><?php
-                    echo "Please try again later.<br />";
+                    ?><script>
+                    alert("Your account is inactive.<br />Please try again later.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php 
                 }
             }else{
-                ?><script>alert("Sorry ! Your credentials are invalid.");</script><?php
-                echo "Please try again.<br />";
+                ?><script>
+                alert("Sorry ! Your credentials are invalid.<br />Please try again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 
             }     
             $conn->close();
         }
@@ -339,6 +358,7 @@
         public function logout() {
             header("location: http://localhost/rlf/view/supplier/login.php");
         }
+
         public function resetPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -387,11 +407,15 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Email wasn't verified");</script><?php
-                        echo "Please try again later.";
+                        ?><script>
+                        alert("Sorry ! Email wasn't verified.<br />Please try again later.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
-                        ?><script>alert("Email was verified successfully");</script><?php
-                        echo "Now you can log in. <a href='http://localhost/rlf/view/supplier/login/login.php'>Log in</a>";
+                        ?><script>
+                        alert("Email was verified successfully.<br />Now you can log in.");
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
+                        </script><?php  
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -399,8 +423,10 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect.<br />Please try again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 
             }
         }
 
@@ -419,18 +445,23 @@
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     mysqli_stmt_bind_param($stmt, "s", md5($OTP));
                     mysqli_stmt_execute($stmt);
-                    ?><script>alert("Check your email inbox");</script><?php
-                    echo "Use the OTP code and link in your email to reset your password";
+                    ?><script>
+                    alert("Check your email inbox.<br />Use the OTP code and link in your email to reset your password.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php 
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry! Your email is invalid");</script><?php
-                echo "Enter your email again";
+                ?><script>
+                alert("Sorry! Your email is invalid.<br />Enter your email again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 
             }
         }
+
         public function resetForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -449,7 +480,8 @@
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php
                     }else{
-                        ?><script>alert("Password was changed successfully");
+                        ?><script>
+                        alert("Password was changed successfully");
                         window.location.href='http://localhost/rlf/view/customer/customer_login.php';
                         </script><?php
                     }
@@ -459,7 +491,8 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php
             } 

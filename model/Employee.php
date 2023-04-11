@@ -117,7 +117,10 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! An error occured.";
+                    ?><script>
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php 
                 }else{
                     ?><script>
                     alert("Employee was updated successfully");
@@ -381,8 +384,10 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Email wasn't verified");</script><?php
-                        echo "Please try again";
+                        ?><script>
+                        alert("Sorry ! Email wasn't verified.<br />Please try again.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
                         ?><script>alert("Email was verified successfully and now you can log in");
                         window.location.href='http://localhost/rlf/view/customer/customer_login.php';
@@ -394,8 +399,10 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect"); </script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect<br />Please try again");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
             }
         }
         /*public function requestForgotPassword(){
@@ -446,8 +453,10 @@
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     mysqli_stmt_bind_param($stmt, "s", md5($OTP));
                     mysqli_stmt_execute($stmt);
-                    ?><script>alert("Check your email inbox");</script><?php
-                    echo "Use the OTP code and link in your email to reset your password";
+                    ?><script>
+                    alert("Check your email inbox<br />Use the OTP code and link in your email to reset your password");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
@@ -462,8 +471,10 @@
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     mysqli_stmt_bind_param($stmt, "s", md5($OTP));
                     mysqli_stmt_execute($stmt);
-                    ?><script>alert("Check your email inbox");</script><?php
-                    echo "Use the OTP code and link in your email to reset your password";
+                    ?><script>
+                    alert("Check your email inbox<br />Use the OTP code and link in your email to reset your password");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
@@ -478,16 +489,20 @@
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     mysqli_stmt_bind_param($stmt, "s", md5($OTP));
                     mysqli_stmt_execute($stmt);
-                    ?><script>alert("Check your email inbox");</script><?php
-                    echo "Use the OTP code and link in your email to reset your password";
+                    ?><script>
+                    alert("Check your email inbox<br />Use the OTP code and link in your email to reset your password");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry! Your email is invalid");</script><?php
-                echo "Enter your email again";
+                ?><script>
+                alert("Sorry! Your email is invalid.<br />Enter your email again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php
             }
         } 
         /*public function resetForgotPassword(){
@@ -534,11 +549,15 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
-                        echo "Please try again later.";
+                        ?><script>
+                        alert("Sorry ! Password wasn't changed.<br />Please try again later.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
                     }else{
-                        ?><script>alert("Password was changed successfully");</script><?php
-                        echo "Log in with your new password";
+                        ?><script>
+                        alert("Password was changed successfully.<br />Log in with your new password.");
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
+                        </script><?php
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -546,8 +565,10 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect.<br />Please try again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php
             } 
         } 
     }

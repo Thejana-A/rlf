@@ -74,7 +74,10 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! Order couldn't be updated.";
+                    ?><script>
+                    alert("Sorry ! Order couldn't be updated.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 }else{
                     ?><script>
                     alert("Order was updated successfully");
@@ -100,7 +103,7 @@
                     $row = mysqli_fetch_array($result);
                     return $row;
                 }else {
-                    echo "0 results";
+                    echo "No results found";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
