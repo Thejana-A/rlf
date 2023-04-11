@@ -59,11 +59,14 @@
                     mysqli_stmt_execute($stmt);
                     $this->customerID = $conn->insert_id;
                     if($this->customerID == 0){
-                        echo "Sorry ! That email already exists.";
+                        ?><script>
+                        alert("Sorry ! That email already exists.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
                     }else{
                         ?><script>alert("Customer was added successfully");
-                            alert("Check email inbox for verification");
-                            window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        alert("Check email inbox for verification");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php             
                     }
                 } else {
@@ -125,13 +128,13 @@
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
                     ?><script>
-                        alert("Sorry ! An error occured.");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }else{
                     ?><script>
-                        alert("Customer was updated successfully");
-                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    alert("Customer was updated successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
                     </script><?php  
                     /*echo "Customer was updated successfully";
                     echo "<table>";
@@ -162,13 +165,13 @@
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
                     ?><script>
-                        alert("Sorry ! That customer can't be deleted.");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    alert("Sorry ! That customer can't be deleted.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php
                 }else{
                     ?><script>
-                        alert("Customer was deleted successfully");
-                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    alert("Customer was deleted successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
                     </script><?php
                 }
             } else {
@@ -231,14 +234,19 @@
                     $_SESSION["city"] = $row["city"];
                     header("location: http://localhost/rlf/view/customer/customer_UI.php");
                 }else{
-                    ?><script>alert("Sorry ! Your email isn't verified.");</script> <?php
+                    ?><script>
+                    alert("Sorry ! Your email isn't verified.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 }
                 
                 
                 exit;
             }else{
-                ?><script>alert("Sorry ! Your credentials are invalid. Please try again.");</script> <?php
-                //header("location: http://localhost/RLF/view/customer/customer_login.php");
+                ?><script>
+                alert("Sorry ! Your credentials are invalid. Please try again.");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php
             }  
             
             
@@ -258,13 +266,15 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Email wasn't verified");</script><?php
-                        echo "Please try again later.";
+                        ?><script>
+                        alert("Sorry ! Email wasn't verified.<br />Please try again later.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
                     }else{
-                        echo "<script> alert('Email was verified successfully And Now You can log in');
-                        window.location.href='customer/customer_login.php';
-                        </script>";
-                        //echo "Now you can log in";
+                        ?><script>
+                        alert("Email was verified successfully and now you can log in");
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
+                        </script><?php
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -272,8 +282,10 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php
             }
         }
 
@@ -327,11 +339,15 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
-                        echo "Please try again later.";
+                        ?><script>
+                        alert("Sorry ! Password wasn't changed.<br />Please try again later.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
-                        ?><script>alert("Password was changed successfully");</script><?php
-                        echo "Log in with your new password";
+                        ?><script>
+                        alert("Password was changed successfully.<br />Log in with your new password.");
+                        window.location.href='http://localhost/rlf/view/customer/customer_login.php';
+                        </script><?php
                     }
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -339,8 +355,10 @@
                 $stmt->close(); 
                 $conn->close();
             }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
+                ?><script>
+                alert("Sorry ! Your OTP code is incorrect<br />Please try again");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php  
             } 
         } 
     }

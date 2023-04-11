@@ -197,7 +197,7 @@
                                 <span><b>Unit price(LKR)</b></span>
                                 <span><b>Price(LKR)</b></span>
                                 <?php
-                                    if($row["supplier_approval"] == null){
+                                    if(($row["supplier_approval"] == null)&&($material_row != "0 results")){
                                         echo "<button onclick='addCode()'> + </button>";
                                     }else{
                                         echo "<button onclick='addCode()' disabled> + </button>";

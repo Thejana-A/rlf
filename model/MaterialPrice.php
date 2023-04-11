@@ -58,7 +58,7 @@
 
         }
 
-        public function editQuantityPrice(){
+        /*public function editQuantityPrice(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->RawMaterialID = $_POST["material_id"];    
@@ -87,11 +87,11 @@
             } 
             $stmt->close(); 
             $conn->close(); 
-        }
+        } */
 
-        public function delete(){
+        /*public function delete(){
 
-        }
+        }*/
 
         
     }

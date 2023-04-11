@@ -346,9 +346,15 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! Couldn't update.";
+                    ?><script>
+                    alert("Sorry ! Couldn't update.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }else{
-                    echo "Design was updated successfully";
+                    ?><script>
+                    alert("Design was updated successfully.");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    </script><?php  
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
@@ -370,7 +376,10 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! Couldn't update.";
+                    ?><script>
+                    alert("Sorry ! Couldn't update.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php
                 }else{
                     $sql_reset_material = "DELETE FROM design_material WHERE design_id = '$this->designID'";
                     $conn->query($sql_reset_material);

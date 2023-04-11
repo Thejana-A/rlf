@@ -34,7 +34,8 @@
                 $this->quotationID = $conn->insert_id;
                 $publicQuotationID = $this->quotationID;
                 if($this->quotationID == 0){ 
-                    ?><script>alert("Sorry ! An error occured.");
+                    ?><script>
+                    alert("Sorry ! An error occured.");
                     window.location.href='<?php echo $_POST["page_url"] ?>';
                     </script><?php
                 }else{
@@ -104,7 +105,10 @@
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
-                        echo "Sorry ! An error occured.";
+                        ?><script>
+                        alert("Sorry ! An error occured.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php  
                     }else{
                         $sql_reset_material = "DELETE FROM material_price WHERE quotation_id = '$this->quotationID'";
                         $conn->query($sql_reset_material);

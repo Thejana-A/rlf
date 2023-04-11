@@ -41,13 +41,13 @@
             $conn->close();  
         }
 
-        public function updateQuantityPrice(){
+        /*public function updateQuantityPrice(){
 
-        }
+        } */
 
-        public function viewQuantityPrice(){
+        /*public function viewQuantityPrice(){
 
-        }
+        } */
     }
 ?>
 

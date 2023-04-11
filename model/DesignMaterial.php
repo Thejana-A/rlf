@@ -107,9 +107,9 @@
             mysqli_close($conn);
         }
 
-        public function delete(){
+        /*public function delete(){
 
-        }
+        } */
 
         public function insertMaterialQuantity() {
             $this->add();
@@ -123,9 +123,10 @@
             $row = $this->view();
             return $row;
         }
-        public function deleteMaterialQuantity() {
+        
+        /*public function deleteMaterialQuantity() {
             $this->delete();
-        }
+        } */
     
         
     }
