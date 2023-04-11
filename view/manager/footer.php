@@ -1,3 +1,6 @@
+<?php
+    error_reporting(E_ERROR | E_PARSE);
+?>
         <?php
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
