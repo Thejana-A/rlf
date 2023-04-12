@@ -30,7 +30,12 @@
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
                             $search_output.= "<div class='item-data-row'>";
-                            $search_output.= "<span class='notification-message'>".$search_row["message"]."</span>";
+                            //$search_output.= "<span class='notification-message'>".$search_row["message"]."</span>";
+                            if($search_row["category"] == "costume quotation"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";  
+                            }else if($search_row["category"] == "material quotation"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
+                            }
                             $search_output.= "<span>".$search_row["notification_date"]."</span>";
                             $search_output.= "<span>".$search_row["time"]."</span>";
                             $search_output.= "<hr />";

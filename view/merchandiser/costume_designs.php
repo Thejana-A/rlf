@@ -20,31 +20,35 @@
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
-                    WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%') LIMIT 1)
+                    WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%'))
                     UNION
                     (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
                     FROM costume_design c 
-                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id AND `fashion_designer_id` IS NULL
-                    WHERE e1.employee_id = $merchandiserID AND `name` LIKE '%$searchbar%' LIMIT 1);";
+                    JOIN employee e1 ON c.merchandiser_id = e1.employee_id 
+                    AND `fashion_designer_id` IS NULL
+                    WHERE e1.employee_id = $merchandiserID AND `name` LIKE '%$searchbar%');";
                     $search_result_costume_row = $conn->query($search_sql_costume);
                     if ($search_result_costume_row->num_rows > 0) {
+                        $costume_general_name_array = array();
                         while ($search_costume_row = $search_result_costume_row->fetch_assoc()) { 
                             $parts_of_name = explode('-', $search_costume_row["name"]);
                             $last = array_pop($parts_of_name);
                             $parts_of_name = array(implode('-', $parts_of_name), $last);
                             $costumeNameResult = $parts_of_name[0]; 
-
-                            $search_output.= "<div class='item-data-row'>";
-                            $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view_general_design' />";
-                            $search_output.= "<input type='text' hidden='true' name='name' value='".$costumeNameResult."' />";
-                            $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:30%;'>".$search_costume_row["fd_first_name"]." ".$search_costume_row["fd_last_name"]."</span>";
-                            $search_output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
-                            $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $search_output.= "</tr></table>";
-                            $search_output.= "<hr class='manager-long-hr' />";
-                            $search_output.= "</form>";
-                            $search_output.= "</div>";
+                            if (!(in_array($costumeNameResult, $costume_general_name_array))){
+                                array_push($costume_general_name_array,$costumeNameResult);
+                                $search_output.= "<div class='item-data-row'>";
+                                $search_output.= "<form method='post' action='../RouteHandler.php'>";
+                                $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view_general_design' />";
+                                $search_output.= "<input type='text' hidden='true' name='name' value='".$costumeNameResult."' />";
+                                $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:30%;'>".$search_costume_row["fd_first_name"]." ".$search_costume_row["fd_last_name"]."</span><span><img src='../front-view-image/".$search_costume_row["front_view"]."' width='60px' />&nbsp;<img src='../rear-view-image/".$search_costume_row["rear_view"]."' width='60px' /></span>";
+                                $search_output.= "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
+                                $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                                $search_output.= "</tr></table>";
+                                $search_output.= "<hr class='manager-long-hr' />";
+                                $search_output.= "</form>";
+                                $search_output.= "</div>";
+                            }
                         }
                     }else{
                         $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";

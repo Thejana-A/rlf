@@ -40,10 +40,18 @@
                 }else{
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
+                    /*merchandiser notification */
                     date_default_timezone_set("Asia/Calcutta");
                     $notification_message = "Costume quotation was created - ID ".$this->quotationID;
-                    $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', '".$this->customerID."', 'costume quotation');";
+                    $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', 'costume quotation');";
                     $conn->query($sql_notification); 
+                    /*customer notification */
+                    if($this->managerApproval == "approve"){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was received - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+                    }
                     ?><script>
                     alert("New costume quotation was created successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -78,10 +86,18 @@
                     $conn->query($sql_reset_quantity);
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
+                    /*merchandiser notification */
                     date_default_timezone_set("Asia/Calcutta");
                     $notification_message = "Costume quotation was updated - ID ".$this->quotationID;
                     $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', '".$this->customerID."', 'costume quotation');";
                     $conn->query($sql_notification);
+                    /*customer notification */
+                    if($this->managerApproval == "approve"){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was received - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+                    }
                     ?><script>
                     alert("Costume quotation was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
