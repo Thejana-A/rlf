@@ -75,6 +75,8 @@
 
                     <?php }
 
+                }else {
+                    echo "No results found.";
                 }
 
             ?> 
