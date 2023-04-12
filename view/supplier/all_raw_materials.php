@@ -75,9 +75,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> > All raw materials                    
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="profile.php">Supplier </a> > All raw materials                    
                 </div>
                 
                 <div id="list-box">

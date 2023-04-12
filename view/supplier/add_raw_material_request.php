@@ -21,9 +21,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> >Request to add
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="profile.php">Supplier </a> >Request to add
                 </div>
 
                 <div id="form-box-ultra-small">

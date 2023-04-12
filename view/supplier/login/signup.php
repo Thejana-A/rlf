@@ -187,7 +187,7 @@
                             <center>
                                 <input type="reset" value="Cancel" class="login-button" />
                             <center>
-                            <p>Have an account already? <a href = "login.php">Log in</a></p>
+                            <p>Have an account already? <a href = "../../customer/customer_login.php">Log in</a></p>
                         </td>
                     </tr>
                     
