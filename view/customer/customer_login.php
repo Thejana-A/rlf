@@ -23,6 +23,7 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 margin: 0;
 padding: 0;">
+<button type="button" onclick="goback()" class="back">Go Back</button>
 
   <form action="../RouteHandler.php" method="post" class="container">
   <input type="text" hidden="true" name="framework_controller" value="employee/login" />
@@ -61,7 +62,12 @@ padding: 0;">
       <a href="signup_as.html" style="color: red;">Create one Now..!</a> 
 
     </form>
+    <script>
+    function goback(){
+        window.location.href = "../../index.php";
 
+    }
+    </script>
 
 </body>
 </html>

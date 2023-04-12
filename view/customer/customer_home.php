@@ -13,6 +13,7 @@ $result = $conn->query($sql);
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="home_css.css" />
+    <link rel="stylesheet" type="text/css" href="customer_css.css" />
 </head>
 <body>
     <div class="home-webbanner">
@@ -22,6 +23,11 @@ $result = $conn->query($sql);
     
     <div class="section-header text-center">
         <h2>Our Products..!</h2>
+        
+        <!--<form action="" method="GET">
+                <input type="text" placeholder="Search.." name="search" class="search-bar" style="background-color:#ffe699;">
+                <input type="submit" value="Search" class="search-bar" style="background-color:#e6ac00;">
+        </form>-->
     </div>
     <div class="gaallery">
         <?php

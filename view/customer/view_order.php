@@ -228,7 +228,7 @@
                 <?php
                     if($order_status == "accepted"){
                         echo "<h3 style='color: red;'>Payment..!</h3>";
-                    }else if($order_status == "complete"){
+                    }else if($order_status == "delivered"){
                         echo "<h3 style='color: red;'>Your Order is Completed..!</h3>";
                     }else if($order_status == "rejected"){
                         echo "<h3 style='color: red;'>Your Order is rejected..!</h3>";
@@ -268,7 +268,7 @@
                 }else if($order_status == "rejected"){
                     echo "<label for='reason'>Reason :</label>";
                     echo "<input type='text' name='reason' placeholder='Deadline can not be achieved' style='width: 100%;' disabled >";
-                }else if($order_status == "complete"){
+                }else if($order_status == "delivered"){
                     echo "<center>";
                     echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Completed' >";
                     echo "</center>";
