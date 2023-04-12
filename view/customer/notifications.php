@@ -1,5 +1,4 @@
-<?php require_once 'redirect_login.php' ?>
-
+<?php error_reporting(E_ERROR | E_PARSE); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,12 +29,7 @@
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
                             $search_output.= "<div class='item-data-row'>";
-                            //$search_output.= "<span class='notification-message'>".$search_row["message"]."</span>";
-                            if($search_row["category"] == "costume quotation"){
-                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";  
-                            }else if($search_row["category"] == "material quotation"){
-                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
-                            }
+                            $search_output.= "<span class='notification-message'>".$search_row["message"]."</span>";
                             $search_output.= "<span>".$search_row["notification_date"]."</span>";
                             $search_output.= "<span>".$search_row["time"]."</span>";
                             $search_output.= "<hr />";
@@ -55,7 +49,7 @@
                             $output.= "<div class='item-data-row'>";
                             if($row["category"] == "costume quotation"){
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";  
-                            }else if($row["category"] == "material quotation"){
+                            }else if($row["category"] == "costume order"){
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
                             }
                             $output.= "<span>".$row["notification_date"]."</span>";
@@ -81,9 +75,7 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="http://localhost/rlf">Welcome </a> >
-                    <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Notifications
+                    <a href="customer_home.php">Home</a> > Notifications
                 </div>
                 
                 <div id="list-box">
@@ -119,19 +111,6 @@
                                 mysqli_close($conn);
                             ?>
                         </div>
-                        <!--<div class="item-data-row">
-                            <span class="notification-message">A costume quotation is requested</span>
-                            <span>2022-03-12</span>
-                            <span>13:16:12</span>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span class="notification-message">A raw material quotation is accepted</span>
-                            <span>2022-03-12</span>
-                            <span>13:16:12</span>
-                            <hr />
-                        </div> -->
-                    
                     </div>
 
 

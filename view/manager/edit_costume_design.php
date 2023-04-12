@@ -188,7 +188,9 @@
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update_price" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
-                        
+                        <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" />
+                        <input type="text" hidden="true" name="customer_id" value="<?php echo $row["customer_id"]; ?>" />
+
                         <center>
                             <h2>Costume design details</h2>
                         </center>

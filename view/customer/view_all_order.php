@@ -2,7 +2,51 @@
     session_start();    
     include "db_conn.php";
     $customerID =$_SESSION["customer_id"];
-    $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID'";
+    //$sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID'";
+    $searchTerm = "";
+    $startDate = "";
+    $endDate = "";
+    if (isset($_GET['search'])) {
+        $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
+    }
+    if (isset($_GET['start_date'])) {
+        $startDate = mysqli_real_escape_string($conn, $_GET['start_date']);
+    }
+    if (isset($_GET['end_date'])) {
+        $endDate = mysqli_real_escape_string($conn, $_GET['end_date']);
+    }
+    if (!empty($startDate) && !empty($endDate)) {
+        $sql = "SELECT * FROM costume_order 
+                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
+                AND costume_quotation.customer_id='$customerID' 
+                WHERE (costume_order.order_placed_on >= '$startDate' AND costume_order.order_placed_on <= '$endDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
+    } elseif(empty($startDate) && !empty($endDate)){
+        $sql = "SELECT * FROM costume_order 
+                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
+                AND costume_quotation.customer_id='$customerID' 
+                WHERE (costume_order.order_placed_on <= '$endDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
+    } elseif(!empty($startDate) && empty($endDate)){
+        $sql = "SELECT * FROM costume_order 
+                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
+                AND costume_quotation.customer_id='$customerID' 
+                WHERE (costume_order.order_placed_on >= '$startDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
+    } else {
+        $sql = "SELECT * FROM costume_order 
+                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
+                AND costume_quotation.customer_id='$customerID'
+                WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
+    }
+
+    /*if (isset($_GET['search'])) {
+        $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
+        $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID' WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
+    } else {
+        $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID'";
+    }*/
+    
     $result = mysqli_query($conn, $sql);
     
 ?>
@@ -25,8 +69,10 @@
     <div class="ViewRow">
         <div class="box" style="margin-bottom: 0;">
             <div>
-            <form action="">
-                <input type="text" placeholder="Search.." name="search" class="search-bar" style="background-color:rgb(252, 250, 247);">
+            <form action="" method="GET">
+                <input type="text" placeholder="Search.." name="search" class="search-bar" style="background-color:rgb(252, 250, 247); margin-bottom: 10px;">
+                <input type="date" name="start_date" placeholder="Start date" class="search-bar" style="background-color:rgb(252, 250, 247); margin-bottom: 10px;">
+                <input type="date" name="end_date" placeholder="End date" class="search-bar" style="background-color:rgb(252, 250, 247); margin-bottom: 10px;">
                 <input type="submit" value="Search" class="search-bar">
             </form>
             </div>
@@ -71,6 +117,8 @@
     
                         <?php }
     
+                    }else {
+                        echo "No results found.";
                     }
     
                 ?> 

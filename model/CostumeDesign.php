@@ -351,6 +351,20 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }else{
+                    /*customer notification */
+                    if($_POST["customer_id"] != ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Customized design was updated - ".$this->name;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume design');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*Fashion designer notification */
+                    if($_POST["fashion_designer_id"] != ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume design was updated - ".$this->name;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, fashion_designer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["fashion_designer_id"]."', 'costume design');";
+                        $conn->query($sql_notification);
+                    }
                     ?><script>
                     alert("Design was updated successfully.");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -385,6 +399,20 @@
                     $conn->query($sql_reset_material);
                     $designMaterialModel = new DesignMaterial($_POST, $publicDesignID); 
                     $designMaterialModel->updateMaterialQuantity();
+                    /*customer notification */
+                    if($_POST["customer_id"] != ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Customized design was updated - ".$this->designID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume design');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*Fashion designer notification */
+                    if($_POST["fashion_designer_id"] != ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume design was updated - ".$this->designID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, fashion_designer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["fashion_designer_id"]."', 'costume design');";
+                        $conn->query($sql_notification);
+                    }
                     ?><script>
                     alert("Price description was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';

@@ -1,8 +1,13 @@
 <?php 
+    error_reporting(E_ERROR | E_PARSE);
     session_start();    
     include "db_conn.php";
     $customerID =$_SESSION["customer_id"];
-    $sql = "SELECT * FROM costume_design WHERE costume_design.customer_id='$customerID'";
+    //$sql = "SELECT * FROM costume_design WHERE costume_design.customer_id='$customerID'";
+    $search = "";
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $sql = "SELECT * FROM costume_design WHERE costume_design.customer_id='$customerID' AND costume_design.name LIKE '%$search%'";
+
     $result = mysqli_query($conn, $sql);
     
 ?>
@@ -27,7 +32,7 @@
     <div class="ViewRow">
         <div class="box" style="margin-bottom: 0;">
             <div>
-            <form action="">
+            <form action="" method="GET">
                 <input type="text" placeholder="Search.." name="search" class="search-bar" style="background-color:rgb(252, 250, 247);">
                 <input type="submit" value="Search" class="search-bar">
             </form>
@@ -70,17 +75,11 @@
 
                     <?php }
 
+                }else {
+                    echo "No results found.";
                 }
 
             ?> 
-                    <!--<div class="item-data-row">
-                        <span>1</span>
-                        <span>2022-11-11</span>
-                        <span>Kamal Perera</span>
-                        <a href="view_approve_quotation.html" class="green">View</a>
-                        <hr />
-                    </div>-->
-
 
                 </div>
             

@@ -216,6 +216,9 @@
                 <label for="requestdate">Request Date :</label>
                 <input type="text" name="request_date" value="<?php echo $request_date ?>" disabled />
                 <br />
+                <br />
+                <label for="valid_till">Valid Till Date :</label>
+                <input type="text" name="valid_till" value="<?php echo $valid_till ?>" disabled />
             </form>
             <?php
               if(( $manager_approval == "approve")){

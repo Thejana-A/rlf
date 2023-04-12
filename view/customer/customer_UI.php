@@ -196,7 +196,7 @@ if(($_SESSION["customer_id"]=="")){
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                         <a href="#">Customer</a>
                         <a href="customer_home.php" target="iframe_a">Home</a>
-                        <a href="#">Notification</a>
+                        <a href="notifications.php" target="iframe_a">Notification</a>
                         <a href="view_all_quotation.php" target="iframe_a">View All Quotation</a>
                         <a href="view_all_order.php" target="iframe_a">View All Order</a>
                         <a href="view_all_customized_design_request.php" target="iframe_a">View Customized Design Request</a>
@@ -232,7 +232,7 @@ if(($_SESSION["customer_id"]=="")){
       <img src="../Icon/user.png" alt="Avatar" class="avatar" style="width:80px">
     </div>
 
-    <div class="container" style="background-color:rgb(243, 237, 191)">
+    <div class="container" style="background-color:#EEEEEE">
       <label for="firstname"><b>First Name</b></label>
       <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo  $_SESSION['first_name'] ?> ">
       <input type="hidden" name="customer_id" value="<?php echo $_SESSION['customer_id']; ?>">

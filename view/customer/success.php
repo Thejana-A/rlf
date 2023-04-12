@@ -41,6 +41,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="customer_css.css" />
     <title>Success</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
@@ -50,7 +51,7 @@ $conn->close();
             top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #bdc3c7;
+            
             font-weight: bold;
             font-family: "Poppins", sans-serif;
         }
@@ -60,9 +61,16 @@ $conn->close();
     <div class="success-container">
         <?php
         if (isset($_GET["amount"]) && !empty($_GET["amount"])) {
+                echo "<div class='ViewRow'>";
+                echo "<div class='box' style='margin-bottom: 0;'>";
+                    echo "<div>";
+                        echo "Your transaction has been successfully completed.";
+                        echo "Your order is confirmed.";
+                    echo "</div>";
+                echo "</div>";
+                echo "</div>";
 
-                echo "Your transaction has been successfully completed.";
-                echo "Your order is confirmed.";
+                
 
         }
         ?>
