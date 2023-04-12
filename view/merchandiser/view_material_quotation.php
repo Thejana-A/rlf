@@ -36,7 +36,7 @@
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$quotation_material_row["material_id"]." - ".$quotation_material_row["name"]." (".$quotation_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
-                        $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
+                        $presentMaterialList .= "<input type='number' step='0.1' min='0' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
                         $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' readonly /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' class='column-textfield' readonly />";
                         $presentMaterialList .= "</div>";
@@ -177,7 +177,7 @@
                                 <span><b>Unit price(LKR)</b></span>
                                 <span><b>Price(LKR)</b></span>
                                 <?php
-                                    if($row["supplier_approval"] == null){
+                                    if(($row["supplier_approval"] == null)&&($material_row != "0 results")){
                                         echo "<button onclick='addCode()'> + </button>";
                                     }else{
                                         echo "<button onclick='addCode()' disabled> + </button>";
@@ -248,7 +248,7 @@
                             <div class="form-row-data">
                                 <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> />
                                 <input type="text" hidden="true" name="manager_approval" value="approve" />
-                                <input type="text" hidden="true" name="approval_date" value="<?echo date("Y-m-d"); ?>" />
+                                <input type="text" hidden="true" name="approval_date" value="<?php echo date("Y-m-d"); ?>" />
                             </div>
                         </div>
                         <div class="form-row">

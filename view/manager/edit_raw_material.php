@@ -325,6 +325,7 @@
                     <form method="post" name="storageLogForm" action="../RouteHandler.php" onSubmit="return validateStorageLogForm()">
                         <input type="text" hidden="true" name="framework_controller" value="storage_log/manage" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>Retrieve from storage</h2>
                         </center>

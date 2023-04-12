@@ -17,11 +17,11 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Manager </a> >
-                    <a href="#">View costume designs quotations </a> > 
-                    <a href="#">View</a> > Raw material description
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    Manager >
+                    <a href="costume_quotations.php">View costume designs quotations </a> > 
+                    <a href="javascript:history.back()">View </a> > Raw material description
                 </div>
 
                 <div id="form-box">

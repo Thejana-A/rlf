@@ -58,7 +58,10 @@
                     mysqli_stmt_execute($stmt);
                     $this->materialID = $conn->insert_id;
                     if($this->materialID == 0){
-                        echo "Sorry ! That material name already exists.";
+                        ?><script>
+                        alert("Sorry ! That material name already exists.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php 
                     }else{
                         ?><script>
                         alert("New raw material was saved successfully");
@@ -68,8 +71,11 @@
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
                 } 				
-            }else{			
-                echo "Sorry !!! There was an error in uploading your file";			
+            }else{				
+                ?><script>
+                alert("Sorry !!! There was an error in uploading your file");
+                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                </script><?php 		
             }
             
             $stmt->close(); 
@@ -129,7 +135,10 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! Material couldn't be updated.<br>";
+                    ?><script>
+                    alert("Sorry ! Material couldn't be updated.<br>");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }else{
                     ?><script>
                     alert("Raw material was updated successfully");
@@ -155,13 +164,13 @@
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
                     ?><script>
-                        alert("Sorry ! That material can't be deleted.");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    alert("Sorry ! That material can't be deleted.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php
                 }else{
                     ?><script>
-                        alert("Material was deleted successfully");
-                        window.location.href='<?php echo $_POST["home_url"]; ?>';
+                    alert("Material was deleted successfully");
+                    window.location.href='<?php echo $_POST["home_url"]; ?>';
                     </script><?php
                 }
             } else {

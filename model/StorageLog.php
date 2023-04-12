@@ -29,7 +29,10 @@
                 mysqli_stmt_execute($stmt);
                 $insertedRow = $conn -> affected_rows;
                 if($insertedRow == -1){
-                    echo "Sorry ! That operation can't proceed.";
+                    ?><script>
+                    alert("Sorry ! That operation can't proceed.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php  
                 }else{
                     ?><script>
                     alert("Operation was successful.");
@@ -58,9 +61,9 @@
             $conn->close();  
         } 
 
-        public function viewStorage(){
+        /*public function viewStorage(){
 
-        }
+        } */
     }
 ?>
 

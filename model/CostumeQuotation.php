@@ -33,7 +33,10 @@
                 $this->quotationID = $conn->insert_id;
                 $publicQuotationID = $this->quotationID;
                 if($this->quotationID == 0){
-                    echo "Sorry! Quotation couldn't be created.";
+                    ?><script>
+                    alert("Sorry! Quotation couldn't be created.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php     
                 }else{
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
@@ -66,7 +69,10 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    echo "Sorry ! Couldn't update.";
+                    ?><script>
+                    alert("Sorry ! Couldn't update.");
+                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    </script><?php   
                 }else{
                     $sql_reset_quantity = "DELETE FROM rlf.design_quotation WHERE quotation_id = '$this->quotationID'";
                     $conn->query($sql_reset_quantity);
