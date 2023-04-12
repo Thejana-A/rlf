@@ -79,7 +79,7 @@
                 <div id="form-box-ultra-small">
                     <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
-                        <input type="text" name="approval_date" hidden="true" value="<?php echo Date("Y-m-d"); ?>" />
+                        <input type="text" name="approval_date" hidden="true" value="<?php echo ($row["approval_date"]==""?Date("Y-m-d"):$row["approval_date"]); ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
@@ -223,7 +223,9 @@
                                 <input type="reset" value="Cancel" />
                             </div>
                         </div> 
-
+                    </form>
+                    
+                    <form>
                         <center>
                             <h2>Related details</h2>
                         </center>

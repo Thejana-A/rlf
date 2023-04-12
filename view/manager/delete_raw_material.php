@@ -188,7 +188,8 @@
                                 <input type="submit" value="Delete" />
                             </div>
                         </div> 
-
+                    </form>
+                    <form>
                         <center>
                             <h2>Related details</h2>
                         </center>

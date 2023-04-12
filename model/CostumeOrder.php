@@ -45,6 +45,13 @@
                     echo "<tr><td>Order ID </td><td>: $this->orderID</td></tr>";
                     echo "<tr><td>Quotation ID </td><td>: $this->quotationID</td></tr>";
                     echo "</table>";*/
+                    /*customer notification */
+                    if($this->orderStatus == "accepted"){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume order was accepted - ID ".$this->orderID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
+                        $conn->query($sql_notification); 
+                    }
                     ?><script>
                     alert("Costume order was added successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
@@ -79,6 +86,20 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php
                 }else{
+                    /*customer notification */
+                    if(($this->orderStatus == "accepted")||($this->orderStatus == "rejected")){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume order was updated - ID ".$this->orderID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*customer notification */
+                    if($this->qualityStatus == "good"){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume order is ready - ID ".$this->orderID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
+                        $conn->query($sql_notification); 
+                    }
                     ?><script>
                     alert("Order was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
