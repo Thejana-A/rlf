@@ -24,7 +24,12 @@
                     mysqli_stmt_execute($stmt);
                     $insertedRow = $conn -> affected_rows;
                     if($insertedRow == -1){
-                        echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That costume already exists in quotation.<br>";
+                        ?><script>
+                        var materialID = "<?php echo $this->materialID[$materialCount]; ?>";
+                        var message = "Sorry ! That material already exists. - ".concat(materialID);
+                        alert(message);
+                        </script><?php  
+                        //echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That costume already exists in quotation.<br>";
                     }else{
                         /*echo "<br><table>";
                         echo "<tr><td>Costume ID </td><td>:". $this->designID[$costumeCount]."</td></tr>";

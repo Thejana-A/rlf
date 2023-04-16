@@ -114,7 +114,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser > Costume orders
+                    <a href="home.php">Merchandiser</a> > Costume orders
                 </div>
                 
                 <!--<div class="link-row">

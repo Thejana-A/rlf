@@ -73,7 +73,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser > View raw materials
+                    <a href="home.php">Merchandiser</a> > View raw materials
                 </div>
                 
                 <div id="list-box">

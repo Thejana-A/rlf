@@ -7,20 +7,31 @@
         <title>Edit raw material</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php
+            $_SESSION["view_costume_path"] = "costume_design";
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-            
-            $materialID = $row["material_id"];
             //$conn = new mysqli("localhost", "root", "", "rlf");
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             } 
+            
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_raw_material = 
+                "SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.supplier_id as requester_id,'supplier' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,supplier where raw_material.supplier_id = supplier.supplier_id and material_id = '".$_GET["material_id"]."'
+                UNION
+                SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.fashion_designer_id as requester_id,'fashion designer' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,employee where raw_material.fashion_designer_id = employee.employee_id and material_id = '".$_GET["material_id"]."'
+                UNION
+                SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image,'' as requester_id,'' as requester_role, '' as first_name,'' as last_name,manager_approval,approval_description FROM raw_material where fashion_designer_id is null and supplier_id is null AND material_id = '".$_GET["material_id"]."';";
+                $result_view_raw_material = mysqli_query($conn, $sql_view_raw_material);
+                $row = mysqli_fetch_array($result_view_raw_material);
+            }
+            
+            $materialID = $row["material_id"];
 
             $sql_material_supplier = "SELECT supplier.supplier_id , supplier.first_name, supplier.last_name FROM `supplier` INNER JOIN `material_supplier` ON material_supplier.supplier_id = supplier.supplier_id WHERE material_supplier.material_id = '$materialID' AND `verify_status` = 'approve';";
             $sql_all_supplier = "SELECT supplier_id, first_name, last_name FROM `supplier` where `verify_status` = 'approve';";
@@ -72,7 +83,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager >
+                    <a href="home.php">Manager</a> >
                     <a href="raw_materials.php">View raw materials </a> > Edit
                 </div>
 

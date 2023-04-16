@@ -60,7 +60,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Feedback
+                    <a href="home.php">Manager</a> > Feedback
                 </div>
                 
                 <div id="list-box-ultra-small">

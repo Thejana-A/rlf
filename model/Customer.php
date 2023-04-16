@@ -267,7 +267,7 @@
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
                         ?><script>
-                        alert("Sorry ! Email wasn't verified.<br />Please try again later.");
+                        alert("Sorry ! Email wasn't verified. Please try again later.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php
                     }else{
@@ -340,12 +340,12 @@
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
                         ?><script>
-                        alert("Sorry ! Password wasn't changed.<br />Please try again later.");
+                        alert("Sorry ! Password wasn't changed. Please try again later.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php  
                     }else{
                         ?><script>
-                        alert("Password was changed successfully.<br />Log in with your new password.");
+                        alert("Password was changed successfully. Log in with your new password.");
                         window.location.href='http://localhost/rlf/view/customer/customer_login.php';
                         </script><?php
                     }
@@ -356,7 +356,7 @@
                 $conn->close();
             }else{
                 ?><script>
-                alert("Sorry ! Your OTP code is incorrect<br />Please try again");
+                alert("Sorry ! Your OTP code is incorrect. Please try again");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php  
             } 

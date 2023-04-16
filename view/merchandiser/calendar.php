@@ -13,6 +13,7 @@
     var multiplicationFactor = 0;
     var numberOfDaysInMonth = getNumberOfDaysInMonth(currentYear, (currentMonth+1));
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
     calendar += "<table border='1'>"; 
     calendar += "<tr><td colspan='7' style='background-color:#FFA500;'><center><b>"+currentYear+"</b></center></td></tr>";
     calendar += "<tr><td colspan='7' style='background-color:#cccccc;'><center><b>"+months[currentMonth]+"</b></center></td></tr>";
@@ -22,10 +23,14 @@
             while(numberOfDate < numberOfDaysInMonth){
                 calendar += "<tr>";
                 while(numberOfDate <= 7+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -41,10 +46,14 @@
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 6+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -60,10 +69,14 @@
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 5+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -79,10 +92,14 @@
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 4+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -98,10 +115,14 @@
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 3+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -117,10 +138,14 @@
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 2+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }
@@ -129,17 +154,21 @@
             }
             break;
         case 6: 
-            while(numberOfDate < numberOfDaysInMonth){
+            while(numberOfDate <= numberOfDaysInMonth){
                 if(multiplicationFactor == 0){
                     calendar += "<tr><td></td><td></td><td></td><td></td><td></td><td></td>";
                 }else{
                     calendar += "<tr>";
                 }
                 while(numberOfDate <= 1+(7*multiplicationFactor)){
-                    if(numberOfDate == date.getDate()){
-                        calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                    if(numberOfDate <= numberOfDaysInMonth){
+                        if(numberOfDate == date.getDate()){
+                            calendar += "<td class='today_cell'>"+numberOfDate+"</td>";
+                        }else{
+                            calendar += "<td>"+numberOfDate+"</td>";
+                        }
                     }else{
-                        calendar += "<td>"+numberOfDate+"</td>";
+                        calendar += "<td></td>";
                     }
                     numberOfDate++;
                 }

@@ -14,6 +14,13 @@
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+            if(isset($_GET['costume_design'])){ 
+                $_SESSION["view_costume_path"] = "costume_design";
+            }
+            if(isset($_GET['customized_design'])){ 
+                $_SESSION["view_costume_path"] = "customized_design";
+            }
+
             if(isset($_GET['name'])){ 
                 
                 $designName = $_GET['name'];
@@ -55,7 +62,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager >
+                    <a href="home.php">Manager</a> >
                     <?php
                     if($_SESSION["view_costume_path"] == "costume_design"){
                         echo "<a href='costume_designs.php'>View costume design </a>";

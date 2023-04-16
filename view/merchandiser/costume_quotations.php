@@ -114,7 +114,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser > Costume designs quotations
+                    <a href="home.php">Merchandiser</a> > Costume designs quotations
                 </div>
                 <div class="link-row-small">
                     <a href="./create_costume_quotation_onsite.php" class="right-button">Create a costume quotation</a>

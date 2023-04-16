@@ -78,7 +78,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > View raw materials
+                    <a href="home.php">Manager</a> > View raw materials
                 </div>
                 <div class="link-row">
                     <a href="./material_storage_log.php" class="left-button">Material storage log</a>

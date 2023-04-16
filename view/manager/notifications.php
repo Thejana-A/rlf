@@ -35,6 +35,18 @@
                                 $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";  
                             }else if($search_row["category"] == "material quotation"){
                                 $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
+                            }else if($search_row["category"] == "costume order"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_order.php?order_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
+                            }else if($search_row["category"] == "material order"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_purchase_request.php?order_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
+                            }else if(($search_row["category"] == "raw material")||($search_row["category"] == "tender request")){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_raw_material.php?material_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."'>".$search_row["message"]."</a></span>";
+                            }else if($search_row["category"] == "costume design"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_design.php?name=".trim(explode("-",$search_row["message"],2)[1]," ")."&costume_design=true'>".$search_row["message"]."</a></span>";
+                            }else if($search_row["category"] == "customized design"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_design.php?name=".trim(explode("-",$search_row["message"],2)[1]," ")."&customized_design=true'>".$search_row["message"]."</a></span>";
+                            }else if($search_row["category"] == "costume price"){
+                                $search_output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_design.php?design_id=".explode(" ",$search_row["message"])[(count(explode(" ",$search_row["message"])))-1]."&costume_design=true'>".$search_row["message"]."</a></span>";
                             }
                             $search_output.= "<span>".$search_row["notification_date"]."</span>";
                             $search_output.= "<span>".$search_row["time"]."</span>";
@@ -57,6 +69,18 @@
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";  
                             }else if($row["category"] == "material quotation"){
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "costume order"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_order.php?order_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "material order"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_purchase_request.php?order_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                            }else if(($row["category"] == "raw material")||($row["category"] == "tender request")){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_raw_material.php?material_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "costume design"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_design.php?name=".trim(explode("-",$row["message"],2)[1]," ")."&costume_design=true'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "customized design"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_design.php?name=".trim(explode("-",$row["message"],2)[1]," ")."&customized_design=true'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "costume price"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_design.php?design_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."&costume_design=true'>".$row["message"]."</a></span>";
                             }
                             $output.= "<span>".$row["notification_date"]."</span>";
                             $output.= "<span>".$row["time"]."</span>";
@@ -83,7 +107,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Notifications
+                    <a href="home.php">Manager</a> > Notifications
                 </div>
                 
                 <div id="list-box">

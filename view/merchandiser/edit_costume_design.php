@@ -53,7 +53,25 @@
                     }
                     
                 }else {
-                    echo "0 results";
+                    //echo "0 results";
+                    $materialList.= "<div class='form-row'><div class='form-row-theme'>";
+                    $materialList.= "<select disabled name='material_id[]' id='material_id[]' required>";
+                    $materialList.= "<option selected disabled>ID - Material name</option>";  
+                    if($result = mysqli_query($conn, $sql_all_material)){
+                        if(mysqli_num_rows($result) > 0){ 
+                            while($optional_row = mysqli_fetch_array($result)){
+                
+                                $materialList.= "<option value='".$optional_row["material_id"]."'>".$optional_row["material_id"]." - ".$optional_row["name"]." - (".$optional_row["measuring_unit"].")</option>";
+                
+                            }
+                        }
+                    }
+                    $materialList.= "</select></div>";
+                    $materialList.= "<div class='form-row-data'>";
+                    $materialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='quantity[]' id='quantity_".$materialCount."' onChange='setPrice(".$materialCount.")' disabled />&nbsp";
+                    $materialList.= "<input type='number' step='0.01' min='0' class='column-textfield' name='unit_price[]' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' disabled />&nbsp";
+                    $materialList.= "<input type='text' class='column-textfield' name='material_price[]' id='material_price_".$materialCount."' disabled /></div></div>";
+                    $materialCount++;
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
@@ -104,9 +122,9 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="costume_designs.php">View costume designs </a> >
-                    <a href="javascript:history.back()">View </a> > Edit
+                    <a href="./view_costume_design.php?name=<?php echo $costumeNameResult ?>" > View </a> > Edit
                 </div>
 
                 <div class="link-row" style="width:95%;">

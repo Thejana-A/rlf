@@ -135,7 +135,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > View costume designs
+                    <a href="home.php">Manager</a> > View costume designs
                 </div>
                 <div class="link-row-small">
                     <a href="./add_costume_design.php" class="right-button">Add new design</a>

@@ -77,7 +77,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Employees
+                    <a href="home.php">Manager</a> > Employees
                 </div>
                 <div class="link-row">
                     <a href="./add_employee.php" class="right-button">Add new employee</a>
