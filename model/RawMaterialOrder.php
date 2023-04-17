@@ -19,6 +19,8 @@
             $this->approvalDescription = $args["approval_description"];
             $this->approvalDate = $args["approval_date"];
             $this->quotationID = $args["quotation_id"];
+            $this->orderID = $args["order_id"];
+
         }
 
         public function addMaterialOrder(){
