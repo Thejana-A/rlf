@@ -120,7 +120,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Customized costume designs
+                    <a href="home.php">Manager</a> > Customized costume designs
                 </div>
                 
                 <div id="list-box">

@@ -8,11 +8,19 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php   
+
             //$conn = new mysqli("localhost", "root", "", "rlf");
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
+            }
+
+            if(isset($_GET['costume_design'])){ 
+                $_SESSION["view_costume_path"] = "costume_design";
+            }
+            if(isset($_GET['customized_design'])){ 
+                $_SESSION["view_costume_path"] = "customized_design";
             }
 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
@@ -168,7 +176,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager >
+                    <a href="home.php">Manager</a> >
                     <?php
                     if($_SESSION["view_costume_path"] == "costume_design"){
                         echo "<a href='costume_designs.php'>View costume design </a>";
@@ -176,7 +184,7 @@
                         echo "<a href='customized_designs.php'>View customized design </a>";
                     }
                     ?> >
-                    <a href="javascript:history.back()">View </a> > Edit
+                    <a href="./view_costume_design.php?name=<?php echo $costumeNameResult ?>" > View </a> > Edit
                 </div>
 
                 <div class="link-row" style="width:95%;">
@@ -189,6 +197,7 @@
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
                         <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" />
+                        <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $row["merchandiser_id"]; ?>" />
                         <input type="text" hidden="true" name="customer_id" value="<?php echo $row["customer_id"]; ?>" />
 
                         <center>

@@ -7,18 +7,24 @@
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <?php 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-
-            $quotationID = $row["quotation_id"];
             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_costume_quotation = "SELECT quotation_id, customer.customer_id, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no, customer.email, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, manager_approval, approval_description FROM costume_quotation, employee, customer where costume_quotation.merchandiser_id = employee.employee_id AND costume_quotation.customer_id = customer.customer_id AND quotation_id=".$_GET["quotation_id"].";";
+                $result_view_costume_quotation = mysqli_query($conn, $sql_view_costume_quotation);
+                $row = mysqli_fetch_array($result_view_costume_quotation);
+            }
+
+            $quotationID = $row["quotation_id"];
+            
 
             $sql_costume_order = "SELECT * FROM costume_order WHERE quotation_id = '$quotationID';";  
             $costume_order_result = mysqli_query($conn, $sql_costume_order);  
@@ -79,7 +85,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="costume_quotations.php">Costume designs quotation </a> > View
                 </div>
 

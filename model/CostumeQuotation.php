@@ -40,16 +40,25 @@
                 }else{
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
-                    /*merchandiser notification */
-                    date_default_timezone_set("Asia/Calcutta");
-                    $notification_message = "Costume quotation was created - ID ".$this->quotationID;
-                    $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', 'costume quotation');";
-                    $conn->query($sql_notification); 
-                    /*customer notification */
+                    /*merchandiser notification when customer requests quotation*/
+                    if($this->managerApproval == ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was requested - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*customer notification when manager creates quotation*/
                     if($this->managerApproval == "approve"){
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Costume quotation was received - ID ".$this->quotationID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*manager notification when customer or merchandiser creates a quotation*/
+                    if($this->managerApproval == ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was created - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume quotation');";
                         $conn->query($sql_notification); 
                     }
                     ?><script>
@@ -86,16 +95,25 @@
                     $conn->query($sql_reset_quantity);
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
-                    /*merchandiser notification */
-                    date_default_timezone_set("Asia/Calcutta");
-                    $notification_message = "Costume quotation was updated - ID ".$this->quotationID;
-                    $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', '".$this->customerID."', 'costume quotation');";
-                    $conn->query($sql_notification);
-                    /*customer notification */
+                    /*merchandiser notification when quotation is approved or rejected by manager*/
+                    if(($this->managerApproval == "approve")||($this->managerApproval == "reject")){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was updated - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->merchandiserID."', 'costume quotation');";
+                        $conn->query($sql_notification);
+                    }
+                    /*customer notification when quotation is approved by manager*/
                     if($this->managerApproval == "approve"){
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Costume quotation was received - ID ".$this->quotationID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*manager notification when merchandiser updates a quotation requested by customer*/
+                    if($this->managerApproval == ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was updated - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume quotation');";
                         $conn->query($sql_notification); 
                     }
                     ?><script>

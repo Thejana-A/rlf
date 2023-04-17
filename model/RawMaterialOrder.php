@@ -37,11 +37,18 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }else{
-                    /*supplier notification */
+                    /*supplier notification when there is a raw material purchase request */
                     if($this->managerApproval == "approve"){
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Material order was received - ID ".$this->orderID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["supplier_id"]."', 'material order');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*manager notification merchandiser creates a raw material purchase request */
+                    if($this->managerApproval == ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Material order was created - ID ".$this->orderID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'material order');";
                         $conn->query($sql_notification); 
                     }
                     ?><script>
@@ -79,6 +86,13 @@
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Material order was received - ID ".$this->orderID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["supplier_id"]."', 'material order');";
+                        $conn->query($sql_notification); 
+                    }
+                    /*merchandiser notification */
+                    if(($this->managerApproval == "approve")||($this->managerApproval == "reject")){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Material order was updated - ID ".$this->orderID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["merchandiser_id"]."', 'material order');";
                         $conn->query($sql_notification); 
                     }
                     ?><script>

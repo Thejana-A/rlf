@@ -41,7 +41,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager >
+                    <a href="home.php">Manager</a> >
                     <a href="raw_materials.php">View raw materials </a> > Delete
                 </div>
 
