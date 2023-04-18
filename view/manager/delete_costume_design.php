@@ -68,6 +68,11 @@
             }else{
                 echo "ERROR: Could not able to execute $sql_design_material. " . mysqli_error($conn);
             }  
+
+            $parts_of_name = explode('-', $row["name"]);
+            $last = array_pop($parts_of_name);
+            $parts_of_name = array(implode('-', $parts_of_name), $last);
+            $costumeNameResult = $parts_of_name[0]; 
         ?>
 
         <script>
@@ -96,7 +101,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager >
+                    <a href="home.php">Manager</a> >
                     <?php
                     if($_SESSION["view_costume_path"] == "costume_design"){
                         echo "<a href='costume_designs.php'>View costume designs </a>";
@@ -104,7 +109,7 @@
                         echo "<a href='customized_designs.php'>View customized designs </a>";
                     }
                     ?> >
-                    <a href="javascript:history.back()">View </a> > Delete
+                    <a href="./view_costume_design.php?name=<?php echo $costumeNameResult ?>" > View </a> > Delete
                 </div>
 
                 <div id="form-box">

@@ -143,7 +143,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser > Raw material prices
+                    <a href="home.php">Merchandiser</a> > Raw material prices
                 </div>
                 
                 <div id="material-price-box">

@@ -76,7 +76,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Edit self profile
+                    <a href="home.php">Manager</a> > Edit self profile
                 </div> 
 
                 <div id="form-box-small">

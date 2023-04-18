@@ -18,6 +18,10 @@
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
+            }else{
+                $sql_view_quotation = "SELECT quotation_id, expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier.supplier_id, merchandiser_id , supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no AS supplier_contact_no, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id WHERE quotation_id = ".$_GET['quotation_id'].";";
+                $result_view_quotation = mysqli_query($conn, $sql_view_quotation);
+                $row = mysqli_fetch_array($result_view_quotation);
             }
 
             $sql_material_purchase_request = "SELECT * FROM raw_material_order WHERE quotation_id = ".$row["quotation_id"].";";  
@@ -105,7 +109,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="raw_material_quotations.php">Raw material quotation </a> > View
                 </div>
 
@@ -247,8 +251,6 @@
                             </div>
                             <div class="form-row-data">
                                 <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> />
-                                <input type="text" hidden="true" name="manager_approval" value="approve" />
-                                <input type="text" hidden="true" name="approval_date" value="<?php echo date("Y-m-d"); ?>" />
                             </div>
                         </div>
                         <div class="form-row">

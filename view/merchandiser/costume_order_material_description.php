@@ -19,7 +19,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="costume_quotations.php">View costume designs quotations </a> > 
                     <a href="javascript:history.back()">View </a> > Raw material description
                 </div>

@@ -336,19 +336,19 @@
                         header("location: http://localhost/rlf/view/supplier/profile.php");   
                     }else{
                         ?><script>
-                        alert("Your email isn't verified.<br />Please verify email and try again.");
+                        alert("Your email isn't verified. Please verify email and try again.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php 
                     }  
                 }else{
                     ?><script>
-                    alert("Your account is inactive.<br />Please try again later.");
+                    alert("Your account is inactive. Please try again later.");
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php 
                 }
             }else{
                 ?><script>
-                alert("Sorry ! Your credentials are invalid.<br />Please try again.");
+                alert("Sorry ! Your credentials are invalid. Please try again.");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php 
             }     
@@ -446,7 +446,7 @@
                     mysqli_stmt_bind_param($stmt, "s", md5($OTP));
                     mysqli_stmt_execute($stmt);
                     ?><script>
-                    alert("Check your email inbox.<br />Use the OTP code and link in your email to reset your password.");
+                    alert("Check your email inbox. Use the OTP code and link in your email to reset your password.");
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php 
                 } else {
@@ -456,7 +456,7 @@
                 $conn->close();
             }else{
                 ?><script>
-                alert("Sorry! Your email is invalid.<br />Enter your email again.");
+                alert("Sorry! Your email is invalid. Enter your email again.");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php 
             }

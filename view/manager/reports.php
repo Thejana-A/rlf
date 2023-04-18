@@ -19,7 +19,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Reports
+                    <a href="home.php">Manager</a> > Reports
                 </div>
                 
                 <div id="list-box">

@@ -26,7 +26,7 @@
             $conn->close(); 
         }
 
-        public function view(){
+        /*public function view(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->materialID = $_GET["material_id"];
@@ -43,7 +43,7 @@
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
             }
             mysqli_close($conn);
-        }
+        } */
 
         /*public function delete(){
 

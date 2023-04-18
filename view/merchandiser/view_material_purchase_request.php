@@ -18,7 +18,7 @@
                 $row = $_SESSION["row"];
                 //print_r($row);
             }else{
-                $sql_purchase_request = "SELECT raw_material_quotation.quotation_id, order_id, supplier.supplier_id, supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, expected_delivery_date, raw_material_order.manager_approval, raw_material_order.approval_description, dispatch_date, payment, payment_date from raw_material_quotation, raw_material_order, supplier, employee WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_order.quotation_id = ".$_GET["quotation_id"].";";
+                $sql_purchase_request = "SELECT raw_material_quotation.quotation_id, order_id, supplier.supplier_id, supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, expected_delivery_date, raw_material_order.manager_approval, raw_material_order.approval_description, dispatch_date, payment, payment_date from raw_material_quotation, raw_material_order, supplier, employee WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_order.order_id = ".$_GET["order_id"].";";
                 $result_purchase_request = mysqli_query($conn, $sql_purchase_request);
                 $row = mysqli_fetch_array($result_purchase_request);
             }
@@ -124,7 +124,7 @@
                 <div id="breadcrumb">
                 <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="material_purchase_requests.php">Raw material purchase request </a> > View
                 </div>
 
@@ -276,6 +276,7 @@
                             </div>
                             <div class="form-row-data">
                                 <textarea id="approval_description" name="approval_description" rows="4" cols="40" readonly><?php echo $row["approval_description"] ?></textarea>
+                                <input type="date" hidden="true" name="approval_date" value="<?php echo ($row["approval_date"] == ''?Date('Y-m-d'):$row["approval_date"]) ?>" />
                             </div>
                         </div>
                         <div class="form-row">

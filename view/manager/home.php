@@ -19,7 +19,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Manager > Home
+                    Manager 
                 </div>
                 <div class="form-row" style="width:115%;">
                     <div class="form-row-theme">

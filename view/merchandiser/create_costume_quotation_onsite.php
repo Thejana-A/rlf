@@ -142,7 +142,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    Merchandiser >
+                    <a href="home.php">Merchandiser</a> >
                     <a href="costume_quotations.php">Costume designs quotations </a> > Create a costume quotation
                 </div>
 
