@@ -1,4 +1,7 @@
-<?php error_reporting(E_ERROR | E_PARSE); ?>
+<?php error_reporting(E_ERROR | E_PARSE);
+    session_start();
+    $customerID =$_SESSION["customer_id"];
+ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,13 +18,13 @@
                 $minDate = $_POST["min_date"];
                 $maxDate = $_POST["max_date"];
                 if(($minDate == "")&&($maxDate == "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND customer_id=$customerID ORDER BY notification_date DESC" ;
                 }else if(($minDate == "")&&($maxDate != "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date <= '$maxDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND customer_id=$customerID AND (notification_date <= '$maxDate') ORDER BY notification_date DESC";
                 }else if(($minDate != "")&&($maxDate == "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date >= '$minDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND customer_id=$customerID AND (notification_date >= '$minDate') ORDER BY notification_date DESC";
                 }else{
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date BETWEEN '$minDate' AND '$maxDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND customer_id=$customerID AND (notification_date BETWEEN '$minDate' AND '$maxDate') ORDER BY notification_date DESC";
                 }
                 $search_output = "";
                 $output = "";
@@ -40,7 +43,7 @@
                     }
                 }
             }else{
-                $sql = "SELECT * FROM notification WHERE merchandiser_id IS NOT NULL ORDER BY notification_date DESC";
+                $sql = "SELECT * FROM notification WHERE customer_id=$customerID ORDER BY notification_date DESC";
                 $search_output = "";
                 $output = "";
                 if($result = mysqli_query($conn, $sql)){
@@ -48,9 +51,9 @@
                         while($row = mysqli_fetch_array($result)){
                             $output.= "<div class='item-data-row'>";
                             if($row["category"] == "costume quotation"){
-                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";  
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";  
                             }else if($row["category"] == "costume order"){
-                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_material_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_order.php?order_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
                             }
                             $output.= "<span>".$row["notification_date"]."</span>";
                             $output.= "<span>".$row["time"]."</span>";
