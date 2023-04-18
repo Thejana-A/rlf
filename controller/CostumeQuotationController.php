@@ -42,7 +42,14 @@
             //$row = http_build_query($data); 
             //session_start();
             //$_SESSION["row"] = $data;
-            $costumeQuotationModel->updateCostumeQuotation();
+            //$costumeQuotationModel->updateCostumeQuotation();
+            if(isset($_POST['edit'])){ 
+                $costumeQuotationModel->updateCostumeQuotation();
+                
+            }else if(isset($_POST['delete'])){
+                $costumeQuotationModel->deleteCostumeQuotation();
+            }
+            break;
             //print_r($_POST);
             
             break;

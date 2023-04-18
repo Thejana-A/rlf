@@ -228,7 +228,7 @@
                 <?php 
 
                     if(( $manager_approval != "approve")){
-                        echo "<form method='post' name='costumeQuotationForm' action='../RouteHandler.php'>";
+                        echo "<form method='post' name='costumeQuotationForm' action='../RouteHandler.php' enctype='multipart/form-data'>";
                         echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/customer_update'/>";
                         echo "<input type='text' hidden='true'  name='home_url' value='customer/customer_home.php' />";
                        // echo "<input type='text' hidden='true'  name='page_url' value='".$_SERVER['REQUEST_URI']."' />";
@@ -239,7 +239,9 @@
                         //echo "<input type='text' hidden='true' name='approval_date' value='".$approval_date."' />";
                         echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
                         echo $costume_list;
-                        echo "<input type='submit' value='Edit' class='Quotationbtn'>";
+                        echo "<input type='submit' value='Edit' name='edit' class='Quotationbtn'>";
+                        echo "<br/>";
+                        echo "<input type='submit' value='Delete' name='delete' class='Quotationbtn'>";
                         echo "</form>";
                     }  
                 ?>

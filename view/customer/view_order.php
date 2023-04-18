@@ -6,25 +6,7 @@
     $db_name = "rlf";
     $conn = mysqli_connect($sname, $unmae, $password, $db_name);
 
-    $quotation_id= $_GET["quotation_id"]; 
     $order_id = $_GET["order_id"];
-
-    $sql = "SELECT * FROM costume_quotation WHERE costume_quotation.quotation_id = $quotation_id";
-    $path = mysqli_query($conn, $sql);
-    if($result = mysqli_query($conn, $sql)){
-        if(mysqli_num_rows($result) > 0){
-            $row = mysqli_fetch_array($result);
-
-            $request_date = $row["request_date"];
-            $manager_approval = $row["manager_approval"];
-            
-            
-        }else {
-            echo "0 results";
-        } 
-    }else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-    }
 
     $sql = "SELECT * FROM costume_order WHERE costume_order.order_id = $order_id";
     $path = mysqli_query($conn, $sql);
@@ -38,7 +20,25 @@
             $advance_payment_date = $row["advance_payment_date"];
             $balance_payment =$row["balance_payment"];
             $dispatch_date = $row["dispatch_date"];
+            $quotation_id = $row["quotation_id"];
 
+        }else {
+            echo "0 results";
+        } 
+    }else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+    }
+    
+    $sql = "SELECT * FROM costume_quotation WHERE costume_quotation.quotation_id = $quotation_id";
+    $path = mysqli_query($conn, $sql);
+    if($result = mysqli_query($conn, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result);
+
+            $request_date = $row["request_date"];
+            $manager_approval = $row["manager_approval"];
+            
+            
         }else {
             echo "0 results";
         } 
