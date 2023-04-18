@@ -54,12 +54,15 @@
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_quotation.php?quotation_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";  
                             }else if($row["category"] == "costume order"){
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_order.php?order_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "customized design request"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_order.php?order_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
                             }
                             $output.= "<span>".$row["notification_date"]."</span>";
                             $output.= "<span>".$row["time"]."</span>";
                             $output.= "<hr />";
                             $output.= "</div>";
                         }
+
                     }else {
                         $output.= "0 results";
                     }
