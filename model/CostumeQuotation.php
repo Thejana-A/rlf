@@ -155,13 +155,36 @@
             $this->quotationID = $_POST["quotation_id"];
             $sql = "DELETE FROM costume_quotation WHERE quotation_id = ?";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                $sql_quotation = "SELECT manager_approval FROM costume_quotation where quotation_id='$this->quotationID'";
+                $sql_quotation = "SELECT * FROM costume_quotation where quotation_id='$this->quotationID'";
                 $path = mysqli_query($conn, $sql_quotation);
                 $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
                 if($quotation_result = mysqli_query($conn, $sql_quotation)){
-                    if(($quotation_result["manager_approval"] == "approve")||($quotation_result["manager_approval"] == "reject")){
+                    /*if(($quotation_result["manager_approval"] == "approve")||($quotation_result["manager_approval"] == "reject")){
                         ?><script>
                         alert("Sorry ! That quotation can't be deleted.");
+                        window.location.href='<?php echo $_POST["page_url"]; ?>';
+                        </script><?php
+                    }else{
+                        $sql_delete_costumes = "DELETE FROM design_quotation WHERE quotation_id = '$this->quotationID'";
+                        $conn->query($sql_delete_costumes);
+                        mysqli_stmt_bind_param($stmt, "s", $this->quotationID);
+                        mysqli_stmt_execute($stmt);
+                        $affectedRows = mysqli_stmt_affected_rows($stmt);
+                        if($affectedRows == -1){
+                            ?><script>
+                                alert("Sorry ! That quotation can't be deleted.");
+                                window.location.href='<?php echo $_POST["page_url"]; ?>';
+                            </script><?php
+                        }else{
+                            ?><script>
+                                alert("Quotation was deleted successfully");
+                                window.location.href='<?php echo $_POST["home_url"]; ?>';
+                            </script><?php
+                        }
+                    }*/
+                    if(mysqli_num_rows($quotation_result) > 0){
+                        ?><script>
+                        alert("Sorry ! That costume can't be deleted.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php
                     }else{
@@ -185,7 +208,8 @@
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);
-            } 
+            }
+
             $stmt->close(); 
             $conn->close();
         }
