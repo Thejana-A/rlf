@@ -81,7 +81,7 @@
             $conn->close(); 
         } */
 
-        public function viewQuantityReceived(){
+        /*public function viewQuantityReceived(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->quotationID = $_POST["quotation_id"];
@@ -101,7 +101,7 @@
             } 
             mysqli_close($conn);
 
-        }
+        } */
 
         /*public function updateQuantityReceived(){
              

@@ -15,6 +15,8 @@
         private $password;
         private $contactNo;
         private $city;
+        private $emailOTP;
+        private $emailVerification;
         
          
         function __construct($args) {

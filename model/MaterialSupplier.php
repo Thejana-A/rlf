@@ -53,9 +53,9 @@
             $this->add();
         }
 
-        public function viewMaterialSupplied() {
+        /*public function viewMaterialSupplied() {
             $this->view();
-        }
+        } */
         /*public function deleteMaterialSupplied() {
             $this->delete();
         } */

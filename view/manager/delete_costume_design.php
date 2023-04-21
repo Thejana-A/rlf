@@ -88,6 +88,16 @@
                 } 
                 document.getElementById("total_material_price").value = totalPrice;
             }   
+
+            function confirmDeletion(){
+                var confirmation = confirm("Are you sure ?");
+                if (confirmation==true) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
         </script>
     </head>
 
@@ -113,7 +123,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="../RouteHandler.php">
+                    <form method="post" onSubmit="return confirmDeletion()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/delete">
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />                        

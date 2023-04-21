@@ -5,6 +5,7 @@
         
         private $orderID;
         private $advancePayment;
+        private $advancePaymentDate;
         private $balancePayment;
         private $orderStatus;
         private $orderPlacedOn;

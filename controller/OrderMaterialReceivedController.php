@@ -8,15 +8,14 @@
         case "add":
             $orderMaterialReceivedModel->insertQuantityReceived();
             break;
-        case "update":
+        /*case "update":
             $orderMaterialReceivedModel->updateQuantityReceived();
-            break;
-        case "manager_view":
+            break; */
+        /*case "manager_view":
             $data = $orderMaterialReceivedModel->viewQuantityReceived();
-            //print_r($data);
             $row = http_build_query($data); 
             header("location: http://localhost/rlf/view/manager/view_material_purchase_request.php?data[]=$row");
-            break;
+            break; */
     
     }
 ?>

@@ -19,6 +19,8 @@
         private $DOB;
         private $joinedDate;
         private $activeStatus;
+        private $emailOTP;
+        private $emailVerification;
          
         function __construct($args) {
             $this->firstName = $args["first_name"];
@@ -166,9 +168,9 @@
             $this->add();
             
         }
-        public function signUp() {
+        /*public function signUp() {
             $this->add();
-        }
+        } */
 
         public function updateEmployee() {
             $this->update();

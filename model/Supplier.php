@@ -18,6 +18,8 @@
         private $business_certificate;
         private $city;
         private $verifyStatus;
+        private $emailOTP;
+        private $emailVerification;
          
         function __construct($args) {
             $this->firstName = $args["first_name"];
@@ -98,6 +100,13 @@
                             alert("Supplier was added successfully");
                             window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php  
+                            /*manager notification */
+                            if($this->verifyStatus != "approve"){
+                                date_default_timezone_set("Asia/Calcutta");
+                                $notification_message = "New supplier was added - ID ".$this->supplierID;
+                                $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'supplier');";
+                                $conn->query($sql_notification); 
+                            }
                         }
                     } else {		
                         echo "Error : ".$sql;			

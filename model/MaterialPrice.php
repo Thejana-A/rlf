@@ -41,7 +41,7 @@
             
         }
 
-        public function viewQuantityPrice(){
+        /*public function viewQuantityPrice(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->quotationID = $_POST["quotation_id"];
@@ -61,7 +61,7 @@
             } 
             mysqli_close($conn);
 
-        }
+        } */
 
         /*public function editQuantityPrice(){
             $connObj = new DBConnection();

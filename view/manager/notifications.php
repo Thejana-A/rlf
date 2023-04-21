@@ -81,6 +81,8 @@
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='view_costume_design.php?name=".trim(explode("-",$row["message"],2)[1]," ")."&customized_design=true'>".$row["message"]."</a></span>";
                             }else if($row["category"] == "costume price"){
                                 $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_costume_design.php?design_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."&costume_design=true'>".$row["message"]."</a></span>";
+                            }else if($row["category"] == "supplier"){
+                                $output.= "<span class='notification-message'><a style='text-decoration:none;' href='edit_supplier.php?supplier_id=".explode(" ",$row["message"])[(count(explode(" ",$row["message"])))-1]."'>".$row["message"]."</a></span>";
                             }
                             $output.= "<span>".$row["notification_date"]."</span>";
                             $output.= "<span>".$row["time"]."</span>";

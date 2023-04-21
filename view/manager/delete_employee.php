@@ -14,6 +14,16 @@
                 //print_r($row);
             }
         ?>
+        <script>
+            function confirmDeletion(){
+                var confirmation = confirm("Are you sure ?");
+                if (confirmation==true) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -31,7 +41,7 @@
                 </div> 
 
                 <div id="form-box-small">
-                    <form method="post" action="../RouteHandler.php">
+                    <form method="post" onSubmit="return confirmDeletion()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="employee/delete">
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />

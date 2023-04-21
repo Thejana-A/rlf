@@ -20,7 +20,7 @@
         private $finalPrice;
         private $customizedDesignApproval;
         private $designApprovalDescription;
-        private $designapprovalDate;
+        private $designApprovalDate;
         
         function __construct($args) {
             $this->name = $args["name"];
