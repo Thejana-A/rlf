@@ -7,18 +7,22 @@
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <?php
              error_reporting(E_ERROR | E_WARNING | E_PARSE);
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-            $materialID = $row["material_id"];
-            require_once('../../model/database.php');
+             require_once('../../model/database.php');
             $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
-
+            if(isset($_GET['data'])){ 
+                //parse_str($_SERVER['REQUEST_URI'],$row);
+                $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+            $materialID = $_GET['material_id'];
+            $sql_view_material = "SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.supplier_id as requester_id,'supplier' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,supplier where raw_material.supplier_id = supplier.supplier_id and material_id = ".$_GET['material_id'].";";
+            $supplierID = $_SESSION["supplier_id"];
+            $result_view_material = mysqli_query($conn, $sql_view_material);
+                $row = mysqli_fetch_array($result_view_material);
+        }
    ?>    
     </head>
 

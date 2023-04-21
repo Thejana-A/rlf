@@ -7,46 +7,43 @@
     <title>Help</title>
     <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
     <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
-    <style>
-    #myTable {
-        border-collapse: collapse;
-        width: 95%;
-        border: 1px solid #ddd;
-        font-size: 10px;
-        text-align: justify;
-        text-justify: inter-word;
-    }
+        <style>
 
-    #myTable th,
-    #myTable td {
-        text-align: left;
-        padding: 12px;
-    }
+            #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            }
+                #myTable th,
+                #myTable td {
+                    text-align: left;
+                    padding: 10px;
+                }
 
-    #myTable tr {
-        border-bottom: 1px solid #ddd;
-    }
+                #myTable tr {
+                    border-bottom: 1px solid #ddd;
+                }
 
-    #myTable tr.header,
-    #myTable tr:hover {
-        background-color: #aaaaaa;
-    }
-    </style>
+                #myTable tr.header,
+                #myTable tr:hover {
+                    background-color: #aaaaaa;
+                }
+        </style>
 </head>
 
 <body>
     <?php include 'header.php';?>
 
     <div id="page-body">
-        <?php include 'leftnav.php';?>
+    <?php include 'leftnav.php';?>
 
         <div id="page-content">
             <div id="breadcrumb">
-                <a href="index.php">Welcome </a> >
-                Help
+                <a href="http://localhost/rlf">Welcome </a> >Help
             </div>
 
-            <div id="form-box" style="width:50%;">
+            <div id="form-box-ultra-small" style="width:70%;">
                 <center>
                     <h2>Help</h2>
                 </center>
@@ -54,8 +51,7 @@
                 <form method="post" action="" class="search-panel">
 
                     <input type="text" id="myInput" placeholder="Search" onkeyup="myFunction()" class="text-field" />
-                    <input type="submit" value="search"
-                        style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                    <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
                     <br>
                 </form>
 
@@ -91,47 +87,35 @@
                             if they have arrived defective or damaged. If you need to exchange it for the same item in a
                             different size, send us an email at rlfapparel@yahoo.com before sending your item. </td>
                     </tr>
-                    <tr>
-                        <td>Laughing Bacchus Winecellars</td>
-                        <td>Canada</td>
-                    </tr>
-                    <tr>
-                        <td>Magazzini Alimentari Riuniti</td>
-                        <td>Italy</td>
-                    </tr>
-                    <tr>
-                        <td>North/South</td>
-                        <td>UK</td>
-                    </tr>
-                    <tr>
-                        <td>Paris specialites</td>
-                        <td>France</td>
-                    </tr>
                 </table>
 
-                <script>
-                function myFunction() {
-                    var input, filter, table, tr, td, i, txtValue;
-                    input = document.getElementById("myInput");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("myTable");
-                    tr = table.getElementsByTagName("tr");
-                    for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[0];
-                        if (td) {
-                            txtValue = td.textContent || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
+                        <script>
+                            function myFunction() {
+                                var input, filter, table, tr, td, i, txtValue;
+                                input = document.getElementById("myInput");
+                                filter = input.value.toUpperCase();
+                                table = document.getElementById("myTable");
+                                tr = table.getElementsByTagName("tr");
+                                for (i = 0; i < tr.length; i++) {
+                                    td = tr[i].getElementsByTagName("td")[0];
+                                    if (td) {
+                                        txtValue = td.textContent || td.innerText;
+                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                            tr[i].style.display = "";
+                                        } else {
+                                            tr[i].style.display = "none";
+                                        }
+                                    }
+                                }
                             }
-                        }
-                    }
-                }
-                </script>
-                </div> 
-                
-                <?php include 'footer.php';?>
+                        </script>
+                    </div>
+                </div>  
+            </div>  
+
+        </div>  
+
+        <?php include 'footer.php';?>
 
 </body>
 
