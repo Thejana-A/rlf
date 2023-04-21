@@ -18,9 +18,9 @@
 
     <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Fashion Designer </a> > Request to add Raw materials
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="home.php">Fashion Designer </a> > Request to add Raw materials
                 </div>
 
     <div id="form-box">

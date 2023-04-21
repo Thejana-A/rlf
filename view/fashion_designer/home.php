@@ -17,9 +17,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Fashion Designer </a> > Home
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="home.php">Fashion Designer </a> > Home
                 </div>
                 <div class="form-row" style="width:115%;">
                     <div class="form-row-theme">

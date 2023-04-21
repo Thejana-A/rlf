@@ -14,9 +14,9 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Merchandiser </a> >
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="home.php">Fashion Designer </a> >
                     <a href="#">Edit costume designs </a> > Edit
                 </div>
 

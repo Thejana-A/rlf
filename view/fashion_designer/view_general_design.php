@@ -5,8 +5,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>View costume design</title>
-        <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
-        <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fashion_designer/view_list_style.css" />
         <?php   
 
             require_once('../../model/database.php');
@@ -42,14 +42,14 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Fashion Designer </a> >
-                    <a href="#">View costume design </a> > View
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="home.php">Fashion Designer </a> >
+                    <a href="view_costume_design">View costume design </a> > View
                 </div>
 
                 <div class="link-row" style="margin-left:-15%;">
-                    <a href="./add_new_size.php?name=<?php echo $designName ?>" class="right-button">Add new size</a>
+                    <a href="new_design_size.php?name=<?php echo $designName ?>" class="right-button">Add new size</a>
                 </div><br />
 
                 <div id="form-box-ultra-small">
@@ -141,7 +141,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Merchandiser : 
+                                fashion_designer : 
                             </div>
                             <div class="form-row-data">
                             <input type="text"  name="fashion_designer_id" value="<?php echo $row["employee_id"] ?>" readonly /> 

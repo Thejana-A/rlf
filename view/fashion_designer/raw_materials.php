@@ -22,8 +22,8 @@
             require_once('../../model/DBConnection.php');?>
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Fashion designer </a> >View raw materials 
                 </div>
 

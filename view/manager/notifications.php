@@ -131,7 +131,7 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b style="width:50%;">Notification</b>
+                            <b style="width:50%;">Message</b>
                             <b>Date</b>
                             <b>Time</b>
                             <hr />

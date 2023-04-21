@@ -16,18 +16,18 @@
 
 	        <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="#">Welcome </a> >
-                    <a href="#">Login </a> >
-                    <a href="#">Fashion Designer </a> > View Raw Materials
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="home.php">Fashion Designer </a> > View Raw Materials
                 </div>
                 <div id="list-box">
                     <center>
                         <h2>Raw materials</h2>
                     </center>
                     <center>
-                        <form method="post" action="" class="search-panel">    
-                            <input type="text" name="" id="" placeholder="Search" class="text-field" />
-                            <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                        <form method="post" action="view_raw_materials.php" class="search-panel">    
+                            <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
+                            <input type="submit" value="search" name="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
                         </form>
                     </center>
                     <div class="item-list">
