@@ -91,7 +91,24 @@
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
-                            $output.= "<div class='material-price-block'>";
+                            $output.= "<div class='item-data-row'>";
+                            $output.= "<form method='post' action='../RouteHandler.php'>";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                            $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
+                            $output.= "<span style='width:12%;'>".$row["material_id"]."-".$row["name"]."</span>";
+                            $output.= "<span style='width:12%;'>".$row["employee_id"]."-".$row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]."</span>";
+                            $output.= "<span style='width:12%;'>".$row["supplier_id"]."-".$row["supplier_first_name"]." ".$row["supplier_last_name"]."</span>";
+                            $output.= "<span style='width:10%;'>".$row["quotation_id"]."-".$row["valid_till"]."</span>";
+                            $output.= "<span style='width:8%;'>".$row["request_quantity"]." ".$row["measuring_unit"]."</span>";
+                            $output.= "<span style='width:10%;'>".$row["unit_price"]."</span>";
+                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            $output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                            $output.= "</tr></table>"; 
+                            $output.= "<hr class='manager-long-hr' />";
+                            $output.= "</form>";
+                            $output.= "</div>";
+                            
+                            /*$output.= "<div class='material-price-block'>";
 
                             $output.= "<div class='material-price-row'>";
                             $output.= "<div class='material-price-left'>";
@@ -139,7 +156,7 @@
                             $output.= "</div>";
 
                             $output.= "<hr />";
-                            $output.= "</div>";
+                            $output.= "</div>"; */
                         }
                     }else {
                         $output.= "0 results";
@@ -184,14 +201,23 @@
                     </form> 
                     
                     <div class="item-list" style="width:80%;">
-                        <hr style="width:120%;color:#1B3280;" />
+                        <div class="item-heading-row" style="border:1px solid black;width:100%;margin-left:-35px;">
+                            <b style="width:10%;">ID-Material</b>
+                            <b style="width:8%;">ID-Merchandiser</b>
+                            <b style="width:8%;">ID-Supplier</b>
+                            <b style="width:8%;">Quot. ID -Valid till</b>
+                            <b style="width:4%;">Quantity</b>
+                            <b style="width:5%;">Unit price(LKR)</b>
+                            <hr style="width:77%;margin-left:30px;" />
+                        </div>
                         <div id="content-list">
                             <?php 
                                 echo $search_output;
-                                echo $output;
+                                //echo $output;
                                 mysqli_close($conn);
                             ?>
                         </div>
+                        
                         <!--<div class="material-price-block">
                             <div class="material-price-row">
                                 <div class="material-price-left">
