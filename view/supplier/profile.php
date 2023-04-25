@@ -6,6 +6,38 @@
 	<title>Profile</title>
 	<link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
     <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
+
+    <?php
+        require_once('../../model/DBConnection.php');
+        $connObj = new DBConnection();
+        $conn = $connObj->getConnection();
+
+        $today = date("Y-m-d");
+        $home_quotation_request_sql = "SELECT quotation_id, request_date, merchandiser_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, merchandiser.contact_no AS merchandiser_contact_no FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id AND requset_date = '$today';";
+        $home_quotation_request_output = "";
+        if($home_quotation_request_result = mysqli_query($conn, $home_quotation_request_sql)){
+            if(mysqli_num_rows($home_quotation_request_result) > 0){
+                while($home_quotation_request_row = mysqli_fetch_array($home_quotation_request_result)){
+                    $home_quotation_request_output.= "<div class='item-data-row'>";
+                    $home_quotation_request_output.= "<form method='post' action='../RouteHandler.php'>";
+                    $home_quotation_request_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
+                    $home_quotation_request_output.= "<input type='text' hidden='true' name='quotation_id' value='".$home_quotation_request_row["quotation_id"]."' />";
+                    $home_quotation_request_output.= "<span class='manager-ID-column'>".$home_quotation_request_row["quotation_id"]."</span><span style='padding-left:24px;'>".$home_quotation_request_row["first_name"]." ".$home_quotation_request_row["last_name"]."</span><span>".$home_quotation_request_row["contact_no"]."</span><span>".$home_quotation_request_row["request_date"]."</span>";
+                    $home_quotation_request_output.= "<input type='submit' style='float:right;margin-right:25px;margin-bottom:10px;' class='".$material_order_class."' value='View' />";
+                    $home_quotation_request_output.= "<hr />";
+                    $home_quotation_request_output.= "</form>";
+                    $home_quotation_request_output.= "</div>";
+                }
+            }else {
+                $home_quotation_request_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No due material quotations today";
+            }
+        }else{
+            echo "ERROR: Could not able to execute $home_quotation_request_sql. " . mysqli_error($conn);
+        }
+    ?>
+</head>
+
+
 </head>
 <body>
 
