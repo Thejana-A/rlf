@@ -13,7 +13,7 @@
         $conn = $connObj->getConnection();
 
         $today = date("Y-m-d");
-        $home_quotation_request_sql = "SELECT quotation_id, request_date, merchandiser_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, merchandiser.contact_no AS merchandiser_contact_no FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id AND requset_date = '$today';";
+        $home_quotation_request_sql = "SELECT quotation_id, request_date, employee_id, employee.first_name AS first_name, employee.last_name AS last_name, employee.contact_no AS contact_no FROM raw_material_quotation JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id JOIN employee ON raw_material_quotation.merchandiser_id = employee.employee_id AND request_date = '$today';";
         $home_quotation_request_output = "";
         if($home_quotation_request_result = mysqli_query($conn, $home_quotation_request_sql)){
             if(mysqli_num_rows($home_quotation_request_result) > 0){
@@ -34,7 +34,34 @@
         }else{
             echo "ERROR: Could not able to execute $home_quotation_request_sql. " . mysqli_error($conn);
         }
+
+        $home_material_order_sql = "SELECT order_id, employee_id, employee.first_name AS first_name, employee.last_name AS last_name, employee.contact_no AS contact_no , expected_delivery_date, dispatch_date, manager_approval, raw_material_quotation.quotation_id FROM raw_material_order, employee, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND expected_delivery_date = '$today';";
+        $home_material_order_output = "";
+        if($home_material_order_result = mysqli_query($conn, $home_material_order_sql)){
+            if(mysqli_num_rows($home_material_order_result) > 0){
+                while($home_material_order_row = mysqli_fetch_array($home_material_order_result)){
+                    $material_order_class = ($home_material_order_row["manager_approval"]=="approve")?"green":(($home_material_order_row["manager_approval"]=="reject")?"red":"grey");
+                    $home_material_order_output.= "<div class='item-data-row'>";
+                    $home_material_order_output.= "<form method='post' action='../RouteHandler.php'>";
+                    $home_material_order_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_order/supplier_view' />";
+                    $home_material_order_output.= "<input type='text' hidden='true' name='order_id' value='".$home_material_order_row["order_id"]."' />";
+                    $home_material_order_output.= "<input type='text' hidden='true' name='quotation_id' value='".$home_material_order_row["quotation_id"]."' />";
+                    $home_material_order_output.= "<span class='manager-ID-column'>".$home_material_order_row["order_id"]."</span><span style='padding-left:24px;'>".$home_material_order_row["first_name"]." ".$home_material_order_row["last_name"]."</span><span>".$home_material_order_row["contact_no"]."</span><span>".$home_material_order_row["expected_delivery_date"]."</span>";
+                    $home_material_order_output.= "<input type='submit' style='float:right;margin-right:25px;margin-bottom:10px;' class='".$material_order_class."' value='View' />";
+                    $home_material_order_output.= "<hr />";
+                    $home_material_order_output.= "</form>";
+                    $home_material_order_output.= "</div>";
+                }
+            }else {
+                $home_material_order_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No due material orders today";
+            }
+        }else{
+            echo "ERROR: Could not able to execute $home_material_order_sql. " . mysqli_error($conn);
+        }
     ?>
+
+
+
 </head>
 
 
@@ -63,7 +90,7 @@
                     </div>
                     <div class="form-row-data">
                         <div style="flex: 35%;box-sizing: border-box;">
-                            <?php include '../merchandiser/calendar.php';?>
+                            <?php include '../manager/calendar.php';?>
                         </div>
                     </div>
                 </div>
@@ -80,7 +107,12 @@
                             <b>Requested on</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
+                        <div id="content-list">
+                            <?php 
+                                echo $home_quotation_request_output;
+                            ?>
+                        </div>
+                        <!--<div class="item-data-row">
 							<span>0001</span>
                             <span>James A</span>
                             <span style="width:150px;">94 123 456 789</span>
@@ -95,7 +127,7 @@
                             <span>2022-12-22</span>
                             <a href="#" class="grey">View</a>
                             <hr />
-                        </div>
+                        </div>-->
                     </div>
                 </div><br />
 
@@ -111,6 +143,13 @@
                             <b>EDD</b>
                             <hr />
                         </div>
+                        <div>
+                            <?php 
+                                echo $home_material_order_output;
+                                mysqli_close($conn);
+                            ?>
+                        </div>
+                        <!--
                         <div class="item-data-row">
                             <span>0003</span>
                             <span>John A</span>
@@ -126,7 +165,7 @@
                             <span>2022-12-22</span>
                             <a href="#" class="green">View</a>
                             <hr />
-                        </div>
+                        </div>-->
                     </div>
 
 

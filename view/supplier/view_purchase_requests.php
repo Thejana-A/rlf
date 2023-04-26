@@ -47,7 +47,7 @@
                     }
                 }
             }else{
-                $sql = "SELECT order_id, first_name, last_name, expected_delivery_date, dispatch_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND manager_approval = 'approve';";
+                $sql = "SELECT order_id, employee_id, employee.first_name AS first_name, employee.last_name AS last_name, employee.contact_no AS contact_no , expected_delivery_date, dispatch_date, manager_approval, raw_material_quotation.quotation_id FROM raw_material_order, employee, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND manager_approval = 'approve';";
                 $search_output = "";
                 $output = "";
                 if($result = mysqli_query($conn, $sql)){
