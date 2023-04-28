@@ -1,4 +1,4 @@
-
+<?php require_once 'redirect_customer_login.php' ?>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
