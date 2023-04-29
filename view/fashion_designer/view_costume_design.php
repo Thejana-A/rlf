@@ -102,7 +102,7 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/fd_view_general_design' />";
                             $output.= "<input type='text' hidden='true' name='name' value='".$costume_name[$i]."' />";
-                            $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:20%;'>".$costume_row["merchandiser_first_name"]." ".$costume_row["merchandiser_last_name"]."</span><span style='padding-left:25px;'><img src='../front-view-image/".$costume_row["front_view"]."' style='width:60px;' /><img src='../rear-view-image/".$costume_row["rear_view"]."' style='width:60px;' /></span>";
+                            $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:20%;'>".$costume_row["merchandiser_first_name"]." ".$costume_row["merchandiser_last_name"]."</span><span style='padding-left:25px;display:flex;'><img src='../front-view-image/".$costume_row["front_view"]."' style='width:60px;' /><img src='../rear-view-image/".$costume_row["rear_view"]."' style='width:60px;' /></span>";
                             $output.= "<table align='right' style='margin-right:24px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $output.= "</tr></table>";

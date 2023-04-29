@@ -140,14 +140,6 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-row-theme">
-                                fashion_designer : 
-                            </div>
-                            <div class="form-row-data">
-                            <input type="text"  name="fashion_designer_id" value="<?php echo $row["employee_id"] ?>" readonly /> 
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />
                             </div>
