@@ -238,7 +238,7 @@
                         $conn->query($sql_notification); 
                     }
                     ?><script>
-                    alert("Customized design was added successfully & You can view it in 'view customized design request' on the left panel");
+                    alert("New costume design was added successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
                     </script><?php  
                 } 

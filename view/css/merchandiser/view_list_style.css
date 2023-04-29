@@ -12,18 +12,7 @@
     margin-top:60px;
   }
 
-  #list-box-see-more{
-    background-color:#ffcc99;
-    border-radius:6px;
-    padding:20px;
-    margin:30px;
-    clear:inherit;
-    font-family:sans-serif;
-    width:100%;
-    margin-top:60px;
-  }
-
-  #list-box h2, #material-price-box h2, #list-box-home h2, #list-box-home h4, #list-box-see-more h2{
+  #list-box h2, #material-price-box h2, #list-box-home h2, #list-box-home h4{
     color:#330099;
     font-family:sans-serif;
   }
@@ -84,9 +73,6 @@
       width: 80%;
     }
     #list-box-home {
-      width: 80%;
-    }
-    #list-box-see-more{
       width: 80%;
     }
   }
@@ -252,7 +238,7 @@
     margin:30px;
     clear:inherit;
     font-family:sans-serif;
-    width:100%;
+    width:110%;
     margin-top:60px;
   }
   .material-price-row{

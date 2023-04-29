@@ -27,87 +27,40 @@
             //print_r($_POST);
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            if(is_array($this->supplierID) == 1){
-                for($supplierCount = 0;$supplierCount<count($this->supplierID);$supplierCount++){
-                    $sql = "INSERT INTO raw_material_quotation (expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
-                    if ($stmt = mysqli_prepare($conn, $sql)) {
-                        mysqli_stmt_bind_param($stmt, "ssssssii", $this->expectedDeliveryDate, $this->supplierApproval, $this->approvalDescription, $this->requestDate, $this->issueDate, $this->validTill, $this->supplierID[$supplierCount], $this->merchandiserID);
-                        mysqli_stmt_execute($stmt);
-    
-                        $this->quotationID = $conn->insert_id;
-                        $publicQuotationID = $this->quotationID;
-                        if($this->quotationID == 0){ 
-                            ?><script>
-                            alert("Sorry ! An error occured.");
-                            window.location.href='<?php echo $_POST["page_url"] ?>';
-                            </script><?php
-                        }else{
-                            
-                            $sql_material = "INSERT INTO material_price (quotation_id, material_id, request_quantity) VALUES (?,?,?);";
-                            if ($stmt = mysqli_prepare($conn, $sql_material)) {
-                            
-                                mysqli_stmt_bind_param($stmt, "iid", $this->quotationID, $_POST["material_id"], $_POST["request_quantity"]);
-                                mysqli_stmt_execute($stmt);
-                                
-                                $insertedRow = $conn -> affected_rows;
-                                if($insertedRow == -1){
-                                    ?><script>
-                                    alert("Sorry, an error occured!");
-                                    window.location.href='<?php echo $_POST["page_url"] ?>';
-                                    </script><?php 
-                                } 
-                            } else {
-                                echo "Error: <br>" . mysqli_error($conn);
-                            } 
-                            
-                            /*date_default_timezone_set("Asia/Calcutta");
-                            $notification_message = "Material quotation was requested - ID ".$this->quotationID;
-                            $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->supplierID[$supplierCount]."', 'material quotation');";
-                            $conn->query($sql_notification);  */
-                            ?><script>
-                            alert("Material quotation request was added successfully");
-                            window.location.href='<?php echo $_POST["home_url"] ?>';
-                            </script><?php
-                        } 
-                    } else {
-                        echo "Error: <br>" . mysqli_error($conn);
-                    }
-                    
+            $sql = "INSERT INTO raw_material_quotation (expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "ssssssii", $this->expectedDeliveryDate, $this->supplierApproval, $this->approvalDescription, $this->requestDate, $this->issueDate, $this->validTill, $this->supplierID, $this->merchandiserID);
+                mysqli_stmt_execute($stmt);
+                $this->quotationID = $conn->insert_id;
+                $publicQuotationID = $this->quotationID;
+                if($this->quotationID == 0){ 
+                    ?><script>
+                    alert("Sorry ! An error occured.");
+                    window.location.href='<?php echo $_POST["page_url"] ?>';
+                    </script><?php
+                }else{
+                    /*echo "<table>";
+                    echo "<tr><td>Quotation ID </td><td>: $this->quotationID</td></tr>";
+                    echo "<tr><td>Expected delivery date </td><td>: $this->expectedDeliveryDate</td></tr>";
+                    echo "<tr><td>Request date </td><td>: $this->requestDate</td></tr>"; 
+                    echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>"; 
+                    echo "</table>"; */
+                    $materialPriceModel = new MaterialPrice($_POST, $publicQuotationID); 
+                    $materialPriceModel->setQuantity();
+                    /*Supplier notification*/ 
+                    date_default_timezone_set("Asia/Calcutta");
+                    $notification_message = "Material quotation was requested - ID ".$this->quotationID;
+                    $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->supplierID."', 'material quotation');";
+                    $conn->query($sql_notification); 
+                    ?><script>
+                    alert("Material quotation request was added successfully");
+                    window.location.href='<?php echo $_POST["home_url"] ?>';
+                    </script><?php
                 }
-                $stmt->close(); 
-            }else{
-                $sql = "INSERT INTO raw_material_quotation (expected_delivery_date, supplier_approval, approval_description, request_date, issue_date, valid_till, supplier_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "ssssssii", $this->expectedDeliveryDate, $this->supplierApproval, $this->approvalDescription, $this->requestDate, $this->issueDate, $this->validTill, $this->supplierID, $this->merchandiserID);
-                    mysqli_stmt_execute($stmt);
-                    $this->quotationID = $conn->insert_id;
-                    $publicQuotationID = $this->quotationID;
-                    if($this->quotationID == 0){ 
-                        ?><script>
-                        alert("Sorry ! An error occured.");
-                        window.location.href='<?php echo $_POST["page_url"] ?>';
-                        </script><?php
-                    }else{
-                        
-                        $materialPriceModel = new MaterialPrice($_POST, $publicQuotationID); 
-                        $materialPriceModel->setQuantity();
-                        /*Supplier notification */
-                        date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Material quotation was requested - ID ".$this->quotationID;
-                        $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->supplierID."', 'material quotation');";
-                        $conn->query($sql_notification); 
-                        ?><script>
-                        alert("Material quotation request was added successfully");
-                        window.location.href='<?php echo $_POST["home_url"] ?>';
-                        </script><?php
-                    }
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                }
-                $stmt->close(); 
-            }
-             
-            
+            } else {
+                echo "Error: <br>" . mysqli_error($conn);
+            } 
+            $stmt->close(); 
             $conn->close(); 
         }
 

@@ -1,4 +1,3 @@
-<?php require_once 'redirect_customer_login.php' ?>
 <?php error_reporting(E_ERROR | E_PARSE);
     session_start();
     $customerID =$_SESSION["customer_id"];

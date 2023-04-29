@@ -172,14 +172,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Requesting date :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="request_date" value="<?php echo $row["request_date"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
                                 Quotation issuing date :
                             </div>
                             <div class="form-row-data">

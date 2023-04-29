@@ -34,9 +34,9 @@
             $materialID = $row["material_id"];
 
             $sql_material_supplier = "SELECT supplier.supplier_id , supplier.first_name, supplier.last_name FROM `supplier` INNER JOIN `material_supplier` ON material_supplier.supplier_id = supplier.supplier_id WHERE material_supplier.material_id = '$materialID' AND `verify_status` = 'approve';";
+            $sql_all_supplier = "SELECT supplier_id, first_name, last_name FROM `supplier` where `verify_status` = 'approve';";
             $sql_material_design = "SELECT costume_design.design_id, name FROM `costume_design` INNER JOIN `design_material` ON design_material.design_id = costume_design.design_id WHERE design_material.material_id = '$materialID';";
-            $sql_material_quotation = "SELECT raw_material_quotation.quotation_id, material_price.material_id, measuring_unit, request_quantity, unit_price, valid_till, supplier_approval, raw_material_quotation.supplier_id, first_name, last_name FROM raw_material_quotation, material_price, raw_material,supplier WHERE material_price.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material.material_id = '$materialID' AND supplier_approval = 'approve' AND material_price.material_id = '$materialID';";
-
+            $sql_all_design = "SELECT design_id, name FROM `costume_design`";
 
             date_default_timezone_set("Asia/Colombo");
         ?>
@@ -246,25 +246,43 @@
                             </div>
                             <div class="form-row-data">
                                 <?php  
-                                    $material_supplier_select = "";
+                                    $material_supplier_id = array();
                                     if($result = mysqli_query($conn, $sql_material_supplier)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $material_supplier_select .= "<select name='view_supplier_id[]' id='view_supplier_id[]' multiple size='3' onClick='window.location.href=this.value'>";
-                                            $material_supplier_select .= "<option disabled>ID - Supplier name</option>";
                                             while($material_supplier_row = mysqli_fetch_array($result)){
-                                                $material_supplier_select .= "<option value=edit_supplier.php?supplier_id=".$material_supplier_row["supplier_id"].">".$material_supplier_row["supplier_id"]." - ".$material_supplier_row["first_name"]." ".$material_supplier_row["last_name"]."</option>";
-                        
+                                                array_push($material_supplier_id, $material_supplier_row["supplier_id"]);
                                             }
-                                            $material_supplier_select .= "</select>";
-                                        }else {
-                                            $material_supplier_select = "No suppliers available";
                                         }
-                                        echo $material_supplier_select;
+                                    }
+                                    $all_supplier_select = "";
+                                    if($result = mysqli_query($conn, $sql_all_supplier)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            $all_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='3' onClick='window.location.href=this.value'>";
+                                            $all_supplier_select .= "<option disabled>ID - Supplier name</option>";
+                                            while($all_supplier_row = mysqli_fetch_array($result)){
+                                                $all_supplier_select .= "<option value=edit_supplier.php?supplier_id=".$all_supplier_row["supplier_id"];
+                                                if(in_array($all_supplier_row["supplier_id"], $material_supplier_id)){
+                                                    $all_supplier_select .= " selected>".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
+                                                }else{
+                                                    $all_supplier_select .= ">".$all_supplier_row["supplier_id"]." - ".$all_supplier_row["first_name"]." ".$all_supplier_row["last_name"]."</option>";
+                                                } 
+                                            }
+                                            $all_supplier_select .= "</select>";
+                                        }else {
+                                            $all_supplier_select = "0 results";
+                                        }
+                                        echo $all_supplier_select;
                                     }else{
-                                        echo "ERROR: Could not able to execute $sql_material_supplier. " . mysqli_error($conn);
+                                        echo "ERROR: Could not able to execute $sql_all_supplier. " . mysqli_error($conn);
                                     }  
                                 ?>
-                                
+                                <!--<select name="" id="" multiple size="2">
+                                    <option disabled>Supplier ID - Supplier name</option>
+                                    <option>0001-John A</option>
+                                    <option>0004-John B</option>
+                                    <option>0010-John C</option>
+                                    <option>0011-John D</option>
+                                </select> -->
                             </div>
                         </div>
                         <div class="form-row">
@@ -273,21 +291,34 @@
                             </div>
                             <div class="form-row-data">
                                 <?php  
-                                    $material_design_select = "";
+                                    $material_design_id = array();
                                     if($result = mysqli_query($conn, $sql_material_design)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $material_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='3' onClick='window.location.href=this.value'>";
-                                            $material_design_select .= "<option disabled>ID - Design name</option>";
                                             while($material_design_row = mysqli_fetch_array($result)){
-                                                $material_design_select .= "<option value=edit_costume_design.php?design_id=".$material_design_row["design_id"].">".$material_design_row["design_id"]." - ".$material_design_row["name"]."</option>";
+                                                array_push($material_design_id, $material_design_row["design_id"]);
                                             }
-                                            $material_design_select .= "</select>";
-                                        }else {
-                                            $material_design_select = "No costume designs available";
                                         }
-                                        echo $material_design_select;
+                                    }
+                                    $all_design_select = "";
+                                    if($result = mysqli_query($conn, $sql_all_design)){
+                                        if(mysqli_num_rows($result) > 0){
+                                            $all_design_select .= "<select name='design_id[]' id='design_id[]' multiple size='3' onClick='window.location.href=this.value'>";
+                                            $all_design_select .= "<option disabled>ID - Design name</option>";
+                                            while($all_design_row = mysqli_fetch_array($result)){
+                                                $all_design_select .= "<option value=edit_costume_design.php?design_id=".$all_design_row["design_id"];
+                                                if(in_array($all_design_row["design_id"], $material_design_id)){
+                                                    $all_design_select .= " selected>".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
+                                                }else{
+                                                    $all_design_select .= ">".$all_design_row["design_id"]." - ".$all_design_row["name"]."</option>";
+                                                } 
+                                            }
+                                            $all_design_select .= "</select>";
+                                        }else {
+                                            $all_design_select = "0 results";
+                                        }
+                                        echo $all_design_select;
                                     }else{
-                                        echo "ERROR: Could not able to execute $sql_material_design. " . mysqli_error($conn);
+                                        echo "ERROR: Could not able to execute $sql_all_design. " . mysqli_error($conn);
                                     }  
                                 ?>
                                 <!--<select name="" id="" multiple size="2">
@@ -299,123 +330,9 @@
                                 </select> -->
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>Material quotations : </b>
-                            </div>
-                            <div class="form-row-data">
-                                <?php
-                                    $focused_quotation_id = array();
-                                    $focused_quotation_sql = "SELECT material_price.quotation_id, COUNT(material_price.quotation_id), supplier_approval FROM raw_material_quotation, material_price WHERE supplier_approval = 'approve' AND material_price.quotation_id = raw_material_quotation.quotation_id GROUP BY material_price.quotation_id HAVING COUNT(material_price.quotation_id) = 1;";
-                                    if($result = mysqli_query($conn, $focused_quotation_sql)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            while($focused_quotation_row = mysqli_fetch_array($result)){
-                                                array_push($focused_quotation_id, $focused_quotation_row["quotation_id"]);
-                                            }
-                                        }
-                                    }
-                                
-                                    $material_quotation_select = "";
-                                    if($result = mysqli_query($conn, $sql_material_quotation)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            $material_quotation_select .= "<select name='quotation_id[]' id='quotation_id[]' multiple size='3' onClick='window.location.href=this.value'>";
-                                            $material_quotation_select .= "<option disabled>Quote. ID - (Supplier ID-Name)Quantity-Unit price (Valid till)</option>";
-                                            while($material_quotation_row = mysqli_fetch_array($result)){
-                                                $material_quotation_select .= "<option value=view_material_quotation.php?quotation_id=".$material_quotation_row["quotation_id"];
-                                                if(in_array($material_quotation_row["quotation_id"], $focused_quotation_id)){
-                                                    $material_quotation_select .= " selected>".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].")".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
-                                                }else{
-                                                    $material_quotation_select .= ">".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].")".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
-                                                } 
-                                            }
-                                            $material_quotation_select .= "</select>";
-                                        }else {
-                                            $material_quotation_select = "No quotations available";
-                                        }
-                                        echo $material_quotation_select;
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql_material_quotation. " . mysqli_error($conn);
-                                    }  
-                                ?>
-                                
-                            </div>
-                        </div>
                         
                     </form>
                 </div> 
-
-                <div id="form-box-ultra-small">
-                    <form method="post" name="materialQuotationForm" action="../RouteHandler.php">
-                        <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/add" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
-                        <center>
-                            <h2>Send raw material quotation request</h2>
-                        </center>
-
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Raw material ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="material_id" id="material_id" value="<?php echo $row["material_id"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Supplier ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <?php  
-                                    $material_supplier_select = "";
-                                    if($result = mysqli_query($conn, $sql_material_supplier)){
-                                        if(mysqli_num_rows($result) > 0){
-                                            $material_supplier_select .= "<select name='supplier_id[]' id='supplier_id[]' multiple size='3' required>";
-                                            $material_supplier_select .= "<option disabled>ID - Supplier name</option>";
-                                            while($material_supplier_row = mysqli_fetch_array($result)){
-                                                $material_supplier_select .= "<option value=".$material_supplier_row["supplier_id"].">".$material_supplier_row["supplier_id"]." - ".$material_supplier_row["first_name"]." ".$material_supplier_row["last_name"]."</option>";
-                        
-                                            }
-                                            $material_supplier_select .= "</select>";
-                                        }else {
-                                            $material_supplier_select = "No suppliers available";
-                                        }
-                                        echo $material_supplier_select;
-                                    }else{
-                                        echo "ERROR: Could not able to execute $sql_material_supplier. " . mysqli_error($conn);
-                                    }  
-                                ?>
-                                <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $_SESSION["employee_id"]; ?>" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quantity (In <?php echo $row["measuring_unit"]; ?>) : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="number" name="request_quantity" id="request_quantity" min="0.001" step="0.001" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Expected delivery date :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" required />
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
-                            <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
-                            </div>
-                        </div> 
-                    </form>
-                </div>
-
 
                 <div id="form-box-ultra-small">
                     <form method="post" name="storageLogForm" action="../RouteHandler.php" onSubmit="return validateStorageLogForm()">
@@ -473,8 +390,6 @@
                                         while($row_result_quotation = mysqli_fetch_array($result_quotation)){
                                             echo "<option value='".$row_result_quotation['quotation_id']."-".$row_result_quotation['request_quantity']."'>".$row_result_quotation['quotation_id']." - ".$row_result_quotation['request_quantity']." ".$row['measuring_unit']."</option>";
                                         }
-                                        mysqli_close($conn);
-                        
                                     ?>
                                 </select>
                             </div>
@@ -525,17 +440,6 @@
         </div> 
 
         <?php include 'footer.php';?>
-        <script>
-            function addLeadingZeros(num, totalLength) {
-                return String(num).padStart(totalLength, '0');
-            }
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; 
-            var yyyy = today.getFullYear();
-            var min_EDD = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
-            document.getElementById("expected_delivery_date").setAttribute("min", min_EDD);
-        </script>
 
     </body> 
 </html>

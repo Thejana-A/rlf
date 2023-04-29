@@ -1,5 +1,5 @@
 <?php 
-    require_once 'redirect_customer_login.php';  
+    session_start();    
     include "db_conn.php";
     $customerID =$_SESSION["customer_id"];
     //$sql = "SELECT * FROM costume_quotation INNER JOIN employee ON employee.employee_id=costume_quotation.merchandiser_id AND costume_quotation.customer_id='$customerID'";

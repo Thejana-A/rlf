@@ -1,10 +1,9 @@
-<?php require_once 'redirect_customer_login.php' ?>
 <?php
- 
+ session_start();
  error_reporting(E_ERROR |E_PARSE);
  ?>
  <?php 
-    
+    session_start();
     $sname= "localhost";
     $unmae= "root";
     $password = "";
@@ -53,7 +52,7 @@
     <div id="form-box">
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/customer_operation" />
-                            <input type="text" hidden="true" name="home_url" value="customer/view_all_customized_design_request.php" />
+                            <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                             <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"] ?>"/>
                             <input type="text" hidden="true" name="design_id" value="<?php echo $design_id ?>"/>
                             <input type="text" hidden="true" name="name" value="<?php echo $propose_name ?>"/>
@@ -69,25 +68,25 @@
                                     Proposed Name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" value="<?php echo $_GET["design_name"]?>" disabled  />
+                                    <input type="text" name="name" id="name" value="<?php echo $propose_name?>" disabled  />
                                 </div>
                             </div>
-                            <!--<div class="form-row">
+                            <div class="form-row">
                                 <div class="form-row-theme">
                                     Size : 
                                 </div>
                                 <div class="form-row-data">
                                 <select name="size[]" multiple disabled>
-                                    <option value="XS" <?php //echo ($size == "XS")?'selected':'' ?> >XS</option>
-                                    <option value="S" <?php // echo ($size == "S")?'selected':'' ?>>S</option>
-                                    <option value="M" <?php //echo ($size== "M")?'selected':'' ?>>M</option>
-                                    <option value="L" <?php //echo ($size== "L")?'selected':'' ?>>L</option>
-                                    <option value="XL" <?php //echo ($size== "XL")?'selected':'' ?>>XL</option>
-                                    <option value="XXL" <?php //echo ($size== "XXL")?'selected':'' ?>>XXL</option>
+                                    <option value="XS" <?php echo ($size == "XS")?'selected':'' ?> >XS</option>
+                                    <option value="S" <?php echo ($size == "S")?'selected':'' ?>>S</option>
+                                    <option value="M" <?php echo ($size== "M")?'selected':'' ?>>M</option>
+                                    <option value="L" <?php echo ($size== "L")?'selected':'' ?>>L</option>
+                                    <option value="XL" <?php echo ($size== "XL")?'selected':'' ?>>XL</option>
+                                    <option value="XXL" <?php echo ($size== "XXL")?'selected':'' ?>>XXL</option>
                                     
                                 </select>
                                 </div>
-                            </div>-->
+                            </div>
 
                             
                             
@@ -96,7 +95,7 @@
                                     Front view : 
                                 </div>
                                 <div class="form-row-data">
-                                <img src="../front-view-image/<?php echo $front_view ?>" width="30%" />
+                                <img src="../front-view-image/<?php echo $front_view ?>"  />
                                 <?php
                                 if($row["customized_design_approval"] == NULL ){
                                     echo "<input type='file' name='front_view'  accept='image/png, image/gif, image/jpeg, image/tiff' />";
@@ -109,7 +108,7 @@
                                     Rear view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../rear-view-image/<?php echo $rear_view ?>" width="30%" />
+                                    <img src="../rear-view-image/<?php echo $rear_view ?>"  />
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='rear_view' id='rear_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -122,7 +121,7 @@
                                     Left view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../left-view-image/<?php echo $left_view ?>"  width="30%"/>
+                                    <img src="../left-view-image/<?php echo $left_view ?>"  />
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='left_view' id='left_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -135,7 +134,7 @@
                                     Right view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../right-view-image/<?php echo $right_view ?>" width="30%" />
+                                    <img src="../right-view-image/<?php echo $right_view ?>"  />
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='right_view' id='right_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -169,14 +168,13 @@
                             }
 
                             if($customized_design_approval == "approve"){
-                                echo "You Design was published on HomePage";
                                 
-                                /*echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
+                                echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
                                 echo "<button class='Quotationbtn' onclick='view_approve_order.html'>";
                                 echo "Request Quotation";
                                 echo "</button>";
                                 echo "</div>";
-                                echo "</form>";*/
+                                echo "</form>";
                             }
                             ?>
 

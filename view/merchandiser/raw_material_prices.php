@@ -30,23 +30,7 @@
                 if($search_result = mysqli_query($conn, $search_sql)){
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
-                            $search_output.= "<div class='item-data-row' style='width:120%;'>";
-                            $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
-                            $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
-                            $search_output.= "<span style='width:12%;'>".$search_row["material_id"]."</span>";
-                            $search_output.= "<span style='width:12%;'>".$search_row["name"]."</span>";
-                            $search_output.= "<span style='width:12%;'>".$search_row["supplier_id"]."-".$search_row["supplier_first_name"]." ".$search_row["supplier_last_name"]."</span>";
-                            $search_output.= "<span style='width:11%;'>".$search_row["quotation_id"]."-(".$search_row["valid_till"].")</span>";
-                            $search_output.= "<span style='width:7%;'>".$search_row["request_quantity"]." ".$search_row["measuring_unit"]."</span>";
-                            $search_output.= "<span style='width:6%;'>".$search_row["unit_price"]."</span>";
-                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $search_output.= "</tr></table>";
-                            $search_output.= "<hr class='manager-long-hr' />";
-                            $search_output.= "</form>";
-                            $search_output.= "</div>";
-                            /*$search_output.= "<div class='material-price-block'>";
+                            $search_output.= "<div class='material-price-block'>";
 
                             $search_output.= "<div class='material-price-row'>";
                             $search_output.= "<div class='material-price-left'>";
@@ -85,7 +69,7 @@
                             $search_output.= "</div>";
 
                             $search_output.= "<hr />";
-                            $search_output.= "</div>"; */
+                            $search_output.= "</div>";
                         }   
                     }else{
                         $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
@@ -98,23 +82,7 @@
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
-                            $output.= "<div class='item-data-row' style='width:120%;'>";
-                            $output.= "<form method='post' action='../RouteHandler.php'>";
-                            $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
-                            $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                            $output.= "<span style='width:12%;'>".$row["material_id"]."</span>";
-                            $output.= "<span style='width:12%;'>".$row["name"]."</span>";
-                            $output.= "<span style='width:12%;'>".$row["supplier_id"]."-".$row["supplier_first_name"]." ".$row["supplier_last_name"]."</span>";
-                            $output.= "<span style='width:11%;'>".$row["quotation_id"]."-(".$row["valid_till"].")</span>";
-                            $output.= "<span style='width:7%;'>".$row["request_quantity"]." ".$row["measuring_unit"]."</span>";
-                            $output.= "<span style='width:6%;'>".$row["unit_price"]."</span>";
-                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            $output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $output.= "</tr></table>";
-                            $output.= "<hr class='manager-long-hr' />";
-                            $output.= "</form>";
-                            $output.= "</div>";
-                            /*$output.= "<div class='material-price-block'>";
+                            $output.= "<div class='material-price-block'>";
 
                             $output.= "<div class='material-price-row'>";
                             $output.= "<div class='material-price-left'>";
@@ -153,7 +121,7 @@
                             $output.= "</div>";
 
                             $output.= "<hr />";
-                            $output.= "</div>"; */
+                            $output.= "</div>";
                         }
                     }else {
                         $output.= "0 results";
@@ -178,7 +146,7 @@
                     <a href="home.php">Merchandiser</a> > Raw material prices
                 </div>
                 
-                <div id="material-price-box" style="width:110%;">
+                <div id="material-price-box">
                     <center>
                         <h2>Raw material prices</h2>
                     </center>
@@ -198,15 +166,7 @@
                     </form> 
                     
                     <div class="item-list" style="width:80%;">
-                        <div class="item-heading-row" style="width:115%;margin-left:-35px;">
-                            <b style="width:12%;padding-left:30px;">Material ID</b>
-                            <b style="width:12%;">Material name</b>
-                            <b style="width:12%;">ID-Supplier</b>
-                            <b style="width:12%;">Quot. ID -(Valid till)</b>
-                            <b style="width:6%;">Quantity</b>
-                            <b style="width:5%;">Unit price(LKR)</b>
-                            <hr style="width:104%;margin-left:30px;" />
-                        </div>
+                        <hr style="width:120%;color:#1B3280;" />
                         <div id="content-list">
                             <?php 
                                 echo $search_output;

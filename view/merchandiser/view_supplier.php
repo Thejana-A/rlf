@@ -19,7 +19,7 @@
                 //print_r($row);
             }else{
 
-                $sql = "SELECT * FROM supplier WHERE supplier_id = ".$_GET["supplier_id"].";";
+                $sql = "SELECT * FROM supplier WHERE supplier_id = ".$row["supplier_id"].";";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {

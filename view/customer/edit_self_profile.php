@@ -1,4 +1,3 @@
-<?php require_once 'redirect_customer_login.php' ?>
 <?php 
     session_start();
 ?>

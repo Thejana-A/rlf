@@ -1,8 +1,7 @@
-<?php require_once 'redirect_customer_login.php' ?>
 <?php 
-    error_reporting(E_ERROR | E_PARSE);
+
 //include "db_conn.php";
-    
+    session_start();
     $total_price = 0;
     $sname= "localhost";
     $unmae= "root";
@@ -32,21 +31,9 @@
     }else{
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
     }
-?>
-<?php 
-    $sql = "SELECT * FROM costume_order WHERE costume_order.quotation_id = $quotation_id";
-    $path = mysqli_query($conn, $sql);
-    if($result = mysqli_query($conn, $sql)){
-        if(mysqli_num_rows($result) > 0){
-            $row = mysqli_fetch_array($result);
-            $order_id= $row["order_id"];   
-        }else {
-            echo "0 results";
-        } 
-    }else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-    }
-?>
+
+    ?>
+
 <?php
     $sql_costume_list = "SELECT * FROM costume_design INNER JOIN design_quotation INNER JOIN costume_quotation WHERE design_quotation.quotation_id = $quotation_id AND design_quotation.design_id=costume_design.design_id AND costume_quotation.quotation_id = $quotation_id;";
     $path = mysqli_query($conn, $sql);
@@ -262,8 +249,8 @@
         </div>
         
     </div>
-    <?php        
-    if(( $manager_approval == "approve" && $order_id== NULL)){  
+    <?php             
+    if(( $manager_approval == "approve")){  
 
     echo "<div class='ViewRow'>" ;
         echo "<div class='box'>";
@@ -283,7 +270,6 @@
         echo "</div>";
     echo "</div>";
     }
-
     ?>
     <?php
     include "footer.php";

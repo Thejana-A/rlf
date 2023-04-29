@@ -1,4 +1,4 @@
-<?php require_once 'redirect_customer_login.php' ?>
+
 <?php
 session_start();
 error_reporting(E_ERROR | E_PARSE);

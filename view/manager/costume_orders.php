@@ -66,7 +66,7 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
-                            $search_output.= "<span style='width:6%;'>".$search_row["order_id"]."</span><span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$search_row["order_placed_on"]."</span><span style='width:12%;'>".$search_row["expected_delivery_date"]."</span>";
+                            $search_output.= "<span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;'>".$orderStatus."</span><span>".$search_row["order_placed_on"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
                             //$search_output.= "<input type='submit' class='grey' value='View' />";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
@@ -96,7 +96,7 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
-                            $output.= "<span style='width:6%;'>".$row["order_id"]."</span><span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span style='width:12%;'>".$row["expected_delivery_date"]."</span>";
+                            $output.= "<span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span>".$row["expected_delivery_date"]."</span>";
                             //$output.= "<input type='submit' class='grey' value='View' />";
                             $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
@@ -163,9 +163,8 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b style="width:6%;">Order ID</b>
                             <b>Customer name</b>
-                            <b style="width:15%;">Order status</b>
+                            <b>Order status</b>
                             <b>Order placed on</b>
                             <b>EDD</b>
                             <hr class="manager-long-hr" />
@@ -177,7 +176,51 @@
                                 mysqli_close($conn);
                             ?>
                         </div>
-                        
+                        <?php /*
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT order_id, first_name, last_name, order_status, order_placed_on, expected_delivery_date, costume_order.quotation_id, advance_payment, dispatch_date, quality_status FROM costume_order, customer, costume_quotation WHERE costume_order.quotation_id = costume_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        if($row["order_status"] == "pending"){
+                                            $orderStatus = "pending";
+                                        }else if($row["order_status"] == "accepted"){
+                                            $orderStatus = "accepted";
+                                        }else if($row["order_status"] == "rejected"){
+                                            $orderStatus = "rejected";
+                                        }else if($row["order_status"] == "complete"){
+                                            $orderStatus = "complete";
+                                        }else if($row["order_status"] == "incomplete"){
+                                            $orderStatus = "incomplete";
+                                        }else if($row["order_status"] == "delivered"){
+                                            $orderStatus = "delivered";
+                                        }else if($row["order_status"] == "confirmed"){
+                                            $orderStatus = "confirmed";
+                                        }
+                                        $class = ($row["quality_status"]=="good")?"green":(($row["quality_status"]=="bad")?"red":"grey");
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                                        echo "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span>".$row["expected_delivery_date"]."</span>";
+                                        //echo "<input type='submit' class='grey' value='View' />";
+                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                                        echo "<td><input type='submit' class='".$class."' value='View' /></td>";
+                                        echo "</tr></table>"; 
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn); */
+                        ?>
                         <!--<div class="item-data-row">
                             <span>John Doe</span>
                             <span>Pending</span>

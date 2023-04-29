@@ -1,6 +1,6 @@
-<?php require_once 'redirect_customer_login.php' ?>
 <?php
- error_reporting(E_ERROR | E_PARSE);
+ session_start();
+ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ?>
 <!DOCTYPE html>
 <head>
@@ -33,24 +33,16 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-row-theme">
-                                    
-                                </div>
-                                <div class="form-row-data">
-                                    <img src="../image/size-chart- new.png" width="60%">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-row-theme">
                                     Size : 
                                 </div>
                                 <div class="form-row-data">
                                 <select name="size[]" multiple required>
-                                    <option value="XS" selected >XS</option>
-                                    <option value="S" selected>S</option>
-                                    <option value="M" selected>M</option>
-                                    <option value="L" selected>L</option>
-                                    <option value="XL" selected>XL</option>
-                                    <option value="XXL" selected>XXL</option>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
                                     
                                 </select>
                                 </div>
