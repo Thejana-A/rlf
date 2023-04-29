@@ -1,3 +1,4 @@
+<?php require_once 'redirect_customer_login.php' ?>
 <?php
  error_reporting(E_ERROR | E_PARSE);
 ?>
@@ -149,6 +150,7 @@
                 <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
                 <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                 <input type="text" hidden="true" name="request_date" value="<?php echo date("Y-m-d"); ?>" />
+                <input type="text" hidden="true" name="valid_till" value="<?php echo date('Y-m-d', strtotime('+14 days')); ?>" />
                 <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $merchandiser_name; ?>" />
                 <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"]; ?>" />
                 <!--<table>

@@ -1,3 +1,4 @@
+<?php require_once 'redirect_customer_login.php' ?>
 <?php 
  error_reporting(E_ERROR | E_PARSE);
 include "db_conn.php";
