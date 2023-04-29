@@ -35,19 +35,17 @@
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
                             $search_output.= "<span class='manager-ID-column'>".$search_row["order_id"]."</span><span style='padding-left:24px;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
-                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
-                            $search_output.= "</tr></table>"; 
-                            $search_output.= "<hr class='manager-long-hr' />";
-                            $search_output.= "</form>";
-                            $search_output.= "</div>";
+                            $output.= "<input type='submit' class='grey' name='view' value='View' />";
+                                        $output.= "<hr class='manager-long-hr' />";
+                                        $output.= "</form>";
+                                        $output.= "</div>";
                         }
                     }else {
                         $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
                 }
             }else{
-                $sql = "SELECT order_id, first_name, last_name, expected_delivery_date, dispatch_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND manager_approval = 'approve';";
+                $sql = "SELECT order_id, employee_id, employee.first_name AS first_name, employee.last_name AS last_name, employee.contact_no AS contact_no , expected_delivery_date, dispatch_date, manager_approval, raw_material_quotation.quotation_id FROM raw_material_order, employee, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND manager_approval = 'approve';";
                 $search_output = "";
                 $output = "";
                 if($result = mysqli_query($conn, $sql)){
@@ -59,12 +57,10 @@
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
                             $output.= "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
-                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            $output.="<td><input type='submit' class='grey' value='View' /></td>";
-                            $output.= "</tr></table>"; 
-                            $output.= "<hr class='manager-long-hr' />";
-                            $output.= "</form>";
-                            $output.= "</div>";
+                            $output.= "<input type='submit' class='grey' name='view' value='View' />";
+                                        $output.= "<hr class='manager-long-hr' />";
+                                        $output.= "</form>";
+                                        $output.= "</div>";
                         }
                     }else {
                         $output.= "0 results";
