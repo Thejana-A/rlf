@@ -11,7 +11,7 @@
     $password = "";
     $db_name = "rlf";
     $conn = mysqli_connect($sname, $unmae, $password, $db_name);
-    $view_design_id= $_GET["design_id"]; 
+    $view_design_id= $_GET["design_id"];
     $sql = "SELECT * FROM `costume_design` WHERE `design_id` = $view_design_id;";
     $path = mysqli_query($conn, $sql);
     if($result = mysqli_query($conn, $sql)){
@@ -45,7 +45,7 @@
 
             ?>
 <?php
-    $sql_costume_list = "SELECT * FROM `costume_design` WHERE (`name` LIKE '".$_GET["design_name"]."-_' OR `name` LIKE '".$_GET["design_name"]."-__' OR `name` LIKE '".$_GET["design_name"]."-___') AND `publish_status` = 'publish';";
+    $sql_costume_list = "SELECT * FROM `costume_design` WHERE (`name` LIKE '".$_GET["design_name"]."-_' OR `name` LIKE '".$_GET["design_name"]."-__' OR `name` LIKE '".$_GET["design_name"]."-___') AND (`publish_status` = 'publish' OR `customer_id`='".$_SESSION['customer_id']."');";
     $path = mysqli_query($conn, $sql);
     if($result_costume_list = mysqli_query($conn, $sql_costume_list)){
         if(mysqli_num_rows($result_costume_list) > 0){
