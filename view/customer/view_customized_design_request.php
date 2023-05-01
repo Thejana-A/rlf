@@ -69,25 +69,25 @@
                                     Proposed Name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" value="<?php echo $_GET["design_name"]?>" disabled  />
+                                    <input type="text" name="name" id="name" value="<?php echo $propose_name?>" disabled  />
                                 </div>
                             </div>
-                            <!--<div class="form-row">
+                            <div class="form-row">
                                 <div class="form-row-theme">
                                     Size : 
                                 </div>
                                 <div class="form-row-data">
                                 <select name="size[]" multiple disabled>
-                                    <option value="XS" <?php //echo ($size == "XS")?'selected':'' ?> >XS</option>
-                                    <option value="S" <?php // echo ($size == "S")?'selected':'' ?>>S</option>
-                                    <option value="M" <?php //echo ($size== "M")?'selected':'' ?>>M</option>
-                                    <option value="L" <?php //echo ($size== "L")?'selected':'' ?>>L</option>
-                                    <option value="XL" <?php //echo ($size== "XL")?'selected':'' ?>>XL</option>
-                                    <option value="XXL" <?php //echo ($size== "XXL")?'selected':'' ?>>XXL</option>
+                                    <option value="XS" <?php echo ($size == "XS")?'selected':'' ?> >XS</option>
+                                    <option value="S" <?php echo ($size == "S")?'selected':'' ?>>S</option>
+                                    <option value="M" <?php echo ($size== "M")?'selected':'' ?>>M</option>
+                                    <option value="L" <?php echo ($size== "L")?'selected':'' ?>>L</option>
+                                    <option value="XL" <?php echo ($size== "XL")?'selected':'' ?>>XL</option>
+                                    <option value="XXL" <?php echo ($size== "XXL")?'selected':'' ?>>XXL</option>
                                     
                                 </select>
                                 </div>
-                            </div>-->
+                            </div>
 
                             
                             
@@ -169,14 +169,44 @@
                             }
 
                             if($customized_design_approval == "approve"){
-                                echo "You Design was published on HomePage";
+
+                                $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customer_id=$customerID AND design_id=$design_id;";
+                                $result = $conn->query($sql);
+                                $costume_name = array();
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        array_push($costume_name , $row["costume_name"]);
+                                 
+                                    }
+                                }
                                 
-                                /*echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
-                                echo "<button class='Quotationbtn' onclick='view_approve_order.html'>";
+                                for($i = 0;$i<count($costume_name);$i++){
+                                    $sql_costume = "SELECT * FROM costume_design where `name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__'  LIMIT 1;";
+                                    $result_costume = $conn->query($sql_costume);
+                                    if ($result_costume->num_rows > 0) {
+                                        while ($row = $result_costume->fetch_assoc()) {
+                                            $design_id= $row['design_id'];
+                                            echo "</form>";
+                                            echo "<input type='hidden' name='design_id'  value='".$row['design_id'].";'>";
+                                            echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
+                                            echo "<button class='Quotationbtn' onclick=location.href='request_quotation.php?design_id=".$row['design_id']."&design_name=".$costume_name[$i]."'>";
+                                            echo "Request Quotation";
+                                            echo "</button>";
+                                            echo "</div>";
+                                            
+
+                                        }
+                                    }
+                                }                               
+                                /*echo "</form>";
+                                
+                                echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
+                                echo "<button class='Quotationbtn' onclick=location.href='request_quotation.php?design_id=".$design_id."&design_name=".$costume_name[$i]."'>";
+                                
                                 echo "Request Quotation";
                                 echo "</button>";
-                                echo "</div>";
-                                echo "</form>";*/
+                                echo "</div>";*/
+                                
                             }
                             ?>
 

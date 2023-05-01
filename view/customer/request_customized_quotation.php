@@ -28,7 +28,7 @@
                                     Proposed Name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" required />
+                                    <input type="text" name="name" id="name" required pattern="[A-Za-z]+" />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -45,12 +45,12 @@
                                 </div>
                                 <div class="form-row-data">
                                 <select name="size[]" multiple required>
-                                    <option value="XS" selected >XS</option>
-                                    <option value="S" selected>S</option>
-                                    <option value="M" selected>M</option>
-                                    <option value="L" selected>L</option>
-                                    <option value="XL" selected>XL</option>
-                                    <option value="XXL" selected>XXL</option>
+                                    <option value="XS"  >XS</option>
+                                    <option value="S" >S</option>
+                                    <option value="M" >M</option>
+                                    <option value="L" >L</option>
+                                    <option value="XL" >XL</option>
+                                    <option value="XXL" >XXL</option>
                                     
                                 </select>
                                 </div>
