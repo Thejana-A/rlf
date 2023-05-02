@@ -147,7 +147,7 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->supplierID = $_POST["supplier_id"];
-
+            
             if($_FILES["NIC_front_image"]["name"] != ""){
                 while (true) {
                     $nicFrontImage = uniqid().".".explode("/", $_FILES["NIC_front_image"]["type"])[1];
@@ -194,7 +194,6 @@
                 }
             }
             
-
             $sql = "UPDATE supplier SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=?, verify_status=? WHERE supplier_id='$this->supplierID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "sssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->city, $this->verifyStatus);
@@ -236,6 +235,7 @@
             } 
             $stmt->close(); 
             $conn->close(); 
+            
         }
 
 

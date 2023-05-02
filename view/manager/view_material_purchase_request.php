@@ -26,6 +26,7 @@
                 $row = mysqli_fetch_array($result_purchase_request);
             }
             
+            
             $quotation_material_list = array();
             $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             if($result = mysqli_query($conn, $sql_quotation_material)){
@@ -71,7 +72,7 @@
                         $goodsReceivedNotice .= "<div class='form-row-data'>";
                         $goodsReceivedNotice .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["request_quantity"]."' readonly />&nbsp";
                         $goodsReceivedNotice .= "<input type='text' name='unit_price[]' id='measuring_unit[]' class='column-textfield' value='".$goods_received_notice_row["measuring_unit"]."' readonly /> ";
-                        $goodsReceivedNotice .= "<input type='number' step='0.001' min='0.001' name='quantity_received[]' id='quantity_received_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["quantity_received"]."' required />"; 
+                        $goodsReceivedNotice .= "<input type='number' step='0.001' min='0' name='quantity_received[]' id='quantity_received_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["quantity_received"]."' required />"; 
                         $goodsReceivedNotice .= "</div>";
                         $goodsReceivedNotice .= "</div>";
                         $goodsReceivedCount++;
@@ -116,6 +117,21 @@
                 }
             } 
 
+            function validateForm(){
+                var manager_approval = document.forms["materialOrderForm"]["manager_approval"].value;
+                var approval_description = document.forms["materialOrderForm"]["approval_description"].value;
+    
+                if (manager_approval == "") {
+                    alert("Manager approval is required");
+                    return false;
+                }else if ((manager_approval == "reject")&&(approval_description == "")) {
+                    alert("Reason for rejection is required");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
         </script>
     </head>
 
@@ -134,7 +150,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="materialOrderForm" action="../RouteHandler.php">
+                    <form method="post" name="materialOrderForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material_order/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
@@ -278,24 +294,24 @@
                             $merchandiser_id = ($row["employee_id"] == "")?$row["merchandiser_id"]:$row["employee_id"];
                             $quotation_sql = "SELECT raw_material_quotation.quotation_id, material_price.material_id, name, raw_material_quotation.supplier_id, supplier.first_name, supplier.last_name, request_date, valid_till, measuring_unit, unit_price, supplier_approval,request_quantity FROM raw_material_quotation, supplier, raw_material, material_price WHERE raw_material_quotation.supplier_id = supplier.supplier_id AND material_price.material_id = raw_material.material_id AND raw_material_quotation.quotation_id = material_price.quotation_id AND supplier_approval = 'approve' AND raw_material_quotation.request_date = '".$row["request_date"]."' AND raw_material_quotation.merchandiser_id = ".$merchandiser_id." AND raw_material_quotation.quotation_id != ".$row["quotation_id"]." GROUP BY raw_material_quotation.quotation_id,material_price.material_id HAVING (".$material_list_string.");"; 
                             
-                            if($result = mysqli_query($conn, $quotation_sql)){
+                            if($result_quotation = mysqli_query($conn, $quotation_sql)){
                                 $materialCount = 0;
                                 $output = "";
                                 $_SESSION["quotation_id"] = 0;
-                                if(mysqli_num_rows($result) > 0){
+                                if(mysqli_num_rows($result_quotation) > 0){
                                     $validity = 1;
-                                    while($row = mysqli_fetch_array($result)){
+                                    while($row_quotation = mysqli_fetch_array($result_quotation)){
                                         
-                                        if($_SESSION["quotation_id"] == $row["quotation_id"]){
+                                        if($_SESSION["quotation_id"] == $row_quotation["quotation_id"]){
                                             $materialCount++;
                                         }else{
                                             $materialCount = 1;
-                                            $_SESSION["quotation_id"] = $row["quotation_id"];
+                                            $_SESSION["quotation_id"] = $row_quotation["quotation_id"];
                                             $totalPrice = 0;
                                         }
                 
                 
-                                        $select_material_id = "SELECT material_id FROM material_price WHERE quotation_id = ".$row["quotation_id"].";";
+                                        $select_material_id = "SELECT material_id FROM material_price WHERE quotation_id = ".$row_quotation["quotation_id"].";";
                                         $material_result = mysqli_query($conn, $select_material_id);
                                         $material_id_array = array();
                                         if(mysqli_num_rows($material_result) > 0){
@@ -399,7 +415,7 @@
                                 Quotation ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="quotation_id" value="<?php echo $row["quotation_id"] ?>" readonly />
+                                <input type="text" name="quotation_id" value="<?php echo $row["quotation_id"] ?>" required readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -407,7 +423,7 @@
                                 Order ID : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="order_id" value="<?php echo $row["order_id"] ?>" readonly />
+                                <input type="text" name="order_id" value="<?php echo $row["order_id"] ?>" required readonly />
                             </div>
                         </div>
                         <div class="form-row">

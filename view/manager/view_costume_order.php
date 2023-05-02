@@ -250,22 +250,30 @@
                             </div>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="advance_payment" id="advance_payment" value="<?php echo $row["advance_payment"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Advance payment date :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="advance_payment_date" id="advance_payment_date" value="<?php echo $row["advance_payment_date"]; ?>" readonly />
-                            </div>
-                        </div>
+                        <?php
+                            if($row["advance_payment_date"] != NULL){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "<b>Advance payment (LKR) :</b>";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='advance_payment' id='advance_payment' value='".$row["advance_payment"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Advance payment date :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='date' name='advance_payment_date' id='advance_payment_date' value='".$row["advance_payment_date"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                            }else{
+                                echo "<input type='text' hidden='true' name='advance_payment' id='advance_payment' value='".$row["advance_payment"]."' readonly />";
+                                echo "<input type='date' hidden='true' name='advance_payment_date' id='advance_payment_date' value='".$row["advance_payment_date"]."' readonly />";
+                            }
+                        ?>
+                        
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Expected delivery date :
@@ -275,25 +283,29 @@
                             </div>
                         </div>
     
+                        <?php
+                            if($row["advance_payment_date"] == NULL){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Order acceptance :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<table width='60%'>";
+                                echo "<tr>";
+                                echo "<td>";
+                                //echo "<input type='text' name='order_status' hidden='true' value=(".$row["order_status"]." == 'confirmed')?'confirmed':(".$row["order_status"]." == 'pending'?'pending':'') />";
+                                echo "<input type='radio' name='order_status' class='input-radio' (".$row["order_status"]." == 'pending')?'':((".$row["order_status"]." == 'accepted')?'checked':'') value='accepted' /> Accept";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "<input type='radio' name='order_status' class='input-radio' (".$row["order_status"]." == 'pending')?'':((".$row["order_status"]." == 'rejected')?'checked':'') value='rejected' /> Reject";
+                                echo "</td>";
+                                echo "</tr>";
+                                echo "</table>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        ?>
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Order acceptance :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="60%">
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="order_status" hidden="true" value="<?php echo ($row["order_status"] == "confirmed")?'confirmed':($row["order_status"] == "pending"?'pending':'') ?>" />
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'') ?> value="accepted" /> Accept
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'') ?> value="rejected" /> Reject
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
                         
                         <div class="form-row">
                             <div class="form-row-theme">
