@@ -69,6 +69,39 @@
                 document.getElementById("size_"+rowNumber).value = materialSize;
                 document.getElementById("measuring_unit_"+rowNumber).value = measuringUnit;
             }
+
+            function validateForm(){
+                var first_name = document.forms["supplierForm"]["first_name"].value;
+                var last_name = document.forms["supplierForm"]["last_name"].value;
+                var NIC = document.forms["supplierForm"]["NIC"].value;
+                var verify_status = document.forms["supplierForm"]["verify_status"].value;
+                const date = new Date();
+                if (/^[a-zA-Z\s]+$/.test(first_name) == false) {
+                    alert("First name must have only letters and spaces");
+                    return false;
+                }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
+                    alert("Last name must have only letters and spaces");
+                    return false;
+                }else if ((NIC.length != 10)&&(NIC.length != 12)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
+                    alert("NIC is invalid");
+                    return false;
+                }else if (verify_status == "") {
+                    alert("Verify status must be filled out");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
         </script>
     </head>
 
@@ -108,7 +141,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"] ?>" />
+                                <input type="text" name="first_name" id="first_name" value="<?php echo $row["first_name"] ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -116,7 +149,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"] ?>" />
+                                <input type="text" name="last_name" id="last_name" value="<?php echo $row["last_name"] ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -124,7 +157,7 @@
                                 NIC : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"] ?>" />
+                                <input type="text" name="NIC" id="NIC" value="<?php echo $row["NIC"] ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -132,7 +165,7 @@
                                 Email : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="email" id="email" value="<?php echo $row["email"] ?>" />
+                                <input type="text" name="email" id="email" value="<?php echo $row["email"] ?>" readonly />
                             </div>
                         </div>
                         
@@ -141,7 +174,7 @@
                                 Contact number : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" />
+                                <input type="text" name="contact_no" id="contact_no" value="<?php echo $row["contact_no"] ?>" required />
                             </div>
                         </div>
 
@@ -192,7 +225,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" />
+                                <input type="text" name="city" id="city" value="<?php echo $row["city"]; ?>" required />
                             </div>
                         </div>
 

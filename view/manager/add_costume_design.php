@@ -202,7 +202,7 @@
                                     Front view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
+                                    <input type="file" name="front_view" id="front_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -210,7 +210,7 @@
                                     Rear view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
+                                    <input type="file" name="rear_view" id="rear_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -218,7 +218,7 @@
                                     Left view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
+                                    <input type="file" name="left_view" id="left_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -226,7 +226,7 @@
                                     Right view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" />
+                                    <input type="file" name="right_view" id="right_view" accept="image/png, image/gif, image/jpeg, image/tiff" required />
                                 </div>
                             </div>
                             <div class="form-row">

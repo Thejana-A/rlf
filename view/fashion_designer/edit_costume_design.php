@@ -28,6 +28,10 @@
                 }
             }
         
+            $parts_of_name = explode('-', $row["name"]);
+            $last = array_pop($parts_of_name);
+            $parts_of_name = array(implode('-', $parts_of_name), $last);
+            $costumeNameResult = $parts_of_name[0];
 
             $designID = $row["design_id"];
             
@@ -125,7 +129,7 @@
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Fashion Designer </a> >
-                    <a href="view_general_design.php">View costume designs </a> > Edit
+                    <a href="./view_general_design.php?name=<?php echo $costumeNameResult ?>" >View costume designs </a> > Edit
                 </div>
 
                 <div id="form-box">
@@ -136,6 +140,7 @@
                         <input type="text" hidden="true" name="customized_design_approval" value="<?php echo $row["customized_design_approval"] ?>" />
                         <input type="text" hidden="true" name="design_approval_date" value="<?php echo $row["design_approval_date"] ?>" />
                         <input type="text" hidden="true" name="design_approval_description" value="<?php echo $row["design_approval_description"] ?>" />
+                        <input type="text" hidden="true" name="fashion_designer_id" value="<?php echo $row["fashion_designer_id"]; ?>" />
                         
                         <center>
                             <h2>Edit costume design</h2>

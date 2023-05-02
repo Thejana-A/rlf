@@ -6,9 +6,20 @@
         <title>View raw material</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <?php
+            require_once('../../model/database.php');
+            $conn = mysqli_connect($db_params['servername'], $db_params['username'], $db_params['password'], $db_params['dbname']);
+            if($conn->connect_error){
+                die("Connection Faild: ". $conn->connect_error);
+            }
+
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
+                //print_r($row);
+            }else{
+                $sql_view_raw_material = "SELECT material_id,name,size,measuring_unit,description,image FROM raw_material WHERE material_id = ".$_GET["material_id"].";";
+                $result_view_raw_material = mysqli_query($conn, $sql_view_raw_material);
+                $row = mysqli_fetch_array($result_view_raw_material); 
                 //print_r($row);
             }
         ?>
@@ -72,7 +83,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                            <input type="text" name="description" id="description" value = "<?php echo $row["description"];?>" readonlys />
+                            <input type="text" name="description" id="description" value = "<?php echo $row["description"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">

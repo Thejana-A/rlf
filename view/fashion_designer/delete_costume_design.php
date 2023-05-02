@@ -28,6 +28,10 @@
                 }
             }
         
+            $parts_of_name = explode('-', $row["name"]);
+            $last = array_pop($parts_of_name);
+            $parts_of_name = array(implode('-', $parts_of_name), $last);
+            $costumeNameResult = $parts_of_name[0];
 
             $designID = $row["design_id"];
             
@@ -125,7 +129,7 @@
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Fashion Designer </a> >
-                    <a href="view_general_design.php">View costume designs </a> > Delete
+                    <a href="./view_general_design.php?name=<?php echo $costumeNameResult ?>" >View costume designs </a> > Delete
                 </div>
 
                 <div id="form-box">
@@ -194,7 +198,7 @@
                     
                         <div class="form-row">
                             <div class="form-row-theme">
-                                Merchandiser : 
+                                Merchandiser ID : 
                             </div>
                             <div class="form-row-data">
                                 <input type="text" name="merchandiser_id" value="<?php echo $row["merchandiser_id"]; ?>" readonly>
