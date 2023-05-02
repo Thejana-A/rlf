@@ -72,7 +72,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                            <input type="text" name="description" id="description" value = "<?php echo $row["description"];?>" readonlys />
+                            <input type="text" name="description" id="description" value = "<?php echo $row["description"];?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
