@@ -100,7 +100,7 @@
                                 <input type="submit" value="Submit" />
                             </div>
                             <div class="form-row-reset">
-                                <input type="submit" value="Reset" />
+                                <input type="reset" value="Reset" />
                             </div>
                         </div>           
                     </form>                

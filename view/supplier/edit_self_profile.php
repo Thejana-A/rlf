@@ -12,13 +12,16 @@
                 die("Connection Faild: ". $conn->connect_error);
             }
             $sql = "SELECT * FROM supplier WHERE supplier_id = '$supplierID';";
-            $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = '$supplierID';";
-            $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve'";               
+                             
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $row = mysqli_fetch_array($result);
                 }
             }
+            $supplierID = $row["supplier_id"];
+            
+            $sql_supplier_material = "SELECT material_supplier.material_id, raw_material.name, raw_material.size, raw_material.measuring_unit FROM `material_supplier` INNER JOIN `raw_material` ON material_supplier.material_id=raw_material.material_id WHERE material_supplier.supplier_id = '$supplierID';";
+            $sql_all_material = "SELECT material_id, name, measuring_unit FROM `raw_material` where `manager_approval` = 'approve'";
         ?>
         <script>
             function validateEditProfileForm(){
@@ -79,7 +82,7 @@
 
                 <div id="form-box-small">
                     <form method="post" name="supplierForm" action="../RouteHandler.php" onSubmit="return validateEditProfileForm()" enctype="multipart/form-data">
-                    <input type="text" hidden="true" name="framework_controller" value="supplier/update" />
+                    <input type="text" hidden="true" name="framework_controller" value="supplier/edit_self_profile" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                     <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />    
                         <center>
@@ -164,6 +167,7 @@
                                 <input type="text" hidden="true" name="verify_status" id="verify_status" value ="<?php echo $row["verify_status"];?>"/>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Raw materials : 
@@ -181,7 +185,7 @@
                                     $all_material_select = "";
                                     if($result = mysqli_query($conn, $sql_all_material)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' required>";
+                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' >";
                                             $all_material_select .= "<option disabled>ID - Material name</option>";
                                             while($all_material_row = mysqli_fetch_array($result)){
                                                 $all_material_select .= "<option value=".$all_material_row["material_id"];
@@ -200,15 +204,8 @@
                                         echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
                                     }  
                                 ?>
-                                <!--<select name="" id="" multiple size="3">
-                                    <option disabled>ID - Material name</option>
-                                    <option>0004 - Black Thread-S</option>
-                                    <option>0014 - Blue Thread-S</option>
-                                    <option>0022 - Red anchor button-L</option>
-                                </select> -->
-                            </div>
+                         </div>
                         </div>
-                        
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />
