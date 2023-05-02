@@ -45,7 +45,7 @@
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Fashion Designer </a> >
-                    <a href="view_costume_design">View costume design </a> > View
+                    <a href="view_costume_design.php">View costume design </a> > View
                 </div>
 
                 <div class="link-row" style="margin-left:-15%;">
@@ -56,7 +56,7 @@
                     <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                        <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <input type="text" hidden="true" name="customized_design_approval" value="<?php echo $row["customized_design_approval"] ?>" />
                         <input type="text" hidden="true" name="design_approval_date" value="<?php echo $row["design_approval_date"] ?>" />
                         <input type="text" hidden="true" name="design_approval_description" value="<?php echo $row["design_approval_description"] ?>" />
@@ -139,6 +139,29 @@
                                 <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
+                        <?php 
+                            $merchandiser_sql = "SELECT employee_id, first_name, last_name FROM employee WHERE employee_id = ".$row["merchandiser_id"].";";
+                            if($merchandiser_result = mysqli_query($conn, $merchandiser_sql)){
+                                $merchandiser_row = mysqli_fetch_array($merchandiser_result);
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Merchandiser ID: ";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='merchandiser_id' value=".$merchandiser_row["employee_id"]." />";
+                                echo "</div>";
+                                echo "</div>";
+
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Merchandiser name: ";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='merchandiser_name' value='".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."' />";
+                                echo "</div>";
+                                echo "</div>"; 
+                            }
+                        ?>
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />

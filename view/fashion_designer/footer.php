@@ -55,7 +55,7 @@
                 <b>Your message</b><br /><br />
                 <form method="post" action="footer.php">
                     <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                     <input type="text" name="name" width="30%" placeholder="Name" /><br />
                     <input type="text" name="email" width="30%" placeholder="Email" /><br />
                     <textarea name="message" rows="4" cols="30" placeholder="Message"></textarea><br />
