@@ -49,6 +49,25 @@
             } 
     
         ?>
+
+        <script>
+            function validateForm(){
+                var customized_design_approval = document.forms["costumeDesignForm"]["customized_design_approval"].value;
+                var design_approval_description = document.forms["costumeDesignForm"]["design_approval_description"].value;
+                var fashion_designer_id = document.forms["costumeDesignForm"]["fashion_designer_id"].value;
+                var merchandiser_id = document.forms["costumeDesignForm"]["merchandiser_id"].value;
+                if ((customized_design_approval=="")&&(design_approval_description!="")) {
+                    alert("Design approval is required");
+                    return false;
+                }else if ((customized_design_approval=="reject")&&(design_approval_description=="")) {
+                    alert("Reason for rejection is required");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+        </script>
             
     </head>
 
@@ -77,7 +96,7 @@
                 </div><br />
 
                 <div id="form-box-ultra-small">
-                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <form method="post" name="costumeDesignForm" action="../RouteHandler.php" onSubmit="return validateForm()" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />

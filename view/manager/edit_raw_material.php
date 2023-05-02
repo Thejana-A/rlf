@@ -70,6 +70,21 @@
             function enableQuotationID(){
                 document.getElementById("quotation_id").disabled = false;
             }
+
+            function validateForm(){
+                var manager_approval = document.forms["rawMaterialForm"]["manager_approval"].value;
+                var approval_description = document.forms["rawMaterialForm"]["approval_description"].value;
+                
+                if ((manager_approval=="")&&(approval_description!="")) {
+                    alert("Manager's approval is required");
+                    return false;
+                }else if ((manager_approval=="reject")&&(approval_description=="")) {
+                    alert("Reason for rejection is required");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         </script>
     </head>
 
@@ -88,7 +103,7 @@
                 </div>
 
                 <div id="form-box-ultra-small">
-                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <form method="post" action="../RouteHandler.php" name="rawMaterialForm" onSubmit="return validateForm()" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="raw_material/update" />
                         <input type="text" name="approval_date" hidden="true" value="<?php echo ($row["approval_date"]==""?Date("Y-m-d"):$row["approval_date"]); ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
@@ -175,30 +190,35 @@
                                 <input type="text" name="quantity_in_stock" value="<?php echo $row["quantity_in_stock"]; ?>" readonly />
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Requester's ID : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="requester_id" id="requester_id" value="<?php echo $row["requester_id"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Requester's name : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="requester_name" id="requester_name" value="<?php echo $row["first_name"]." ".$row["last_name"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Requester's role : 
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="requester_role" id="requester_role" value="<?php echo $row["requester_role"]; ?>" readonly />
-                            </div>
-                        </div>
+                        <?php
+                            if($row["requester_id"] != ""){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Requester's ID : ";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='requester_id' id='requester_id' value='".$row["requester_id"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Requester's name : ";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='requester_name' id='requester_name' value='".$row["first_name"]." ".$row["last_name"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Requester's role : ";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='requester_role' id='requester_role' value='".$row["requester_role"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        ?>
+                        
 
                         <div class="form-row">
                             <div class="form-row-theme">
@@ -319,13 +339,13 @@
                                     if($result = mysqli_query($conn, $sql_material_quotation)){
                                         if(mysqli_num_rows($result) > 0){
                                             $material_quotation_select .= "<select name='quotation_id[]' id='quotation_id[]' multiple size='3' onClick='window.location.href=this.value'>";
-                                            $material_quotation_select .= "<option disabled>Quote. ID - (Supplier ID-Name)Quantity-Unit price (Valid till)</option>";
+                                            $material_quotation_select .= "<option disabled>Quote. ID - (Supplier ID-Name) || Quantity-Unit price (Valid till)</option>";
                                             while($material_quotation_row = mysqli_fetch_array($result)){
                                                 $material_quotation_select .= "<option value=view_material_quotation.php?quotation_id=".$material_quotation_row["quotation_id"];
                                                 if(in_array($material_quotation_row["quotation_id"], $focused_quotation_id)){
-                                                    $material_quotation_select .= " selected>".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].")".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
+                                                    $material_quotation_select .= " selected>".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].") || ".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
                                                 }else{
-                                                    $material_quotation_select .= ">".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].")".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
+                                                    $material_quotation_select .= ">".$material_quotation_row["quotation_id"]." - (".$material_quotation_row["supplier_id"]."-".$material_quotation_row["first_name"]." ".$material_quotation_row["last_name"].") || ".$material_quotation_row["request_quantity"]." ".$material_quotation_row["measuring_unit"]."-".$material_quotation_row["unit_price"]."LKR (".$material_quotation_row["valid_till"].")</option>";
                                                 } 
                                             }
                                             $material_quotation_select .= "</select>";
