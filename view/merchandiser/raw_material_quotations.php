@@ -17,38 +17,59 @@
                 $maxIssueDate = $_POST["max_issue_date"];
                 $minValidTill = $_POST["min_valid_till"];
                 $maxValidTill = $_POST["max_valid_till"];
-                if(($minIssueDate == "")&&($maxIssueDate == "")&&($minValidTill == "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
+                $minRequestDate = $_POST["min_request_date"];
+                $maxRequestDate = $_POST["max_request_date"];
+                /*if(($minIssueDate == "")&&($maxIssueDate == "")&&($minValidTill == "")&&($maxValidTill == "")){
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
                 }else if(($minIssueDate == "")&&($maxIssueDate == "")&&($minValidTill == "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till <= '$maxValidTill');";
                 }else if(($minIssueDate == "")&&($maxIssueDate == "")&&($minValidTill != "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill');";
                 }else if(($minIssueDate == "")&&($maxIssueDate != "")&&($minValidTill == "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date <= '$maxIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date <= '$maxIssueDate');";
                 }else if(($minIssueDate != "")&&($maxIssueDate == "")&&($minValidTill == "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate');";
                 }else if(($minIssueDate != "")&&($maxIssueDate != "")&&($minValidTill == "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate');";
                 }else if(($minIssueDate == "")&&($maxIssueDate != "")&&($minValidTill != "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND issue_date <= '$maxIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND issue_date <= '$maxIssueDate');";
                 }else if(($minIssueDate == "")&&($maxIssueDate == "")&&($minValidTill != "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
                 }else if(($minIssueDate != "")&&($maxIssueDate == "")&&($minValidTill == "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND valid_till <= '$maxValidTill');";
                 }else if(($minIssueDate != "")&&($maxIssueDate == "")&&($minValidTill != "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND valid_till >= '$minValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND valid_till >= '$minValidTill');";
                 }else if(($minIssueDate == "")&&($maxIssueDate != "")&&($minValidTill == "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date <= '$maxIssueDate' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date <= '$maxIssueDate' AND valid_till <= '$maxValidTill');";
                 }else if(($minIssueDate != "")&&($maxIssueDate != "")&&($minValidTill != "")&&($maxValidTill == "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill');";
                 }else if(($minIssueDate == "")&&($maxIssueDate != "")&&($minValidTill != "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill' AND issue_date <= '$maxIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill' AND issue_date <= '$maxIssueDate');";
                 }else if(($minIssueDate != "")&&($maxIssueDate == "")&&($minValidTill != "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill' AND issue_date >= '$minIssueDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill' AND issue_date >= '$minIssueDate');";
                 }else if(($minIssueDate != "")&&($maxIssueDate != "")&&($minValidTill == "")&&($maxValidTill != "")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till <= '$maxValidTill');";
                 }else{
-                    $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
+                } */
+                if(($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")&&($minRequestDate=="")&&($maxRequestDate=="")){
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
+                }else if((($minRequestDate!="")||($maxRequestDate!=""))&&($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")){
+                    $minIssueDate = "1900-01-01";
+                    $maxIssueDate = "3000-01-01";
+                    $minValidTill = "1900-01-01";
+                    $maxValidTill = "3000-01-01";
+                    $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
+                    $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate');";
+                }else{
+                    $minIssueDate = ($minIssueDate=="")?"1900-01-01":$minIssueDate;
+                    $maxIssueDate = ($maxIssueDate=="")?"3000-01-01":$maxIssueDate;
+                    $minValidTill = ($minValidTill=="")?"1900-01-01":$minValidTill;
+                    $maxValidTill = ($maxValidTill=="")?"3000-01-01":$maxValidTill;
+                    $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
+                    $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate' AND issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
                 }
 
                 $search_output = "";
@@ -61,7 +82,7 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/merchandiser_view' />";
                             $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["quotation_id"]."</span><span>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;'>".($search_row["issue_date"]==""?"Pending":$search_row["issue_date"])."</span><span>".($search_row["valid_till"]==""?"Pending":$search_row["valid_till"])."</span>";
+                            $search_output.= "<span style='width:8%;'>".$search_row["quotation_id"]."</span><span style='width:15%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:14%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"]==""?"Pending":$search_row["issue_date"])."</span><span style='width:12%;'>".($search_row["valid_till"]==""?"Pending":$search_row["valid_till"])."</span>";
                             $search_output.= "<table align='right' style='margin-right:30px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $search_output.= "</tr></table>";
@@ -74,7 +95,7 @@
                     }
                 }
             }else{
-                $sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID';";
+                $sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN supplier ON raw_material_quotation.supplier_id = supplier.supplier_id WHERE merchandiser_id = '$merchandiserID';";
                 $search_output = "";
                 $output = "";
                 if($result = mysqli_query($conn, $sql)){
@@ -85,7 +106,7 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/merchandiser_view' />";
                             $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                            $output.= "<span class='manager-ID-column'>".$row["quotation_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span>".($row["valid_till"]==""?"Pending":$row["valid_till"])."</span>";
+                            $output.= "<span style='width:8%;'>".$row["quotation_id"]."</span><span style='width:15%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:14%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span style='width:12%;'>".($row["valid_till"]==""?"Pending":$row["valid_till"])."</span>";
                             $output.= "<table align='right' style='margin-right:30px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $output.= "</tr></table>";
@@ -117,7 +138,7 @@
                     <a href="home.php">Merchandiser</a> > Raw material quotations
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Raw material quotations</h2>
                     </center>
@@ -126,6 +147,15 @@
                         
                         <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
                         <input type="submit" value="search" name="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                        <b>Request date : </b><br />
+                        <div class="search-panel-row">
+                            <div class="search-panel-row-left">
+                                From : <input type="date" name="min_request_date" id="min_request_date" class="date-field" />
+                            </div>
+                            <div class="search-panel-row-right">
+                                To&nbsp&nbsp : <input type="date" name="max_request_date" id="max_request_date" class="date-field" />
+                            </div>
+                        </div>
                         <b>Issued on : </b><br />
                         <div class="search-panel-row">
                             <div class="search-panel-row-left">
@@ -149,10 +179,11 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Quotation ID</b>
-                            <b>Supplier name</b>
-                            <b>Issued date</b>
-                            <b>Valid till</b>
+                        <b style="width:8%;">Quote. ID</b>
+                            <b style="width:15%;">Supplier name</b>
+                            <b style="width:12%;">Request date</b>
+                            <b style="width:12%;">Issued date</b>
+                            <b style="width:12%;">Valid till</b>
                             <hr class="manager-long-hr" />
                         </div>
                         <div id="content-list">

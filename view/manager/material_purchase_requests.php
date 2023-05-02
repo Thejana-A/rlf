@@ -119,7 +119,7 @@
                     <a href="home.php">Manager</a> > Raw material purchase requests
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Raw material purchase requests</h2>
                     </center>

@@ -41,8 +41,8 @@
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' onChange='setPrice()' /> ";
-                        $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."'class='column-textfield'  />";
+                        $presentMaterialList .= "<input type='text'  name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' /> ";
+                        $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."' readonly class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
                         $materialCount++;
@@ -59,6 +59,7 @@
     <script>
     var materialCount = "<?php echo $materialCount; ?>";
 
+
     function setPrice() {
         var totalPrice = 0;
         for (let i = 0; i < materialCount; i++) {
@@ -69,11 +70,46 @@
         }
         document.getElementById("total_price").value = totalPrice;
         document.getElementById("payment").value = totalPrice;
+        
     }
+  
+    
+    function Disable() {
+        document.getElementById("valid_till").disabled = true;
+        for (let j = 0; j < materialCount; j++) {
+            document.getElementById("unit_price_" + j).disabled = true;
+        }
+        
+    }
+    function Enable(){
+        document.getElementById("valid_till").disabled = false;
+        for (let j = 0; j < materialCount; j++) {
+            document.getElementById("unit_price_" + j).disabled = false;
+        }
+    }
+
+    function checkApproval(){
+        //if(document.getElementById("quotation_id").value=="7"){
+           /* document.getElementById("valid_till").disabled = true;
+            for (let j = 0; j < materialCount; j++) {
+            document.getElementById("unit_price_" + j).disabled = true;
+            }*/
+            
+        //}
+        alert("x");
+    }
+
+   function onLoadFunction(){
+    setPrice();
+    Disable();
+   }
+
     </script>
+
 </head>
 
-<body onLoad="setPrice()">
+<body onLoad="setPrice(); checkApproval();">
+    
     <?php include 'header.php';?>
     <div id="page-body">
 
@@ -102,7 +138,7 @@
                             Quotation ID :
                         </div>
                         <div class="form-row-data">
-                            <input type="text" name="quotation_id" value="<?php echo $row["quotation_id"]; ?>"
+                            <input type="text" name="quotation_id" id="quotation_id" value="<?php echo $row["quotation_id"]; ?>"
                                 readonly />
 
                             <input type="text" hidden="true" name="manager_approval"
@@ -125,7 +161,7 @@
                         </div>
                         <div class="form-row-data">
                             <input type="text" name="merchandiser_name"
-                                value="<?php echo $row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]; ?>"" readonly/>
+                                value="<?php echo $row["merchandiser_first_name"]." ".$row["merchandiser_last_name"]; ?>" readonly/>
                             </div>
                         </div>
             
@@ -203,12 +239,13 @@
                             </div>
                         </div>-->
 
+                  
                             <div class="form-row">
                                 <div class="form-row-theme">
                                     Total price (LKR) :
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="total_price" id="total_price" />
+                                    <input type="text" name="total_price" id="total_price" readonly />
                                 </div>
                             </div>
 
@@ -228,8 +265,8 @@
                                     Valid till :
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="date" name="valid_till" value="<?php echo $row["valid_till"]; ?>"
-                                        required />
+                                    <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>"
+                                  required />
                                 </div>
                             </div>
 
@@ -254,13 +291,13 @@
                                         <tr>
                                             <td>
                                                 <input type="radio" name="supplier_approval" value="approve"
-                                                    class="input-radio" id=""
+                                                    class="input-radio" id="checkYes" onChange="Enable()" 
                                                     <?php echo ($row["supplier_approval"] == "approve")?'checked':'' ?> />
                                                 Accepted
                                             </td>
                                             <td>
                                                 <input type="radio" name="supplier_approval" value="reject"
-                                                    class="input-radio" id=""
+                                                    class="input-radio" id="checkNo" onChange="Disable()" 
                                                     <?php echo ($row["supplier_approval"] == "reject")?'checked':'' ?> />
                                                 Rejected
                                             </td>

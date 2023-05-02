@@ -1,3 +1,4 @@
+<?php require_once 'redirect_customer_login.php' ?>
 <?php
  error_reporting(E_ERROR | E_PARSE);
 ?>
@@ -10,7 +11,7 @@
     $password = "";
     $db_name = "rlf";
     $conn = mysqli_connect($sname, $unmae, $password, $db_name);
-    $view_design_id= $_GET["design_id"]; 
+    $view_design_id= $_GET["design_id"];
     $sql = "SELECT * FROM `costume_design` WHERE `design_id` = $view_design_id;";
     $path = mysqli_query($conn, $sql);
     if($result = mysqli_query($conn, $sql)){
@@ -44,7 +45,7 @@
 
             ?>
 <?php
-    $sql_costume_list = "SELECT * FROM `costume_design` WHERE (`name` LIKE '".$_GET["design_name"]."-_' OR `name` LIKE '".$_GET["design_name"]."-__' OR `name` LIKE '".$_GET["design_name"]."-___') AND `publish_status` = 'publish';";
+    $sql_costume_list = "SELECT * FROM `costume_design` WHERE (`name` LIKE '".$_GET["design_name"]."-_' OR `name` LIKE '".$_GET["design_name"]."-__' OR `name` LIKE '".$_GET["design_name"]."-___') AND (`publish_status` = 'publish' OR `customer_id`='".$_SESSION['customer_id']."');";
     $path = mysqli_query($conn, $sql);
     if($result_costume_list = mysqli_query($conn, $sql_costume_list)){
         if(mysqli_num_rows($result_costume_list) > 0){
@@ -149,6 +150,7 @@
                 <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
                 <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                 <input type="text" hidden="true" name="request_date" value="<?php echo date("Y-m-d"); ?>" />
+                <input type="text" hidden="true" name="valid_till" value="<?php echo date('Y-m-d', strtotime('+14 days')); ?>" />
                 <input type="text" hidden="true" name="merchandiser_id" value="<?php echo $merchandiser_name; ?>" />
                 <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"]; ?>" />
                 <!--<table>

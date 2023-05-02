@@ -13,18 +13,20 @@
             if($conn->connect_error){
                 die("Connection Faild: ". $conn->connect_error);
             }
+
+
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
                 //print_r($row);
             }else{
                 //$sql_purchase_request = "SELECT raw_material_quotation.quotation_id, order_id, supplier.supplier_id, supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, expected_delivery_date, raw_material_order.manager_approval, raw_material_order.approval_description, dispatch_date, payment, payment_date from raw_material_quotation, raw_material_order, supplier, employee WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_order.quotation_id = ".$_GET["quotation_id"].";";
-                $sql_purchase_request = "SELECT raw_material_quotation.quotation_id, order_id, supplier.supplier_id, supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, expected_delivery_date, raw_material_order.manager_approval, raw_material_order.approval_description, dispatch_date, payment, payment_date FROM raw_material_quotation, raw_material_order, supplier, employee WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_order.order_id = ".$_GET["order_id"].";";
+                $sql_purchase_request = "SELECT raw_material_quotation.quotation_id, order_id, supplier.supplier_id, supplier.first_name AS supplier_first_name, supplier.last_name AS supplier_last_name, supplier.contact_no, employee.employee_id, employee.first_name AS merchandiser_first_name, employee.last_name AS merchandiser_last_name, issue_date, valid_till, expected_delivery_date, raw_material_order.manager_approval, raw_material_order.approval_description, dispatch_date, payment, payment_date FROM raw_material_quotation, raw_material_order, supplier, employee WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = employee.employee_id AND raw_material_order.quotation_id = ".$_GET["quotation_id"].";";
                 $result_purchase_request = mysqli_query($conn, $sql_purchase_request);
                 $row = mysqli_fetch_array($result_purchase_request);
             }
             
-
+            $quotation_material_list = array();
             $sql_quotation_material = "SELECT quotation_id, raw_material.material_id, name, measuring_unit, request_quantity, unit_price FROM raw_material, material_price WHERE material_price.material_id = raw_material.material_id AND quotation_id = ".$row['quotation_id'];
             if($result = mysqli_query($conn, $sql_quotation_material)){
                 $materialCount = 0;
@@ -41,9 +43,10 @@
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' class='column-textfield' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
+                        array_push($quotation_material_list, $quotation_material_row["material_id"]);
                         $materialCount++;
                     }
-                    
+                    $_SESSION["quotation_material_list"] = $quotation_material_list;
                 }else {
                     echo "0 results";
                 }
@@ -261,6 +264,73 @@
                                 <input type="text" name="total_price" id="total_price" readonly />
                             </div>
                         </div>
+
+                        <?php
+                            $quotation_material_list = $_SESSION["quotation_material_list"];
+
+                            $material_list_string = "";
+                            for($count = 0;$count < count($quotation_material_list);$count++){
+                                $material_list_string .= "material_price.material_id = ".$quotation_material_list[$count];
+                                if($count != (count($quotation_material_list)-1)){
+                                    $material_list_string .= " OR ";
+                                }
+                            }
+                            $merchandiser_id = ($row["employee_id"] == "")?$row["merchandiser_id"]:$row["employee_id"];
+                            $quotation_sql = "SELECT raw_material_quotation.quotation_id, material_price.material_id, name, raw_material_quotation.supplier_id, supplier.first_name, supplier.last_name, request_date, valid_till, measuring_unit, unit_price, supplier_approval,request_quantity FROM raw_material_quotation, supplier, raw_material, material_price WHERE raw_material_quotation.supplier_id = supplier.supplier_id AND material_price.material_id = raw_material.material_id AND raw_material_quotation.quotation_id = material_price.quotation_id AND supplier_approval = 'approve' AND raw_material_quotation.request_date = '".$row["request_date"]."' AND raw_material_quotation.merchandiser_id = ".$merchandiser_id." AND raw_material_quotation.quotation_id != ".$row["quotation_id"]." GROUP BY raw_material_quotation.quotation_id,material_price.material_id HAVING (".$material_list_string.");"; 
+                            
+                            if($result = mysqli_query($conn, $quotation_sql)){
+                                $materialCount = 0;
+                                $output = "";
+                                $_SESSION["quotation_id"] = 0;
+                                if(mysqli_num_rows($result) > 0){
+                                    $validity = 1;
+                                    while($row = mysqli_fetch_array($result)){
+                                        
+                                        if($_SESSION["quotation_id"] == $row["quotation_id"]){
+                                            $materialCount++;
+                                        }else{
+                                            $materialCount = 1;
+                                            $_SESSION["quotation_id"] = $row["quotation_id"];
+                                            $totalPrice = 0;
+                                        }
+                
+                
+                                        $select_material_id = "SELECT material_id FROM material_price WHERE quotation_id = ".$row["quotation_id"].";";
+                                        $material_result = mysqli_query($conn, $select_material_id);
+                                        $material_id_array = array();
+                                        if(mysqli_num_rows($material_result) > 0){
+                                            while($material_id = mysqli_fetch_array($material_result)){
+                                                array_push($material_id_array, $material_id["material_id"]);
+                                            }
+                                        }
+                                    
+                
+                                        if($material_id_array == $quotation_material_list){
+                                            if($validity == 1){
+                                                echo "<div class='form-row'>";
+                                                echo "<div class='form-row-theme'>";
+                                                echo "<a href='see_more_quotations.php' style='text-decoration:none;'>See more</a>";
+                                                echo "</div>";
+                                                echo "<div class='form-row-data'>";
+                                            
+                                                echo "</div>";
+                                                echo "</div>";
+                                            }
+                                            $validity++;
+                                        } 
+                                    }
+                                }
+                            } 
+                        ?>
+                        
+                        <!--<div class="form-row">
+                            <div class="form-row-theme">
+                                <a href="see_more_quotations.php">See more</a>
+                            </div>
+                            <div class="form-row-data">
+                                
+                            </div>
+                        </div> -->
                         
                         <div class="form-row">
                             <div class="form-row-theme">

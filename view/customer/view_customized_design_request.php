@@ -1,9 +1,10 @@
+<?php require_once 'redirect_customer_login.php' ?>
 <?php
- session_start();
+ 
  error_reporting(E_ERROR |E_PARSE);
  ?>
  <?php 
-    session_start();
+    
     $sname= "localhost";
     $unmae= "root";
     $password = "";
@@ -52,7 +53,7 @@
     <div id="form-box">
                         <form method="post" name="costumeDesignForm" action="../RouteHandler.php" enctype="multipart/form-data">
                             <input type="text" hidden="true" name="framework_controller" value="costume_design/customer_operation" />
-                            <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
+                            <input type="text" hidden="true" name="home_url" value="customer/view_all_customized_design_request.php" />
                             <input type="text" hidden="true" name="customer_id" value="<?php echo $_SESSION["customer_id"] ?>"/>
                             <input type="text" hidden="true" name="design_id" value="<?php echo $design_id ?>"/>
                             <input type="text" hidden="true" name="name" value="<?php echo $propose_name ?>"/>
@@ -95,7 +96,7 @@
                                     Front view : 
                                 </div>
                                 <div class="form-row-data">
-                                <img src="../front-view-image/<?php echo $front_view ?>"  />
+                                <img src="../front-view-image/<?php echo $front_view ?>" width="30%" />
                                 <?php
                                 if($row["customized_design_approval"] == NULL ){
                                     echo "<input type='file' name='front_view'  accept='image/png, image/gif, image/jpeg, image/tiff' />";
@@ -108,7 +109,7 @@
                                     Rear view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../rear-view-image/<?php echo $rear_view ?>"  />
+                                    <img src="../rear-view-image/<?php echo $rear_view ?>" width="30%" />
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='rear_view' id='rear_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -121,7 +122,7 @@
                                     Left view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../left-view-image/<?php echo $left_view ?>"  />
+                                    <img src="../left-view-image/<?php echo $left_view ?>"  width="30%"/>
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='left_view' id='left_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -134,7 +135,7 @@
                                     Right view : 
                                 </div>
                                 <div class="form-row-data">
-                                    <img src="../right-view-image/<?php echo $right_view ?>"  />
+                                    <img src="../right-view-image/<?php echo $right_view ?>" width="30%" />
                                     <?php
                                      if($row["customized_design_approval"] == NULL ){
                                          echo "<input type='file' name='right_view' id='right_view' accept='image/png, image/gif, image/jpeg, image/tiff'/>";
@@ -168,13 +169,44 @@
                             }
 
                             if($customized_design_approval == "approve"){
+
+                                $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customer_id=$customerID AND design_id=$design_id;";
+                                $result = $conn->query($sql);
+                                $costume_name = array();
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        array_push($costume_name , $row["costume_name"]);
+                                 
+                                    }
+                                }
+                                
+                                for($i = 0;$i<count($costume_name);$i++){
+                                    $sql_costume = "SELECT * FROM costume_design where `name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__'  LIMIT 1;";
+                                    $result_costume = $conn->query($sql_costume);
+                                    if ($result_costume->num_rows > 0) {
+                                        while ($row = $result_costume->fetch_assoc()) {
+                                            $design_id= $row['design_id'];
+                                            echo "</form>";
+                                            echo "<input type='hidden' name='design_id'  value='".$row['design_id'].";'>";
+                                            echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
+                                            echo "<button class='Quotationbtn' onclick=location.href='request_quotation.php?design_id=".$row['design_id']."&design_name=".$costume_name[$i]."'>";
+                                            echo "Request Quotation";
+                                            echo "</button>";
+                                            echo "</div>";
+                                            
+
+                                        }
+                                    }
+                                }                               
+                                /*echo "</form>";
                                 
                                 echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
-                                echo "<button class='Quotationbtn' onclick='view_approve_order.html'>";
+                                echo "<button class='Quotationbtn' onclick=location.href='request_quotation.php?design_id=".$design_id."&design_name=".$costume_name[$i]."'>";
+                                
                                 echo "Request Quotation";
                                 echo "</button>";
-                                echo "</div>";
-                                echo "</form>";
+                                echo "</div>";*/
+                                
                             }
                             ?>
 

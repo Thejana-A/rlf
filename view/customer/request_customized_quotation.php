@@ -1,6 +1,6 @@
+<?php require_once 'redirect_customer_login.php' ?>
 <?php
- session_start();
- error_reporting(E_ERROR | E_WARNING | E_PARSE);
+ error_reporting(E_ERROR | E_PARSE);
 ?>
 <!DOCTYPE html>
 <head>
@@ -28,7 +28,15 @@
                                     Proposed Name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" required />
+                                    <input type="text" name="name" id="name" required pattern="[A-Za-z]+" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-row-theme">
+                                    
+                                </div>
+                                <div class="form-row-data">
+                                    <img src="../image/size-chart- new.png" width="60%">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -37,12 +45,12 @@
                                 </div>
                                 <div class="form-row-data">
                                 <select name="size[]" multiple required>
-                                    <option value="XS">XS</option>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
+                                    <option value="XS"  >XS</option>
+                                    <option value="S" >S</option>
+                                    <option value="M" >M</option>
+                                    <option value="L" >L</option>
+                                    <option value="XL" >XL</option>
+                                    <option value="XXL" >XXL</option>
                                     
                                 </select>
                                 </div>

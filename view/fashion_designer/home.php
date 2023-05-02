@@ -31,11 +31,11 @@
                     </div>
                     <div class="form-row-data">
                         <div style="flex: 35%;box-sizing: border-box;">
-                            <?php include '../merchandiser/calendar.php';?>
+                            <?php //include 'calendar.php';?>
                         </div>
                     </div>
                 </div>
-                <div id="list-box-small" style="width:90%;box-sizing: border-box;margin-top:20px;">
+                <div id="list-box-small" >
                     <center>
                         <h2>Customized designs</h2>
                     </center>
@@ -47,22 +47,35 @@
                             <b style="width:150px;">Contact no</b>
                             <hr />
                         </div>
-                        <div class="item-data-row">
-                            <span>1102</span>
-                            <span>Black T-shirt S</span>
-                            <span>Kamal</span>
-                            <span style="width:150px;">94 125 455 485</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
-                        <div class="item-data-row">
-                            <span>1105</span>
-                            <span>White T-Shirt M</span>
-                            <span>Kumara</span>
-                            <span style="width:150px;">94 122 525 855</span>
-                            <a href="#" class="grey">View</a>
-                            <hr />
-                        </div>
+                        <?php 
+                            require_once('../../model/DBConnection.php');
+                            $connObj = new DBConnection();
+                            $conn = $connObj->getConnection();
+                            $sql = "SELECT design_id, name, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no FROM costume_design, customer, employee WHERE costume_design.customer_id = customer.customer_id AND costume_design.fashion_designer_id = employee.employee_id
+                            UNION
+                            SELECT design_id, name, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.contact_no FROM costume_design, customer WHERE costume_design.customer_id = customer.customer_id AND costume_design.fashion_designer_id IS NULL;";
+                            if($result = mysqli_query($conn, $sql)){
+                                if(mysqli_num_rows($result) > 0){
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<div class='item-data-row'>";
+                                        echo "<form method='post' action='../RouteHandler.php'>";
+                                        echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_customized_design' />";
+                                        echo "<input type='text' hidden='true' name='design_id' value='".$row["design_id"]."' />";
+                                        echo "<span class='manager-ID-column'>".$row["design_id"]."</span><span style='padding-left:20px;'>".$row["name"]."</span><span>".$row["customer_first_name"]." ".$row["customer_last_name"]."</span><span>".$row["contact_no"]."</span>";
+                                        echo "<td><input type='submit' class='grey' value='View' /></td>";
+                                        echo "<hr class='manager-long-hr' />";
+                                        echo "</form>";
+                                        echo "</div>";
+                                    }
+                                }else {
+                                    echo "0 results";
+                                }
+                            }else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                        ?>
+                        
                     </div>
                 </div><br />
             
