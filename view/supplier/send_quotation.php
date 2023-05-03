@@ -41,7 +41,7 @@
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='text'  name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' /> ";
+                        $presentMaterialList .= "<input type='number' step='1' min='1' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."' readonly class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
@@ -329,6 +329,18 @@
     </div>
 
     <?php include 'footer.php';?>
+
+    <script>
+            function addLeadingZeros(num, totalLength) {
+                return String(num).padStart(totalLength, '0');
+            }
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; 
+            var yyyy = today.getFullYear();
+            var min_VT = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+            document.getElementById("valid_till").setAttribute("min", min_VT);
+        </script>
 
 </body>
 

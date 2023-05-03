@@ -43,7 +43,7 @@
                 <a href="http://localhost/rlf">Welcome </a> >Help
             </div>
 
-            <div id="form-box-ultra-small" style="width:70%;">
+            <div id="form-box" style="width:70%;">
                 <center>
                     <h2>Help</h2>
                 </center>

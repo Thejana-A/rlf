@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add raw material request</title>
+        <title>Add tender request</title>
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
     </head>
 
@@ -33,7 +33,7 @@
                     <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>">
 
                         <center>
-                            <h2> Add raw material request</h2>
+                            <h2> Add a tender request</h2>
                         </center>
                         
                         <div class="form-row">

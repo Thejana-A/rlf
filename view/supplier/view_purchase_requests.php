@@ -36,9 +36,9 @@
                             $search_output.= "<span class='manager-ID-column'>".$search_row["order_id"]."</span><span style='padding-left:24px;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
                             $output.= "<input type='submit' class='grey' name='view' value='View' />";
-                                        $output.= "<hr class='manager-long-hr' />";
-                                        $output.= "</form>";
-                                        $output.= "</div>";
+                            $search_output.= "<hr class='manager-long-hr' />";
+                            $search_output.= "</form>";
+                            $search_output.= "</div>";
                         }
                     }else {
                         $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
@@ -58,9 +58,9 @@
                             $output.= "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
                             $output.= "<input type='submit' class='grey' name='view' value='View' />";
-                                        $output.= "<hr class='manager-long-hr' />";
-                                        $output.= "</form>";
-                                        $output.= "</div>";
+                            $output.= "<hr class='manager-long-hr' />";
+                            $output.= "</form>";
+                            $output.= "</div>";
                         }
                     }else {
                         $output.= "0 results";

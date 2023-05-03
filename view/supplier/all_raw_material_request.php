@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>All raw material requests</title>
+        <title>All tender requests</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
         <?php 
@@ -77,12 +77,12 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> > All raw material requests
+                    <a href="profile.php">Supplier </a> > All tender requests
                 </div>
                 
                 <div id="list-box">
                     <center>
-                        <h2>Raw material Requests</h2>
+                        <h2>All Tender Requests</h2>
                     </center>
 
                     <form method="post" action="all_raw_material_request.php" class="search-panel">
