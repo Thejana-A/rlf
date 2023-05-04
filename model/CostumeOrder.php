@@ -108,13 +108,7 @@
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
                         $conn->query($sql_notification); 
                     }
-                    /*merchandiser notification */
-                    if($this->orderStatus == "confirmed"){
-                        date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Costume order was confirmed - ID ".$this->orderID;
-                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["merchandiser_id"]."', 'costume order');";
-                        $conn->query($sql_notification); 
-                    }
+                    
                     ?><script>
                     alert("Order was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';

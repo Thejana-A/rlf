@@ -112,7 +112,7 @@
                     <a href="home.php">Manager</a> > Notifications
                 </div>
                 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Notifications</h2>
                     </center>
