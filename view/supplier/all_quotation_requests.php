@@ -53,7 +53,7 @@
                 }*/
 
                 if(($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")&&($minRequestDate=="")&&($maxRequestDate=="")){
-                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
                 }else if((($minRequestDate!="")||($maxRequestDate!=""))&&($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")){
                     $minIssueDate = "1900-01-01";
                     $maxIssueDate = "3000-01-01";
@@ -61,7 +61,7 @@
                     $maxValidTill = "3000-01-01";
                     $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
                     $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
-                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate');";
                 }else{
                     $minIssueDate = ($minIssueDate=="")?"1900-01-01":$minIssueDate;
                     $maxIssueDate = ($maxIssueDate=="")?"3000-01-01":$maxIssueDate;
@@ -69,7 +69,7 @@
                     $maxValidTill = ($maxValidTill=="")?"3000-01-01":$maxValidTill;
                     $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
                     $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
-                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate' AND issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
+                    $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN employee ON raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"]." AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate' AND issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
                 }
                 
     
@@ -78,18 +78,18 @@
                 if($search_result = mysqli_query($conn, $search_sql)){
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
+                            $class = ($search_row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="reject")?"red":"grey");
                             $search_output.= "<div class='item-data-row'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
                             $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
                             $search_output.= "<input type='text' hidden='true' name='expected_delivery_date' value-'".$search_row["expected_delivery_date"]."' />";
-                            $search_output.= "<input type='text' hidden='true' name='suppler_approval'value='".$search_row["supplier_approval"]."' />";
                             $search_output.= "<input type='text' hidden='true' name='approval_description' value='".$search_row["approval_description"]."' />";
                             $search_output.= "<input type='text' hidden='true' name'supplier_id' value='".$search_row["supplier_id"]."' />";
                             $search_output.= "<input type='text' hidden='true' name'merchandiser_id' value='".$search_roww["merchandiser_id"]."' />";
                             $search_output.= "<span style='width:8%;'>".$search_row["quotation_id"]."</span><span style='width:15%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:14%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"]==""?"Pending":$search_row["issue_date"])."</span><span style='width:12%;'>".($search_row["valid_till"]==""?"Pending":$search_row["valid_till"])."</span>";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            $search_output.= "<td><input type='submit' class='grey' name='view' value='View' /></td>";
+                            $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $search_output.= "</tr></table>";
                             $search_output.= "<hr class='manager-long-hr' />";
                             $search_output.= "</form>";
@@ -100,19 +100,20 @@
                                 }
                             }
                         }else{
-                            $sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till FROM raw_material_quotation INNER JOIN employee on raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"].";";
+                            $sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, supplier_approval FROM raw_material_quotation INNER JOIN employee on raw_material_quotation.merchandiser_id= employee.employee_id WHERE raw_material_quotation.supplier_id = ".$_SESSION["supplier_id"].";";
                             $search_output = "";
                             $output = "";
                             if($result = mysqli_query($conn, $sql)){
                                 if(mysqli_num_rows($result) > 0){
                                     while($row = mysqli_fetch_array($result)){                            
+                                        $class = ($row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="reject")?"red":"grey");
                                         $output.= "<div class='item-data-row'>";
                                         $output.= "<form method='post' action='../RouteHandler.php'>";
                                         $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
                                         $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
                                         $output.= "<span style='width:8%;'>".$row["quotation_id"]."</span><span style='width:15%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:14%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span style='width:12%;'>".($row["valid_till"]==""?"Pending":$row["valid_till"])."</span>";
                                         $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                                        $output.= "<td><input type='submit' class='grey' name='view' value='View' /></td>";
+                                        $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                                         $output.= "</tr></table>";
                                         $output.= "<hr class='manager-long-hr' />";
                                         $output.= "</form>";

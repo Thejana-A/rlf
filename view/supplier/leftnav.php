@@ -9,7 +9,7 @@
     <span id="left-nav-sub-3">
         <a href="all_raw_materials.php">All raw materials</a>
         <a href="add_raw_material_request.php">Request to add</a>
-        <a href="all_raw_material_request.php">All raw material requests</a>
+        <a href="all_raw_material_request.php">All tender requests</a>
         
     </span>
     <a href="#" onClick="displayLeftNavSub4()">Quotations</a>

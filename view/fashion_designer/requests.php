@@ -53,7 +53,7 @@
                                 Material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" readonly/>
+                                <input type="text" name="name" id="name" value = "<?php echo $row["name"];?>" <?php if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){echo "readonly";} ?> />
                             </div>
                         </div>
 
@@ -62,7 +62,14 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="size" id="size" value = "<?php echo $row["size"];?>" readonly />
+                                <select name="size" id="size" <?php if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){echo "readonly";} ?> >
+                                    <option value="XS" <?php echo ($row["size"]=="XS")?'selected':'' ?>>XS</option>
+                                    <option value="S" <?php echo ($row["size"]=="S")?'selected':'' ?>>S</option>
+                                    <option value="M" <?php echo ($row["size"]=="M")?'selected':'' ?>>M</option>
+                                    <option value="L" <?php echo ($row["size"]=="L")?'selected':'' ?>>L</option>
+                                    <option value="XL" <?php echo ($row["size"]=="XL")?'selected':'' ?>>XL</option>
+                                    <option value="XXL" <?php echo ($row["size"]=="XXL")?'selected':'' ?>>XXL</option>
+                                </select>
                             </div>
                         </div>
 
@@ -71,7 +78,22 @@
                                 Measuring Unit : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="measuring_unit" id="measuring_unit" value = "<?php echo $row["measuring_unit"];?>" readonly />
+                                <select name="measuring_unit" id="measuring_unit" <?php if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){echo "readonly";} ?> >
+                                    <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
+                                    <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
+                                    <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
+                                    <option value="litre" <?php echo ($row["measuring_unit"]=="l")?'selected':'' ?>>litre</option>
+                                    <option value="yards" <?php echo ($row["measuring_unit"]=="yards")?'selected':'' ?>>yards</option>
+                                    <option value="m^2" <?php echo ($row["measuring_unit"]=="m^2")?'selected':'' ?>>m^2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Raw material description :
+                            </div>
+                            <div class="form-row-data">
+                                <textarea id="" name="description" id="description" rows="4" cols="40" <?php if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){echo "readonly";} ?> ><?php echo $row["description"];?></textarea>
                             </div>
                         </div>
                         
@@ -103,14 +125,7 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Raw material description :
-                            </div>
-                            <div class="form-row-data">
-                                <textarea id="" name="description" id="description" rows="4" cols="40" readonly ><?php echo $row["description"];?></textarea>
-                            </div>
-                        </div>
+                        
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <?php 

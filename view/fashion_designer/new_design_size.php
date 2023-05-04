@@ -169,7 +169,7 @@
                         <a href="http://localhost/rlf">Welcome </a> >
                         <a href="../customer/customer_login.php">Login </a> >
                         <a href="home.php">Fashion Designer</a> >
-                        <a href="view_costume_designs.php">View costume designs </a> >
+                        <a href="view_costume_design.php">View costume designs </a> >
                         <a href="javascript:history.back()">View </a> > Create 
                     </div>
                     <div id="form-box-ultra-small">
