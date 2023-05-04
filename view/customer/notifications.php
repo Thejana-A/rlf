@@ -75,16 +75,12 @@
     </head>
 
     <body>
-        <?php include 'header.php';?>
-
-        <div id="page-body">
-            <?php include 'leftnav.php';?>
-
-            <div id="page-content">
+        
+            
                 <div id="breadcrumb">
                     <a href="customer_home.php">Home</a> > Notifications
                 </div>
-                
+            <div id="page-content" style=" display:flex; justify-content: center;">  
                 <div id="list-box">
                     <center>
                         <h2>Notifications</h2>

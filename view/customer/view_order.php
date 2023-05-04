@@ -238,6 +238,13 @@
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />
+            <br />
+            <?php
+            if($order_status == "accepted"){
+                echo "<label for='valid_till'>Valid Till Date :</label>";
+                echo "<input type='text' name='valid_till' value=".$valid_till." disabled />";
+            }
+            ?>
             <form action="">
 
                 <?php echo $costume_list; ?>
