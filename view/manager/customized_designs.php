@@ -22,7 +22,7 @@
                 $searchbar = $_POST["searchbar"];
                 $search_output = "";
                 $output = "";
-                echo $searchbar;
+                //echo $searchbar;
                 $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.customer_id,  e2.first_name fd_first_name, e2.last_name fd_last_name, cu.first_name AS customer_first_name, cu.last_name AS customer_last_name
                     FROM costume_design c 
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
@@ -58,7 +58,7 @@
                             }
                         }
                     }else{
-                        $search_output.= "No costume designs";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     } 
             }else{
                 $search_output = "";
@@ -102,7 +102,7 @@
                             $output.= "</div>";
                         }
                     }else{
-                        $output.= "No costume designs";
+                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
                 }
                 
