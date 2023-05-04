@@ -83,7 +83,7 @@
                 <div class="item-list" style="width:80%;">
                     <div class="item-heading-row">
                         <b>Quotation ID</b>
-                        <b>Date</b>
+                        <b>Request Date</b>
                         <b>Merchandiser Name</b>                   
                         <hr />
                     </div>

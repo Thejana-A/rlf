@@ -37,6 +37,7 @@
 
             $request_date = $row["request_date"];
             $manager_approval = $row["manager_approval"];
+            $valid_till = $row["valid_till"];
             
             
         }else {
@@ -237,6 +238,13 @@
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />
+            <br />
+            <?php
+            if($order_status == "accepted"){
+                echo "<label for='valid_till'>Valid Till Date :</label>";
+                echo "<input type='text' name='valid_till' value=".$valid_till." disabled />";
+            }
+            ?>
             <form action="">
 
                 <?php echo $costume_list; ?>
@@ -259,7 +267,7 @@
                 <br />
                 <br />
                 <?php
-                if($order_status == "accepted"){
+                if(($order_status == "accepted")&&($valid_till > Date('Y-m-d'))){
                     echo "<center>";
                     
                     echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
@@ -282,9 +290,9 @@
                     echo "<input type='text' name='balance_payment' style='width: 100%;' disabled value=Rs.".$balance_payment.">";
                     echo "<label for='reason'>Dispatch Date :</label>";
                     echo "<input type='text' name='dispatch_date' style='width: 100%;' disabled value=".$dispatch_date.">";
-                }else if($order_status == "confirmed"){
+                }else if(($order_status == "confirmed")||($order_status == "complete")){
                     echo "<center>";
-                    echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Confirmed' >";
+                    echo "<input type='text' name='complete' style='width: 80%;' disabled placeholder='You Order is Confirmed' >";
                     echo "</center>";
                     echo "<br />";
                     echo "<br />";

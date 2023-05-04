@@ -162,6 +162,25 @@ if(($_SESSION["customer_id"]=="")){
         }
         }
     </style>
+    <?php
+        $stmt = $conn->prepare("SELECT * FROM `customer` WHERE `customer_id` = ?");
+        $stmt->bind_param("i", $_SESSION['customer_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_array($result);
+            $first_name = $row["first_name"];
+            $last_name = $row["last_name"];
+            $NIC =$row['NIC'];
+            $email = $row['email'];
+            $contact_no = $row['contact_no'];
+            $city = $row['city'];
+        } else {
+            echo "0 results";
+        }
+
+    ?>
 </head>
 <body>
     <header  class="header">
@@ -186,7 +205,7 @@ if(($_SESSION["customer_id"]=="")){
                 <img src="../Icon/menu.png">
             </button>
             
-            <a href="javascript:void(0)" onclick="openForm()" ><span id="username"> <?php echo  $_SESSION['first_name']." ".$_SESSION['last_name'] ;?> &nbsp <img src="../Icon/user.png"/></span></a>
+            <a href="javascript:void(0)" onclick="openForm()" ><span id="username"> <?php echo  $first_name." ".$last_name?> &nbsp <img src="../Icon/user.png"/></span></a>
             
         </div>
     </header>
@@ -234,18 +253,19 @@ if(($_SESSION["customer_id"]=="")){
 
     <div class="container" style="background-color:#EEEEEE">
       <label for="firstname"><b>First Name</b></label>
-      <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo  $_SESSION['first_name'] ?> ">
+      <input type="text" placeholder="Enter First Name" name="first_name" value="<?php echo $first_name?> ">
+      
       <input type="hidden" name="customer_id" value="<?php echo $_SESSION['customer_id']; ?>">
       <label for="lastname"><b>Last Name</b></label>
-      <input type="text" placeholder="Enter Last name" name="last_name" value="<?php echo  $_SESSION['last_name'] ?> ">
+      <input type="text" placeholder="Enter Last name" name="last_name" value="<?php echo  $last_name?> ">
       <label for="nic"><b>NIC</b></label>
-      <input type="text" placeholder="Enter your NIC" name="NIC" value="<?php echo  $_SESSION['NIC'] ?> ">
+      <input type="text" placeholder="Enter your NIC" name="NIC" value="<?php echo  $NIC?> ">
       <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" value="<?php echo  $_SESSION['email'] ?> ">
+      <input type="text" placeholder="Enter Email" name="email" value="<?php echo  $email ?> ">
       <label for="connumber"><b>Contact Number</b></label>
-      <input type="text" placeholder="071 1234567" name="contact_no" value="<?php echo  $_SESSION['contact_no'] ?> ">
+      <input type="text" placeholder="071 1234567" name="contact_no" value="<?php echo  $contact_no?> ">
       <label for="city"><b>City</b></label>
-      <input type="text" placeholder="Enter your City" name="city" value="<?php echo  $_SESSION['city'] ?> ">
+      <input type="text" placeholder="Enter your City" name="city" value="<?php echo  $city?> ">
 
         
     </div>
