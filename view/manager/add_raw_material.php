@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         
-                        <div class="form-row">
+                        <!--<div class="form-row">
                             <div class="form-row-theme">
                                 Approval status :
                             </div>
@@ -108,13 +108,14 @@
                                             <input type="radio" name="manager_approval" class="input-radio" id="" value="approve" onClick="setApprovalDate()" /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" id="" value="deny" onClick="setApprovalDate()" /> Deny
+                                            <input type="radio" name="manager_approval" class="input-radio" id="" value="reject" onClick="setApprovalDate()" /> Reject
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <input type="date" hidden="true" name="approval_date" id="approval_date" value="<?php echo Date('Y-m-d'); ?>" />
-                        </div>
+                        </div> -->
+                        <input type="text" hidden="true" name="manager_approval" id="manager_approval" value="approve" />
+                        <input type="date" hidden="true" name="approval_date" id="approval_date" value="<?php echo Date('Y-m-d'); ?>" />
                         <div class="form-row">
                             <div class="form-row-submit">
                                 <input type="submit" value="Save" />

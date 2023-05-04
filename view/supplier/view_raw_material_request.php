@@ -23,7 +23,20 @@
             $result_view_material = mysqli_query($conn, $sql_view_material);
                 $row = mysqli_fetch_array($result_view_material);
         }
-   ?>    
+   ?>  
+   
+   <script>
+            function confirmDeletion(){
+                var confirmation = confirm("Are you sure you want to delete ?");
+                if (confirmation==true) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        </script>
+
+
     </head>
 
     <body>
@@ -40,7 +53,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post"  name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <form method="post" onSubmit="return confirmDeletion()" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_operation" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -64,9 +77,9 @@
                             <div class="form-row-data">
                             <?php 
                                     if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='text' name='name' value='".$row["name"]."' readonly />"; 
+                                        echo "<input type='text' name='name' value='".$row["name"]."' required readonly />"; 
                                     }else{
-                                        echo "<input type='text' value='".$row["name"]."' name='name' />";
+                                        echo "<input type='text' value='".$row["name"]."' name='name' required />";
                                     }
                                 ?>
                             </div>
@@ -109,7 +122,7 @@
                                 Raw material description :
                             </div>
                             <div class="form-row-data">
-                                <textarea name="description" id="description" rows="4" cols="40"  ><?php echo $row["description"];?></textarea>
+                                <textarea name="description" id="description" rows="4" cols="40" required ><?php echo $row["description"];?></textarea>
                             </div>
                         </div>
                         <div class="form-row">

@@ -72,6 +72,21 @@
                 document.getElementById("total_price").value = totalPrice;
                 document.getElementById("total_quantity").value = totalQuantity;
             } 
+
+            function validateForm(){
+                var manager_approval = document.forms["costumeQuotationForm"]["manager_approval"].value;
+                var approval_description = document.forms["costumeQuotationForm"]["approval_description"].value;
+    
+                if (manager_approval == "") {
+                    alert("Manager approval is required");
+                    return false;
+                }else if ((manager_approval == "reject")&&(approval_description == "")) {
+                    alert("Reason for rejection is required");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         </script>
     </head>
 
@@ -90,7 +105,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
+                    <form method="post" name="costumeQuotationForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/manager_update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />

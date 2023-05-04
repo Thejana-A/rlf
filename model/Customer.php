@@ -122,6 +122,7 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->customerID = $_POST["customer_id"];
+            
             //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
             $sql = "UPDATE customer SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, city=? WHERE customer_id='$this->customerID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -154,6 +155,7 @@
             } 
             $stmt->close(); 
             $conn->close(); 
+            
         }
 
         public function delete(){

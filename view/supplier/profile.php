@@ -23,7 +23,7 @@
                     $home_quotation_request_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
                     $home_quotation_request_output.= "<input type='text' hidden='true' name='quotation_id' value='".$home_quotation_request_row["quotation_id"]."' />";
                     $home_quotation_request_output.= "<span class='manager-ID-column'>".$home_quotation_request_row["quotation_id"]."</span><span style='padding-left:24px;'>".$home_quotation_request_row["first_name"]." ".$home_quotation_request_row["last_name"]."</span><span>".$home_quotation_request_row["contact_no"]."</span><span>".$home_quotation_request_row["request_date"]."</span>";
-                    $home_quotation_request_output.= "<input type='submit' style='float:right;margin-right:25px;margin-bottom:10px;' class='".$material_order_class."' value='View' />";
+                    $home_quotation_request_output.= "<input type='submit' style='float:right;margin-right:25px;margin-bottom:10px;' class='grey' value='View' />";
                     $home_quotation_request_output.= "<hr />";
                     $home_quotation_request_output.= "</form>";
                     $home_quotation_request_output.= "</div>";

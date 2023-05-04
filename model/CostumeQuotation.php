@@ -155,7 +155,7 @@
             $this->quotationID = $_POST["quotation_id"];
             $sql = "DELETE FROM costume_quotation WHERE quotation_id = ?";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                $sql_quotation = "SELECT * FROM costume_quotation where quotation_id='$this->quotationID'";
+                $sql_quotation = "SELECT manager_approval FROM costume_quotation where quotation_id='$this->quotationID'";
                 $path = mysqli_query($conn, $sql_quotation);
                 $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
                 if($quotation_result = mysqli_query($conn, $sql_quotation)){
@@ -182,9 +182,10 @@
                             </script><?php
                         }
                     }*/
-                    if(mysqli_num_rows($quotation_result) > 0){
+                    $row = mysqli_fetch_array($quotation_result);
+                    if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
                         ?><script>
-                        alert("Sorry ! That costume can't be deleted.");
+                        alert("Sorry ! That quotation can't be deleted.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php
                     }else{
