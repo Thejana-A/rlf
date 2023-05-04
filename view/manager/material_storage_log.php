@@ -30,7 +30,27 @@
                 if($search_result = mysqli_query($conn, $search_sql)){
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
-                            $search_output.= "<div class='material-price-block'>";
+                            $search_output.= "<div class='item-data-row' style='width:120%;'>";
+                            $search_output.= "<form method='post' action='../RouteHandler.php'>";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                            if($row["store_action"] == "store"){
+                                $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
+                            }
+                            $search_output.= "<span style='width:15%;'>".$row["material_id"]."-".$row["name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".$row["employee_id"]."-".$row["first_name"]." ".$row["last_name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".$row["quantity"]." ".$row["measuring_unit"]." ".$row["supplier_last_name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".explode(" ",$row["time_stamp"])[0]."</span>";
+                            $search_output.= "<span style='width:7%;'>".$row["store_action"]."</span>";
+                            //$output.= "<span style='width:6%;'>".$row["unit_price"]."</span>";
+                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            if($row["store_action"] == "store"){
+                                $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                            }
+                            $search_output.= "</tr></table>";
+                            $search_output.= "<hr class='manager-long-hr' />";
+                            $search_output.= "</form>";
+                            $search_output.= "</div>";
+                            /*$search_output.= "<div class='material-price-block'>";
 
                             $search_output.= "<div class='material-price-row'>";
                             $search_output.= "<div class='material-price-left'>";
@@ -72,7 +92,7 @@
                             }
                         
                             $search_output.= "<hr />";
-                            $search_output.= "</div>";
+                            $search_output.= "</div>"; */
                         }   
                     }else{
                         $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
@@ -85,7 +105,27 @@
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
-                            $output.= "<div class='material-price-block'>";
+                            $output.= "<div class='item-data-row' style='width:120%;'>";
+                            $output.= "<form method='post' action='../RouteHandler.php'>";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                            if($row["store_action"] == "store"){
+                                $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
+                            }
+                            $output.= "<span style='width:15%;'>".$row["material_id"]."-".$row["name"]."</span>";
+                            $output.= "<span style='width:12%;'>".$row["employee_id"]."-".$row["first_name"]." ".$row["last_name"]."</span>";
+                            $output.= "<span style='width:12%;'>".$row["quantity"]." ".$row["measuring_unit"]." ".$row["supplier_last_name"]."</span>";
+                            $output.= "<span style='width:12%;'>".explode(" ",$row["time_stamp"])[0]."</span>";
+                            $output.= "<span style='width:7%;'>".$row["store_action"]."</span>";
+                            //$output.= "<span style='width:6%;'>".$row["unit_price"]."</span>";
+                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            if($row["store_action"] == "store"){
+                                $output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                            }
+                            $output.= "</tr></table>";
+                            $output.= "<hr class='manager-long-hr' />";
+                            $output.= "</form>";
+                            $output.= "</div>";
+                            /*$output.= "<div class='material-price-block'>";
 
                             $output.= "<div class='material-price-row'>";
                             $output.= "<div class='material-price-left'>";
@@ -126,7 +166,7 @@
                                 $output.= "&nbsp&nbsp&nbsp&nbsp&nbsp<a href='view_material_quotation.php?quotation_id=".$row["quotation_id"]."' style='text-decoration:none;'>View quotation</a>";
                             }
                             $output.= "<hr />";
-                            $output.= "</div>";
+                            $output.= "</div>"; */
                         }
                     }else {
                         $output.= "0 results";
@@ -151,7 +191,8 @@
                     <a href="home.php">Manager</a> >
                     <a href="raw_materials.php">View raw materials </a> > Material storage log
                 </div>
-                <div id="material-price-box">
+                <!--<div id="material-price-box">-->
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Material storage log</h2>
                     </center>
@@ -171,6 +212,15 @@
                     </form> 
                     
                     <div class="item-list" style="width:80%;">
+                        <div class="item-heading-row" style="width:115%;margin-left:-35px;">
+                            <b style="width:15%;padding-left:30px;">ID-Material</b>
+                            <b style="width:12%;">ID-Merchandiser</b>
+                            <b style="width:13%;">Quantity</b>
+                            <b style="width:12%;">Date</b>
+                            <b style="width:6%;">Action</b>
+                            <!--<b style="width:5%;"></b>-->
+                            <!--<hr style="width:104%;margin-left:30px;" />-->
+                        </div>
                         <hr style="width:120%;color:#1B3280;" />
                         <div id="content-list">
                             <?php 
