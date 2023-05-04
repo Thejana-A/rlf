@@ -27,16 +27,13 @@
    
    <script>
             function confirmDeletion(){
-                var deleteStatus = document.getElementById("delete").value;
-                alert(deleteStatus);
-                return false;
-                /*var result = confirm("Want to delete?");
-
-                    if (result==true) {
-                        return true;
-                    } else {
-                        return false;
-                    }*/
+                var confirmation = confirm("Are you sure ?");
+                if (confirmation == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+                
             }
  
         </script>
@@ -194,9 +191,9 @@
                             <div class="form-row-reset">
                                 <?php 
                                     if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='submit' name='delete' value='Delete' id='delete' disabled />";
+                                        echo "<input type='submit' name='delete' value='Delete' disabled />";
                                     }else{
-                                        echo "<input type='submit' name='delete' value='Delete' />";
+                                        echo "<input type='submit' name='delete' id='delete' value='Delete' />";
                                     }
                                 ?>
                             </div>
