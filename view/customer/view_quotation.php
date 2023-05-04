@@ -243,11 +243,11 @@
                     if(( $manager_approval != "approve")){
                         echo "<form method='post' name='costumeQuotationForm' action='../RouteHandler.php' enctype='multipart/form-data'>";
                         echo "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/customer_update'/>";
-                        echo "<input type='text' hidden='true'  name='home_url' value='customer/customer_home.php' />";
+                        echo "<input type='text' hidden='true'  name='home_url' value='customer/view_all_quotation.php' />";
                        // echo "<input type='text' hidden='true'  name='page_url' value='".$_SERVER['REQUEST_URI']."' />";
                         //echo "<input type='text' hidden='true' name='request_date' value='".date("Y-m-d")."' />";
                         //echo "<input type='text' hidden='true' name='issue_date' value='".$issue_date."' />";
-                        //echo "<input type='text' hidden='true' name='valid_till' value='".$valid_till."' />";
+                        echo "<input type='text' hidden='true' name='valid_till' value='".$valid_till."' />";
                         //echo "<input type='text' hidden='true' name='approval_description' value='".$approval_description."' />";
                         //echo "<input type='text' hidden='true' name='approval_date' value='".$approval_date."' />";
                         echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
