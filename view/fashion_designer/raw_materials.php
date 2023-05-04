@@ -31,7 +31,7 @@
                 <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/view" />
                         <center>
-                            <h2> Raw material details</h2>
+                            <h2> Raw Material Details</h2>
                         </center>
                         
                             <div class="form-row">

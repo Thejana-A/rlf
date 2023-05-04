@@ -125,7 +125,7 @@
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Fashion Designer </a> >
-                    <a href="view_general_design.php">View costume designs </a> > Edit
+                    <a href="javascript:history.back()">View costume designs </a> > Edit
                 </div>
 
                 <div id="form-box">

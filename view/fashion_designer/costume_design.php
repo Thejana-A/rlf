@@ -1,12 +1,12 @@
 <?php require_once 'redirect_login.php' ?>
 <!DOCTYPE html>
-<html>
+<!--<html>
 	<head>
 	      <Meta name="viewpoint" content="width=device-width, initial-scale=1">
               <title> Costume Design </title>
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
               <?php   
-            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+           /* error_reporting(E_ERROR | E_WARNING | E_PARSE);
             if(isset($_GET['data'])){ 
                 //parse_str($_SERVER['REQUEST_URI'],$row);
                 $row = $_SESSION["row"];
