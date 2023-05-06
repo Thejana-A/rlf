@@ -125,6 +125,14 @@
                 if(total_quantity <= 0){
                     alert("At least one item should be selected");
                     return false; 
+                }else if(total_quantity > 0){   
+                    for(let j = 0;j < costumeSizeCount;j++){
+                        var costume_quantity = document.getElementById("quantity_"+j).value;
+                        if((costume_quantity>0)&&(costume_quantity<5)){
+                            alert("Minimum order quantity is 5");
+                            return false;
+                        }
+                    }
                 }else{
                     return true;  
                 }

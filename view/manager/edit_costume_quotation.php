@@ -333,6 +333,7 @@
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
+            mm = mm+2;
             var yyyy = today.getFullYear();
 
             var min_valid_till = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);

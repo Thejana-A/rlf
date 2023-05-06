@@ -48,7 +48,7 @@
                             <?php                   }
                                                 }
                                             }else {
-                                                echo "0 results";
+                                                echo " ";
                                             }
                                         }else{
                                             echo "ERROR: Could not able to execute $merchandiser_sql. " . mysqli_error($conn);
