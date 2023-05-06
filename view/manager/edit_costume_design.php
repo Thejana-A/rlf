@@ -150,6 +150,7 @@
                 //alert(arrayLength);
                 //return false;
                 var materialPriceApproval = document.forms["materialForm"]["material_price_approval"].value;
+                var materialPriceDescription = document.forms["materialForm"]["material_price_description"].value;
                 var finalPrice = document.forms["materialForm"]["final_price"].value;
                 var publishStatus = document.querySelector('#publish_status');
                 if((materialPriceApproval != "approve")&&(finalPrice > 0)){
@@ -158,6 +159,9 @@
                 }else if((finalPrice == 0)&&(publishStatus.checked === true)){
                     alert("Final price is required to publish");
                     return false;
+                }else if((materialPriceApproval == "reject")&&(materialPriceDescription == "")){
+                    alert("Reason for rejection is required");
+                    return false;   
                 }else{
                     return true;
                 }

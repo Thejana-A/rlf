@@ -89,7 +89,7 @@
                     </center>
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Supplier ID</b>
+                            <b  style="width:14%;">Supplier ID</b>
                             <b>Supplier name</b>
                             <b>City</b>
                             <b>Contact no</b>

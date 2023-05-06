@@ -16,13 +16,13 @@
                 $minDate = $_POST["min_date"];
                 $maxDate = $_POST["max_date"];
                 if(($minDate == "")&&($maxDate == "")){
-                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%') ORDER BY time_stamp DESC;";
+                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%') ORDER BY time_stamp DESC;";
                 }else if(($minDate == "")&&($maxDate != "")){
-                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%') AND (time_stamp <= '$maxDate') ORDER BY time_stamp DESC;";
+                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%') AND (time_stamp <= '$maxDate 23:59:59') ORDER BY time_stamp DESC;";
                 }else if(($minDate != "")&&($maxDate == "")){
-                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%') AND (time_stamp >= '$minDate') ORDER BY time_stamp DESC;";
+                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%') AND (time_stamp >= '$minDate 00:00:00') ORDER BY time_stamp DESC;";
                 }else{
-                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%') AND (time_stamp BETWEEN '$minDate' AND '$maxDate') ORDER BY time_stamp DESC;";
+                    $search_sql = "SELECT raw_material.material_id, name, employee.employee_id, first_name, last_name, time_stamp, store_action, quantity, measuring_unit, quotation_id FROM raw_material, employee, storage_log WHERE storage_log.material_id = raw_material.material_id AND storage_log.merchandiser_id = employee.employee_id AND (raw_material.material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%' OR store_action LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%') AND (time_stamp BETWEEN '$minDate 00:00:00' AND '$maxDate 23:59:59') ORDER BY time_stamp DESC;";
                 }
                 
                 $search_output = "";
@@ -33,17 +33,17 @@
                             $search_output.= "<div class='item-data-row' style='width:120%;'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
-                            if($row["store_action"] == "store"){
-                                $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
+                            if($search_row["store_action"] == "store"){
+                                $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
                             }
-                            $search_output.= "<span style='width:15%;'>".$row["material_id"]."-".$row["name"]."</span>";
-                            $search_output.= "<span style='width:12%;'>".$row["employee_id"]."-".$row["first_name"]." ".$row["last_name"]."</span>";
-                            $search_output.= "<span style='width:12%;'>".$row["quantity"]." ".$row["measuring_unit"]." ".$row["supplier_last_name"]."</span>";
-                            $search_output.= "<span style='width:12%;'>".explode(" ",$row["time_stamp"])[0]."</span>";
-                            $search_output.= "<span style='width:7%;'>".$row["store_action"]."</span>";
+                            $search_output.= "<span style='width:15%;'>".$search_row["material_id"]."-".$search_row["name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".$search_row["employee_id"]."-".$search_row["first_name"]." ".$search_row["last_name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".$search_row["quantity"]." ".$search_row["measuring_unit"]." ".$search_row["supplier_last_name"]."</span>";
+                            $search_output.= "<span style='width:12%;'>".explode(" ",$search_row["time_stamp"])[0]."</span>";
+                            $search_output.= "<span style='width:7%;'>".$search_row["store_action"]."</span>";
                             //$output.= "<span style='width:6%;'>".$row["unit_price"]."</span>";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                            if($row["store_action"] == "store"){
+                            if($search_row["store_action"] == "store"){
                                 $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             }
                             $search_output.= "</tr></table>";

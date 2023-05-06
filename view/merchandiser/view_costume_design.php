@@ -123,7 +123,7 @@
                     </form>
                 </div>   
 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Available sizes</h2>
                     </center>
@@ -146,7 +146,7 @@
                                     echo "<form method='post' action='../RouteHandler.php'>";
                                     echo "<input type='text' hidden='true' name='framework_controller' value='costume_design/merchandiser_view' />";
                                     echo "<input type='text' hidden='true' name='design_id' value='".$costume_row["design_id"]."' />";
-                                    echo "<span class='manager-ID-column'>".$costume_row["design_id"]."</span><span>".$costume_row["name"]."</span><span style='width:12%;'>".$costume_row["size"]."</span><span>".($costume_row["publish_status"]=="publish"?"Published":"Pending")."</span>";
+                                    echo "<span class='manager-ID-column'>".$costume_row["design_id"]."</span><span>".$costume_row["name"]."</span><span style='width:12%;'>".$costume_row["size"]."</span><span>".($costume_row["publish_status"]=="publish"?"Published":"Not published")."</span>";
                                     echo "<table align='right' style='margin-right:60px;' class='two-button-table'><tr>";
                                     echo "<td><input type='submit' class='".($costume_row["material_price_approval"]=="approve"?"green":($costume_row["material_price_approval"]=="reject"?"red":"grey"))."' value='Edit' /></td>";
                                     echo "</tr></table>";

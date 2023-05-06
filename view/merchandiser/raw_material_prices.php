@@ -32,7 +32,7 @@
                         while($search_row = mysqli_fetch_array($search_result)){
                             $search_output.= "<div class='item-data-row' style='width:120%;'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/merchandiser_view' />";
                             $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
                             $search_output.= "<span style='width:12%;'>".$search_row["material_id"]."</span>";
                             $search_output.= "<span style='width:12%;'>".$search_row["name"]."</span>";
@@ -100,7 +100,7 @@
                         while($row = mysqli_fetch_array($result)){
                             $output.= "<div class='item-data-row' style='width:120%;'>";
                             $output.= "<form method='post' action='../RouteHandler.php'>";
-                            $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/merchandiser_view' />";
                             $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
                             $output.= "<span style='width:12%;'>".$row["material_id"]."</span>";
                             $output.= "<span style='width:12%;'>".$row["name"]."</span>";
