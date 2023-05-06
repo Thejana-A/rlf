@@ -269,7 +269,7 @@
                 <?php
                 if(($order_status == "accepted")&&($valid_till > Date('Y-m-d'))){
                     echo "<center>";
-                    
+                    echo "Andvance Payment = (Total Payment)*40%";
                     echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
                    
                     echo "</center>";

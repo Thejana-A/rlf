@@ -47,7 +47,7 @@ padding: 0;">
     <label for="contact"><b>Design Name</b></label>
     <input type="text" value="<?php echo $costume_name ?>" name="designname" disabled>
 
-    <label for="address"><b>Price(Rs)</b></label>
+    <label for="address"><b>Advance Payment(Rs)</b></label>
     <input type="text" value="<?php echo $advance_payment ?>" name="amount" disabled>
 
 
