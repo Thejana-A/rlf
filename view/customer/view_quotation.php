@@ -272,11 +272,11 @@
                 echo "<input type='text' hidden='true' name='order_placed_on' value='".date("Y-m-d")."' />";
                 echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
                 echo "<label for='fname'>Order Deadline :</label>";
-                echo "<input type='date' name='expected_delivery_date' style='width: 100%;' required>";
+                echo "<input type='date' name='expected_delivery_date' id='expected_delivery_date' style='width: 100%;' required>";
                 echo "<br />";
                 echo "<br />";
                 echo "<center>";
-                echo "<input type='submit' value='Place Order' class='Quotationbtn' style='width: 50%;'>";
+                echo "<input type='submit' value='Place Order' class='Quotationbtn' style='width: 50%;' onclick=\"return confirm('Are you sure ?')\">";
                 echo "</center>";
               echo "</form>";
         echo "</div>";
@@ -292,13 +292,11 @@
             return String(num).padStart(totalLength, '0');
         }
         var today = new Date();
-        var dd = today.getDate();
+        var dd = today.getDate()+3;
         var mm = today.getMonth() + 1; 
         var yyyy = today.getFullYear();
-        var max_DOB = yyyy-18 + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
-        var max_joined_date = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
-        document.getElementById("DOB").setAttribute("max", max_DOB);
-        document.getElementById("joined_date").setAttribute("max", max_joined_date);
+        var min_EDD = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);
+        document.getElementById("expected_delivery_date").setAttribute("min", min_EDD);
     </script>
 </body>
 </html>
