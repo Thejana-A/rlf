@@ -2,6 +2,7 @@
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
     require_once(__DIR__.'/DesignQuotation.php');
+    require_once(__DIR__.'/send_email/SendCustomerEmail.php');
     class CostumeQuotation{
         
         private $quotationID;
@@ -26,6 +27,11 @@
         public function addCostumeQuotation(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
+
+            $sql_select_customer = "SELECT first_name, last_name, email FROM customer WHERE customer_id = ".$this->customerID;
+            $result_select_customer = $conn->query($sql_select_customer);
+            $row_select_customer = $result_select_customer->fetch_assoc();
+
             $sql = "INSERT INTO costume_quotation (request_date, issue_date, valid_till, manager_approval, approval_description, approval_date, customer_id, merchandiser_id) VALUES (?,?,?,?,?,?,?,?);";
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "ssssssii", $this->requestDate, $this->issueDate, $this->validTill, $this->managerApproval, $this->approvalDescription, $this->approvalDate, $this->customerID, $this->merchandiserID);
@@ -53,6 +59,10 @@
                         $notification_message = "Costume quotation was received - ID ".$this->quotationID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
                         $conn->query($sql_notification); 
+
+                        $message = "Costume quotation request was saved successfully. <br> Quotation ID : ".$this->quotationID." <br/> Request date : ".$this->requestDate." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message);  
+                        $sendMail->sendTheEmail(); 
                     }
                     /*manager notification when customer or merchandiser creates a quotation*/
                     if($this->managerApproval == ""){
@@ -60,6 +70,18 @@
                         $notification_message = "Costume quotation was created - ID ".$this->quotationID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume quotation');";
                         $conn->query($sql_notification); 
+                    }
+                    /*customer notification when customer requests quotation*/
+                    if($this->managerApproval == ""){
+                        date_default_timezone_set("Asia/Calcutta");
+                        $notification_message = "Costume quotation was saved successfully - ID ".$this->quotationID;
+                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $conn->query($sql_notification); 
+
+                        
+                        $message = "Costume quotation request was saved successfully. <br> Quotation ID : ".$this->quotationID." <br/> Request date : ".$this->requestDate." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message);  
+                        $sendMail->sendTheEmail(); 
                     }
                     ?><script>
                     alert("New costume quotation was created successfully");
@@ -77,8 +99,14 @@
         public function updateCostumeQuotation(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
+            
+            /*$sql_select_customer = "SELECT first_name, last_name, email FROM customer WHERE customer_id = ".$_POST["customer_id"];
+            $result_select_customer = $conn->query($sql_select_customer);
+            $row_select_customer = $result_select_customer->fetch_assoc();  */
+
             $this->quotationID = $_POST["quotation_id"];  
             $publicQuotationID = $this->quotationID;
+
 
             $sql = "UPDATE rlf.costume_quotation SET issue_date = ?, valid_till = ?, manager_approval = ?, approval_description = ?, approval_date = ? WHERE quotation_id = '$this->quotationID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -95,6 +123,7 @@
                     $conn->query($sql_reset_quantity);
                     $designQuotationModel = new DesignQuotation($_POST, $publicQuotationID); 
                     $designQuotationModel->insertQuantityPrice(); 
+
                     /*merchandiser notification when quotation is approved or rejected by manager*/
                     if(($this->managerApproval == "approve")||($this->managerApproval == "reject")){
                         date_default_timezone_set("Asia/Calcutta");
@@ -106,20 +135,26 @@
                     if($this->managerApproval == "approve"){
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Costume quotation was received - ID ".$this->quotationID;
-                        $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
+                        $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
                         $conn->query($sql_notification); 
+
+                        /*$message = "Costume quotation was received. <br> Quotation ID : ".$this->quotationID." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message); 
+                        $sendMail->sendTheEmail();   */
                     }
                     /*manager notification when merchandiser updates a quotation requested by customer*/
                     if($this->managerApproval == ""){
                         date_default_timezone_set("Asia/Calcutta");
                         $notification_message = "Costume quotation was updated - ID ".$this->quotationID;
-                        $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume quotation');";
+                        $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume quotation');";
                         $conn->query($sql_notification); 
                     }
+                    
                     ?><script>
                     alert("Costume quotation was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
-                    </script><?php        
+                    </script><?php
+                            
                 }
                 
             } else {

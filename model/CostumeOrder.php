@@ -1,6 +1,7 @@
 <?php
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
     require_once(__DIR__.'/DBConnection.php');
+    require_once(__DIR__.'/send_email/SendCustomerEmail.php');
     class CostumeOrder{
         
         private $orderID;
@@ -53,6 +54,7 @@
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
                         $conn->query($sql_notification); 
                     }
+                    
                     /*merchandiser notification */
                     if($this->orderStatus != "confirmed"){
                         date_default_timezone_set("Asia/Calcutta");
@@ -75,6 +77,12 @@
         public function updateCostumeOrder(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
+
+            $customer_id = $_POST["customer_id"];
+            $sql_select_customer = "SELECT first_name, last_name, email FROM customer WHERE customer_id = ".$customer_id;
+            $result_select_customer = $conn->query($sql_select_customer);
+            $row_select_customer = $result_select_customer->fetch_assoc();
+
             $this->orderID = $_POST["order_id"];
             $orderID = $this->orderID;
             $sql = "UPDATE costume_order SET order_status = ?, quality_status = ?, quality_status_description = ?, dispatch_date = ?, balance_payment = ? WHERE order_id = '$orderID'";        
@@ -107,6 +115,10 @@
                         $notification_message = "Costume order is ready - ID ".$this->orderID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume order');";
                         $conn->query($sql_notification); 
+
+                        $message = "Costume order is ready. <br> Order ID : ".$this->orderID." <br/> Balance payment : ".$this->balancePayment." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message);  
+                        $sendMail->sendTheEmail(); 
                     }
                     
                     ?><script>
