@@ -100,7 +100,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" value="<?php echo $row["first_name"]; ?>" required />
+                                <input type="text" name="first_name" value="<?php echo $row["first_name"]; ?>" pattern="[A-Za-z ]+" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -108,7 +108,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" value="<?php echo $row["last_name"]; ?>" required />
+                                <input type="text" name="last_name" value="<?php echo $row["last_name"]; ?>" pattern="[A-Za-z ]+" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -157,7 +157,7 @@
                                 Joined date : 
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" required />
+                                <input type="date" name="joined_date" id="joined_date" value="<?php echo $row["joined_date"]; ?>" readonly required />
                                 <input type="text" hidden="true" name="active_status" value="<?php echo $row["active_status"]; ?>" />
                             </div>
                         </div>

@@ -198,7 +198,7 @@
                                 Quotation issuing date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" />
+                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -206,7 +206,14 @@
                                 Quotation Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" required />
+                                <?php
+                                    if(($row["manager_approval"]=="approve")||($row["manager_approval"]=="reject")){
+                                        echo "<input type='date' name='valid_till' id='valid_till' value='".$row["valid_till"]."' readonly required />";
+                                    }else{
+                                        echo "<input type='date' name='valid_till' id='valid_till' value='".$row["valid_till"]."' required />";
+                                    }
+                                ?>
+                                
                             </div>
                         </div>
                         

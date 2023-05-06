@@ -89,7 +89,7 @@
                     </center>
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Customer ID</b>
+                            <b style="width:14%;">Customer ID</b>
                             <b>Customer name</b>
                             <b>City</b>
                             <b>Contact no</b>

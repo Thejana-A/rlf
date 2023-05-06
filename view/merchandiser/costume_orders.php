@@ -57,12 +57,18 @@
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
                             $class = ($search_row["quality_status"]=="good")?"green":(($search_row["quality_status"]=="bad")?"red":"grey");
+                            if($search_row["order_status"] == NULL){
+                                $orderStatus = "Pending";
+                            }else{
+                                $orderStatus = $search_row["order_status"];
+                            }
                             $search_output.= "<div class='item-data-row'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/merchandiser_view' />";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;'>".$search_row["order_status"]."</span><span>".$search_row["order_placed_on"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
-                            $search_output.= "<table align='right' style='margin-right:25px;' class='two-button-table'><tr>";
+                            $search_output.= "<span style='width:6%;'>".$search_row["order_id"]."</span><span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$search_row["order_placed_on"]."</span><span style='width:12%;'>".$search_row["expected_delivery_date"]."</span>";
+                            //$search_output.= "<input type='submit' class='grey' value='View' />";
+                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $search_output.= "</tr></table>"; 
                             $search_output.= "<hr class='manager-long-hr' />";
@@ -81,12 +87,18 @@
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
                             $class = ($row["quality_status"]=="good")?"green":(($row["quality_status"]=="bad")?"red":"grey");
+                            if($row["order_status"] == NULL){
+                                $orderStatus = "Pending";
+                            }else{
+                                $orderStatus = $row["order_status"];
+                            }
                             $output.= "<div class='item-data-row'>";
                             $output.= "<form method='post' action='../RouteHandler.php'>";
-                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/merchandiser_view' />";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
-                            $output.= "<span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;'>".$row["order_status"]."</span><span>".$row["order_placed_on"]."</span><span>".$row["expected_delivery_date"]."</span>";
-                            $output.= "<table align='right' style='margin-right:25px;' class='two-button-table'><tr>";
+                            $output.= "<span style='width:6%;'>".$row["order_id"]."</span><span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span style='width:12%;'>".$row["expected_delivery_date"]."</span>";
+                            //$output.= "<input type='submit' class='grey' value='View' />";
+                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $output.= "</tr></table>"; 
                             $output.= "<hr class='manager-long-hr' />";
@@ -94,7 +106,7 @@
                             $output.= "</div>";
                         }
                     }else {
-                        $output.= "0 results";
+                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
                 }else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
@@ -151,8 +163,14 @@
                 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Customer name</b>
+                            <!--<b>Customer name</b>
                             <b>Order status</b>
+                            <b>Order placed on</b>
+                            <b>EDD</b>
+                            <hr class="manager-long-hr" /> -->
+                            <b style="width:6%;">Order ID</b>
+                            <b>Customer name</b>
+                            <b style="width:15%;">Order status</b>
                             <b>Order placed on</b>
                             <b>EDD</b>
                             <hr class="manager-long-hr" />
