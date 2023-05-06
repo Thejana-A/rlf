@@ -23,8 +23,8 @@
                         $search_output.= "<form method='post' action='../RouteHandler.php'>";
                         $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_view' />";
                         $search_output.= "<input type='text' hidden='true' name='material_id' value='".$search_row["material_id"]."' />";
-                        $search_output.= "<span class='raw_material-ID-column'>".$search_row["material_id"]."</span><span>".$search_row["name"]."</span>";
-                        $search_output.= "<table align='right' style='margin-right:200px;' class='two-button-table'><tr>";
+                        $search_output.= "<span style='width:20%;'>".$search_row["material_id"]."</span><span style='width:25%;'>".$search_row["name"]."</span>";
+                        $search_output.= "<table align='right' style='margin-right:100px;' class='two-button-table'><tr>";
                         $search_output.= "<td><input type='submit' align='right' class='grey' value='View' /></td>";
                         $search_output.= "</tr></table>"; 
                         //echo "<input type='submit' class='grey' value='View' />";
@@ -47,8 +47,8 @@
                                         $output.= "<form method='post' action='../RouteHandler.php'>";
                                         $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_view' />";
                                         $output.= "<input type='text' hidden='true' name='material_id' value='".$row["material_id"]."' />";
-                                        $output.= "<span class='raw_material-ID-column'>".$row["material_id"]."</span><span>".$row["name"]."</span>";
-                                        $output.= "<table align='right' style='margin-right:200px;' class='two-button-table'><tr>";
+                                        $output.= "<span style='width:20%;'>".$row["material_id"]."</span><span style='width:25%;'>".$row["name"]."</span>";
+                                        $output.= "<table align='right' style='margin-right:100px;' class='two-button-table'><tr>";
                                         $output.= "<td><input type='submit' align='right' class='grey' value='View' /></td>";
                                         $output.= "</tr></table>"; 
                                         //echo "<input type='submit' class='grey' value='View' />";
@@ -94,8 +94,8 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>ID</b>
-                            <b>Material name</b>
+                            <b style="width:25%;">ID</b>
+                            <b style="width:25%;">Material name</b>
                             <hr />
                         </div>
                         <div id="content-list">
