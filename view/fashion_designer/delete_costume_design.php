@@ -154,7 +154,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -162,7 +162,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size">
+                                <select name="size" readonly>
                                     <option value="XS" <?php echo ($row["size"] == "XS")?'selected':'' ?>>XS</option>
                                     <option value="S" <?php echo ($row["size"] == "S")?'selected':'' ?>>S</option>
                                     <option value="M" <?php echo ($row["size"] == "M")?'selected':'' ?>>M</option>
@@ -192,7 +192,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description"><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" readonly><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                     
@@ -229,7 +229,7 @@
                     </form>
                 </div>   
 
-                <div id="form-box">
+                <div id="form-box" style="display:flex;">
                     <form method="post" action="">
                         <center>
                             <h2>Material description</h2>
@@ -254,7 +254,7 @@
                         </div>
 
                         <div id="form_body">
-                            <?php echo $presentMaterialList; ?>
+                            <?php echo $presentMaterialList;?>
                         </div>
 
                         
@@ -271,7 +271,7 @@
                                 <b>Final price (LKR) :</b>
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" />
+                                <input type="text" name="final_price" value="<?php echo $row["final_price"]; ?>" readonly />
                             </div>
                         </div>
                         <input type="text" hidden="true" name="material_price_approval" value="<?php echo $row["material_price_approval"]; ?>" readonly>
