@@ -7,17 +7,26 @@
         <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
         <style>
+            .container {
+            position: relative;
+            font-family: Arial;
+            text-align: justify;
+  text-justify: inter-word;
+            }
+
             .text-block {
             position: absolute;
-            bottom: 170px;
-            right: 90px;
+            bottom: 20px;
+            right: 10px;
             background-color: #cccccc;
             color: black;
             padding-left: 20px;
             padding-right: 20px;
-            padding-bottom: 30px;
+            opacity: 0.8;
+            text-align: justify;
+  text-justify: inter-word
             }
-        </style> 
+</style>
     </head>
 
     <body>
@@ -31,11 +40,11 @@
                     <a href="http://localhost/rlf">Welcome </a> >
                      Contact Us
                 </div>
-                
-                <div style ="background-image: url(images/contact_us.jpg); height: 450px; width: 1200px;  background-repeat: no-repeat;">
+                <div class="container">
+                    <img src="images/contact_us.jpg" alt="Nature" style="width:135%; background-repeat: no-repeat;">
                     <div class="text-block">
                         <h2>Contact Us</h2>
-                        <h3>We are engage in T-Shirt production.<br> We have ready made designs and customized designs</h3>
+                        <h3>We are engage in T-Shirt production. We have ready made  designs and customized designs</h3>
                         <h3>Contact : 0777 355 656</h3>
                         <h3>Email : rlfapparel@yahoo.com</h3>
                     

@@ -33,9 +33,11 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_order/supplier_view' />";
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["order_id"]."</span><span style='padding-left:24px;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["expected_delivery_date"]."</span>";
+                            $search_output.= "<span style='width:17%;'>".$search_row["order_id"]."</span><span style='width:28%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:25%;'>".$search_row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
-                            $output.= "<input type='submit' class='grey' name='view' value='View' />";
+                            $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                            $search_output.= "<td><input type='submit' align='right' class='grey' value='View' /></td>";
+                            $search_output.= "</tr></table>"; 
                             $search_output.= "<hr class='manager-long-hr' />";
                             $search_output.= "</form>";
                             $search_output.= "</div>";
@@ -55,9 +57,11 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_order/supplier_view' />";
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
-                            $output.= "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span>";
+                            $output.= "<span style='width:17%;'>".$row["order_id"]."</span><span style='width:28%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:25%;' >".$row["expected_delivery_date"]."</span>";
                             //echo "<input type='submit' class='grey' value='View' />";
-                            $output.= "<input type='submit' class='grey' name='view' value='View' />";
+                            $output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
+                        $output.= "<td><input type='submit' align='right' class='grey' value='View' /></td>";
+                        $output.= "</tr></table>"; 
                             $output.= "<hr class='manager-long-hr' />";
                             $output.= "</form>";
                             $output.= "</div>";
@@ -109,9 +113,9 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Purchase request ID</b>
-                            <b>Merchandiser name</b>
-                            <b>Expected delivery date</b>
+                            <b style="width:17%;">Purchase request ID</b>
+                            <b style="width:25%;">Merchandiser name</b>
+                            <b style="width:25%;">Expected delivery date</b>
                             <hr />
                         </div>
                         <div id="content-list">

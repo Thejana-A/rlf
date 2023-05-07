@@ -75,6 +75,15 @@
                 document.getElementById("balance_payment").value = totalPrice - advancePayment;
             } 
 
+            function validateCostumeOrder(){
+                var order_quality = document.forms["costumeOrderForm"]["quality_status"].value;
+                
+                if(order_quality == "good"){
+                    document.forms["costumeOrderForm"]["order_status"].value = "complete";
+                    return true;
+                }
+            }
+
         </script>
     </head>
 
@@ -93,7 +102,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" action="../RouteHandler.php">
+                    <form method="post" name="costumeOrderForm" onSubmit="return validateCostumeOrder()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_order/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
@@ -221,22 +230,31 @@
                             </div>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>Advance payment (LKR) :</b>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="advance_payment" id="advance_payment" value="<?php echo $row["advance_payment"]; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Advance payment date :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="advance_payment_date" id="advance_payment_date" value="<?php echo $row["advance_payment_date"]; ?>" readonly />
-                            </div>
-                        </div>
+                        <?php
+                            if($row["advance_payment_date"] != NULL){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "<b>Advance payment (LKR) :</b>";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='advance_payment' id='advance_payment' value='".$row["advance_payment"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Advance payment date :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='date' name='advance_payment_date' id='advance_payment_date' value='".$row["advance_payment_date"]."' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                            }else{
+                                echo "<input type='text' hidden='true' name='advance_payment' id='advance_payment' value='".$row["advance_payment"]."' readonly />";
+                                echo "<input type='date' hidden='true' name='advance_payment_date' id='advance_payment_date' value='".$row["advance_payment_date"]."' readonly />";
+                            }
+                        ?>
+
+
                         <div class="form-row">
                             <div class="form-row-theme">
                                 Expected delivery date :
@@ -247,92 +265,110 @@
                         </div>
     
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Order acceptance :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="60%">
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="order_status" hidden="true" value="<?php echo ($row["order_status"] == "confirmed")?'confirmed':($row["order_status"] == "pending"?'pending':'') ?>" />
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "accepted")?'checked':'disabled') ?> value="accepted" /> Accept
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "pending")?'':(($row["order_status"] == "rejected")?'checked':'disabled') ?> value="rejected" /> Reject
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <?php
+                            if($row["advance_payment_date"] == NULL){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Order acceptance :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<table width='60%'>";
+                                echo "<tr>";
+                                echo "<td>";
+                                //echo "<input type='text' name='order_status' hidden='true' value=(".$row["order_status"]." == 'confirmed')?'confirmed':(".$row["order_status"]." == 'pending'?'pending':'') />";
+                                //echo "<input type='radio' name='order_status' class='input-radio' ((".$row["order_status"]." == 'accepted')?'checked':'') value='accepted' /> Accept";
+                                echo "<input type='radio' name='order_status' class='input-radio' ".(($row["order_status"] == 'accepted')?'checked':'')." value='accepted' /> Accept";
+                                echo "</td>";
+                                echo "<td>";
+                                //echo "<input type='radio' name='order_status' class='input-radio' ((".$row["order_status"]." == 'rejected')?'checked':'') value='rejected' /> Reject";
+                                echo "<input type='radio' name='order_status' class='input-radio' ".(($row["order_status"] == 'rejected')?'checked':'')." value='rejected' /> Reject";
+                                echo "</td>";
+                                echo "</tr>";
+                                echo "</table>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        ?>
                         
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Product status :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="60%">
-                                    <tr>
-                                        <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "incomplete"?'checked':'') ?> value="incomplete" /> Incomplete
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="order_status" class="input-radio" <?php echo ($row["order_status"] == "delivered")?'disabled':($row["order_status"] == "complete"?'checked':'') ?> value="complete" /> Complete
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quality (By manager) :
-                            </div>
-                            <div class="form-row-data">
-                                <table width="58%">
-                                    <tr>
-                                        <td>
-                                            <input type="radio" name="quality_status" class="input-radio" value="good" <?php echo ($row["quality_status"]=="good")?'checked':'disabled' ?> /> Good
-                                        </td>
-                                        <td>
-                                            <input type="radio" name="quality_status" class="input-radio" value="bad" <?php echo ($row["quality_status"]=="bad")?'checked':'disabled' ?> /> Bad
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Quality description :
-                            </div>
-                            <div class="form-row-data">
-                                <textarea id="quality_status_description" name="quality_status_description" rows="4" cols="40" readonly><?php echo $row["quality_status_description"]; ?></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                <b>Balance payment (LKR) :</b>
-                            </div>
-                            <div class="form-row-data">
-                                <input type="text" name="balance_payment" id="balance_payment" readonly />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-row-theme">
-                                Dispatched date :
-                            </div>
-                            <div class="form-row-data">
-                                <input type="date" name="dispatch_date" id="dispatch_date" value="<?php echo $row['dispatch_date']; ?>" <?php echo ($row["quality_status"]=="good")?"":"readonly" ?> />
-                            </div>
-                        </div>
+                        <?php
+                            if($row["advance_payment_date"] != NULL){
+                                if($row["dispatch_date"] == NULL){
+                                    echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                    echo "Product status :";
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                    echo "<table width='60%'>";
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo "<input type='radio' name='order_status' class='input-radio' ".($row["order_status"] == 'incomplete'?'checked':'')." value='incomplete' /> Incomplete";
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo "<input type='radio' name='order_status' class='input-radio' ".($row["order_status"] == 'complete'?'checked':'')." value='complete' /> Complete";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                    echo "</table>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Quality (By manager) :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<table width='58%'>";
+                                echo "<tr>";
+                                echo "<td>";
+                                echo "<input type='radio' name='quality_status' class='input-radio' value='good' ".(($row["quality_status"]=='good')?'checked':'disabled')." /> Good";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "<input type='radio' name='quality_status' class='input-radio' value='bad' ".(($row["quality_status"]=='bad')?'checked':'disabled')." /> Bad";
+                                echo "</td>";
+                                echo "</tr>";
+                                echo "</table>";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "Quality description :";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<textarea id='quality_status_description' name='quality_status_description' rows='4' cols='40' readonly>".$row["quality_status_description"]."</textarea>";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-theme'>";
+                                echo "<b>Balance payment (LKR) :</b>";
+                                echo "</div>";
+                                echo "<div class='form-row-data'>";
+                                echo "<input type='text' name='balance_payment' id='balance_payment' readonly />";
+                                echo "</div>";
+                                echo "</div>";
+                                if($row["quality_status"]=='good'){
+                                    echo "<div class='form-row'>";
+                                    echo "<div class='form-row-theme'>";
+                                    echo "Dispatched date :";
+                                    echo "</div>";
+                                    echo "<div class='form-row-data'>";
+                                    echo "<input type='date' name='dispatch_date' id='dispatch_date' value='".$row["dispatch_date"]."' ".(($row["dispatch_date"]==NULL)?'':'readonly')." />";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }     
+                            }
+                        ?>
                         
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
-                            <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
-                            </div>
-                        </div> 
+                        <?php
+                            if($row["dispatch_date"] == NULL){
+                                echo "<div class='form-row'>";
+                                echo "<div class='form-row-submit'>";
+                                echo "<input type='submit' value='Save' />";
+                                echo "</div>";
+                                echo "<div class='form-row-reset'>";
+                                echo "<input type='reset' value='Cancel' />";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        ?>
                     </form>
                 </div>   
             </div> 

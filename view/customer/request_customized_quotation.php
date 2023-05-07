@@ -28,7 +28,7 @@
                                     Proposed Name : 
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="text" name="name" id="name" required pattern="[A-Za-z]+" />
+                                    <input type="text" name="name" id="name" required pattern="[A-Za-z ]+" />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -104,7 +104,7 @@
                             <div class="form-row">
                                 <div class="form-row-submit">
                                     <a href="request_customized_quotation.php">
-                                        <input type="submit" value="Request Design Quotation" />
+                                        <input type="submit" value="Request Customized Design" />
                                     </a>
                                 </div>
                                 <div class="form-row-reset">

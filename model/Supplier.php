@@ -313,6 +313,10 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }else{
+                    $sql_reset_material = "DELETE FROM material_supplier WHERE supplier_id = '$this->supplierID'";
+                    $conn->query($sql_reset_material);
+                    $materialSupplierModel = new MaterialSupplier($_POST, $this->supplierID); 
+                    $materialSupplierModel->insertMaterialSupplied();
                     ?><script>
                     alert("Supplier was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';

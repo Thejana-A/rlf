@@ -9,9 +9,11 @@
             $supplierModel->addSupplier();
             break;
         case "supplier_view":
-            $supplierModel = new Supplier($_POST); 
+            //$supplierModel = new Supplier($_POST); 
             $data = $supplierModel->viewSupplier();
-            $row = http_build_query($data); 
+            //$row = http_build_query($data); 
+            session_start();
+            $_SESSION["row"] = $data;
             if(isset($_POST['view'])){ 
                 //header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data[]=$row");
                 header("location: http://localhost/rlf/view/supplier/edit_self_profile.php?data=true");

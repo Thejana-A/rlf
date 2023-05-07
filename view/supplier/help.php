@@ -36,14 +36,17 @@
     <?php include 'header.php';?>
 
     <div id="page-body">
-    <?php include 'leftnav.php';?>
 
-        <div id="page-content">
-            <div id="breadcrumb">
-                <a href="http://localhost/rlf">Welcome </a> >Help
+    <div id="breadcrumb">
+                <a href="http://localhost/rlf">Welcome </a> 
+                <a href="profile.php"> > Supplier </a> >Help
             </div>
 
-            <div id="form-box" style="width:70%;">
+
+        <div id="page-content" style="display:flex; justify-content: center; ">
+        
+            
+            <div id="form-box" style="width:70%; left-padding:100px; ">
                 <center>
                     <h2>Help</h2>
                 </center>

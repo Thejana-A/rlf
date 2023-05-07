@@ -313,7 +313,7 @@
                             <hr class="manager-long-hr" />
                         </div>
                         <?php 
-                            $sql_costume = "SELECT design_id, name, size, publish_status from costume_design WHERE `name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___'";
+                            $sql_costume = "SELECT design_id, name, size, publish_status, material_price_approval from costume_design WHERE `name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___'";
                             $result_costume_row = $conn->query($sql_costume);
                             if ($result_costume_row->num_rows > 0) {
                                 while ($costume_row = $result_costume_row->fetch_assoc()) {   
@@ -323,8 +323,8 @@
                                     echo "<input type='text' hidden='true' name='design_id' value='".$costume_row["design_id"]."' />";
                                     echo "<span class='manager-ID-column'>".$costume_row["design_id"]."</span><span>".$costume_row["name"]."</span><span style='width:12%;'>".$costume_row["size"]."</span><span>".(($costume_row["publish_status"]=="publish")?"Published":"Not published")."</span>";
                                     echo "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
-                                    echo "<td><input type='submit' class='grey' name='edit' value='Edit' /></td>";
-                                    echo "<td><input type='submit' class='grey' name='delete' value='Delete' /></td>";
+                                    echo "<td><input type='submit' class='".($costume_row["material_price_approval"]=="approve"?"green":($costume_row["material_price_approval"]=="reject"?"red":"grey"))."' name='edit' value='Edit' /></td>";
+                                    echo "<td><input type='submit' class='".($costume_row["material_price_approval"]=="approve"?"green":($costume_row["material_price_approval"]=="reject"?"red":"grey"))."' name='delete' value='Delete' /></td>";
                                     echo "</tr></table>";
                                     echo "<hr class='manager-long-hr' />";
                                     echo "</form>";

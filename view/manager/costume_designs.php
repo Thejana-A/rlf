@@ -63,7 +63,7 @@
                             }
                         }
                     }else{
-                        $search_output.= "No costume designs";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs found";
                     } 
             }else{
                 $search_output = "";
@@ -117,7 +117,7 @@
                             $output.= "</div>";
                         }
                     }else{
-                        $output.= "No costume designs";
+                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
                     }
                 }
                 

@@ -76,8 +76,19 @@
             function validateForm(){
                 var manager_approval = document.forms["costumeQuotationForm"]["manager_approval"].value;
                 var approval_description = document.forms["costumeQuotationForm"]["approval_description"].value;
-    
-                if (manager_approval == "") {
+                var total_quantity = document.forms["costumeQuotationForm"]["total_quantity"].value;
+                if(total_quantity <= 0){
+                    alert("At least one item should be selected");
+                    return false;
+                }else if(total_quantity > 0){   
+                    for(let j = 0;j < costumeCount;j++){
+                        var costume_quantity = document.getElementById("quantity_"+j).value;
+                        if((costume_quantity>0)&&(costume_quantity<5)){
+                            alert("Minimum order quantity is 5");
+                            return false;
+                        }
+                    }
+                }else if (manager_approval == "") {
                     alert("Manager approval is required");
                     return false;
                 }else if ((manager_approval == "reject")&&(approval_description == "")) {
@@ -322,6 +333,7 @@
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
+            mm = mm+2;
             var yyyy = today.getFullYear();
 
             var min_valid_till = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);

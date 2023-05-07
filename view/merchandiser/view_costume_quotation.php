@@ -72,6 +72,24 @@
                 document.getElementById("total_price").value = totalPrice;
                 document.getElementById("total_quantity").value = totalQuantity;
             } 
+
+            function validateForm(){
+                var total_quantity = document.forms["costumeQuotationForm"]["total_quantity"].value;
+                if(total_quantity <= 0){
+                    alert("At least one item should be selected");
+                    return false;
+                }else if(total_quantity > 0){   
+                    for(let j = 0;j < costumeCount;j++){
+                        var costume_quantity = document.getElementById("quantity_"+j).value;
+                        if((costume_quantity>0)&&(costume_quantity<5)){
+                            alert("Minimum order quantity is 5");
+                            return false;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+            }
         </script>
     </head>
 
@@ -90,7 +108,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
+                    <form method="post" name="costumeQuotationForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                         <input type="text" hidden="true" name="framework_controller" value="costume_quotation/merchandiser_update" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/merchandiser/home.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -198,7 +216,7 @@
                                 Quotation issuing date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" />
+                                <input type="date" name="issue_date" id="issue_date" value="<?php echo $row["issue_date"]; ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -206,7 +224,14 @@
                                 Quotation Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" required />
+                                <?php
+                                    if(($row["manager_approval"]=="approve")||($row["manager_approval"]=="reject")){
+                                        echo "<input type='date' name='valid_till' id='valid_till' value='".$row["valid_till"]."' readonly required />";
+                                    }else{
+                                        echo "<input type='date' name='valid_till' id='valid_till' value='".$row["valid_till"]."' required />";
+                                    }
+                                ?>
+                                
                             </div>
                         </div>
                         
@@ -281,6 +306,7 @@
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth() + 1; 
+            mm = mm+2;
             var yyyy = today.getFullYear();
 
             var min_valid_till = yyyy + '-' + addLeadingZeros(mm,2) + '-' + addLeadingZeros(dd,2);

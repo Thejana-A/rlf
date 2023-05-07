@@ -104,6 +104,21 @@
     Disable();
    }
 
+   function validateForm(){
+                var supplier_approval = document.forms["MaterialQuotationForm"]["supplier_approval"].value;
+                var approval_description = document.forms["MaterialQuotationForm"]["approval_description"].value;
+                
+                if ((supplier_approval=="")&&(approval_description!="")) {
+                    alert("Suppliers's approval is required");
+                    return false;
+                }else if ((supplier_approval=="reject")&&(approval_description=="")) {
+                    alert("Reason for rejection is required");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
     </script>
 
 </head>
@@ -123,7 +138,7 @@
             </div>
 
             <div id="form-box">
-                <form method="post" name="MaterialQuotationForm" action="../RouteHandler.php">
+                <form method="post" name="MaterialQuotationForm"  onSubmit="return validateForm()" action="../RouteHandler.php">
                     <input type="text" hidden="true" name="framework_controller"
                         value="raw_material_quotation/update" />
                     <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -310,7 +325,7 @@
                                     Acceptance description :
                                 </div>
                                 <div class="form-row-data">
-                                    <textarea name="approval_description" rows="4" cols="40"></textarea>
+                                    <textarea name="approval_description"  name="approval_description" rows="4" cols="40"><?php echo $row["approval_description"]; ?></textarea>
                                 </div>
                             </div>
 

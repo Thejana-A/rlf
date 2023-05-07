@@ -269,7 +269,7 @@
             break;
     }
             
-
+    calendar += "<tr><td colspan='7'><center><b style='color:#f12020;background-color:#f12020;'>oo</b> Costume <b style='color:#00ff00;background-color:#00ff00;'>oo</b> Material <b style='color:#ffff00;background-color:#ffff00;'>oo</b> Both </center></td></tr>";
     calendar += "</table>";
     document.write(calendar);
     //alert(costume_order_dates);

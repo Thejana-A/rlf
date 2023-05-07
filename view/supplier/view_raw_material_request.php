@@ -22,18 +22,20 @@
             $supplierID = $_SESSION["supplier_id"];
             $result_view_material = mysqli_query($conn, $sql_view_material);
                 $row = mysqli_fetch_array($result_view_material);
-        }
+            }
    ?>  
    
    <script>
             function confirmDeletion(){
-                var confirmation = confirm("Are you sure you want to delete ?");
-                if (confirmation==true) {
+                var confirmation = confirm("Are you sure ?");
+                if (confirmation == true) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
+                
             }
+ 
         </script>
 
 
@@ -53,7 +55,7 @@
                 </div>
 
                 <div id="form-box">
-                    <form method="post" onSubmit="return confirmDeletion()" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <form method="post"  name="rawMaterialForm" onSubmit="return confirmDeletion()" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_operation" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -189,9 +191,9 @@
                             <div class="form-row-reset">
                                 <?php 
                                     if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
-                                        echo "<input type='submit' name='delete' value='Delete'  disabled />";
+                                        echo "<input type='submit' name='delete' value='Delete' disabled />";
                                     }else{
-                                        echo "<input type='submit' value='Delete' name='delete' />";
+                                        echo "<input type='submit' name='delete' id='delete' value='Delete' />";
                                     }
                                 ?>
                             </div>
