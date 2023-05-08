@@ -10,10 +10,8 @@
             break;
         case "manager_view":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            //$row = http_build_query($data); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data[]=$row");
             header("location: http://localhost/rlf/view/manager/edit_costume_quotation.php?data=true");
             break;
         case "merchandiser_view":
@@ -26,13 +24,11 @@
             break;
         case "manager_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();
-            //$row = http_build_query($data); 
             session_start();
             $_SESSION["row"] = $data;
             if(isset($_POST['update_costume_quotation'])){ 
                 $costumeQuotationModel->updateCostumeQuotation();
             }else if(isset($_POST['add_costume_order'])){
-                //header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data[]=$row");
                 header("location: http://localhost/rlf/view/manager/add_costume_order_onsite.php?data=true");
             }
             break;
@@ -48,11 +44,12 @@
                 
             }else if(isset($_POST['delete'])){
                 $costumeQuotationModel->deleteCostumeQuotation();
-            }
-            break;
+            }  
             //print_r($_POST);
-            
             break;
+            
+            
+            
 
         case "merchandiser_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();

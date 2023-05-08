@@ -271,11 +271,25 @@
                     echo "<center>";
                     echo "Advance Payment = (Total Payment)*40%";
                     echo "<input type='submit' value='Advance Payment' style='width: 50%;' class='Quotationbtn'>";
-                   
                     echo "</center>";
+                    
                 }else if($order_status == "rejected"){
                     echo "<label for='reason'>Reason :</label>";
                     echo "<input type='text' name='reason' placeholder='Deadline can not be achieved' style='width: 100%;' disabled >";
+                    echo "</form>";
+                    echo "<form method='post' name='costumeOrderForm' action='../RouteHandler.php'>";
+                    echo "<input type='text' hidden='true' name='framework_controller' value='costume_order/update' />";
+                    echo "<input type='text' hidden='true' name='home_url' value='customer/customer_home.php' />"; 
+                    echo "<input type='text' hidden='true' name='order_placed_on' value='".date("Y-m-d")."' />";
+                    echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
+                    echo "<label for='fname'>Order Deadline :</label>";
+                    echo "<input type='date' name='expected_delivery_date' id='expected_delivery_date' style='width: 100%;' value=".$order_deadline." required>";
+                    echo "<br />";
+                    echo "<br />";
+                    echo "<center>";
+                    echo "<input type='submit' value='Place Order' class='Quotationbtn' style='width: 50%;' onclick=\"return confirm('Are you sure this Deadline is OK ?')\">";
+                    echo "</center>";
+                    echo "</form>";
                 }else if($order_status == "delivered"){
                     echo "<center>";
                     echo "<input type='text' name='compete' style='width: 80%;' disabled placeholder='You Order is Completed' >";

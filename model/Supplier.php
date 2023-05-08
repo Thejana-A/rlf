@@ -90,7 +90,7 @@
                         $publicSupplierID = $this->supplierID;
                         if($this->supplierID == 0){
                             ?><script>
-                            alert("Sorry ! That email already exists.");
+                            alert("Sorry ! That email or NIC already exists.");
                             window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php  
                         }else{
@@ -200,9 +200,6 @@
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
                 if($affectedRows == -1){
-                    /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
-                    echo "Sorry ! An error occured.";
-                    echo "</div></center>"; */
                     ?><script>
                     alert("Sorry ! An error occured.");
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
@@ -216,19 +213,7 @@
                     alert("Supplier was updated successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';
                     </script><?php
-                    /*echo "<center><div style='background-color:#ffcc99;border-radius:6px;padding:15px;margin:30px;clear:inherit;font-family:sans-serif;'>";
-                    echo "Supplier was updated successfully";
-                    echo "<table>";
-                    echo "<tr><td>Supplier ID </td><td>: $this->supplierID</td></tr>";
-                    echo "<tr><td>First name </td><td>: $this->firstName</td></tr>";
-                    echo "<tr><td>Last name </td><td>: $this->lastName</td></tr>"; 
-                    echo "<tr><td>NIC </td><td>: $this->NIC</td></tr>"; 
-                    echo "<tr><td>Email </td><td>: $this->email</td></tr>"; 
-                    echo "<tr><td>Contact number </td><td>: $this->contactNo</td></tr>"; 
-                    echo "<tr><td>City </td><td>: $this->city</td></tr>";
-                    echo "<tr><td>Verify status </td><td>: $this->verifyStatus</td></tr>";
-                    echo "</table>";
-                    echo "</div></center>"; */
+                    
                 }
             } else {
                 echo "Error: <br>" . mysqli_error($conn);

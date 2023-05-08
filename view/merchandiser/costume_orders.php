@@ -64,7 +64,7 @@
                             }
                             $search_output.= "<div class='item-data-row'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
-                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                            $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/merchandiser_view' />";
                             $search_output.= "<input type='text' hidden='true' name='order_id' value='".$search_row["order_id"]."' />";
                             $search_output.= "<span style='width:6%;'>".$search_row["order_id"]."</span><span class='manager-ID-column'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$search_row["order_placed_on"]."</span><span style='width:12%;'>".$search_row["expected_delivery_date"]."</span>";
                             //$search_output.= "<input type='submit' class='grey' value='View' />";
@@ -94,7 +94,7 @@
                             }
                             $output.= "<div class='item-data-row'>";
                             $output.= "<form method='post' action='../RouteHandler.php'>";
-                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/manager_view' />";
+                            $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_order/merchandiser_view' />";
                             $output.= "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
                             $output.= "<span style='width:6%;'>".$row["order_id"]."</span><span class='manager-ID-column'>".$row["first_name"]." ".$row["last_name"]."</span><span style='padding-left:24px;width:15%;'>".$orderStatus."</span><span>".$row["order_placed_on"]."</span><span style='width:12%;'>".$row["expected_delivery_date"]."</span>";
                             //$output.= "<input type='submit' class='grey' value='View' />";

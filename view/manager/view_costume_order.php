@@ -392,9 +392,8 @@
                                 echo "<input type='reset' value='Cancel' />";
                                 echo "</div>";
                                 echo "</div>";
-                            }
+                            } 
                         ?>
-                        
                     </form>
                 </div>   
             </div> 

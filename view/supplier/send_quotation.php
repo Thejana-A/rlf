@@ -49,7 +49,7 @@
                     }
                     
                 }else {
-                    echo "0 results";
+                    $output.= "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
@@ -134,16 +134,15 @@
             <div id="breadcrumb">
                 <a href="http://localhost/rlf">Welcome </a> >
                 <a href="../customer/customer_login.php">Login </a> >
-                <a href="profile.php">Supplier </a> >Quotation requests
+                <a href="profile.php">Supplier </a> >
+                <a href="all_quotation_requests.php">Quotation requests </a> > View
             </div>
 
             <div id="form-box">
                 <form method="post" name="MaterialQuotationForm"  onSubmit="return validateForm()" action="../RouteHandler.php">
-                    <input type="text" hidden="true" name="framework_controller"
-                        value="raw_material_quotation/update" />
+                    <input type="text" hidden="true" name="framework_controller" value="raw_material_quotation/update" />
                     <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                    <input type="text" hidden="true" name="home_url"
-                        value="http://localhost/rlf/view/supplier/profile.php" />
+                    <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
                     <center>
                         <h2>Send quotation</h2>
                     </center>

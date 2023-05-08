@@ -26,39 +26,10 @@
             $conn->close(); 
         }
 
-        /*public function view(){
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $this->materialID = $_GET["material_id"];
-            $sql = "SELECT * FROM design_material where material_id='$this->materialID' AND design_id='$this->designID'";
-            $path = mysqli_query($conn, $sql);
-            $result = $path->fetch_array(MYSQLI_ASSOC);
-            if($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
-                    $row = mysqli_fetch_array($result);
-                }else {
-                    echo "0 results";
-                }
-            }else{
-                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-            }
-            mysqli_close($conn);
-        } */
-
-        /*public function delete(){
-
-        } */
-
+        
         public function insertMaterialSupplied() {
             $this->add();
         }
-
-        /*public function viewMaterialSupplied() {
-            $this->view();
-        } */
-        /*public function deleteMaterialSupplied() {
-            $this->delete();
-        } */
     
         
     }

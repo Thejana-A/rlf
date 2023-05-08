@@ -74,9 +74,9 @@
             <?php include 'leftnav.php';?>
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> > Edit self profile
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="profile.php">Supplier </a> > Edit self profile
                 </div> 
 
                 <div id="form-box-small">
@@ -120,7 +120,7 @@
                                 First name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="first_name" id="first_name" value ="<?php echo $row["first_name"];?>" />
+                                <input type="text" name="first_name" id="first_name" value ="<?php echo $row["first_name"];?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -128,7 +128,7 @@
                                 Last name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="last_name" id="last_name" value ="<?php echo $row["last_name"];?>" />
+                                <input type="text" name="last_name" id="last_name" value ="<?php echo $row["last_name"];?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -153,7 +153,7 @@
                                 Contact no : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" id="contact_no" value ="<?php echo $row["contact_no"];?>" />
+                                <input type="text" name="contact_no" id="contact_no" value ="<?php echo $row["contact_no"];?>" required />
                             </div>
                         </div>
 
@@ -162,8 +162,8 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" value ="<?php echo $row["city"];?>"/>
-                                <input type="text" hidden="true" name="verify_status" id="verify_status" value ="<?php echo $row["verify_status"];?>"/>
+                                <input type="text" name="city" id="city" value ="<?php echo $row["city"];?>" required/>
+                                <input type="text" hidden="true" name="verify_status" id="verify_status" value ="<?php echo $row["verify_status"];?>" />
                             </div>
                         </div>
 

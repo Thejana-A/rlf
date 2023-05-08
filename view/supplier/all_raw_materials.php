@@ -1,13 +1,14 @@
 <?php require_once 'redirect.php' ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>All raw materials</title>
-        <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
-        <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
-        
-        <?php 
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All raw materials</title>
+    <link rel="stylesheet" type="text/css" href="../supplier/css/data_form_style.css" />
+    <link rel="stylesheet" type="text/css" href="../supplier/css/view_list_style.css" />
+
+    <?php 
             require_once('../../model/DBConnection.php');
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -64,48 +65,48 @@
                             }
                         }
                         ?>
-    
-    </head>
 
-    <body>
-        <?php include 'header.php';?>
+</head>
 
-        <div id="page-body">
-            <?php include 'leftnav.php';?>
+<body>
+    <?php include 'header.php';?>
 
-            <div id="page-content">
-                <div id="breadcrumb">
-                    <a href="http://localhost/rlf">Welcome </a> >
-                    <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> > All raw materials                    
-                </div>
-                
-                <div id="list-box">
-                    <center>
-                        <h2>All Raw Materials</h2>
-                    </center>
+    <div id="page-body">
+        <?php include 'leftnav.php';?>
 
-                    <form method="post" action="all_raw_materials.php" class="search-panel">
-                        
-                        <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
-                        <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" name="search" /><br />
-                    
-                    </form>
+        <div id="page-content">
+            <div id="breadcrumb">
+                <a href="http://localhost/rlf">Welcome </a> >
+                <a href="../customer/customer_login.php">Login </a> >
+                <a href="profile.php">Supplier </a> > All raw materials
+            </div>
 
-                    <div class="item-list">
-                        <div class="item-heading-row">
-                            <b style="width:25%;">ID</b>
-                            <b style="width:25%;">Material name</b>
-                            <hr />
-                        </div>
-                        <div id="content-list">
-                            <?php 
+            <div id="list-box">
+                <center>
+                    <h2>All Raw Materials</h2>
+                </center>
+
+                <form method="post" action="all_raw_materials.php" class="search-panel">
+
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
+                    <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" name="search" /><br />
+
+                </form>
+
+                <div class="item-list">
+                    <div class="item-heading-row">
+                        <b style="width:25%;">ID</b>
+                        <b style="width:25%;">Material name</b>
+                        <hr />
+                    </div>
+                    <div id="content-list">
+                        <?php 
                                 echo $search_output;
                                 echo $output;
                                 mysqli_close($conn);
                             ?>
-                        </div>
-                        <!--<div class="item-data-row">
+                    </div>
+                    <!--<div class="item-data-row">
                             <span>0001</span>
                             <span>Blue anchor button </span> 
                             <span></span>
@@ -153,16 +154,17 @@
                             <a href="view_raw_materials.php" class="grey">View</a>
                             <hr />
                         </div>-->
-                    </div>
-
-
                 </div>
-                         
-            </div> 
-        
-        </div>
-    </div>     
-        <?php include 'footer.php';?>
 
-    </body> 
+
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    <?php include 'footer.php';?>
+
+</body>
+
 </html>

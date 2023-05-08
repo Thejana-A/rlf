@@ -16,6 +16,15 @@ table td{
 .today_cell{
     background-color:#FFA500;
 }
+.quotation_request_cell{
+    background-color:#f12020;
+}
+.material_order_cell{
+    background-color:#00ff00;
+}
+.both_order_cell{
+    background-color:#ffff00;
+}
 .nameOfDay td{
     background-color:#ffcc99;
 }

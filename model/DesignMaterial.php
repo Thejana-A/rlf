@@ -30,13 +30,8 @@
                             var message = "Sorry ! That material already exists. - ".concat(materialID);
                             alert(message);
                             </script><?php  
-                            //echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
+            
                         }else{
-                            /*echo "<br><table>";
-                            echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
-                            echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$materialCount]."</td></tr>";
-                            echo "<tr><td>Quantity </td><td>:". $this->quantity[$materialCount]."</td></tr>"; 
-                            echo "</table>";*/
                         }             
                     } else {
                         echo "Error: <br>" . mysqli_error($conn);
@@ -79,13 +74,8 @@
                             var message = "Sorry ! That material already exists. - ".concat(materialID);
                             alert(message);
                             </script><?php  
-                            //echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That material already exists.<br>";
                         }else{
-                            /*echo "<br><table>";
-                            echo "<tr><td>Raw material ID </td><td>:". $this->materialID[$materialCount]."</td></tr>";
-                            echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$materialCount]."</td></tr>";
-                            echo "<tr><td>Quantity </td><td>:". $this->quantity[$materialCount]."</td></tr>"; 
-                            echo "</table>";*/
+                            
                         }             
                     } else {
                         echo "Error: <br>" . mysqli_error($conn);
@@ -117,9 +107,6 @@
             mysqli_close($conn);
         }
 
-        /*public function delete(){
-
-        } */
 
         public function insertMaterialQuantity() {
             $this->add();
@@ -134,9 +121,6 @@
             return $row;
         }
         
-        /*public function deleteMaterialQuantity() {
-            $this->delete();
-        } */
     
         
     }

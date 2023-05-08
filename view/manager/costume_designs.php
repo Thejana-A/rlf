@@ -63,7 +63,7 @@
                             }
                         }
                     }else{
-                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs found";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     } 
             }else{
                 $search_output = "";
@@ -117,7 +117,7 @@
                             $output.= "</div>";
                         }
                     }else{
-                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
+                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
                 }
                 
@@ -137,10 +137,10 @@
                     <a href="../customer/customer_login.php">Login </a> >
                     <a href="home.php">Manager</a> > View costume designs
                 </div>
-                <div class="link-row-small">
+                <div class="link-row">
                     <a href="./add_costume_design.php" class="right-button">Add new design</a>
                 </div>
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Costume designs</h2>
                     </center>
