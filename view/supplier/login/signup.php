@@ -22,26 +22,19 @@
                 }else if (/^[a-zA-Z\s]+$/.test(last_name) == false) {
                     alert("Last name must have only letters and spaces");
                     return false;
-                }else if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==false){
-                    alert("You have entered an invalid email address!");
-                    return false;
                 }else if ((NIC.length != 10)&&(NIC.length != 12)) {
                     alert("NIC is invalid");
                     return false;
                 }else if ((NIC.length == 10)&&(/^[0-9]+$/.test(NIC.slice(0,9)) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (NIC.length == 10) {
-                    if((NIC.charAt(9)=='x')||(NIC.charAt(9)=='X')||(NIC.charAt(9)=='v')||(NIC.charAt(9)=='V')){
-                        var validity = 1;    
-                    }else{
-                        alert("NIC is invalid");
-                        return false;
-                    }
+                }else if ((NIC.length == 10)&&((NIC.charAt(9)!='x')&&(NIC.charAt(9)!='X')&&(NIC.charAt(9)!='v')&&(NIC.charAt(9)!='V'))) {
+                    alert("NIC is invalid");
+                    return false;
                 }else if ((NIC.length == 12)&&(/^[0-9]+$/.test(NIC) == false)) {
                     alert("NIC is invalid");
                     return false;
-                }else if (password.length <8) {
+                }else if (password.length < 8) {
                     alert("Password must have at least 8 characters");
                     return false;
                 }else if (password != confirm_password) {

@@ -49,7 +49,7 @@
                     }
                     
                 }else {
-                    echo "0 results";
+                    $output.= "0 results";
                 }
             }else{
                 echo "ERROR: Could not able to execute $sql_all_material. " . mysqli_error($conn);
