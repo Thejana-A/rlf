@@ -77,7 +77,7 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> > All tender requests
+                    <a href="profile.php">Supplier </a> > All raw material requests
                 </div>
                 
                 <div id="list-box">
@@ -85,8 +85,7 @@
                         <h2>All Tender Requests</h2>
                     </center>
 
-                    <form method="post" action="all_raw_material_request.php" class="search-panel">
-                        
+                        <form method="post" action="all_raw_material_request.php" class="search-panel">
                         <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
                         <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" name="search" /><br />
                         

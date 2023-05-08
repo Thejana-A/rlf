@@ -74,9 +74,9 @@
             <?php include 'leftnav.php';?>
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> > Edit self profile
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="profile.php">Supplier </a> > Edit self profile
                 </div> 
 
                 <div id="form-box-small">

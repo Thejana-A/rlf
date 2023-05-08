@@ -38,7 +38,8 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> >View raw materials 
+                    <a href="profile.php">Supplier </a> >
+                    <a href="all_raw_materials.php">All raw materials </a> > View 
                 </div>
 
                 <div id="form-box-small">

@@ -49,16 +49,17 @@
             require_once('../../model/DBConnection.php');?>
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="index.php">Welcome </a> >
-                    <a href="login.php">Login </a> >
-                    <a href="home.php">Supplier </a> >View raw material requests 
+                    <a href="http://localhost/rlf">Welcome </a> >
+                    <a href="../customer/customer_login.php">Login </a> >
+                    <a href="profile.php">Supplier </a> >
+                    <a href="all_raw_material_request.php">All raw material requests </a> > View 
                 </div>
 
                 <div id="form-box">
                     <form method="post"  name="rawMaterialForm" onSubmit="return confirmDeletion()" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/supplier_operation" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
-                        <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+                    <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <center>
                             <h2>View Raw material request</h2>
                         </center>
