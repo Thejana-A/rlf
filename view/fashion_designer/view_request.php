@@ -12,7 +12,7 @@
             $conn = $connObj->getConnection();
             if(isset($_POST["search"])){
                 $searchbar = $_POST["searchbar"];
-                $search_sql = "SELECT material_id, name, measuring_unit, quantity_in_stock FROM raw_material WHERE material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%' OR quantity_in_stock LIKE '%$searchbar%'";
+                $search_sql = "SELECT material_id, name, measuring_unit FROM raw_material WHERE fashion_designer_id = ".$_SESSION["employee_id"]." AND (material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%')";
                 $serach_output = "";
                 $output = "";
                 if($search_result = mysqli_query($conn, $search_sql)){
@@ -22,7 +22,7 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material/fashion_designer_request_view' />";
                             $search_output.= "<input type='text' hidden='true' name='material_id' value='".$search_row["material_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["material_id"]."</span><span>".$search_row["name"]."</span><span style='padding-left:24px;'>".$row["measuring_unit"]."</span>";
+                            $search_output.= "<span class='manager-ID-column'>".$search_row["material_id"]."</span><span>".$search_row["name"]."</span><span style='padding-left:24px;'>".$search_row["measuring_unit"]."</span>";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $search_output.= "</tr></table>"; 
@@ -33,9 +33,9 @@
                 }else {
                     $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
-                }
+                } 
             }else{
-                    $sql = "SELECT material_id, name, measuring_unit, quantity_in_stock FROM raw_material WHERE fashion_designer_id = ".$_SESSION["employee_id"].";";
+                    $sql = "SELECT material_id, name, measuring_unit FROM raw_material WHERE fashion_designer_id = ".$_SESSION["employee_id"].";";
                     $serach_output = "";
                     $output = "";
                     if($result = mysqli_query($conn, $sql)){
@@ -84,7 +84,7 @@
                     <center>
                         <form method="post" action="view_request.php" class="search-panel">    
                             <input type="text" name="searchbar" id="searchbar" placeholder="Search" class="text-field" />
-                            <input type="submit" value="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
+                            <input type="submit" value="search" name="search" style="padding:3px;padding-left:10px;padding-right:10px;" /><br />
                         </form>
                     </center>
                     <div class="item-list">
