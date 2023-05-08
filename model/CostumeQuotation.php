@@ -101,8 +101,11 @@
             $conn = $connObj->getConnection();
             
             $sql_select_customer = "SELECT first_name, last_name, email FROM rlf.customer WHERE customer_id = ".$_POST["customer_id"];
-            $result_select_customer = $conn->query($sql_select_customer);
-            $row_select_customer = $result_select_customer->fetch_assoc(); 
+            if($result_select_customer = mysqli_query($conn, $sql_select_customer)){
+                if(mysqli_num_rows($result_select_customer) > 0){
+                    $row_select_customer = mysqli_fetch_array($result_select_customer);
+                }
+            }
             
 
             $this->quotationID = $_POST["quotation_id"];  
@@ -140,7 +143,7 @@
                         $conn->query($sql_notification); 
 
                         $message = "Costume quotation was received. <br> Quotation ID : ".$this->quotationID." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
-                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message); 
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], "dianidickovita2000@gmail.com", $message); 
                         $sendMail->sendTheEmail();   
                     }
                     /*manager notification when merchandiser updates a quotation requested by customer*/
@@ -163,6 +166,7 @@
             } 
             $stmt->close(); 
             $conn->close(); 
+            
         }
         
         public function viewCostumeQuotation(){

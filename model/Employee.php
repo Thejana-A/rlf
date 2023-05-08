@@ -238,7 +238,7 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }
-            }else if($this->password==$row_customer["password"]){
+            }else if(md5($this->password)==$row_customer["password"]){
                 if($row_customer["email_verification"]==1){
                     session_start();
                     $_SESSION["customer_id"] = $row_customer["customer_id"]; 

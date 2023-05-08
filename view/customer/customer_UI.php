@@ -24,7 +24,7 @@ if (isset($_POST['update'])) {
   $result = $conn->query($sql); 
 
   if ($result == TRUE) {
-
+    
       echo "Record updated successfully.";
 
   }else{
@@ -244,7 +244,7 @@ if(($_SESSION["customer_id"]=="")){
 
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="" method="post">
+  <form class="modal-content animate" action="" method="post" name="customerForm" onSubmit="return validateForm()" >
   
     <div class="imgcontainer" style="background-color:#bbbbbb">
       <span onclick="closeForm()" class="close" title="Close Modal">&times;</span>
@@ -266,12 +266,13 @@ if(($_SESSION["customer_id"]=="")){
       <input type="text" placeholder="071 1234567" name="contact_no" value="<?php echo  $contact_no?> ">
       <label for="city"><b>City</b></label>
       <input type="text" placeholder="Enter your City" name="city" value="<?php echo  $city?> ">
-
+      
         
     </div>
 
     <div class="container" style="background-color:#bbbbbb; text-align: center;">
-      <button type="submit" onclick="" class="updatebtn" name="update">Update</button>
+      <button type="submit" class="updatebtn" name="update">Update</button>
+
     </div>
   </form>
 </div>
@@ -285,7 +286,6 @@ function closeForm() {
   document.getElementById("id01").style.display = "none";
 }
 </script>
-
 </body>
 </html>
 

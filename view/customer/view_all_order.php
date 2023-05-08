@@ -16,29 +16,42 @@
         $endDate = mysqli_real_escape_string($conn, $_GET['end_date']);
     }
     if (!empty($startDate) && !empty($endDate)) {
-        $sql = "SELECT * FROM costume_order 
-                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
-                AND costume_quotation.customer_id='$customerID' 
-                WHERE (costume_order.order_placed_on >= '$startDate' AND costume_order.order_placed_on <= '$endDate')
-                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
-    } elseif(empty($startDate) && !empty($endDate)){
-        $sql = "SELECT * FROM costume_order 
-                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
-                AND costume_quotation.customer_id='$customerID' 
-                WHERE (costume_order.order_placed_on <= '$endDate')
-                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
-    } elseif(!empty($startDate) && empty($endDate)){
-        $sql = "SELECT * FROM costume_order 
-                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
-                AND costume_quotation.customer_id='$customerID' 
-                WHERE (costume_order.order_placed_on >= '$startDate')
-                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%')";
-    } else {
-        $sql = "SELECT * FROM costume_order 
-                INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id 
+        $sql = "SELECT costume_order.order_id, name, order_placed_on, order_status,costume_order.quotation_id FROM costume_order, costume_design, design_quotation, costume_quotation
+                WHERE costume_order.quotation_id = costume_quotation.quotation_id
+                AND costume_order.quotation_id = design_quotation.quotation_id
+                AND design_quotation.design_id = costume_design.design_id
                 AND costume_quotation.customer_id='$customerID'
-                WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
+                AND (costume_order.order_placed_on >= '$startDate' AND costume_order.order_placed_on <= '$endDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%' OR name LIKE '%$searchTerm%')
+                GROUP BY order_id";
+    } elseif(empty($startDate) && !empty($endDate)){
+        $sql = "SELECT costume_order.order_id, name, order_placed_on, order_status, costume_order.quotation_id FROM costume_order, costume_design, design_quotation, costume_quotation
+                WHERE costume_order.quotation_id = costume_quotation.quotation_id
+                AND costume_order.quotation_id = design_quotation.quotation_id
+                AND design_quotation.design_id = costume_design.design_id
+                AND costume_quotation.customer_id='$customerID' 
+                AND (costume_order.order_placed_on <= '$endDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%' OR name LIKE '%$searchTerm%')
+                GROUP BY order_id";
+    } elseif(!empty($startDate) && empty($endDate)){
+        $sql = "SELECT costume_order.order_id, name, order_placed_on, order_status, costume_order.quotation_id FROM costume_order, costume_design, design_quotation, costume_quotation
+                WHERE costume_order.quotation_id = costume_quotation.quotation_id
+                AND costume_order.quotation_id = design_quotation.quotation_id
+                AND design_quotation.design_id = costume_design.design_id
+                AND costume_quotation.customer_id='$customerID'
+                WHERE (costume_order.order_placed_on >= '$startDate')
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%' OR name LIKE '%$searchTerm%')
+                GROUP BY order_id";
+    } else {
+        $sql = "SELECT costume_order.order_id, name, order_placed_on, order_status, costume_order.quotation_id FROM costume_order, costume_design, design_quotation, costume_quotation
+                WHERE costume_order.quotation_id = costume_quotation.quotation_id
+                AND costume_order.quotation_id = design_quotation.quotation_id
+                AND design_quotation.design_id = costume_design.design_id
+                AND costume_quotation.customer_id='$customerID'
+                AND (costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%' OR name LIKE '%$searchTerm%')
+                GROUP BY order_id";
     }
+
     /*if (isset($_GET['search'])) {
         $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
         $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID' WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
@@ -104,7 +117,15 @@
                             <?php $class = ($row["order_status"]=="rejected")?"red":(($row["order_status"]== NULL)?"grey":"green");
                              ?>
                             <span style="width:15%;"><?php echo $row['order_id']; ?></span>
-                            <span style="width:15%;"><?php echo $row['order_id']; ?></span>
+                            <?php
+                                $costumeName = explode("-",$row['name']);
+
+                            ?>
+                            <span style="width:15%;"><?php
+                            for( $i = 0 ; $i<count($costumeName)-1 ; $i++){
+                                echo $costumeName[$i]." "; 
+                            }
+                            ?></span>
                             <span style="width:15%;"><?php echo $row['order_placed_on']; ?></span>
                             <span style="width:15%;"><?php if($row["order_status"]==NULL){
                                 echo "pending";

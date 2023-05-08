@@ -52,7 +52,7 @@
             break;
             //print_r($_POST);
             
-            break;
+     
 
         case "merchandiser_update":
             $data = $costumeQuotationModel->viewCostumeQuotation();

@@ -57,7 +57,7 @@
                 $sendMail->sendTheEmail(); 
                 $sql = "INSERT INTO customer (first_name, last_name, NIC , email, password , contact_no, city,email_otp) SELECT ?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT customer_id FROM customer WHERE email = '$this->email')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "ssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, ($this->password), $this->contactNo, $this->city,md5($OTP));
+                    mysqli_stmt_bind_param($stmt, "ssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->city, md5($OTP));
                     mysqli_stmt_execute($stmt);
                     $this->customerID = $conn->insert_id;
                     if($this->customerID == 0){
@@ -226,7 +226,7 @@
             $sql = "SELECT * from customer where email='$this->email';";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            if(($this->password)==$row["password"]){
+            if(md5($this->password)==$row["password"]){
                 if($row["email_verification"]==1){
                     session_start();
                     $_SESSION["customer_id"] = $row["customer_id"]; 
@@ -256,6 +256,7 @@
             
             $conn->close();
         }
+        
         public function verifyEmail() {
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -303,7 +304,7 @@
             $sql = "SELECT * from customer where customer_id = '$this->customerID';";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            if(($this->password) == $row["password"]){
+            if(md5($this->password) == $row["password"]){
                 $sql_reset_password = "UPDATE customer SET password=? WHERE customer_id='$this->customerID'";        
                 if ($stmt = mysqli_prepare($conn, $sql_reset_password)) {
                     mysqli_stmt_bind_param($stmt, "s", ($_POST["new_password"]));
@@ -339,7 +340,7 @@
                 $sql_update = "UPDATE employee SET password = ? WHERE email = '$this->email'";        
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     $validValue = 1;
-                    mysqli_stmt_bind_param($stmt, "s", ($this->password));
+                    mysqli_stmt_bind_param($stmt, "s", md5($this->password));
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){
