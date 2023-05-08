@@ -39,7 +39,6 @@
                 AND costume_quotation.customer_id='$customerID'
                 WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
     }
-
     /*if (isset($_GET['search'])) {
         $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
         $sql = "SELECT * FROM costume_order INNER JOIN costume_quotation ON costume_quotation.quotation_id=costume_order.quotation_id AND costume_quotation.customer_id='$customerID' WHERE costume_order.order_id LIKE '%$searchTerm%' OR costume_order.order_status LIKE '%$searchTerm%'";
@@ -50,6 +49,7 @@
     $result = mysqli_query($conn, $sql);
     
 ?>
+
 <!DOCTYPE html>
 <head>
     <title>view all order</title>
@@ -85,9 +85,10 @@
             
                 <div class="item-list" style="width:80%;">
                     <div class="item-heading-row">
-                        <b> Order ID</b>
-                        <b>Placed On</b>
-                        <b>Order status</b>                   
+                        <b style="width:18%;">Order Id </b>
+                        <b style="width:18%;">Costume Name </b>
+                        <b style="width:18%;">Placed On</b>
+                        <b style="width:18%;">Order status</b>                   
                         <hr />
                     </div>
 
@@ -102,9 +103,10 @@
                         <div class="item-data-row">
                             <?php $class = ($row["order_status"]=="rejected")?"red":(($row["order_status"]== NULL)?"grey":"green");
                              ?>
-                            <span><?php echo $row['order_id']; ?></span>
-                            <span><?php echo $row['order_placed_on']; ?></span>
-                            <span><?php if($row["order_status"]==NULL){
+                            <span style="width:15%;"><?php echo $row['order_id']; ?></span>
+                            <span style="width:15%;"><?php echo $row['order_id']; ?></span>
+                            <span style="width:15%;"><?php echo $row['order_placed_on']; ?></span>
+                            <span style="width:15%;"><?php if($row["order_status"]==NULL){
                                 echo "pending";
                             }
                             ?>

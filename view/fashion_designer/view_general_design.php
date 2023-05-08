@@ -136,7 +136,7 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" required readonly><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <?php 
@@ -148,7 +148,7 @@
                                 echo "Merchandiser ID: ";
                                 echo "</div>";
                                 echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_id' value=".$merchandiser_row["employee_id"]." />";
+                                echo "<input type='text' name='merchandiser_id' value=".$merchandiser_row["employee_id"]." readonly/>";
                                 echo "</div>";
                                 echo "</div>";
 
@@ -157,19 +157,11 @@
                                 echo "Merchandiser name: ";
                                 echo "</div>";
                                 echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_name' value='".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."' />";
+                                echo "<input type='text' name='merchandiser_name' value='".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."' readonly/>";
                                 echo "</div>";
                                 echo "</div>"; 
                             }
                         ?>
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <input type="submit" value="Save" />
-                            </div>
-                            <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
-                            </div>
-                        </div> 
                     </form>
                 </div>   
 
@@ -198,7 +190,7 @@
                                     echo "<input type='text' hidden='true' name='design_id' value='".$costume_row["design_id"]."' />";
                                     echo "<span class='manager-ID-column'>".$costume_row["design_id"]."</span><span>".$costume_row["name"]."</span><span style='width:12%;'>".$costume_row["size"]."</span><span>".(($costume_row["publish_status"]=="publish")?"Published":"Not published")."</span>";
                                     echo "<table align='right' style='margin-right:4px;' class='two-button-table'><tr>";
-                                    echo "<td><input type='submit' class='grey' name='edit' value='Edit' /></td>";
+                                    echo "<td><input type='submit' class='grey' name='edit' value='Edit'/></td>";
                                     echo "<td><input type='submit' class='grey' name='delete' value='Delete' /></td>";
                                     echo "</tr></table>";
                                     echo "<hr class='manager-long-hr' />";

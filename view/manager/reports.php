@@ -7,6 +7,24 @@
         <title>Reports</title>
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/data_form_style.css" />
         <link rel="stylesheet" type="text/css" href="../css/merchandiser/view_list_style.css" />
+        <script>
+            function saveReportBody(){
+                var form_body = document.getElementById("report_body").innerHTML;
+                form_body = "<table>"+form_body;
+                var result = form_body.replace(/div/g, "tr");
+                result = result.replace(/span/g, "td");
+                for(var i=0;i<5;i++){
+                    result = result.replace(/\<b\>/, "<td>");
+                    result = result.replace(/\<\\b\>/, "<\\td>");
+                }
+                result = result.replace(/hr/g, "");
+
+                result += "</table>";
+                document.getElementById("report_content").value = result;
+                //alert(document.getElementById("report_content").value);
+                return true;
+            }
+        </script>
         <?php
             require_once('../../model/DBConnection.php');
             $connObj = new DBConnection();
@@ -31,7 +49,10 @@
                     }
                     $search_output = "";
                     $output = "";
+
                     if($search_result = mysqli_query($conn, $search_income_sql)){
+                        //For pdf download
+                        $search_output.= "<form method='post' action='download_report.php' onSubmit='return saveReportBody();'><div id='report_body'>";
                         $search_output.= "<center><h2>Income report</h2></center>";
                         $search_output.= "<div class='report-heading-row'>";
                         $search_output.= "<b>Order ID</b>";
@@ -112,6 +133,8 @@
                         $search_output.= "<span></span>";
                         $search_output.= "<hr />";
                         $search_output.= "</div>"; 
+                        //For pdf download
+                        $search_output.= "</div><textarea hidden='true' name='report_content' id='report_content'></textarea><center><input type='submit' name='pdf_download' value='Generate PDF' class='pdf-download-button' /></center></form>"; 
                     }
                 }else if($_POST["report_type"]=="loss_profit_report"){
                     if(($startDate == "")&&($endDate == "")){
@@ -130,6 +153,8 @@
                     $search_output = "";
                     $output = "";
                     if($search_result = mysqli_query($conn, $search_income_sql)){
+                        //For pdf download
+                        $search_output.= "<form method='post' action='download_report.php' onSubmit='return saveReportBody();'><div id='report_body'>";
                         $search_output.= "<center><h2>Loss/profit report</h2></center>";
                         $search_output.= "<center><h3>Total income</h3></center>";
                         $search_output.= "<div class='report-heading-row'>";
@@ -271,6 +296,8 @@
                     $search_output.= "<span></span>";
                     $search_output.= "<hr />";
                     $search_output.= "</div><br /><br />";  
+                    //For pdf download
+                    $search_output.= "</div><textarea hidden='true' name='report_content' id='report_content'></textarea><center><input type='submit' name='pdf_download' value='Generate PDF' class='pdf-download-button' /></center></form>";
                 }
                 
             }

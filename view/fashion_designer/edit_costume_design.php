@@ -159,7 +159,7 @@
                                 Design name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" />
+                                <input type="text" name="name" value="<?php echo $row["name"]; ?>" readonly />
                             </div>
                         </div>
 
