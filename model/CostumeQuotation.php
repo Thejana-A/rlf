@@ -199,29 +199,7 @@
                 $path = mysqli_query($conn, $sql_quotation);
                 $quotation_result = $path->fetch_array(MYSQLI_ASSOC);
                 if($quotation_result = mysqli_query($conn, $sql_quotation)){
-                    /*if(($quotation_result["manager_approval"] == "approve")||($quotation_result["manager_approval"] == "reject")){
-                        ?><script>
-                        alert("Sorry ! That quotation can't be deleted.");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
-                        </script><?php
-                    }else{
-                        $sql_delete_costumes = "DELETE FROM design_quotation WHERE quotation_id = '$this->quotationID'";
-                        $conn->query($sql_delete_costumes);
-                        mysqli_stmt_bind_param($stmt, "s", $this->quotationID);
-                        mysqli_stmt_execute($stmt);
-                        $affectedRows = mysqli_stmt_affected_rows($stmt);
-                        if($affectedRows == -1){
-                            ?><script>
-                                alert("Sorry ! That quotation can't be deleted.");
-                                window.location.href='<?php echo $_POST["page_url"]; ?>';
-                            </script><?php
-                        }else{
-                            ?><script>
-                                alert("Quotation was deleted successfully");
-                                window.location.href='<?php echo $_POST["home_url"]; ?>';
-                            </script><?php
-                        }
-                    }*/
+                    
                     $row = mysqli_fetch_array($quotation_result);
                     if(($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject")){
                         ?><script>

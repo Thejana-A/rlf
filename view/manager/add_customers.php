@@ -116,7 +116,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" />
+                                <input type="text" name="city" id="city" required />
                             </div>
                         </div>
                         <div class="form-row">

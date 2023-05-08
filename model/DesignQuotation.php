@@ -29,13 +29,9 @@
                         var message = "Sorry ! That material already exists. - ".concat(materialID);
                         alert(message);
                         </script><?php  
-                        //echo "<br>Material ID : ".$this->materialID[$materialCount]."<br>Sorry ! That costume already exists in quotation.<br>";
+                        
                     }else{
-                        /*echo "<br><table>";
-                        echo "<tr><td>Costume ID </td><td>:". $this->designID[$costumeCount]."</td></tr>";
-                        echo "<tr><td>Unit price </td><td>:". $this->unitPrice[$costumeCount]."</td></tr>";
-                        echo "<tr><td>Quantity </td><td>:". $this->quantity[$costumeCount]."</td></tr>"; 
-                        echo "</table>";*/
+                    
                     } 
                     
                 } else {
@@ -46,13 +42,6 @@
             $conn->close();  
         }
 
-        /*public function updateQuantityPrice(){
-
-        } */
-
-        /*public function viewQuantityPrice(){
-
-        } */
     }
 ?>
 

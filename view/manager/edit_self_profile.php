@@ -132,7 +132,7 @@
                                 Contact no : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="contact_no" value="<?php echo $row["contact_no"]; ?>" required />
+                                <input type="tel" name="contact_no" id="contact_no" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="94 123 456 789" value="<?php echo $row["contact_no"]; ?>" required />
                             </div>
                         </div>
                     

@@ -71,7 +71,7 @@
                             }
                             $material_row .= "</select></div>";
                             $material_row .= "<div class='form-row-data'>";
-                            $material_row .= "<input type='number' step='1' min='0' class='column-textfield' name='request_quantity[]' required />&nbsp";
+                            $material_row .= "<input type='number' step='0.01' min='0' class='column-textfield' name='request_quantity[]' required />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='unit_price[]' readonly />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='material_price[]' id='' readonly /></div></div>";
                             

@@ -175,7 +175,7 @@
                                     if($result = mysqli_query($conn, $customer_sql)){
                                         if(mysqli_num_rows($result) > 0){
                                             echo "<select name='customer_id' id='customer_id' onChange='selectCustomer()' required>";
-                                            echo "<option disabled selected>ID - Customer</option>";
+                                            echo "<option disabled>ID - Customer</option>";
                                             while($customer_row = mysqli_fetch_array($result)){
                                                 echo "<option value='".$customer_row["customer_id"]."-".$customer_row["contact_no"]."-".$customer_row["email"]."'>".$customer_row["customer_id"]." - ".$customer_row["first_name"]." ".$customer_row["last_name"]."</option>";
                                             }
