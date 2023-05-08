@@ -387,7 +387,7 @@
                                 Payment date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="payment_date" id="payment_date" value="<?php echo $row["payment_date"] ?>" />
+                                <input type="date" name="payment_date" id="payment_date" value="<?php echo $row["payment_date"] ?>" <?php echo ($row["manager_approval"] == "approve")?'':'readonly'; ?> />
                             </div>
                         </div>
                         <div class="form-row">
@@ -468,10 +468,22 @@
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }
+                                ?>
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }
+                                ?>
                             </div>
                         </div> 
                     </form>

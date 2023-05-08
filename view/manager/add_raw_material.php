@@ -47,7 +47,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" required />
+                                <input type="text" name="name" id="name" placeholder="Name-size" required />
                             </div>
                         </div>
                         <div class="form-row">

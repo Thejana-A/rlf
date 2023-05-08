@@ -40,7 +40,7 @@
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$quotation_material_row["material_id"]." - ".$quotation_material_row["name"]." (".$quotation_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
-                        $presentMaterialList .= "<input type='number' step='0.1' min='0' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
+                        $presentMaterialList .= "<input type='number' step='0.01' min='0' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' /> ";
                         $presentMaterialList .= "<input type='text' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."' readonly /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' class='column-textfield' readonly />";
                         $presentMaterialList .= "</div>";
@@ -71,7 +71,7 @@
                             }
                             $material_row .= "</select></div>";
                             $material_row .= "<div class='form-row-data'>";
-                            $material_row .= "<input type='number' step='0.001' min='0.001' class='column-textfield' name='request_quantity[]' required />&nbsp";
+                            $material_row .= "<input type='number' step='0.01' min='0' class='column-textfield' name='request_quantity[]' required />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='unit_price[]' readonly />&nbsp";
                             $material_row .= "<input type='text' class='column-textfield' name='material_price[]' id='' readonly /></div></div>";
                             
@@ -257,7 +257,7 @@
                                 Expected delivery date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> />
+                                <input type="date" name="expected_delivery_date" id="expected_delivery_date" value="<?php echo $row["expected_delivery_date"]; ?>" <?php echo ($row["supplier_approval"] != null)?'readonly':''; ?> required />
                             </div>
                         </div>
                         <div class="form-row">

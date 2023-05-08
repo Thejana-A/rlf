@@ -13,7 +13,7 @@
             $conn = $connObj->getConnection();
             if(isset($_POST["search"])){
                 $searchbar = $_POST["searchbar"];
-                $search_sql = "SELECT material_id, name, measuring_unit, quantity_in_stock, manager_approval FROM raw_material WHERE material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%' OR quantity_in_stock LIKE '%$searchbar%'";
+                $search_sql = "SELECT material_id, name, measuring_unit, quantity_in_stock, manager_approval FROM raw_material WHERE material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%'";
                 $search_output = "";
                 $output = "";
                 if($search_result = mysqli_query($conn, $search_sql)){

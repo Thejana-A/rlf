@@ -65,9 +65,9 @@
                         $goodsReceivedNotice .= "<input type='text' name='material_id[]' value='".$goods_received_notice_row["material_id"]." - ".$goods_received_notice_row["name"]."' readonly />";
                         $goodsReceivedNotice .= "</div>";
                         $goodsReceivedNotice .= "<div class='form-row-data'>";
-                        $goodsReceivedNotice .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["request_quantity"]."' readonly />&nbsp";
+                        $goodsReceivedNotice .= "<input type='number' step='0.01' min='0.01' name='request_quantity[]' id='request_quantity_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["request_quantity"]."' readonly />&nbsp";
                         $goodsReceivedNotice .= "<input type='text' name='unit_price[]' id='measuring_unit[]' class='column-textfield' value='".$goods_received_notice_row["measuring_unit"]."' readonly /> ";
-                        $goodsReceivedNotice .= "<input type='number' step='0.001' min='0.001' name='quantity_received[]' id='quantity_received_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["quantity_received"]."' required />"; 
+                        $goodsReceivedNotice .= "<input type='number' step='0.01' min='0' name='quantity_received[]' id='quantity_received_".$goodsReceivedCount."' class='column-textfield' value='".$goods_received_notice_row["quantity_received"]."' required />"; 
                         $goodsReceivedNotice .= "</div>";
                         $goodsReceivedNotice .= "</div>";
                         $goodsReceivedCount++;
@@ -261,10 +261,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'disabled' ?> /> Approve
+                                            <input type="radio" name="manager_approval" value="approve" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'disabled' ?> /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'disabled' ?> /> Reject
+                                            <input type="radio" name="manager_approval" value="reject" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'disabled' ?> /> Reject
                                         </td>
                                     </tr>
                                 </table>
@@ -284,7 +284,7 @@
                                 Payment (LKR) :
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="payment" id="payment" value="<?php echo $row["payment"] ?>" />
+                                <input type="text" name="payment" id="payment" value="<?php echo $row["payment"] ?>" readonly />
                             </div>
                         </div>
                         <div class="form-row">
@@ -292,15 +292,27 @@
                                 Payment date :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="payment_date" id="payment_date" value="<?php echo $row["payment_date"] ?>" />
+                                <input type="date" name="payment_date" id="payment_date" value="<?php echo $row["payment_date"] ?>" <?php echo (($row["manager_approval"] == "approve")&&($row["payment_date"] == NULL))?'':'readonly'; ?> required />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php
+                                    if(($row["manager_approval"] == "approve")&&($row["payment_date"] == NULL)){
+                                        echo "<input type='submit' value='Save' />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }
+                                ?>     
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php
+                                    if(($row["manager_approval"] == "approve")&&($row["payment_date"] == NULL)){
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }
+                                ?>    
                             </div>
                         </div> 
                         
@@ -384,10 +396,22 @@
                         
                         <div class="form-row">
                             <div class="form-row-submit">
-                                <input type="submit" value="Save" />
+                                <?php
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='submit' value='Save' />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }
+                                ?>
                             </div>
                             <div class="form-row-reset">
-                                <input type="reset" value="Cancel" />
+                                <?php
+                                    if($row["manager_approval"] == "approve"){
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }
+                                ?>
                             </div>
                         </div> 
                     </form>

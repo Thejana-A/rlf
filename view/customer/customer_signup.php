@@ -43,7 +43,7 @@ error_reporting(E_ERROR | E_PARSE); ?>
                     alert("Password must have at least 8 characters");
                     return false;
                 }else if (password != confirm_password) {
-                    alert("Confirm your password correctly");
+                    alert("Input Confirm your password correctly");
                     return false;
                 }else{
                     return true;

@@ -48,19 +48,19 @@
             $result_supplier = $conn->query($sql_supplier);
             if(($result_customer->num_rows) > 0){
                 ?><script>
-                alert("Sorry ! That email already exists.");
+                alert("Sorry ! That email already exists. xx");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php 
             }else if(($result_supplier->num_rows) > 0){
                 ?><script>
-                alert("Sorry ! That email already exists.");
+                alert("Sorry ! That email already exists. xy");
                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                 </script><?php 
             }else{
                 $OTP = rand(1000,9999);
                 $message = "Click <a href='http://localhost/rlf/view/merchandiser/verify_email.php?email=".$this->email."'>here</a> for email verification.";
                 $sendMail = new SendMail($this->firstName, $this->lastName, $this->email, $OTP, $message); 
-                $sendMail->sendTheEmail();
+                $sendMail->sendTheEmail();  
                 $sql = "INSERT INTO employee (first_name, last_name, NIC , email, password , contact_no, user_type, address_line1, address_line2, address_line3, DOB, joined_date, active_status, email_otp) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT employee_id FROM employee WHERE email = '$this->email')";
                 if ($stmt = mysqli_prepare($conn, $sql)) {
                     mysqli_stmt_bind_param($stmt, "ssssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, md5($this->password), $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus, md5($OTP));
@@ -68,7 +68,7 @@
                     $this->employeeID = $conn->insert_id;
                     if($this->employeeID == 0){
                         ?><script>
-                        alert("Sorry ! That email already exists.");
+                        alert("Sorry ! That email or NIC already exists.");
                         window.location.href='<?php echo $_POST["page_url"]; ?>';
                         </script><?php 
                     }else{
@@ -113,8 +113,7 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             $this->employeeID = $_POST["employee_id"];
-            
-            //$sql = "UPDATE employee SET name=?, username=?, password=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID' AND NOT EXISTS (SELECT employee_id FROM employee WHERE username = '$this->username')";    
+              
             $sql = "UPDATE employee SET first_name=?,last_name=?, NIC=?, email=?, contact_no=?, user_type=?, address_line1=?, address_line2=?, address_line3=?,DOB=?, joined_date=?, active_status=? WHERE employee_id='$this->employeeID'";        
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($stmt, "ssssssssssss", $this->firstName, $this->lastName, $this->NIC, $this->email, $this->contactNo, $this->userType, $this->addressLine1, $this->addressLine2, $this->addressLine3, $this->DOB, $this->joinedDate, $this->activeStatus);
@@ -171,9 +170,6 @@
             $this->add();
             
         }
-        /*public function signUp() {
-            $this->add();
-        } */
 
         public function updateEmployee() {
             $this->update();
@@ -238,7 +234,7 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php  
                 }
-            }else if($this->password==$row_customer["password"]){
+            }else if(md5($this->password)==$row_customer["password"]){
                 if($row_customer["email_verification"]==1){
                     session_start();
                     $_SESSION["customer_id"] = $row_customer["customer_id"]; 

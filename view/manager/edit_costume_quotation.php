@@ -77,8 +77,15 @@
                 var manager_approval = document.forms["costumeQuotationForm"]["manager_approval"].value;
                 var approval_description = document.forms["costumeQuotationForm"]["approval_description"].value;
                 var total_quantity = document.forms["costumeQuotationForm"]["total_quantity"].value;
+            
                 if(total_quantity <= 0){
                     alert("At least one item should be selected");
+                    return false;
+                }else if(manager_approval == "") {
+                    alert("Manager approval is required");
+                    return false;
+                }else if ((manager_approval == "reject")&&(approval_description == "")) {
+                    alert("Reason for rejection is required");
                     return false;
                 }else if(total_quantity > 0){   
                     for(let j = 0;j < costumeCount;j++){
@@ -88,15 +95,9 @@
                             return false;
                         }
                     }
-                }else if (manager_approval == "") {
-                    alert("Manager approval is required");
-                    return false;
-                }else if ((manager_approval == "reject")&&(approval_description == "")) {
-                    alert("Reason for rejection is required");
-                    return false;
                 }else{
                     return true;
-                }
+                } 
             }
         </script>
     </head>

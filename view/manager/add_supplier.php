@@ -65,7 +65,7 @@
                     <a href="suppliers.php">Suppliers </a> > Add new suppliers
                 </div>
 
-                <div id="form-box-small">
+                <div id="form-box-ultra-small">
                     <form method="post" name="supplierForm" onSubmit="return validateForm()" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="supplier/add" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/manager/home.php" />
@@ -144,7 +144,7 @@
                                 City : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="city" id="city" />
+                                <input type="text" name="city" id="city" required />
                             </div>
                         </div>
 

@@ -308,7 +308,7 @@
                                 Quantity (In <?php echo $row["measuring_unit"]; ?>) : 
                             </div>
                             <div class="form-row-data">
-                                <input type="number" name="request_quantity" id="request_quantity" min="0.001" step="0.001" required />
+                                <input type="number" name="request_quantity" id="request_quantity" min="0.01" step="0.01" required />
                             </div>
                         </div>
                         <div class="form-row">

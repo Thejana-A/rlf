@@ -16,17 +16,17 @@
                 $search_output = "";
                 $output = "";
 
-                $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name 
+                $search_sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  e2.first_name fd_first_name, e2.last_name fd_last_name, c.customized_design_approval 
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
-                    WHERE e1.employee_id = $merchandiserID AND (`name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%'))
+                    WHERE e1.employee_id = $merchandiserID AND customized_design_approval = 'approve' AND (`name` LIKE '%$searchbar%' OR e2.first_name LIKE '%$searchbar%' OR e2.last_name LIKE '%$searchbar%'))
                     UNION
-                    (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name 
+                    (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.rear_view, e1.first_name merchandiser_first_name, e1.last_name merchandiser_last_name,  '' AS fd_first_name, '' AS fd_last_name, c.customized_design_approval
                     FROM costume_design c 
                     JOIN employee e1 ON c.merchandiser_id = e1.employee_id 
                     AND `fashion_designer_id` IS NULL
-                    WHERE e1.employee_id = $merchandiserID AND `name` LIKE '%$searchbar%');";
+                    WHERE e1.employee_id = $merchandiserID AND customized_design_approval = 'approve' AND `name` LIKE '%$searchbar%');";
                     $search_result_costume_row = $conn->query($search_sql_costume);
                     if ($search_result_costume_row->num_rows > 0) {
                         $costume_general_name_array = array();
@@ -51,7 +51,7 @@
                             }
                         }
                     }else{
-                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
+                        $search_output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                     }
             }else{
                 $search_output = "";
@@ -95,7 +95,7 @@
                         }
                     }
                 }else{
-                    $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No costume designs";
+                    $output.= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No results found";
                 }
                 
                 
@@ -117,7 +117,7 @@
                     <a href="home.php">Merchandiser</a> > View costume designs
                 </div>
                 
-                <div id="list-box-small">
+                <div id="list-box">
                     <center>
                         <h2>Costume designs</h2>
                     </center>

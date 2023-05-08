@@ -75,7 +75,7 @@
                 var manager_approval = document.forms["rawMaterialForm"]["manager_approval"].value;
                 var approval_description = document.forms["rawMaterialForm"]["approval_description"].value;
                 
-                if ((manager_approval=="")&&(approval_description!="")) {
+                if (manager_approval=="") {
                     alert("Manager's approval is required");
                     return false;
                 }else if ((manager_approval=="reject")&&(approval_description=="")) {
@@ -124,7 +124,7 @@
                                 Raw material name : 
                             </div>
                             <div class="form-row-data">
-                                <input type="text" name="name" id="name" value="<?php echo $row["name"]; ?>" />
+                                <input type="text" name="name" id="name" value="<?php echo $row["name"]; ?>" required />
                             </div>
                         </div>
                         <div class="form-row">
@@ -132,7 +132,7 @@
                                 Size : 
                             </div>
                             <div class="form-row-data">
-                                <select name="size" id="size">
+                                <select name="size" id="size" required>
                                     <option value="XS" <?php echo ($row["size"]=="XS")?'selected':'' ?>>XS</option>
                                     <option value="S" <?php echo ($row["size"]=="S")?'selected':'' ?>>S</option>
                                     <option value="M" <?php echo ($row["size"]=="M")?'selected':'' ?>>M</option>
@@ -147,7 +147,7 @@
                                 Measuring unit : 
                             </div>
                             <div class="form-row-data">
-                                <select name="measuring_unit" id="measuring_unit">
+                                <select name="measuring_unit" id="measuring_unit" required>
                                     <option value="units" <?php echo ($row["measuring_unit"]=="units")?'selected':'' ?>>Units</option>
                                     <option value="metre" <?php echo ($row["measuring_unit"]=="m")?'selected':'' ?>>metre</option>
                                     <option value="kilogram" <?php echo ($row["measuring_unit"]=="kg")?'selected':'' ?>>kilogram</option>
@@ -163,7 +163,7 @@
                                 Description :
                             </div>
                             <div class="form-row-data">
-                                <textarea id="description" name="description" rows="4" cols="40"><?php echo $row["description"]; ?></textarea>
+                                <textarea id="description" name="description" rows="4" cols="40" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -413,7 +413,7 @@
                                 Quantity (In <?php echo $row["measuring_unit"]; ?>) : 
                             </div>
                             <div class="form-row-data">
-                                <input type="number" name="request_quantity" id="request_quantity" min="0.001" step="0.001" required />
+                                <input type="number" name="request_quantity" id="request_quantity" min="0.01" step="0.01" required />
                             </div>
                         </div>
                         <div class="form-row">
