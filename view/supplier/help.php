@@ -17,7 +17,7 @@
             }
                 #myTable th,
                 #myTable td {
-                    text-align: left;
+                    text-align: justify;
                     padding: 10px;
                 }
 

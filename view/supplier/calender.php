@@ -1,12 +1,12 @@
-<link rel="stylesheet" type="text/css" href="../css/calendar.css" />
+<link rel="stylesheet" type="text/css" href="css/calender.css" />
 <script>
     const quotation_request_dates = [];
-    var quotation_request__count = 0;
+    var quotation_request_count = 0;
     const material_order_dates = [];
     var material_order_count = 0;
 </script>
 <?php
-
+error_reporting(E_ERROR | E_PARSE);
     $today_date = date("Y-m-d");
     $first_date = date("Y-m-01", strtotime($today_date));
     $last_date = date("Y-m-t", strtotime($today_date)); 
@@ -16,7 +16,7 @@
         while($quotation_request_row = mysqli_fetch_array($result_quotation_request)){
             ?><script>
                 quotation_request_dates[quotation_request_count] = "<?php echo explode("-",$quotation_request_row["expected_delivery_date"])[2]; ?>";
-                costume_order_count++;
+                quotation_request_count++;
             </script><?php
         }
     }
@@ -269,7 +269,7 @@
             break;
     }
             
-
+    calendar += "<tr><td colspan='7'><center><b style='color:#f12020;background-color:#f12020;'>oo</b> Quotation <b style='color:#00ff00;background-color:#00ff00;'>oo</b> Material <b style='color:#ffff00;background-color:#ffff00;'>oo</b> Both </center></td></tr>";
     calendar += "</table>";
     document.write(calendar);
     //alert(costume_order_dates);

@@ -23,17 +23,18 @@
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
                     <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> >Request to add
+                    <a href="profile.php">Supplier </a> >Add new raw material
                 </div>
 
                 <div id="form-box-ultra-small">
                 <form method="post" name="rawMaterialForm" action="../RouteHandler.php" enctype="multipart/form-data">
                     <input type="text" hidden="true" name="framework_controller" value="raw_material/add" />
                     <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/supplier/profile.php" />
+                    <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                     <input type="text" hidden="true" name="supplier_id" value="<?php echo $_SESSION["supplier_id"]; ?>">
 
                         <center>
-                            <h2> Add a tender request</h2>
+                            <h2> Add a raw material request</h2>
                         </center>
                         
                         <div class="form-row">

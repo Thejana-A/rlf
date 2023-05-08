@@ -76,8 +76,7 @@
             <div id="page-content">
                 <div id="breadcrumb">
                     <a href="http://localhost/rlf">Welcome </a> >
-                    <a href="../customer/customer_login.php">Login </a> >
-                    <a href="profile.php">Supplier </a> > All raw materials                    
+                    <a href="../customer/customer_login.php">Login </a> > Supplier                    
                 </div>
 			
                 <div class="form-row" style="width:115%;">
@@ -90,7 +89,7 @@
                     </div>
                     <div class="form-row-data">
                         <div style="flex: 35%;box-sizing: border-box;">
-                            <?php include '../manager/calendar.php';?>
+                            <?php include 'calender.php';?>
                         </div>
                     </div>
                 </div>
@@ -103,7 +102,7 @@
                         <div class="item-heading-row">
 							<b>Quotation ID</b>
                             <b>Merchandiser name</b>
-                            <b style="width:150px;">Contact number</b>
+                            <b style="width:110px;">Contact number</b>
                             <b>Requested on</b>
                             <hr />
                         </div>
