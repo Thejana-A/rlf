@@ -143,7 +143,7 @@
                         $conn->query($sql_notification); 
 
                         $message = "Costume quotation was received. <br> Quotation ID : ".$this->quotationID." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
-                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], "dianidickovita2000@gmail.com", $message); 
+                        $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message); 
                         $sendMail->sendTheEmail();   
                     }
                     /*manager notification when merchandiser updates a quotation requested by customer*/
