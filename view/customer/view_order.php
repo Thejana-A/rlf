@@ -280,10 +280,9 @@
                     echo "<form method='post' name='costumeOrderForm' action='../RouteHandler.php'>";
                     echo "<input type='text' hidden='true' name='framework_controller' value='costume_order/update' />";
                     echo "<input type='text' hidden='true' name='home_url' value='customer/customer_home.php' />"; 
-                    echo "<input type='text' hidden='true' name='order_placed_on' value='".date("Y-m-d")."' />";
-                    echo "<input type='text' hidden='true' name='quotation_id' value='".$quotation_id."' />";
+                    echo "<input type='text' hidden='true' name='order_id' value='".$order_id."' />";
                     echo "<label for='fname'>Order Deadline :</label>";
-                    echo "<input type='date' name='expected_delivery_date' id='expected_delivery_date' style='width: 100%;' value=".$order_deadline." required>";
+                    echo "<input type='date' name='expected_delivery_date' id='expected_delivery_date' style='width: 100%;' value=".$order_deadline." min='".$order_deadline."' required>";
                     echo "<br />";
                     echo "<br />";
                     echo "<center>";
