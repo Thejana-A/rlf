@@ -45,6 +45,7 @@
 
             ?>
 <?php
+
     $sql_costume_list = "SELECT * FROM `costume_design` WHERE (`name` LIKE '".$_GET["design_name"]."-_' OR `name` LIKE '".$_GET["design_name"]."-__' OR `name` LIKE '".$_GET["design_name"]."-___') AND (`publish_status` = 'publish' OR `customer_id`='".$_SESSION['customer_id']."');";
     $path = mysqli_query($conn, $sql);
     if($result_costume_list = mysqli_query($conn, $sql_costume_list)){
@@ -61,10 +62,13 @@
                 $costume_list .= "<td style='padding: 5px;'>".$row["name"]."</td>";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
-                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' required style='width: 40%'></td>";
+                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' required style='width: 40%' oninput='updateTotalQuantity()'></td>";
                 $costume_list .= "</tr>";
+                
+                
             }     
             $costume_list .= "</table>";
+            $costume_list .= "<p hidden='true' id='total_quantity'></p>";
         }else {
             echo "0 results";
         } 
@@ -146,7 +150,7 @@
             </div>
             <img src="../image/size-chart- new.png" width="60%">
             <br />
-            <form method="post" name="costumeQuotationForm" onSubmit="" action="../RouteHandler.php">
+            <form method="post" name="costumeQuotationForm" onSubmit="return validateForm()" action="../RouteHandler.php">
                 <input type="text" hidden="true" name="framework_controller" value="costume_quotation/add" />
                 <input type="text" hidden="true" name="home_url" value="customer/customer_home.php" />
                 <input type="text" hidden="true" name="request_date" value="<?php echo date("Y-m-d"); ?>" />
@@ -184,7 +188,7 @@
                     </tr>
                 </table> -->
                 <?php echo $costume_list; ?>
-
+                
                 <br />
                 <input type="submit" value="Request Quotation" class="Quotationbtn" style="margin-top: 20px; width:200px">
               </form>
@@ -196,6 +200,29 @@
     include "footer.php";
     ?>
 </body>
+<script>
+function updateTotalQuantity() {
+    var totalQuantity = 0;
+    //const costumeQuantity = [];
+    var quantityInputs = document.getElementsByName('quantity[]');
+    for (var i = 0; i < quantityInputs.length; i++) {
+        totalQuantity += parseInt(quantityInputs[i].value) || 0;
+    }
+    document.getElementById('total_quantity').innerHTML = totalQuantity;
+
+}
+function validateForm(){
+                var total_quantity = document.getElementById("total_quantity").innerHTML;
+                
+                if(total_quantity <= 0){
+                    alert("At least one item should be selected");
+                    return false;
+                }else{
+                    return true;  
+                }
+            }
+</script>
+
 </html>
 
 <?php

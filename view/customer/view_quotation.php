@@ -252,7 +252,7 @@
                         echo $costume_list;
                         echo "<input type='submit' value='Edit' name='edit' class='Quotationbtn'>";
                         echo "<br/>";
-                        echo "<input type='submit' value='Delete' name='delete' class='Quotationbtn'  onclick='return confirm('Are you sure you want to delete this item?')'>";
+                        echo "<input type='submit' value='Delete' name='delete' class='Quotationbtn'  onclick=\"return confirm('Are you sure you want to delete this item?')\">";
                         echo "</form>";
                     }  
                 ?>
@@ -275,7 +275,7 @@
                 echo "<br />";
                 echo "<br />";
                 echo "<center>";
-                echo "<input type='submit' value='Place Order' class='Quotationbtn' style='width: 50%;' onclick=\"return confirm('Are you sure ?')\">";
+                echo "<input type='submit' value='Place Order' class='Quotationbtn' style='width: 50%;' onclick=\"return confirm('Are you sure this Deadline is OK ?')\">";
                 echo "</center>";
               echo "</form>";
         echo "</div>";

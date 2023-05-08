@@ -50,6 +50,7 @@
     $result = mysqli_query($conn, $sql);
     
 ?>
+
 <!DOCTYPE html>
 <head>
     <title>view all order</title>
@@ -85,7 +86,8 @@
             
                 <div class="item-list" style="width:80%;">
                     <div class="item-heading-row">
-                        <b> Order ID</b>
+                        
+                        <b>Costume Name </b>
                         <b>Placed On</b>
                         <b>Order status</b>                   
                         <hr />
