@@ -44,9 +44,9 @@
                         $materialList .= "<input type='text' name='material_id[]' value='".$design_material_row["material_id"]." - ".$design_material_row["name"]." (".$design_material_row["measuring_unit"].")' readonly />";
                         $materialList .= "</div>";
                         $materialList .= "<div class='form-row-data'>";
-                        $materialList .= "<input type='text' name='quantity[]' id='quantity_".$materialCount."' class='column-textfield' value='".$design_material_row["quantity"]."' readonly /> ";
-                        $materialList .= "<input type='text' name='unit_price[]'' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' /> ";
-                        $materialList .= "<input type='text' name='material_price[]'' id='material_price_".$materialCount."' class='column-textfield' value='' readonly />";
+                        $materialList .= "<input type='number' name='quantity[]' id='quantity_".$materialCount."' class='column-textfield' value='".$design_material_row["quantity"]."' readonly /> ";
+                        $materialList .= "<input type='number' name='unit_price[]'' id='unit_price_".$materialCount."' onChange='setPrice(".$materialCount.")' class='column-textfield' value='".$design_material_row["unit_price"]."' min='0' step='0.01' /> ";
+                        $materialList .= "<input type='number' name='material_price[]'' id='material_price_".$materialCount."' class='column-textfield' value='' readonly />";
                         $materialList .= "</div>";
                         $materialList .= "</div>";
                         $materialCount++;

@@ -100,9 +100,10 @@
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
             
-            /*$sql_select_customer = "SELECT first_name, last_name, email FROM customer WHERE customer_id = ".$_POST["customer_id"];
+            $sql_select_customer = "SELECT first_name, last_name, email FROM rlf.customer WHERE customer_id = ".$_POST["customer_id"];
             $result_select_customer = $conn->query($sql_select_customer);
-            $row_select_customer = $result_select_customer->fetch_assoc();  */
+            $row_select_customer = $result_select_customer->fetch_assoc(); 
+            
 
             $this->quotationID = $_POST["quotation_id"];  
             $publicQuotationID = $this->quotationID;
@@ -138,9 +139,9 @@
                         $sql_notification = "INSERT INTO rlf.notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->customerID."', 'costume quotation');";
                         $conn->query($sql_notification); 
 
-                        /*$message = "Costume quotation was received. <br> Quotation ID : ".$this->quotationID." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
+                        $message = "Costume quotation was received. <br> Quotation ID : ".$this->quotationID." <br> <a href='http://localhost/rlf/view/customer/customer_login.php'> Login </a> to see more details.";
                         $sendMail = new SendCustomerEmail($row_select_customer["first_name"], $row_select_customer["last_name"], $row_select_customer["email"], $message); 
-                        $sendMail->sendTheEmail();   */
+                        $sendMail->sendTheEmail();   
                     }
                     /*manager notification when merchandiser updates a quotation requested by customer*/
                     if($this->managerApproval == ""){

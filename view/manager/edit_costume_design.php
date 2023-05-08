@@ -152,8 +152,12 @@
                 var materialPriceApproval = document.forms["materialForm"]["material_price_approval"].value;
                 var materialPriceDescription = document.forms["materialForm"]["material_price_description"].value;
                 var finalPrice = document.forms["materialForm"]["final_price"].value;
+                var totalMaterialPrice = document.forms["materialForm"]["total_material_price"].value;
                 var publishStatus = document.querySelector('#publish_status');
-                if((materialPriceApproval != "approve")&&(finalPrice > 0)){
+                if((totalMaterialPrice == 0)&&(finalPrice > 0)){
+                    alert("Total material price is required to set final price");
+                    return false;
+                }else if((materialPriceApproval != "approve")&&(finalPrice > 0)){
                     alert("Material price should be approved to set final price");
                     return false;
                 }else if((finalPrice == 0)&&(publishStatus.checked === true)){

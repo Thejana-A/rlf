@@ -48,7 +48,7 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/fd_view_general_design' />";
                             $search_output.= "<input type='text' hidden='true' name='name' value='".$costumeNameResult."' />";
-                            $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:20%;'>".$search_costume_row["merchandiser_first_name"]." ".$search_costume_row["merchandiser_last_name"]."</span><span style='padding-left:25px;'><img src='../front-view-image/".$search_costume_row["front_view"]."' style='width:60px;' /><img src='../rear-view-image/".$search_costume_row["rear_view"]."' style='width:60px;' /></span>";
+                            $search_output.= "<span style='width:20%;'>".$costumeNameResult."</span><span style='width:20%;'>".$search_costume_row["merchandiser_first_name"]." ".$search_costume_row["merchandiser_last_name"]."</span><span style='padding-left:25px;padding-bottom:8px;display:flex;'><img src='../front-view-image/".$search_costume_row["front_view"]."' style='width:60px;' /><img src='../rear-view-image/".$search_costume_row["rear_view"]."' style='width:60px;' /></span>";
                             $search_output.= "<table align='right' style='margin-right:24px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' value='View' /></td>";
                             $search_output.= "</tr></table>";
