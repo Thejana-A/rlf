@@ -73,17 +73,10 @@
                 for($i = 0;$i<count($costume_name);$i++){
 
                     //$sql_costume = "SELECT design_id, name, customized_design_approval, first_name FROM costume_design, employee  WHERE  costume_design.customer_id = '$customerID' AND (costume_design.merchandiser_id = employee.employee_id OR costume_design.merchandiser_id = '') AND (`name` LIKE '$costume_name[$i]-_' OR `name` LIKE '$costume_name[$i]-__' OR `name` LIKE '$costume_name[$i]-___') LIMIT 1 ;";
-                    /*$sql_costume = "SELECT costume_design.design_id, costume_design.name, costume_design.customized_design_approval, employee.first_name as merchandiser_name
+                    $sql_costume = "SELECT costume_design.design_id, costume_design.name, costume_design.customized_design_approval, IFNULL(employee.first_name, '') AS merchandiser_name
                     FROM costume_design
                     LEFT JOIN employee ON costume_design.merchandiser_id = employee.employee_id
                     WHERE costume_design.customer_id = '$customerID'
-                        AND (costume_design.merchandiser_id = '' OR employee.employee_id IS NULL)
-                        AND (costume_design.name LIKE '$costume_name[$i]-_' OR costume_design.name LIKE '$costume_name[$i]-__' OR costume_design.name LIKE '$costume_name[$i]-___')
-                    LIMIT 1;";*/
-                    $sql_costume = "SELECT costume_design.design_id, costume_design.name, costume_design.customized_design_approval, IFNULL(employee.first_name, '') AS merchandiser_name
-                FROM costume_design
-                LEFT JOIN employee ON costume_design.merchandiser_id = employee.employee_id
-                WHERE costume_design.customer_id = '$customerID'
                     AND (costume_design.name LIKE '$costume_name[$i]-_' OR costume_design.name LIKE '$costume_name[$i]-__' OR costume_design.name LIKE '$costume_name[$i]-___') 
                     AND (costume_design.merchandiser_id IS NULL OR costume_design.merchandiser_id IS NOT NULL)
                     LIMIT 1;";
