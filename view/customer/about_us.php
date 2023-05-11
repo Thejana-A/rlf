@@ -27,18 +27,18 @@
     </head>
 
     <body>
-        <?php include 'header.php';?>
+
 
         <div id="page-body">
-            <?php include 'leftnav.php';?>
+
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="http://localhost/rlf">Welcome </a> 
+                    <a href="customer_home.php">Home</a> 
                      > About us
                 </div>
                 <div class="container">
-                    <img src="images/about_us.jpg" alt="Nature" style="width:125%; background-repeat: no-repeat;">
+                    <img src="../supplier/images/about_us.jpg" alt="Nature" style="width:125%; background-repeat: no-repeat;">
                     <div class="text-block">
                         <h4>About Us</h4>
                         <p>RLF Apparel T-shirt manufacturing company started in 2012. Mr.Anoona Udattawa is a product development technologist who works in RLF apparel factory. He was graduate in University of moratuwa. And he has a degree in Bachelor of Design in Fashion Design & Product Development, University of  Moratuwa .</p>

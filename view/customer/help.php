@@ -33,13 +33,13 @@
 </head>
 
 <body>
-    <?php include 'header.php';?>
+ 
 
     <div id="page-body">
 
     <div id="breadcrumb">
-                <a href="customer_home.php">Welcome </a> 
-                <a href=""> > Supplier </a> >Help
+                <a href="customer_home.php">Home</a> 
+                >Help
             </div>
 
 
