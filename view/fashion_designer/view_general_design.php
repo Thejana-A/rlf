@@ -140,22 +140,41 @@
                             </div>
                         </div>
                         <?php 
-                            $publish_status_sql = "SELECT publish_status FROM costume_design WHERE (`name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___');";
-                            if($publish_status_result = mysqli_query($conn, $publish_status_sql)){
-                                $publish_status_row = mysqli_fetch_array($publish_status_result);
-                                print_r($publish_status_row);
-                                /*if(in_array("publish", $publish_status_row)){
-                                    echo "<div class='form-row'>"
-                                    echo "<div class='form-row-submit'>"
-                                    echo "<input type='submit' value='Save' />";
-                                    echo "</div>";
-                                    echo "<div class='form-row-reset'>";
-                                    echo "<input type='reset' value='Cancel' />";
-                                    echo "</div>";
-                                    echo "</div>";
-                                } */
-                            }
-                        ?>   
+                            $validityToUpdate = 1;
+                            /*$sql_costume_status = "SELECT design_id, publish_status from costume_design WHERE (`name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___')";
+                            $result_costume_status = $conn->query($sql_costume_status);
+                            if ($result_costume_status->num_rows > 0) {
+                                while ($costume_status = $result_costume_ststus->fetch_assoc()) {
+                                    if($costume_status["publish_status"] == "publish"){
+                                        $validityToUpdate = 0;
+                                    }
+                                }
+                            } */
+                        ?>
+
+                        <div class="form-row">
+                            <div class="form-row-submit">
+                                <?php
+                                    if($validityToUpdate == 0){
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' />";
+                                    }
+                                ?>
+                                
+                            </div>
+                            <div class="form-row-reset">
+                                <?php
+                                    if($validityToUpdate == 0){
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }
+                                ?>
+                                
+                            </div>
+                        </div>
+                           
                             
                     </form>
                 </div>   
