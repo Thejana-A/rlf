@@ -136,32 +136,27 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description" required readonly><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <?php 
-                            $merchandiser_sql = "SELECT employee_id, first_name, last_name FROM employee WHERE employee_id = ".$row["merchandiser_id"].";";
-                            if($merchandiser_result = mysqli_query($conn, $merchandiser_sql)){
-                                $merchandiser_row = mysqli_fetch_array($merchandiser_result);
-                                echo "<div class='form-row'>";
-                                echo "<div class='form-row-theme'>";
-                                echo "Merchandiser ID: ";
-                                echo "</div>";
-                                echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_id' value=".$merchandiser_row["employee_id"]." readonly/>";
-                                echo "</div>";
-                                echo "</div>";
-
-                                echo "<div class='form-row'>";
-                                echo "<div class='form-row-theme'>";
-                                echo "Merchandiser name: ";
-                                echo "</div>";
-                                echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_name' value='".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."' readonly/>";
-                                echo "</div>";
-                                echo "</div>"; 
+                            $publish_status_sql = "SELECT publish_status FROM costume_design WHERE (`name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___');";
+                            if($publish_status_result = mysqli_query($conn, $publish_status_sql)){
+                                $publish_status_row = mysqli_fetch_array($publish_status_result);
+                                print_r($publish_status_row);
+                                /*if(in_array("publish", $publish_status_row)){
+                                    echo "<div class='form-row'>"
+                                    echo "<div class='form-row-submit'>"
+                                    echo "<input type='submit' value='Save' />";
+                                    echo "</div>";
+                                    echo "<div class='form-row-reset'>";
+                                    echo "<input type='reset' value='Cancel' />";
+                                    echo "</div>";
+                                    echo "</div>";
+                                } */
                             }
-                        ?>
+                        ?>   
+                            
                     </form>
                 </div>   
 
