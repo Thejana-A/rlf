@@ -272,7 +272,7 @@
             if(md5($this->password) == $row["password"]){
                 $sql_reset_password = "UPDATE customer SET password=? WHERE customer_id='$this->customerID'";        
                 if ($stmt = mysqli_prepare($conn, $sql_reset_password)) {
-                    mysqli_stmt_bind_param($stmt, "s", ($_POST["new_password"]));
+                    mysqli_stmt_bind_param($stmt, "s", md5($_POST["new_password"]));
                     mysqli_stmt_execute($stmt);
                     $affectedRows = mysqli_stmt_affected_rows($stmt);
                     if($affectedRows == -1){

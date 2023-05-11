@@ -80,8 +80,11 @@
 
             $customer_id = $_POST["customer_id"];
             $sql_select_customer = "SELECT first_name, last_name, email FROM customer WHERE customer_id = ".$customer_id;
-            $result_select_customer = $conn->query($sql_select_customer);
-            $row_select_customer = $result_select_customer->fetch_assoc();
+            if($result_select_customer = mysqli_query($conn, $sql_select_customer)){
+                if(mysqli_num_rows($result_select_customer) > 0){
+                    $row_select_customer = mysqli_fetch_array($result_select_customer);
+                }
+            }
 
             $this->orderID = $_POST["order_id"];
             $orderID = $this->orderID;
@@ -92,7 +95,7 @@
                 }else{
                     $this->orderStatus = "delivered";
                 }
-                mysqli_stmt_bind_param($stmt, "ssssi", $this->orderStatus, $this->qualityStatus, $this->qualityStatusDescription, $this->dispatchDate, $this->balancePayment, $this->expectedDeliveryDate);
+                mysqli_stmt_bind_param($stmt, "ssssis", $this->orderStatus, $this->qualityStatus, $this->qualityStatusDescription, $this->dispatchDate, $this->balancePayment, $this->expectedDeliveryDate);
                  
                 mysqli_stmt_execute($stmt);
                 $affectedRows = mysqli_stmt_affected_rows($stmt);
