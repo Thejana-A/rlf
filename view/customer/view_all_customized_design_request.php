@@ -6,7 +6,7 @@
     $search = "";
     $search = mysqli_real_escape_string($conn, $_GET['search']);
     //$sql = "SELECT * FROM costume_design WHERE costume_design.customer_id='$customerID' AND costume_design.name LIKE '%$search%'";
-    $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE costume_design.customer_id='$customerID' AND costume_design.name LIKE '%$search%' ;";
+    $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE costume_design.customer_id='$customerID' AND costume_design.name LIKE '%$search%';";
     $result = mysqli_query($conn, $sql);
     
 ?>
@@ -79,7 +79,7 @@
                     WHERE costume_design.customer_id = '$customerID'
                     AND (costume_design.name LIKE '$costume_name[$i]-_' OR costume_design.name LIKE '$costume_name[$i]-__' OR costume_design.name LIKE '$costume_name[$i]-___') 
                     AND (costume_design.merchandiser_id IS NULL OR costume_design.merchandiser_id IS NOT NULL)
-                    LIMIT 1;";
+                    LIMIT 1 ;";
 
                     $result_costume = $conn->query($sql_costume);
                     if ($result_costume->num_rows > 0) {
