@@ -55,20 +55,21 @@
             $costume_list .= "<th style='padding: 5px;'>Size</th>";
             $costume_list .= "<th style='padding-left: 20px;'>Quantity</th>";
             $costume_list .= "</tr>";
-            
+            $row_count = 0;
             while ($row = $result_costume_list->fetch_assoc()){
-                //echo $row["name"]."<br>";
                 $costume_list .= "<tr>";
                 $costume_list .= "<td style='padding: 5px;'>".$row["name"]."</td>";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["final_price"]."' name='unit_price[]' >";
                 $costume_list .= "<input type='text' hidden='true' value='".$row["design_id"]."' name='design_id[]' >";
-                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' required style='width: 40%' oninput='updateTotalQuantity()'></td>";
+                $costume_list .= "<td style='padding-left: 20px; display: flex; justify-content: center;'><input type='number' min='0' name='quantity[]' id='quantity_".$row_count."' required style='width: 40%' oninput='updateTotalQuantity()'></td>";
                 $costume_list .= "</tr>";
+                $row_count++ ;
                 
-                
-            }     
+            }  
+               
             $costume_list .= "</table>";
             $costume_list .= "<p hidden='true' id='total_quantity'></p>";
+            
         }else {
             echo "0 results";
         } 
@@ -77,11 +78,45 @@
     }
 
 ?>
+
 <!DOCTYPE html>
 <head>
     <title>Customized Request Qutation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="customer_css.css" />
+    <script>
+function updateTotalQuantity() {
+    var totalQuantity = 0;
+    //const costumeQuantity = [];
+    var quantityInputs = document.getElementsByName('quantity[]');
+    for (var i = 0; i < quantityInputs.length; i++) {
+        totalQuantity += parseInt(quantityInputs[i].value) || 0;
+    }
+    document.getElementById('total_quantity').innerHTML = totalQuantity;
+
+
+}
+function validateForm(){
+                var quantityInputs = document.getElementsByName('quantity[]');
+                var total_quantity = document.getElementById("total_quantity").innerHTML;
+                var costume_row_count = quantityInputs.length;
+                if(total_quantity <= 0){
+                    alert("At least one item should be selected");
+                    return false;
+                }else if(total_quantity > 0){
+                    for(let j = 0; j<costume_row_count; j++){
+                        var costume_quantity = document.getElementById("quantity_"+j).value;
+                        if((costume_quantity>0)&&(costume_quantity<5)){
+                            alert("Minimum order quantity is 5");
+                            return false;
+                        }
+                    }
+                    
+                }else{
+                    return true;
+                }
+            }
+</script>
 </head>
 <body>
         <div id="breadcrumb">
@@ -200,28 +235,6 @@
     include "footer.php";
     ?>
 </body>
-<script>
-function updateTotalQuantity() {
-    var totalQuantity = 0;
-    //const costumeQuantity = [];
-    var quantityInputs = document.getElementsByName('quantity[]');
-    for (var i = 0; i < quantityInputs.length; i++) {
-        totalQuantity += parseInt(quantityInputs[i].value) || 0;
-    }
-    document.getElementById('total_quantity').innerHTML = totalQuantity;
-
-}
-function validateForm(){
-                var total_quantity = document.getElementById("total_quantity").innerHTML;
-                
-                if(total_quantity <= 0){
-                    alert("At least one item should be selected");
-                    return false;
-                }else{
-                    return true;  
-                }
-            }
-</script>
 
 </html>
 

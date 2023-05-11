@@ -189,9 +189,9 @@ if(($_SESSION["customer_id"]=="")){
                <center> <img src="../Icon/logo.png"></center>
             </span>
             <span id="centertitle">
-                    <button>About Us</button>
-                    <button>Contact Us</button>
-                    <button>Help</button>
+                    <button onclick="window.location.href='notifications.php'" target="iframe_a">About Us</button>
+                    <button ><a href="notifications.php" target="iframe_a">Contact Us</a></button>
+                    <button ><a href="notifications.php" target="iframe_a">Help</a></button>
             </span>
             <span id ="button">
                 <button id="logoutbutton" onclick="window.location.href='customer_login.php';">

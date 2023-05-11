@@ -46,12 +46,20 @@
                 <div class="item-list" style="width:80%;">
                     <div class="item-heading-row">
                         <b>Proposed Name</b>
-                        <b>Merchandiser Id</b>
-                        <b>Status</b>                   
+                        <b style="width:27%;">Merchandiser Name</b>
+                        <b style="width:30%;">Status</b>                   
                         <hr />
                     </div>
 
                 <?php
+
+                /*$sql_merchandisername = "SELECT * FROM costume_design INNER JOIN employee ON costume_design.merchandiser_id = employee.employee_id AND costume_design.customer_id = '$customerID' ";
+                if($result_merchandisername = mysqli_query($conn, $sql_merchandisername)){
+                    if(mysqli_num_rows($result_merchandisername) > 0){
+                        $row_merchandisername = mysqli_fetch_array($result_merchandisername);
+                    }
+                }*/
+
                 $costume_name = array();
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -63,7 +71,16 @@
                 }
                         
                 for($i = 0;$i<count($costume_name);$i++){
-                    $sql_costume = "SELECT * FROM costume_design where `name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__'  LIMIT 1;";
+
+                    //$sql_costume = "SELECT design_id, name, customized_design_approval, first_name FROM costume_design, employee  WHERE  costume_design.customer_id = '$customerID' AND (costume_design.merchandiser_id = employee.employee_id OR costume_design.merchandiser_id = '') AND (`name` LIKE '$costume_name[$i]-_' OR `name` LIKE '$costume_name[$i]-__' OR `name` LIKE '$costume_name[$i]-___') LIMIT 1 ;";
+                    $sql_costume = "SELECT costume_design.design_id, costume_design.name, costume_design.customized_design_approval, IFNULL(employee.first_name, '') AS merchandiser_name
+                    FROM costume_design
+                    LEFT JOIN employee ON costume_design.merchandiser_id = employee.employee_id
+                    WHERE costume_design.customer_id = '$customerID'
+                    AND (costume_design.name LIKE '$costume_name[$i]-_' OR costume_design.name LIKE '$costume_name[$i]-__' OR costume_design.name LIKE '$costume_name[$i]-___') 
+                    AND (costume_design.merchandiser_id IS NULL OR costume_design.merchandiser_id IS NOT NULL)
+                    LIMIT 1 ;";
+
                     $result_costume = $conn->query($sql_costume);
                     if ($result_costume->num_rows > 0) {
                         while ($row = $result_costume->fetch_assoc()) { 
@@ -79,7 +96,7 @@
                     <div class="item-data-row">
                         <?php $class = ($row["customized_design_approval"]=="reject")?"red":(($row["customized_design_approval"]== NULL)?"grey":"green"); ?>
                         <span><?php echo $costume_name[$i]; ?></span>
-                        <span><?php echo $row['merchandiser_id'];?></span>
+                        <span><?php echo $row['merchandiser_name'];?></span>
                         <span><?php if($row["customized_design_approval"]==NULL){
                                 echo "pending";
                             }
