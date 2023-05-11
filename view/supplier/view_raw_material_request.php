@@ -125,7 +125,7 @@
                                 Raw material description :
                             </div>
                             <div class="form-row-data">
-                                <textarea name="description" id="description" rows="4" cols="40" required ><?php echo $row["description"];?></textarea>
+                                <textarea name="description" id="description" rows="4" cols="40" required <?php echo (($row["manager_approval"] == "approve")||($row["manager_approval"] == "reject"))?"readonly":""; ?> ><?php echo $row["description"];?></textarea>
                             </div>
                         </div>
                         <div class="form-row">

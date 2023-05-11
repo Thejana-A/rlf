@@ -136,32 +136,46 @@
                                 Description
                             </div>
                             <div class="form-row-data">
-                                <textarea rows="4" cols="40" name="description" id="description" required readonly><?php echo $row["description"]; ?></textarea>
+                                <textarea rows="4" cols="40" name="description" id="description" required><?php echo $row["description"]; ?></textarea>
                             </div>
                         </div>
                         <?php 
-                            $merchandiser_sql = "SELECT employee_id, first_name, last_name FROM employee WHERE employee_id = ".$row["merchandiser_id"].";";
-                            if($merchandiser_result = mysqli_query($conn, $merchandiser_sql)){
-                                $merchandiser_row = mysqli_fetch_array($merchandiser_result);
-                                echo "<div class='form-row'>";
-                                echo "<div class='form-row-theme'>";
-                                echo "Merchandiser ID: ";
-                                echo "</div>";
-                                echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_id' value=".$merchandiser_row["employee_id"]." readonly/>";
-                                echo "</div>";
-                                echo "</div>";
-
-                                echo "<div class='form-row'>";
-                                echo "<div class='form-row-theme'>";
-                                echo "Merchandiser name: ";
-                                echo "</div>";
-                                echo "<div class='form-row-data'>";
-                                echo "<input type='text' name='merchandiser_name' value='".$merchandiser_row["first_name"]." ".$merchandiser_row["last_name"]."' readonly/>";
-                                echo "</div>";
-                                echo "</div>"; 
-                            }
+                            $validityToUpdate = 1;
+                            /*$sql_costume_status = "SELECT design_id, publish_status from costume_design WHERE (`name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___')";
+                            $result_costume_status = $conn->query($sql_costume_status);
+                            if ($result_costume_status->num_rows > 0) {
+                                while ($costume_status = $result_costume_ststus->fetch_assoc()) {
+                                    if($costume_status["publish_status"] == "publish"){
+                                        $validityToUpdate = 0;
+                                    }
+                                }
+                            } */
                         ?>
+
+                        <div class="form-row">
+                            <div class="form-row-submit">
+                                <?php
+                                    if($validityToUpdate == 0){
+                                        echo "<input type='submit' value='Save' disabled />";
+                                    }else{
+                                        echo "<input type='submit' value='Save' />";
+                                    }
+                                ?>
+                                
+                            </div>
+                            <div class="form-row-reset">
+                                <?php
+                                    if($validityToUpdate == 0){
+                                        echo "<input type='reset' value='Cancel' disabled />";
+                                    }else{
+                                        echo "<input type='reset' value='Cancel' />";
+                                    }
+                                ?>
+                                
+                            </div>
+                        </div>
+                           
+                            
                     </form>
                 </div>   
 

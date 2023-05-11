@@ -416,28 +416,28 @@
                     /*customer notification when customized design price is updated by manager or merchandiser*/
                     if($_POST["customer_id"] != ""){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Customized design was updated - ".$this->designID;
+                        $notification_message = "Customized design was updated - ID ".$this->designID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, customer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["customer_id"]."', 'costume price');";
                         $conn->query($sql_notification); 
                     }
                     /*Fashion designer notification when costume design price is updated by manager or merchandiser*/
                     if($_POST["fashion_designer_id"] != ""){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Costume design was updated - ".$this->designID;
+                        $notification_message = "Costume design was updated - ID ".$this->designID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, fashion_designer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["fashion_designer_id"]."', 'costume price');";
                         $conn->query($sql_notification);
                     }
                     /*Merchandiser notification when design material description is updated by fashion designer*/
                     if($_POST["merchandiser_id"] != ""){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Costume design was updated - ".$this->designID;
+                        $notification_message = "Costume design was updated - ID ".$this->designID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["merchandiser_id"]."', 'costume price');";
                         $conn->query($sql_notification);
                     }
                     /*Manager notification when design material description is updated by fashion designer or material price is updated by merchandiser*/
                     if(($_POST["final_price"] == "")||($_POST["final_price"] == 0)){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Costume design was updated - ".$this->designID;
+                        $notification_message = "Costume design was updated - ID ".$this->designID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, merchandiser_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '1', 'costume price');";
                         $conn->query($sql_notification);
                     }
@@ -481,6 +481,9 @@
                                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php
                         }else{
+                            $sql_delete_notification = "DELETE FROM notification WHERE `category` = 'costume price' AND message LIKE '%$this->designID'";
+                            $conn->query($sql_delete_notification); 
+                            
                             ?><script>
                                 alert("Costume was deleted successfully");
                                 window.location.href='<?php echo $_POST["home_url"]; ?>';

@@ -35,13 +35,14 @@
                 $presentMaterialList = "";
                 if(mysqli_num_rows($result) > 0){
                     while($quotation_material_row = mysqli_fetch_array($result)){
+                        $quotationStatus = ($row["supplier_approval"]=="reject")?"disabled":"";
                         $presentMaterialList .= "<div class='form-row'>";
                         $presentMaterialList .= "<div class='form-row-theme'>";
                         $presentMaterialList .= "<input type='text' name='material_id[]' value='".$quotation_material_row["material_id"]." - ".$quotation_material_row["name"]." (".$quotation_material_row["measuring_unit"].")' readonly />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='number' step='1' min='1' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' /> ";
+                        $presentMaterialList .= "<input type='number' step='1' min='1' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' ".$quotationStatus." /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."' readonly class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";
@@ -88,21 +89,6 @@
         }
     }
 
-    function checkApproval(){
-        //if(document.getElementById("quotation_id").value=="7"){
-           /* document.getElementById("valid_till").disabled = true;
-            for (let j = 0; j < materialCount; j++) {
-            document.getElementById("unit_price_" + j).disabled = true;
-            }*/
-            
-        //}
-        alert("x");
-    }
-
-   function onLoadFunction(){
-    setPrice();
-    Disable();
-   }
 
    function validateForm(){
                 var supplier_approval = document.forms["MaterialQuotationForm"]["supplier_approval"].value;
@@ -123,7 +109,7 @@
 
 </head>
 
-<body onLoad="setPrice(); checkApproval();">
+<body onLoad="setPrice();">
     
     <?php include 'header.php';?>
     <div id="page-body">
@@ -279,8 +265,7 @@
                                     Valid till :
                                 </div>
                                 <div class="form-row-data">
-                                    <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>"
-                                  required />
+                                    <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" <?php echo ($row["supplier_approval"]=="reject")?"disabled":""; ?> required />
                                 </div>
                             </div>
 

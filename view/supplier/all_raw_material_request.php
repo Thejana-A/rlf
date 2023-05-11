@@ -12,13 +12,18 @@
             $conn = $connObj->getConnection();
             if(isset($_POST["search"])){
                 $searchbar = $_POST["searchbar"];
-                $search_sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material WHERE supplier_id =  ".$_SESSION["supplier_id"]." AND (material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%');";
+                $search_sql = "SELECT material_id, name, measuring_unit, manager_approval FROM raw_material WHERE supplier_id =  ".$_SESSION["supplier_id"]." AND (material_id LIKE '%$searchbar%' OR name LIKE '%$searchbar%' OR measuring_unit LIKE '%$searchbar%' OR manager_approval LIKE '%$searchbar%' );";
                 $search_output = "";
                 $output = "";
                 if($search_result = mysqli_query($conn, $search_sql)){
                 if(mysqli_num_rows($search_result) > 0){
                     while($search_row = mysqli_fetch_array($search_result)){
                         $class = ($search_row["manager_approval"]=="approve")?"green":(($search_row["manager_approval"]=="reject")?"red":"grey");
+                        if($search_row["manager_approval"] == NULL){
+                            $managerApproval = "Pending";
+                        }else{
+                            $managerApproval = $search_row["manager_aprroval"];
+                        }
                         $search_output.= "<div class='item-data-row'>";
                         $search_output.= "<form method='post' action='../RouteHandler.php'>";
                         $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_request_view' />";
@@ -43,6 +48,11 @@
                 if(mysqli_num_rows($result) > 0){
                     while($row = mysqli_fetch_array($result)){
                         $class = ($row["manager_approval"]=="approve")?"green":(($row["manager_approval"]=="reject")?"red":"grey");
+                        if($search_row["manager_approval"] == NULL){
+                            $managerApproval = "Pending";
+                        }else{
+                            $managerApproval = $search_row["manager_approval"];
+                        }
                         $output.= "<div class='item-data-row'>";
                         $output.= "<form method='post' action='../RouteHandler.php'>";
                         $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material/supplier_request_view' />";
@@ -82,7 +92,7 @@
                 
                 <div id="list-box">
                     <center>
-                        <h2>All Tender Requests</h2>
+                        <h2>All Raw material Requests</h2>
                     </center>
 
                         <form method="post" action="all_raw_material_request.php" class="search-panel">

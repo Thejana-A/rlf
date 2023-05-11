@@ -133,7 +133,7 @@
                 </div>
 
                 <div id="form-box">
-                <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
+                    <form method="post" action="../RouteHandler.php" enctype="multipart/form-data">
                         <input type="text" hidden="true" name="framework_controller" value="costume_design/update" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
@@ -176,26 +176,8 @@
                             </div>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-row-submit">
-                                <?php 
-                                    if($row["material_price_approval"] == "approve"){
-                                        echo "<input type='submit' value='Save' disabled />";
-                                    }else{
-                                        echo "<input type='submit' value='Save' />";
-                                    }
-                                ?>   
-                            </div>
-                            <div class="form-row-reset">
-                                <?php 
-                                    if($row["material_price_approval"] == "approve"){
-                                        echo "<input type='reset' value='Cancel' disabled />";
-                                    }else{
-                                        echo "<input type='reset' value='Cancel' />";
-                                    }
-                                ?>   
-                            </div>
-                        </div> 
+                        
+                        
                     </form>
                 </div>   
 
