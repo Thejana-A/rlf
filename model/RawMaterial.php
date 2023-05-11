@@ -163,14 +163,14 @@
                     /*Supplier notification when raw material request(tender request) is updated by manager*/
                     if($_POST["requester_role"] == "supplier"){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Tender request was updated - ID ".$this->materialID;
+                        $notification_message = "Material request was updated - ID ".$this->materialID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["requester_id"]."', 'tender request');";
                         $conn->query($sql_notification); 
                     } 
                     /*Fashion designer notification when raw material request(tender request) is updated by manager*/
                     if($_POST["requester_role"] == "fashion designer"){
                         date_default_timezone_set("Asia/Calcutta");
-                        $notification_message = "Tender request was updated - ID ".$this->materialID;
+                        $notification_message = "Material request was updated - ID ".$this->materialID;
                         $sql_notification = "INSERT INTO notification (message, notification_date, time, fashion_designer_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$_POST["requester_id"]."', 'tender request');";
                         $conn->query($sql_notification);
                     } 
@@ -214,6 +214,9 @@
                     window.location.href='<?php echo $_POST["page_url"]; ?>';
                     </script><?php
                 }else{
+                    $sql_delete_notification = "DELETE FROM notification WHERE (`category` = 'raw material' OR `category` = 'tender request') AND message LIKE '%$this->materialID'";
+                    $conn->query($sql_delete_notification); 
+
                     ?><script>
                     alert("Material was deleted successfully");
                     window.location.href='<?php echo $_POST["home_url"]; ?>';

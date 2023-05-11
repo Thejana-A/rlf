@@ -13,6 +13,7 @@
                 $row = $_SESSION["row"];
                 //print_r($row);
             }
+            
 
             $designID = $row["design_id"];
             //$conn = new mysqli("localhost", "root", "", "rlf");

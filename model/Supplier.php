@@ -251,6 +251,7 @@
                             window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php
                         }else{
+
                             ?><script>
                             alert("Supplier was deleted successfully");
                             window.location.href='<?php echo $_POST["home_url"]; ?>';

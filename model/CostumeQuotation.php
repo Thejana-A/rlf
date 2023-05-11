@@ -218,6 +218,9 @@
                                 window.location.href='<?php echo $_POST["page_url"]; ?>';
                             </script><?php
                         }else{
+                            $sql_delete_notification = "DELETE FROM notification WHERE `category` = 'costume quotation' AND message LIKE '%$this->quotationID'";
+                            $conn->query($sql_delete_notification); 
+
                             ?><script>
                                 alert("Quotation was deleted successfully");
                                 window.location.href='<?php echo $_POST["home_url"]; ?>';
