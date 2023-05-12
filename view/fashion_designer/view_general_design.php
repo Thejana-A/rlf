@@ -29,6 +29,7 @@
                     echo "0 results";
                 }
             }
+
     
         ?>
             
@@ -140,16 +141,17 @@
                             </div>
                         </div>
                         <?php 
+                            //Checking whether valid to update
                             $validityToUpdate = 1;
-                            /*$sql_costume_status = "SELECT design_id, publish_status from costume_design WHERE (`name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___')";
-                            $result_costume_status = $conn->query($sql_costume_status);
-                            if ($result_costume_status->num_rows > 0) {
-                                while ($costume_status = $result_costume_ststus->fetch_assoc()) {
-                                    if($costume_status["publish_status"] == "publish"){
+                            $sql_select_costume = "SELECT design_id, name, size, publish_status from costume_design WHERE `name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___'";
+                            $select_costume_row = $conn->query($sql_select_costume);
+                            if ($select_costume_row->num_rows > 0) {
+                                while ($costume_row_data = $select_costume_row->fetch_assoc()) {
+                                    if($costume_row_data["publish_status"] == "publish"){
                                         $validityToUpdate = 0;
-                                    }
+                                    }      
                                 }
-                            } */
+                            }
                         ?>
 
                         <div class="form-row">

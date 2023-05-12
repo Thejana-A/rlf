@@ -305,8 +305,6 @@
                     <center>
                         <h2>Available sizes</h2>
                     </center>
-
-
                     <div class="item-list">
                         <div class="item-heading-row">
                             <b class='manager-ID-column'>Design ID</b>
@@ -316,6 +314,7 @@
                             <hr class="manager-long-hr" />
                         </div>
                         <?php 
+                            $costumeIDArray = array();
                             $sql_costume = "SELECT design_id, name, size, publish_status, material_price_approval from costume_design WHERE `name` LIKE '$designName-_' OR `name` LIKE '$designName-__' OR `name` LIKE '$designName-___'";
                             $result_costume_row = $conn->query($sql_costume);
                             if ($result_costume_row->num_rows > 0) {
@@ -332,11 +331,12 @@
                                     echo "<hr class='manager-long-hr' />";
                                     echo "</form>";
                                     echo "</div>";
+                                    array_push($costumeIDArray, $costume_row["design_id"]);
                                 }
                             }else{
                                 $output.= "No costume designs";
                             }
-                            mysqli_close($conn);
+                            
                         
                         ?>
                         <!--<div class="item-data-row">
@@ -358,8 +358,54 @@
                             <hr class="manager-long-hr" />
                         </div> -->
                     </div>
+                </div>
 
-
+                <div id="list-box-ultra-small">
+                    <form>
+                        <center>
+                            <h2>Costume quotations</h2>
+                        </center>
+                        <div class="form-row">
+                            <div class="form-row-theme">
+                                Costume quotations : 
+                            </div>
+                            <div class="form-row-data">
+                                <?php
+                                    
+                                    $quotationIDArray = array();
+                                    $quotationList = "<select name='quotation_id' id='quotation_id' multiple size='4' onClick='window.location.href=this.value'>";
+                                    $quotationList .= "<option disabled selected>Quotation ID - Customer (Vaid tilll)</option>";
+                                    for($roundCount = 0;$roundCount < count($costumeIDArray);$roundCount++){
+                                        $arrayItem = $costumeIDArray[$roundCount];
+                                        $sql_select_quotation = "SELECT design_quotation.quotation_id, costume_quotation.customer_id, first_name, last_name, valid_till FROM costume_quotation, design_quotation, customer WHERE costume_quotation.quotation_id = design_quotation.quotation_id AND costume_quotation.customer_id = customer.customer_id AND design_quotation.design_id = ".$arrayItem.";";
+                                        if($result_select_quotation = mysqli_query($conn, $sql_select_quotation)){
+                                            if(mysqli_num_rows($result_select_quotation) > 0){ 
+                                                while($quotation_row = mysqli_fetch_array($result_select_quotation)){
+                                                    if(in_array($quotation_row["quotation_id"], $quotationIDArray) == false){
+                                                        //For selecting the order related to the costume quotation
+                                                        $tempQuotationID = $quotation_row["quotation_id"];
+                                                        $sql_select_order = "SELECT costume_quotation.quotation_id, costume_order.order_id FROM costume_quotation, costume_order WHERE costume_quotation.quotation_id = costume_order.quotation_id AND costume_quotation.quotation_id = ".$tempQuotationID.";";
+                                                        if($result_select_order = mysqli_query($conn, $sql_select_order)){
+                                                            if(mysqli_num_rows($result_select_order) > 0){ 
+                                                                $quotationList .= "<option value=edit_costume_quotation.php?quotation_id=".$quotation_row["quotation_id"]." selected>".$quotation_row["quotation_id"]." - ".$quotation_row["first_name"]." ".$quotation_row["last_name"]."(".$quotation_row["valid_till"].")</option>";
+                                                            }else{
+                                                                $quotationList .= "<option value=edit_costume_quotation.php?quotation_id=".$quotation_row["quotation_id"].">".$quotation_row["quotation_id"]." - ".$quotation_row["first_name"]." ".$quotation_row["last_name"]."(".$quotation_row["valid_till"].")</option>";
+                                                            }
+                                                        }     
+                                                        array_push($quotationIDArray, $quotation_row["quotation_id"]); 
+                                                    }
+                                                }
+                                            }  
+                                        }     
+                                    } 
+                                    $quotationList .= "</select>";
+                                    mysqli_close($conn);
+                                    echo $quotationList;
+                                    
+                                ?>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div> 
         </div> 
