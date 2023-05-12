@@ -64,7 +64,7 @@ padding: 0;">
 
 <form method="post"  class="signup" name="customerForm" onSubmit="return validateForm()" action="../RouteHandler.php">
     <input type="text" hidden="true" name="framework_controller" value="customer/sign_up" />
-
+    <input type='text' hidden='true' name='page_url' value='http://localhost/rlf/index.php' />"; 
     <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="130px"/></div>
     <h4>Customer Signup</h4></center>
 

@@ -130,12 +130,18 @@
     display:block;
     width:180%; 
   }
+  .link-row-ultra-small{
+    clear:inherit;
+    font-family:sans-serif;
+    display:block;
+    width:140%; 
+  }
   @media (max-width: 1200px) {
-    .link-row, .link-row-small{
+    .link-row, .link-row-small, .link-row-ultra-small{
       width: 92%;
     }
   }
-  .link-row .left-button, .link-row-small .left-button{
+  .link-row .left-button, .link-row-small .left-button, .link-row-ultra-small .left-button{
     /*float:right;*/
     padding:5px;
     margin-bottom:10px;
@@ -146,10 +152,10 @@
     color:#000000;
     float:left;
   }
-  .link-row .left-button:hover, .link-row-small .left-button:hover{
+  .link-row .left-button:hover, .link-row-small .left-button:hover, .link-row-ultra-small .left-button:hover{
     background-color: #cccccc;
   }
-  .link-row .right-button, .link-row-small .right-button{
+  .link-row .right-button, .link-row-small .right-button, .link-row-ultra-small .right-button{
     padding:5px;
     border:1px solid #888888;
     border-radius: 6px;
@@ -157,7 +163,7 @@
     color:#000000;
     float:right;
   }
-  .link-row .right-button:hover, .link-row-small .right-button:hover{
+  .link-row .right-button:hover, .link-row-small .right-button:hover, .link-row-ultra-small .right-button:hover{
     background-color: #cccccc;
   }
 

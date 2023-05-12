@@ -65,7 +65,7 @@
                         }
 
                     }else {
-                        $output.= "0 results";
+                        $output.= "&nbsp;&nbsp;&nbsp;&nbsp; No results found";
                     }
                 }else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
