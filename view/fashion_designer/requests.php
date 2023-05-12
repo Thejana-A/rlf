@@ -7,12 +7,24 @@
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/data_form_style.css" />
               <link rel="stylesheet" type="text/css" href="../css/fashion_designer/view_list_style.css" />
               <?php
-            if(isset($_GET['data'])){ 
-                //parse_str($_SERVER['REQUEST_URI'],$row);
-                $row = $_SESSION["row"];
-                //print_r($row);
-            }
-        ?>
+                    require_once('../../model/DBConnection.php');
+                    $connObj = new DBConnection();
+                    $conn = $connObj->getConnection();
+                    if(isset($_GET['data'])){ 
+                        //parse_str($_SERVER['REQUEST_URI'],$row);
+                        $row = $_SESSION["row"];
+                        //print_r($row);
+                    }else{
+                        $sql_view_raw_material = 
+                        "SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.supplier_id as requester_id,'supplier' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,supplier where raw_material.supplier_id = supplier.supplier_id and material_id = '".$_GET["material_id"]."'
+                        UNION
+                        SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image, raw_material.fashion_designer_id as requester_id,'fashion designer' as requester_role, first_name,last_name,manager_approval,approval_description FROM raw_material,employee where raw_material.fashion_designer_id = employee.employee_id and material_id = '".$_GET["material_id"]."'
+                        UNION
+                        SELECT material_id,name,size,measuring_unit,quantity_in_stock,description,image,'' as requester_id,'' as requester_role, '' as first_name,'' as last_name,manager_approval,approval_description FROM raw_material where fashion_designer_id is null and supplier_id is null AND material_id = '".$_GET["material_id"]."';";
+                        $result_view_raw_material = mysqli_query($conn, $sql_view_raw_material);
+                        $row = mysqli_fetch_array($result_view_raw_material);
+                    }
+                ?>
 	</head>
 
 <body>

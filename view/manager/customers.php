@@ -23,7 +23,7 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='customer/manager_view' />";
                             $search_output.= "<input type='text' hidden='true' name='customer_id' value='".$search_row["customer_id"]."' />";
-                            $search_output.= "<span class='manager-ID-column'>".$search_row["customer_id"]."</span><span>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["city"]."</span><span>".$search_row["contact_no"]."</span>";
+                            $search_output.= "<span class='manager-ID-column' style='width:14%;'>".$search_row["customer_id"]."</span><span>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span>".$search_row["city"]."</span><span>".$search_row["contact_no"]."</span>";
                             $search_output.= "<table class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='grey' name='edit' value='Edit' /></td>";
                             $search_output.= "<td><input type='submit' class='grey' name='delete' value='Delete' /></td>";
@@ -47,7 +47,7 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='customer/manager_view' />";
                             $output.= "<input type='text' hidden='true' name='customer_id' value='".$row["customer_id"]."' />";
-                            $output.= "<span class='manager-ID-column'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
+                            $output.= "<span class='manager-ID-column' style='width:14%;'>".$row["customer_id"]."</span><span>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["city"]."</span><span>".$row["contact_no"]."</span>";
                             $output.= "<table class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='grey' name='edit' value='Edit' /></td>";
                             $output.= "<td><input type='submit' class='grey' name='delete' value='Delete' /></td>";
@@ -94,7 +94,7 @@
 
                     <div class="item-list">
                         <div class="item-heading-row">
-                            <b>Customer ID</b>
+                            <b style="width:14%;">Customer ID</b>
                             <b>Customer name</b>
                             <b>City</b>
                             <b>Contact no</b>

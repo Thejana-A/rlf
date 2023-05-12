@@ -26,7 +26,10 @@
                     $row = $result->fetch_assoc();
                     //print_r($row);
                 } else {
-                    echo "0 results";
+                    ?><script>
+                    alert("Design has been deleted.");
+                    window.location.href='http://localhost/rlf/view/manager/home.php';
+                    </script><?php  
                 }
             }
 

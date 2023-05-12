@@ -38,7 +38,7 @@
                             Material Type : 
                         </div>
                         <div class="form-row-data">
-                            <input type="text" name="name" id="name" placeholder="Material Name-Size" required/>
+                            <input type="text" name="name" id="name" placeholder="Material Name" required/>
                         </div>
                     </div>
                     <div class="form-row">
