@@ -52,7 +52,7 @@
                 }else{
                     $search_sql = "SELECT quotation_id, first_name, last_name, issue_date, valid_till, manager_approval FROM costume_quotation INNER JOIN customer ON costume_quotation.customer_id = customer.customer_id AND merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
                 } */
-                if(($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")&&($minRequestDate=="")&&($maxRequestDate=="")){
+                /*if(($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")&&($minRequestDate=="")&&($maxRequestDate=="")){
                     $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, manager_approval, merchandiser_id FROM costume_quotation INNER JOIN customer ON costume_quotation.customer_id = customer.customer_id AND merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%');";
                 }else if((($minRequestDate!="")||($maxRequestDate!=""))&&($minIssueDate=="")&&($maxIssueDate=="")&&($minValidTill=="")&&($maxValidTill=="")){
                     $minIssueDate = "1900-01-01";
@@ -70,7 +70,14 @@
                     $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
                     $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
                     $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, manager_approval, merchandiser_id FROM costume_quotation INNER JOIN customer ON costume_quotation.customer_id = customer.customer_id AND merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate' AND issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
-                }
+                } */
+                $minIssueDate = ($minIssueDate=="")?"1900-01-01":$minIssueDate;
+                $maxIssueDate = ($maxIssueDate=="")?"3000-01-01":$maxIssueDate;
+                $minValidTill = ($minValidTill=="")?"1900-01-01":$minValidTill;
+                $maxValidTill = ($maxValidTill=="")?"3000-01-01":$maxValidTill;
+                $minRequestDate = ($minRequestDate=="")?"1900-01-01":$minRequestDate;
+                $maxRequestDate = ($maxRequestDate=="")?"3000-01-01":$maxRequestDate;
+                $search_sql = "SELECT quotation_id, first_name, last_name, request_date, issue_date, valid_till, manager_approval, merchandiser_id FROM costume_quotation INNER JOIN customer ON costume_quotation.customer_id = customer.customer_id AND merchandiser_id = '$merchandiserID' AND (quotation_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (request_date >= '$minRequestDate' AND request_date <= '$maxRequestDate' AND issue_date >= '$minIssueDate' AND issue_date <= '$maxIssueDate' AND valid_till >= '$minValidTill' AND valid_till <= '$maxValidTill');";
 
                 $search_output = "";
                 $output = "";
@@ -82,7 +89,16 @@
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/merchandiser_view' />";
                             $search_output.= "<input type='text' hidden='true' name='quotation_id' value='".$search_row["quotation_id"]."' />";
-                            $search_output.= "<span style='width:8%;'>".$search_row["quotation_id"]."</span><span style='width:15%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:14%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"] == ""?"Pending":$search_row["issue_date"])."</span><span style='width:12%;'>".($search_row["valid_till"] == ""?"Pending":$search_row["valid_till"])."</span>";
+                            //For selecting the order related to the costume quotation
+                            $tempQuotationID = $search_row["quotation_id"];
+                            $sql_select_order = "SELECT costume_quotation.quotation_id, costume_order.order_id FROM costume_quotation, costume_order WHERE costume_quotation.quotation_id = costume_order.quotation_id AND costume_quotation.quotation_id = ".$tempQuotationID.";";
+                            if($result_select_order = mysqli_query($conn, $sql_select_order)){
+                                if(mysqli_num_rows($result_select_order) > 0){
+                                    $search_output.= "<span style='width:8%;'><b>".$search_row["quotation_id"]."</b></span><span style='width:15%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:14%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"] == ""?"Pending":$search_row["issue_date"])."</span><span style='width:12%;'>".($search_row["valid_till"] == ""?"Pending":$search_row["valid_till"])."</span>";
+                                }else{
+                                    $search_output.= "<span style='width:8%;'>".$search_row["quotation_id"]."</span><span style='width:15%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:14%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"] == ""?"Pending":$search_row["issue_date"])."</span><span style='width:12%;'>".($search_row["valid_till"] == ""?"Pending":$search_row["valid_till"])."</span>";
+                                }
+                            }
                             $search_output.= "<table align='right' style='margin-right:25px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $search_output.= "</tr></table>";
@@ -106,7 +122,16 @@
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_quotation/merchandiser_view' />";
                             $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                            $output.= "<span style='width:8%;'>".$row["quotation_id"]."</span><span style='width:15%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:14%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"] == ""?"Pending":$row["issue_date"])."</span><span style='width:12%;'>".($row["valid_till"] == ""?"Pending":$row["valid_till"])."</span>";
+                            //For selecting the order related to the costume quotation
+                            $tempQuotationID = $row["quotation_id"];
+                            $sql_select_order = "SELECT costume_quotation.quotation_id, costume_order.order_id FROM costume_quotation, costume_order WHERE costume_quotation.quotation_id = costume_order.quotation_id AND costume_quotation.quotation_id = ".$tempQuotationID.";";
+                            if($result_select_order = mysqli_query($conn, $sql_select_order)){
+                                if(mysqli_num_rows($result_select_order) > 0){
+                                    $output.= "<span style='width:8%;'><b>".$row["quotation_id"]."</b></span><span style='width:15%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:14%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"] == ""?"Pending":$row["issue_date"])."</span><span style='width:12%;'>".($row["valid_till"] == ""?"Pending":$row["valid_till"])."</span>";
+                                }else{
+                                    $output.= "<span style='width:8%;'>".$row["quotation_id"]."</span><span style='width:15%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:14%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"] == ""?"Pending":$row["issue_date"])."</span><span style='width:12%;'>".($row["valid_till"] == ""?"Pending":$row["valid_till"])."</span>";
+                                }
+                            }
                             $output.= "<table align='right' style='margin-right:25px;' class='two-button-table'><tr>";
                             $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $output.= "</tr></table>";
