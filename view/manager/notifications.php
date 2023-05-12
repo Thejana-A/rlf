@@ -16,13 +16,13 @@
                 $minDate = $_POST["min_date"];
                 $maxDate = $_POST["max_date"];
                 if(($minDate == "")&&($maxDate == "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL GROUP BY `message` ORDER BY notification_date DESC, time DESC";
                 }else if(($minDate == "")&&($maxDate != "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date <= '$maxDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date <= '$maxDate') GROUP BY `message` ORDER BY notification_date DESC, time DESC";
                 }else if(($minDate != "")&&($maxDate == "")){
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date >= '$minDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date >= '$minDate') GROUP BY `message` ORDER BY notification_date DESC, time DESC";
                 }else{
-                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date BETWEEN '$minDate' AND '$maxDate') ORDER BY notification_date DESC";
+                    $search_sql = "SELECT * FROM notification WHERE message LIKE '%$searchbar%' AND merchandiser_id IS NOT NULL AND (notification_date BETWEEN '$minDate' AND '$maxDate') GROUP BY `message` ORDER BY notification_date DESC, time DESC";
                 }
                 $search_output = "";
                 $output = "";
@@ -58,7 +58,8 @@
                     }
                 }
             }else{
-                $sql = "SELECT * FROM notification WHERE merchandiser_id IS NOT NULL ORDER BY notification_date DESC";
+                //$sql = "SELECT * FROM notification WHERE merchandiser_id IS NOT NULL ORDER BY notification_date DESC";
+                $sql = "SELECT * FROM notification WHERE merchandiser_id IS NOT NULL GROUP BY `message` ORDER BY notification_date DESC, time DESC";
                 $search_output = "";
                 $output = "";
                 if($result = mysqli_query($conn, $sql)){

@@ -189,10 +189,26 @@ if(($_SESSION["customer_id"]=="")){
                <center> <img src="../Icon/logo.png"></center>
             </span>
             <span id="centertitle">
-                    <button onclick="window.location.href='notifications.php'" target="iframe_a">About Us</button>
-                    <button ><a href="notifications.php" target="iframe_a">Contact Us</a></button>
-                    <button ><a href="notifications.php" target="iframe_a">Help</a></button>
+                    <button onclick="aboutus()">About Us</button>
+                    <button onclick="contactus()">Contact Us</button>
+                    <button onclick="help()">Help</button>
+                    <script>
+                    function aboutus() {
+                      var iframe = document.getElementsByName("iframe_a")[0];
+                      iframe.src = "about_us.php";
+                    }
+                    function contactus() {
+                      var iframe = document.getElementsByName("iframe_a")[0];
+                      iframe.src = "contact_us.php";
+                    }
+                    function help() {
+                      var iframe = document.getElementsByName("iframe_a")[0];
+                      iframe.src = "help.php";
+                    }
+                    </script>
+                    <!--<button ><a href="notifications.php" target="iframe_a">Help</a></button>-->
             </span>
+            
             <span id ="button">
                 <button id="logoutbutton" onclick="window.location.href='customer_login.php';">
                     Logout

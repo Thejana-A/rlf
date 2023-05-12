@@ -50,7 +50,7 @@
                 material_row += "<div class='form-row-data'>";
                 material_row += "<input type='text' class='column-textfield' name='material_size[]' id='material_size_"+materialCount+"' readonly />&nbsp";
                 material_row += "<input type='text' class='column-textfield' name='measuring_unit[]' id='measuring_unit_"+materialCount+"' readonly />&nbsp";
-                material_row += "<input type='number' step='0.001' min='0.001' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
+                material_row += "<input type='number' step='0.001' min='0' class='column-textfield' name='quantity[]' id='quantity_"+materialCount+"' required /></div></div>";
                 materialCount++; 
                 document.getElementById("form_body").innerHTML += material_row;
             }
@@ -62,9 +62,20 @@
                 document.getElementById("measuring_unit_"+rowNumber).value = measuringUnit;
             } 
             function validateMaterialForm(){
-                var arrayLength = (document.forms["materialForm"]["material_id[]"].value).length;
+                /*var arrayLength = (document.forms["materialForm"]["material_id[]"].value).length;
                 alert(arrayLength);
-                return false;
+                return false; */
+                var totalQuantity = 0;
+                for(let i = 0;i < materialCount;i++){
+                    var quantity = document.getElementById("quantity_"+i).value;
+                    totalQuantity = parseFloat(totalQuantity) + parseFloat(quantity);
+                } 
+                if(totalQuantity == 0){
+                    alert("There should be at least one material");
+                    return false;
+                }else{
+                    return true;
+                }
             }
         </script>
     </head>
@@ -78,7 +89,7 @@
                     <input type="submit" class="close" value="x" style="border:none;background-color:#ffffff;" />
                 </form>
                 <div id="form-box">
-                    <form method="post" name="materialForm" action="../RouteHandler.php">
+                    <form method="post" name="materialForm" onSubmit="return validateMaterialForm()" action="../RouteHandler.php">
 
                         <input type="text" hidden="true" name="home_url" value="http://localhost/rlf/view/fashion_designer/home.php" />
                         <input type="text" hidden="true" name="page_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -141,7 +152,7 @@
                                 <div class="form-row-data">
                                     <input type="text" name="material_size[]" id="material_size_0" class="column-textfield" value="" readonly />
                                     <input type="text" name="measuring_unit[]" id="measuring_unit_0" class="column-textfield" value="" readonly />
-                                    <input type="number" step="0.001" min="0.001" name="quantity[]" id="quantity_0" class="column-textfield" required />
+                                    <input type="number" step="0.001" min="0" name="quantity[]" id="quantity_0" class="column-textfield" required />
                                     <button onclick="addCode()"> + </button>
                                 </div>
                             </div>
