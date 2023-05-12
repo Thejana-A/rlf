@@ -38,7 +38,17 @@
     <div id="page-body">
 
     <div id="breadcrumb">
-                <a href="customer_home.php">Home</a> 
+                <?php
+                    include "db_conn.php";
+
+                    session_start();
+
+                    if($_SESSION["customer_id"] == NUll){
+                        echo "<a href = 'index_home.php'>Home</a>";
+                    }else{
+                        echo "<a href = 'customer_home.php'>Home</a>";
+                    }
+                ?>
                 >Help
             </div>
 

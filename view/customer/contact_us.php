@@ -37,8 +37,18 @@
 
             <div id="page-content">
                 <div id="breadcrumb">
-                    <a href="customer_home.php">Home </a> >
-                     Contact Us
+                    <?php
+                        include "db_conn.php";
+
+                        session_start();
+
+                        if($_SESSION["customer_id"] == NUll){
+                            echo "<a href = 'index_home.php'>Home</a>";
+                        }else{
+                            echo "<a href = 'customer_home.php'>Home</a>";
+                        }
+                    ?>
+                    >Contact Us
                 </div>
                 <div class="container">
                     <img src="../supplier/images/contact_us.jpg" alt="Nature" style="width:135%; background-repeat: no-repeat;">

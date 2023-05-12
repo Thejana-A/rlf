@@ -16,9 +16,26 @@
                     <img src="view/Icon/logo.png">
                 </span>
                 <span id="centertitle">
-                        <button>About Us</button>
+                        <!--<button>About Us</button>
                         <button>Contact Us</button>
-                        <button>Help</button>
+                        <button>Help</button>-->
+                        <button onclick="aboutus()">About Us</button>
+                        <button onclick="contactus()">Contact Us</button>
+                        <button onclick="help()">Help</button>
+                        <script>
+                        function aboutus() {
+                        var iframe = document.getElementsByName("iframe_a")[0];
+                        iframe.src = "view/customer/about_us.php";
+                        }
+                        function contactus() {
+                        var iframe = document.getElementsByName("iframe_a")[0];
+                        iframe.src = "view/customer/contact_us.php";
+                        }
+                        function help() {
+                        var iframe = document.getElementsByName("iframe_a")[0];
+                        iframe.src = "view/customer/help.php";
+                        }
+                        </script>
                 </span>
                 <span id ="button">
                     <button id="signupbutton" onclick="window.location.href='view/customer/signup_as.html';">

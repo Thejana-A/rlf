@@ -91,8 +91,10 @@
 
                 if (mysqli_num_rows($result)  > 0) {
 
-                    while ($row = mysqli_fetch_array($result)) {
+                    
 
+                    while ($row = mysqli_fetch_array($result)) {
+                        if ($row["manager_approval"] != "reject"){
                      ?>
                     
                     <div class="item-data-row">
@@ -105,7 +107,9 @@
                         <hr />
                     </div>
 
-            <?php   }
+            <?php       }
+
+                    }
 
                 }else {
                     echo "No results found.";

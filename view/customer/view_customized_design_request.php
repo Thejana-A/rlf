@@ -132,7 +132,13 @@
                     Description
                 </div>
                 <div class="form-row-data">
-                    <textarea rows="4" cols="40" name="description" id="description"><?php echo $description?></textarea>
+                <?php
+                    if($row["customized_design_approval"] == NULL ){
+                        echo "<textarea rows='4' cols='40' name='description' id='description'>".$description."</textarea>";
+                    }else{
+                        echo "<textarea rows='4' cols='40' name='description' id='description' readonly>".$description."</textarea>";
+                    }
+                ?>
                 </div>
             </div>
 
@@ -150,6 +156,10 @@
                     echo "</div>";
                     echo "</div>";
                     echo "</form>";
+                }
+
+                if($customized_design_approval == "reject"){
+                    echo "<p style = 'font-weight: bold; color: red; text-align: center;'>Sorry!! Your customized Design Quotation is rejected</p>";
                 }
 
                 if($customized_design_approval == "approve"){
