@@ -77,7 +77,7 @@
                             $search_output.= "<input type='text' hidden='true' name='approval_description' value='".$search_row["approval_description"]."' />";
                             $search_output.= "<input type='text' hidden='true' name'supplier_id' value='".$search_row["supplier_id"]."' />";
                             $search_output.= "<input type='text' hidden='true' name'merchandiser_id' value='".$search_row["merchandiser_id"]."' />";
-                            $search_output.= "<span style='width:6%;'>".$search_row["quotation_id"]."</span><span style='width:12%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:12%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"]==""?"Pending":$search_row["issue_date"])."</span><span style='width:8%;'>".($search_row["valid_till"]==""?"N/A":$search_row["valid_till"])."</span><span style='width:8%;'>".(($search_row["supplier_approval"])==""?"Pending":$search_row["supplier_approval"])."</span>";
+                            $search_output.= "<span style='width:6%;'>".$search_row["quotation_id"]."</span><span style='width:12%;'>".$search_row["first_name"]." ".$search_row["last_name"]."</span><span style='width:12%;'>".$search_row["request_date"]."</span><span style='width:12%;'>".($search_row["issue_date"]==""?"Pending":$search_row["issue_date"])."</span><span style='width:10%;'>".($search_row["valid_till"]==""?"N/A":$search_row["valid_till"])."</span><span style='width:8%;'>".(($search_row["supplier_approval"])==""?"Pending":$search_row["supplier_approval"])."</span>";
                             $search_output.= "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
                             $search_output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $search_output.= "</tr></table>";
@@ -106,7 +106,7 @@
                                         $output.= "<form method='post' action='../RouteHandler.php'>";
                                         $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/supplier_view' />";
                                         $output.= "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                                        $output.= "<span style='width:4%;'>".$row["quotation_id"]."</span><span class='width:8%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:10%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span style='width:8%;'>".($row["valid_till"]==""?"N/A":$row["valid_till"])."</span><span style='width:8%;'>".(($row["supplier_approval"])==""?"Pending":$row["supplier_approval"])."</span>";
+                                        $output.= "<span style='width:4%;'>".$row["quotation_id"]."</span><span class='width:8%;'>".$row["first_name"]." ".$row["last_name"]."</span><span style='width:10%;'>".$row["request_date"]."</span><span style='width:12%;'>".($row["issue_date"]==""?"Pending":$row["issue_date"])."</span><span style='width:10%;'>".($row["valid_till"]==""?"N/A":$row["valid_till"])."</span><span style='width:8%;'>".(($row["supplier_approval"])==""?"Pending":$row["supplier_approval"])."</span>";
                                         $output.= "<table align='right' style='margin-right:14px; margin-bottom:8px' class='two-button-table'><tr>";
                                         $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                                         $output.= "</tr></table>";
@@ -137,7 +137,7 @@
                     <a href="profile.php">Supplier </a> > Quotation requests
                 </div>
                 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>All quotation requests</h2>
                     </center>

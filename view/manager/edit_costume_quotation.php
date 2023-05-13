@@ -99,6 +99,13 @@
                     return true;
                 } 
             }
+
+            function Disable() {
+                document.getElementById("valid_till").disabled = true;
+            }
+            function Enable(){
+                document.getElementById("valid_till").disabled = false;
+            }
         </script>
     </head>
 
@@ -260,7 +267,7 @@
                                 Quotation Valid till :
                             </div>
                             <div class="form-row-data">
-                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" required />
+                                <input type="date" name="valid_till" id="valid_till" value="<?php echo $row["valid_till"]; ?>" <?php echo ($row["manager_approval"]=="reject")?"disabled":""; ?> required />
                             </div>
                         </div>
                         
@@ -272,10 +279,10 @@
                                 <table width="60%">
                                     <tr>
                                         <td>
-                                            <input type="radio" name="manager_approval" value="approve" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> /> Approve
+                                            <input type="radio" name="manager_approval" value="approve" class="input-radio" <?php echo ($row["manager_approval"]=="approve")?'checked':'' ?> onChange="Enable()" /> Approve
                                         </td>
                                         <td>
-                                            <input type="radio" name="manager_approval" value="reject" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> /> Reject
+                                            <input type="radio" name="manager_approval" value="reject" class="input-radio" <?php echo ($row["manager_approval"]=="reject")?'checked':'' ?> onChange="Disable()" /> Reject
                                         </td>
                                     </tr>
                                 </table>

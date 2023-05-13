@@ -72,6 +72,21 @@
     font-family:sans-serif;
   }
 
+  #list-box-costume-design{
+    background-color:#ffcc99;
+    border-radius:6px;
+    padding:20px;
+    margin:30px;
+    clear:inherit;
+    font-family:sans-serif;
+    width:120%;
+    margin-top:60px;
+  }
+  #list-box-costume-design h2{
+    color:#330099;
+    font-family:sans-serif;
+  }
+
   #notification-box{
     background-color:#ffcc99;
     border-radius:6px;
@@ -104,6 +119,9 @@
     #list-box-see-more{
       width: 80%;
     }
+    #list-box-costume-design{
+      width: 80%;
+    }
     #notification-box {
       width: 80%;
     }
@@ -134,10 +152,16 @@
     clear:inherit;
     font-family:sans-serif;
     display:block;
-    width:140%; 
+    width:130%; 
+  }
+  .link-row-costume-design{
+    clear:inherit;
+    font-family:sans-serif;
+    display:block;
+    width:127%; 
   }
   @media (max-width: 1200px) {
-    .link-row, .link-row-small, .link-row-ultra-small{
+    .link-row, .link-row-small, .link-row-ultra-small, .link-row-costume-design{
       width: 92%;
     }
   }
@@ -155,7 +179,7 @@
   .link-row .left-button:hover, .link-row-small .left-button:hover, .link-row-ultra-small .left-button:hover{
     background-color: #cccccc;
   }
-  .link-row .right-button, .link-row-small .right-button, .link-row-ultra-small .right-button{
+  .link-row .right-button, .link-row-small .right-button, .link-row-ultra-small .right-button, .link-row-costume-design .right-button{
     padding:5px;
     border:1px solid #888888;
     border-radius: 6px;
@@ -163,7 +187,7 @@
     color:#000000;
     float:right;
   }
-  .link-row .right-button:hover, .link-row-small .right-button:hover, .link-row-ultra-small .right-button:hover{
+  .link-row .right-button:hover, .link-row-small .right-button:hover, .link-row-ultra-small .right-button:hover, .link-row-costume-design .right-button:hover{
     background-color: #cccccc;
   }
 

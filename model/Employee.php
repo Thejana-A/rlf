@@ -456,7 +456,7 @@
                     mysqli_stmt_execute($stmt);
                     ?><script>
                     alert("Check your email inbox. Use the OTP code and link in your email to reset your password");
-                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    window.location.href='http://localhost/rlf/';
                     </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -474,7 +474,7 @@
                     mysqli_stmt_execute($stmt);
                     ?><script>
                     alert("Check your email inbox. Use the OTP code and link in your email to reset your password");
-                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    window.location.href='http://localhost/rlf/';
                     </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);
@@ -492,7 +492,7 @@
                     mysqli_stmt_execute($stmt);
                     ?><script>
                     alert("Check your email inbox. Use the OTP code and link in your email to reset your password");
-                    window.location.href='<?php echo $_POST["page_url"]; ?>';
+                    window.location.href='http://localhost/rlf/';
                     </script><?php
                 } else {
                     echo "Error: <br>" . mysqli_error($conn);

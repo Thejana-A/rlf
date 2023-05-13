@@ -154,7 +154,7 @@
                                     $all_material_select = "";
                                     if($result = mysqli_query($conn, $sql_all_material)){
                                         if(mysqli_num_rows($result) > 0){
-                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='2' required disabled>";
+                                            $all_material_select .= "<select name='material_id[]' id='material_id[]' multiple size='3' required disabled>";
                                             $all_material_select .= "<option disabled>ID - Material name</option>";
                                             while($all_material_row = mysqli_fetch_array($result)){
                                                 $all_material_select .= "<option value=".$all_material_row["material_id"];

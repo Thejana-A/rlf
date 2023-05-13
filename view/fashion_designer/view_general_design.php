@@ -184,7 +184,7 @@
                     </form>
                 </div>   
 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Available sizes</h2>
                     </center>
