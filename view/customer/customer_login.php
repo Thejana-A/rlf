@@ -23,7 +23,7 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 margin: 0;
 padding: 0;">
-<button type="button" onclick="goback()" class="back">Go Back</button>
+  <button type="button" onclick="goback()" class="back">Go Back</button>
 
   <form action="../RouteHandler.php" method="post" class="container">
   <input type="text" hidden="true" name="framework_controller" value="employee/login" />
@@ -32,25 +32,12 @@ padding: 0;">
       <center><div class="loginlogo"><img src="../Icon/logo-login.png" width="200px"/></div>
       <h2>Login</h2></center>
 
-    <?php if (isset($_GET['error'])) { ?>
-
-    <p class="error"><?php echo $_GET['error']; ?></p>
-
-    <?php } ?>
-
       <label><b>E mail</b></label>
-
       <input type="text" placeholder="Enter E mail" name="email" required>
 
       <label><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" required>
-      <!--<label for="usertype"><b>UserType</b></label><br />
-      <select name="usertype" class="selection">
-        <option value="customer">Customer</option>
-        <option value="supplier">Supplier</option>
-        <option value="merchandiser">Merchandiser</option>
-        <option value="fashiondesigner">Fashion Designer</option>
-      </select>-->
+
       <a href="../merchandiser/request_forgot_password.php" style="float:right;">forgot Password ?</a> 
       <br />
       <br />
