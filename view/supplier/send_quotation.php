@@ -42,7 +42,7 @@
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "<div class='form-row-data'>";
                         $presentMaterialList .= "<input type='number' step='0.001' min='0.001' name='request_quantity[]' id='request_quantity_".$materialCount."' class='column-textfield' value='".$quotation_material_row["request_quantity"]."' readonly />&nbsp";
-                        $presentMaterialList .= "<input type='number' step='1' min='1' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' ".$quotationStatus." /> ";
+                        $presentMaterialList .= "<input type='number' step='0.01' min='0.01' name='unit_price[]' id='unit_price_".$materialCount."' class='column-textfield' value='".$quotation_material_row["unit_price"]."'  onChange='setPrice();' ".$quotationStatus." /> ";
                         $presentMaterialList .= "<input type='text' name='material_price[]' id='material_price_".$materialCount."' value='".$quotation_material_row["material_price"]."' readonly class='column-textfield'  />";
                         $presentMaterialList .= "</div>";
                         $presentMaterialList .= "</div>";

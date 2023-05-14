@@ -146,7 +146,8 @@
         <div class="box">
             <form action="" method="">
                 <?php
-                $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design INNER JOIN design_quotation ON (publish_status = 'publish' OR customer_id = $_SESSION[customer_id]) AND design_quotation.design_id=costume_design.design_id AND design_quotation.quotation_id=$quotation_id;";
+                //$sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design INNER JOIN design_quotation ON (publish_status = 'publish' OR customer_id = $_SESSION[customer_id]) AND design_quotation.design_id=costume_design.design_id AND design_quotation.quotation_id=$quotation_id;";
+                $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design INNER JOIN design_quotation WHERE design_quotation.design_id=costume_design.design_id AND design_quotation.quotation_id=$quotation_id;";
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         $row = mysqli_fetch_array($result);
