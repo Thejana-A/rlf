@@ -21,7 +21,7 @@
                 if($this->quantity[$materialCount] > 0){
                     $sql = "INSERT INTO rlf.design_material (design_id, material_id, unit_price, quantity) VALUES (?,?,?,?);";
                     if ($stmt = mysqli_prepare($conn, $sql)) {
-                        mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
+                        mysqli_stmt_bind_param($stmt, "iidd", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
                         mysqli_stmt_execute($stmt);
                         $insertedRow = $conn -> affected_rows;
                         if($insertedRow == -1){
@@ -55,7 +55,7 @@
                 alert("Raw materials were added successfully");
                 window.location.href = '<?php echo $_POST["home_url"]; ?>';
                 </script><?php  
-            }
+            } 
         }
 
         public function update(){
@@ -65,7 +65,7 @@
                 if($this->quantity[$materialCount] > 0){
                     $sql = "INSERT INTO rlf.design_material (design_id, material_id, unit_price, quantity) VALUES (?,?,?,?);";
                     if ($stmt = mysqli_prepare($conn, $sql)) {
-                        mysqli_stmt_bind_param($stmt, "iiid", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
+                        mysqli_stmt_bind_param($stmt, "iidd", $this->designID, $this->materialID[$materialCount], $this->unitPrice[$materialCount], $this->quantity[$materialCount]);
                         mysqli_stmt_execute($stmt);
                         $insertedRow = $conn -> affected_rows;
                         if($insertedRow == -1){

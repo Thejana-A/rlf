@@ -10,19 +10,15 @@
             //print_r($_POST);
             break;
         case "manager_view":
-            $data = $costumeOrderModel->viewCostumeOrder();
-            //$row = http_build_query($data); 
+            $data = $costumeOrderModel->viewCostumeOrder(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/manager/view_costume_order.php?data[]=$row");
             header("location: http://localhost/rlf/view/manager/view_costume_order.php?data=true");
             break;
         case "merchandiser_view":
-            $data = $costumeOrderModel->viewCostumeOrder();
-            //$row = http_build_query($data); 
+            $data = $costumeOrderModel->viewCostumeOrder(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data[]=$row");
             header("location: http://localhost/rlf/view/merchandiser/view_costume_order.php?data=true");
             break;
         case "update":

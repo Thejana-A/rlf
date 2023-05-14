@@ -283,55 +283,6 @@
         }
         
 
-        /*public function login() {   
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $sql = "SELECT * from employee where email='$this->email';";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            if(md5($this->password) == $row["password"]){
-                if($row["active_status"] == "enable"){
-                    if($row["email_verification"] == 1){
-                        session_start();
-                        $_SESSION["email"] = $row["email"]; 
-                        $_SESSION["employee_id"] = $row["employee_id"]; 
-                        $_SESSION["username"] = $row["first_name"]." ".$row["last_name"]; 
-                        $_SESSION["user_type"] = $row["user_type"]; 
-                        if($_SESSION["user_type"] == "manager"){
-                            header("location: http://localhost/rlf/view/manager/home.php");
-                        }else if($_SESSION["user_type"] == "merchandiser"){
-                            header("location: http://localhost/rlf/view/merchandiser/home.php");
-                        }else if($_SESSION["user_type"] == "fashion designer"){
-                            header("location: http://localhost/rlf/view/fashion_designer/home.php");
-                        }else{
-                            ?><script>
-                            alert("Your credentials are invalid. Please try again.");
-                            window.location.href='<?php echo $_POST["page_url"]; ?>';
-                            </script><?php  
-                        } 
-                    }else{
-                        ?><script>
-                        alert("Your email isn't verified");
-                        window.location.href='<?php echo $_POST["page_url"]; ?>';
-                        </script><?php  
-                    }
-                    
-                }else{
-                    ?><script>
-                    alert("Your account is inactive");
-                    window.location.href='<?php echo $_POST["page_url"]; ?>';
-                    </script><?php  
-                }
-                
-            }else{
-                ?><script>
-                alert("Sorry ! Your credentials are invalid.");
-                window.location.href='<?php echo $_POST["page_url"]; ?>';
-                </script><?php  
-            }  
-            $conn->close();   
-        }  */
-
         public function logout() {
                 header("location: http://localhost/rlf/view/customer/customer_login.php");
         }
@@ -406,33 +357,7 @@
                 </script><?php  
             }
         }
-        /*public function requestForgotPassword(){
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $sql = "SELECT * from employee where email='$this->email';";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            if($this->email == $row["email"]){
-                $OTP = rand(1000,9999);
-                $message = "Click <a href='http://localhost/rlf/view/merchandiser/reset_forgot_password.php?email=".$this->email."'>here</a> to reset password.";
-                $sendMail = new SendMail($row["first_name"], $row["last_name"], $this->email, $OTP, $message); 
-                $sendMail->sendTheEmail();
-                $sql_update = "UPDATE employee SET email_otp = ? WHERE email = '$this->email'";        
-                if ($stmt = mysqli_prepare($conn, $sql_update)) {
-                    mysqli_stmt_bind_param($stmt, "s", md5($OTP));
-                    mysqli_stmt_execute($stmt);
-                    ?><script>alert("Check your email inbox");</script><?php
-                    echo "Use the OTP code and link in your email to reset your password";
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                } 
-                $stmt->close(); 
-                $conn->close();
-            }else{
-                ?><script>alert("Sorry! Your email is invalid");</script><?php
-                echo "Enter your email again";
-            }
-        } */
+        
         public function requestForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
@@ -506,36 +431,7 @@
                 </script><?php
             }
         } 
-        /*public function resetForgotPassword(){
-            $connObj = new DBConnection();
-            $conn = $connObj->getConnection();
-            $sql = "SELECT * from employee where email='$this->email';";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            if(md5($this->emailOTP) == $row["email_otp"]){
-                $sql_update = "UPDATE employee SET password = ? WHERE email = '$this->email'";        
-                if ($stmt = mysqli_prepare($conn, $sql_update)) {
-                    $validValue = 1;
-                    mysqli_stmt_bind_param($stmt, "s", md5($this->password));
-                    mysqli_stmt_execute($stmt);
-                    $affectedRows = mysqli_stmt_affected_rows($stmt);
-                    if($affectedRows == -1){
-                        ?><script>alert("Sorry ! Password wasn't changed");</script><?php
-                        echo "Please try again later.";
-                    }else{
-                        ?><script>alert("Password was changed successfully");</script><?php
-                        echo "Log in with your new password";
-                    }
-                } else {
-                    echo "Error: <br>" . mysqli_error($conn);
-                } 
-                $stmt->close(); 
-                $conn->close();
-            }else{
-                ?><script>alert("Sorry ! Your OTP code is incorrect");</script><?php
-                echo "Please try again";
-            } 
-        } */
+        
         public function resetForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();

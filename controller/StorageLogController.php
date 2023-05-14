@@ -8,9 +8,7 @@
         case "manage":
             $storageLogModel->manageStorage();
             break;
-        /*case "view":
-            $storageLogModel->viewStorage();
-            break; */
+
         
     } 
     

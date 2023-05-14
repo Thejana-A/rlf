@@ -12,19 +12,15 @@
             $rawMaterialOrderModel->updateMaterialOrder();
             break;
         case "manager_view":
-            $data = $rawMaterialOrderModel->viewMaterialOrder();
-            //$row = http_build_query($data); 
+            $data = $rawMaterialOrderModel->viewMaterialOrder(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/manager/view_material_purchase_request.php?data[]=$row");
             header("location: http://localhost/rlf/view/manager/view_material_purchase_request.php?data=true");
             break;
         case "merchandiser_view":
-            $data = $rawMaterialOrderModel->viewMaterialOrder();
-            //$row = http_build_query($data); 
+            $data = $rawMaterialOrderModel->viewMaterialOrder(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/merchandiser/view_material_purchase_request.php?data[]=$row");
             header("location: http://localhost/rlf/view/merchandiser/view_material_purchase_request.php?data=true");
             break;
         case "supplier_view":

@@ -52,9 +52,13 @@
                 } */
                 $minEDD = ($minEDD=="")?"1900-01-01":$_POST["min_EDD"];
                 $maxEDD = ($maxEDD=="")?"3000-01-01":$_POST["max_EDD"];
-                $minDispatchDate = ($minDispatchDate=="")?"1900-01-01":$_POST["min_dispatch_date"];
-                $maxDispatchDate = ($maxDispatchDate=="")?"3000-01-01":$_POST["max_dispatch_date"];
-                $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD' AND dispatch_date >= '$minDispatchDate' AND dispatch_date <= '$maxDispatchDate');";
+                if(($minDispatchDate=="")&&($maxDispatchDate=="")){
+                    $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD');";
+                }else{
+                    $minDispatchDate = ($minDispatchDate=="")?"1900-01-01":$_POST["min_dispatch_date"];
+                    $maxDispatchDate = ($maxDispatchDate=="")?"3000-01-01":$_POST["max_dispatch_date"];
+                    $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD' AND dispatch_date >= '$minDispatchDate' AND dispatch_date <= '$maxDispatchDate');";
+                }
                 
                 $search_output = "";
                 $output = "";
@@ -176,36 +180,7 @@
                                 mysqli_close($conn);
                             ?>
                         </div>
-                        <?php 
-                            /*require_once('../../model/DBConnection.php');
-                            $connObj = new DBConnection();
-                            $conn = $connObj->getConnection();
-                            $sql = "SELECT order_id, first_name, last_name, expected_delivery_date, dispatch_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id;";
-                            if($result = mysqli_query($conn, $sql)){
-                                if(mysqli_num_rows($result) > 0){
-                                    while($row = mysqli_fetch_array($result)){
-                                        echo "<div class='item-data-row'>";
-                                        echo "<form method='post' action='../RouteHandler.php'>";
-                                        echo "<input type='text' hidden='true' name='framework_controller' value='raw_material_order/manager_view' />";
-                                        echo "<input type='text' hidden='true' name='order_id' value='".$row["order_id"]."' />";
-                                        echo "<input type='text' hidden='true' name='quotation_id' value='".$row["quotation_id"]."' />";
-                                        echo "<span class='manager-ID-column'>".$row["order_id"]."</span><span style='padding-left:24px;'>".$row["first_name"]." ".$row["last_name"]."</span><span>".$row["expected_delivery_date"]."</span><span>".$row["dispatch_date"]."</span>";
-                                        //echo "<input type='submit' class='grey' value='View' />";
-                                        echo "<table align='right' style='margin-right:8px;' class='two-button-table'><tr>";
-                                        echo "<td><input type='submit' class='grey' value='View' /></td>";
-                                        echo "</tr></table>"; 
-                                        echo "<hr class='manager-long-hr' />";
-                                        echo "</form>";
-                                        echo "</div>";
-                                    }
-                                }else {
-                                    echo "0 results";
-                                }
-                            }else{
-                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                            }
-                            mysqli_close($conn); */
-                        ?>
+                        
                         <!--<div class="item-data-row">
                             <span>0003</span>
                             <span>John Doe</span>

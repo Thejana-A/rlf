@@ -11,21 +11,17 @@
             $rawMaterialQuotationModel->addMaterialQuotation();
             break;
         case "manager_view":
-            $rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
-            $data = $rawMaterialQuotationModel->viewMaterialQuotation();
-            //$row = http_build_query($data); 
+            //$rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
+            $data = $rawMaterialQuotationModel->viewMaterialQuotation(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/manager/view_material_quotation.php?data[]=$row");
             header("location: http://localhost/rlf/view/manager/view_material_quotation.php?data=true");
             break;
         case "merchandiser_view":
-            $rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
-            $data = $rawMaterialQuotationModel->viewMaterialQuotation();
-            //$row = http_build_query($data); 
+            //$rawMaterialQuotationModel = new RawMaterialQuotation($_POST); 
+            $data = $rawMaterialQuotationModel->viewMaterialQuotation(); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/merchandiser/view_material_quotation.php?data[]=$row");
             header("location: http://localhost/rlf/view/merchandiser/view_material_quotation.php?data=true");
             break;
         case "supplier_view":

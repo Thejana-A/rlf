@@ -42,6 +42,7 @@
             $this->fashionDesignerID = $args["fashion_designer_id"];
         }
 
+        //For adding a costume design to system by manager or fashion designer
         public function add(){
             if($this->merchandiserID == ''){
                 $this->merchandiserID = NULL;
@@ -126,6 +127,7 @@
             } 
         }
 
+        
         public function addNewSize(){
             if($this->merchandiserID == ''){
                 $this->merchandiserID = NULL;

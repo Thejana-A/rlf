@@ -60,10 +60,6 @@
                                 echo "Error: <br>" . mysqli_error($conn);
                             } 
                             
-                            /*date_default_timezone_set("Asia/Calcutta");
-                            $notification_message = "Material quotation was requested - ID ".$this->quotationID;
-                            $sql_notification = "INSERT INTO notification (message, notification_date, time, supplier_id, category) VALUES ('".$notification_message."', '".Date("Y-m-d")."', '".Date("h:i:sa")."', '".$this->supplierID[$supplierCount]."', 'material quotation');";
-                            $conn->query($sql_notification);  */
                             ?><script>
                             alert("Material quotation request was added successfully");
                             window.location.href='<?php echo $_POST["home_url"] ?>';

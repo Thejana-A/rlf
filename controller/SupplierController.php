@@ -21,25 +21,20 @@
             }
         case "manager_view":
             //$supplierModel = new Supplier($_POST); 
-            $data = $supplierModel->viewSupplier();
-            //$row = http_build_query($data); 
+            $data = $supplierModel->viewSupplier(); 
             session_start();
             $_SESSION["row"] = $data;
             if(isset($_POST['edit'])){ 
-                //header("location: http://localhost/rlf/view/manager/edit_supplier.php?data[]=$row");
                 header("location: http://localhost/rlf/view/manager/edit_supplier.php?data=true");
             }else if(isset($_POST['delete'])){
-                //header("location: http://localhost/rlf/view/manager/delete_supplier.php?data[]=$row");
                 header("location: http://localhost/rlf/view/manager/delete_supplier.php?data=true");
             }
             break;
         case "merchandiser_view":
             $supplierModel = new Supplier($_POST); 
             $data = $supplierModel->viewSupplier();
-            //$row = http_build_query($data); 
             session_start();
             $_SESSION["row"] = $data;
-            //header("location: http://localhost/rlf/view/merchandiser/view_supplier.php?data[]=$row");
             header("location: http://localhost/rlf/view/merchandiser/view_supplier.php?data=true");
             break;
         case "update":

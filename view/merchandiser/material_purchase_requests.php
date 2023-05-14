@@ -52,9 +52,14 @@
                 } */
                 $minEDD = ($minEDD=="")?"1900-01-01":$_POST["min_EDD"];
                 $maxEDD = ($maxEDD=="")?"3000-01-01":$_POST["max_EDD"];
-                $minDispatchDate = ($minDispatchDate=="")?"1900-01-01":$_POST["min_dispatch_date"];
-                $maxDispatchDate = ($maxDispatchDate=="")?"3000-01-01":$_POST["max_dispatch_date"];
-                $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD' AND dispatch_date >= '$minDispatchDate' AND dispatch_date <= '$maxDispatchDate');";
+                if(($minDispatchDate=="")&&($maxDispatchDate=="")){
+                    $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD');";
+                }else{
+                    $minDispatchDate = ($minDispatchDate=="")?"1900-01-01":$_POST["min_dispatch_date"];
+                    $maxDispatchDate = ($maxDispatchDate=="")?"3000-01-01":$_POST["max_dispatch_date"];
+                    $search_sql = "SELECT order_id, first_name, last_name, expected_delivery_date, manager_approval, dispatch_date, payment_date, raw_material_quotation.quotation_id FROM raw_material_order, supplier, raw_material_quotation WHERE raw_material_order.quotation_id = raw_material_quotation.quotation_id AND raw_material_quotation.supplier_id = supplier.supplier_id AND raw_material_quotation.merchandiser_id = '$merchandiserID' AND (order_id LIKE '%$searchbar%' OR  first_name LIKE '%$searchbar%' OR last_name LIKE '%$searchbar%') AND (expected_delivery_date >= '$minEDD' AND expected_delivery_date <= '$maxEDD' AND dispatch_date >= '$minDispatchDate' AND dispatch_date <= '$maxDispatchDate');";
+                }
+                
 
                 $search_output = "";
                 $output = "";
