@@ -299,11 +299,11 @@
         public function resetForgotPassword(){
             $connObj = new DBConnection();
             $conn = $connObj->getConnection();
-            $sql = "SELECT * from employee where email='$this->email';";
+            $sql = "SELECT * from customer where email='$this->email';";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             if(md5($this->emailOTP) == $row["email_otp"]){
-                $sql_update = "UPDATE employee SET password = ? WHERE email = '$this->email'";        
+                $sql_update = "UPDATE customer SET password = ? WHERE email = '$this->email'";        
                 if ($stmt = mysqli_prepare($conn, $sql_update)) {
                     $validValue = 1;
                     mysqli_stmt_bind_param($stmt, "s", md5($this->password));

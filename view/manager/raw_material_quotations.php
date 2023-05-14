@@ -86,7 +86,7 @@
                 if($search_result = mysqli_query($conn, $search_sql)){
                     if(mysqli_num_rows($search_result) > 0){
                         while($search_row = mysqli_fetch_array($search_result)){
-                            $class = ($search_row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="deny")?"red":"grey");
+                            $class = ($search_row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="reject")?"red":"grey");
                             $search_output.= "<div class='item-data-row'>";
                             $search_output.= "<form method='post' action='../RouteHandler.php'>";
                             $search_output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";
@@ -119,7 +119,7 @@
                 if($result = mysqli_query($conn, $sql)){
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
-                            $class = ($row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="deny")?"red":"grey");
+                            $class = ($row["supplier_approval"]=="approve")?"green":(($row["supplier_approval"]=="reject")?"red":"grey");
                             $output.= "<div class='item-data-row'>";
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='raw_material_quotation/manager_view' />";

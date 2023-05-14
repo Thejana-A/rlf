@@ -20,6 +20,12 @@
             $row = mysqli_fetch_array($result);
 
             $propose_name = $row["name"];
+            $generalNameArray = explode("-",$propose_name);
+            $generalName = "";
+            for($i=0;$i<(count($generalNameArray)-1);$i++){
+                $generalName .= $generalNameArray[$i];
+            } 
+            
             $size = $row["size"];
             $customized_design_approval = $row["customized_design_approval"];
             $front_view=$row["front_view"];
@@ -67,7 +73,7 @@
                     Proposed Name : 
                 </div>
                 <div class="form-row-data">
-                    <input type="text" name="name" id="name" value="<?php echo $_GET["design_name"]?>" disabled  />
+                    <input type="text" name="name" id="name" value="<?php echo $generalName;?>" disabled  />
                 </div>
             </div>
 
@@ -164,7 +170,7 @@
 
                 if($customized_design_approval == "approve"){
 
-                    $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customer_id=$customerID AND design_id=$design_id;";
+                    /*$sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customer_id=$customerID AND design_id=$design_id;";
                     $result = $conn->query($sql);
                     $costume_name = array();
                     if ($result->num_rows > 0) {
@@ -175,21 +181,51 @@
                     }
                     
                     for($i = 0;$i<count($costume_name);$i++){
-                        $sql_costume = "SELECT * FROM costume_design where `name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__'  LIMIT 1;";
+                        $sql_costume = "SELECT * FROM costume_design where (`name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__' OR name LIKE '$costume_name[$i]-___')  LIMIT 1;";
                         $result_costume = $conn->query($sql_costume);
                         if ($result_costume->num_rows > 0) {
                             while ($row = $result_costume->fetch_assoc()) {
-                                $design_id= $row['design_id'];
                                 echo "</form>";
                                 echo "<input type='hidden' name='design_id'  value='".$row['design_id'].";'>";
                                 echo "<div class='form-row'  style='display: flex; justify-content: center;'>";
                                 echo "<button class='Quotationbtn' onclick=location.href='request_quotation.php?design_id=".$row['design_id']."&design_name=".$costume_name[$i]."'>";
                                 echo "Request Quotation";
                                 echo "</button>";
+                                echo "</div>"; 
+                                
+                            }
+                        }
+                    }  */
+                    $sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customer_id=$customerID AND design_id=$design_id;";
+                    $result = $conn->query($sql);
+                    $costume_name = array();
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            array_push($costume_name , $row["costume_name"]);
+                        }
+                    }
+
+                    for ($i = 0; $i < count($costume_name); $i++) {
+                        $sql_costume = "SELECT * FROM costume_design WHERE `name` LIKE ? OR `name` LIKE ? LIMIT 1;";
+                        $stmt = $conn->prepare($sql_costume);
+                        $stmt->bind_param("ss", $name1, $name2);
+                        $name1 = $costume_name[$i] . "-_";
+                        $name2 = $costume_name[$i] . "-__";
+                        $stmt->execute();
+                        $result_costume = $stmt->get_result();
+                        if ($result_costume->num_rows > 0) {
+                            while ($row = $result_costume->fetch_assoc()) {
+                                $design_id = $row['design_id'];
+                                echo "</form>";
+                                echo "<input type='hidden' name='design_id' value='".$row['design_id']."' />";
+                                echo "<div class='form-row' style='display: flex; justify-content: center;'>";
+                                echo "<button class='Quotationbtn' onclick=\"location.href='request_quotation.php?design_id=".$row['design_id']."&design_name=".$costume_name[$i]."'\">";
+                                echo "Request Quotation";
+                                echo "</button>";
                                 echo "</div>";
                             }
                         }
-                    }                                     
+                    }                                   
                 }
             ?>
 

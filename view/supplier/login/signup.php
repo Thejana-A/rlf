@@ -50,7 +50,7 @@
 <body style="background-image: url('../../icons/login_bg.jpeg');">
 <button type="button" onclick="goback()" class="back">Go Back</button>
 <center>
-        <div id="signup-box">
+        <div id="signup-box" style="width:40%;">
 	
 			<form method="post" class="signup" name="supplierForm"  onSubmit="return validateForm()" action="../../RouteHandler.php" enctype ="multipart/form-data">
             <input type="text" hidden="true" name="framework_controller" value="supplier/sign_up" />
@@ -138,7 +138,7 @@
 					$sql = "SELECT material_id, name FROM raw_material WHERE manager_approval = 'approve'";
 					if($result = mysqli_query($conn, $sql)){
 						if(mysqli_num_rows($result) > 0){
-							echo "<select name='material_id[]' id='material_id' multiple size='2' required>";
+							echo "<select name='material_id[]' id='material_id' multiple size='3' required>";
 							echo "<option disabled>ID - Material name</option>";
 							while($row = mysqli_fetch_array($result)){
 								echo "<option value='".$row["material_id"]."'>".$row["material_id"]." - ".$row["name"]."</option>";

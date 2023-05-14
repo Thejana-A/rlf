@@ -132,11 +132,11 @@
                     <a href="home.php">Fashion Designer </a> > View costume designs
                 </div>
 
-                <div class="link-row">
+                <div class="link-row-costume-design">
                     <a href="add_costume_design.php" class="right-button">Add new design</a>
                 </div>
                 
-                <div id="list-box">
+                <div id="list-box-costume-design">
                     <center>
                         <h2>Costume designs</h2>
                     </center>

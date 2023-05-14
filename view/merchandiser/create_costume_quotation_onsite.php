@@ -18,7 +18,8 @@
             } 
 
             //costume name list to be displayed
-            $costume_sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE final_price IS NOT NULL AND `merchandiser_id` = ".$merchandiserID.";";
+            //$costume_sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE final_price IS NOT NULL AND `merchandiser_id` = ".$merchandiserID.";";
+            $costume_sql = "SELECT DISTINCT SUBSTRING_INDEX(name,'-',LENGTH(name)-LENGTH(REPLACE(name,'-',''))) as costume_name FROM costume_design WHERE customized_design_approval = 'approve' AND final_price > 0 AND `merchandiser_id` = ".$merchandiserID.";";
             $costumeNameCount = 0;
             $costumeNameList = "";
             if($costumeNameResult = mysqli_query($conn, $costume_sql)){

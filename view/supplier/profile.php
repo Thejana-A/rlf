@@ -79,7 +79,7 @@
                     <a href="../customer/customer_login.php">Login </a> > Supplier                    
                 </div>
 			
-                <div class="form-row" style="width:115%;">
+                <div class="form-row" style="width:120%;">
                     <div class="form-row-theme">
                         <div id="list-box-home" style="color:#330099;flex: 65%;box-sizing: border-box;background-color:#ffcc99;border-radius:6px;padding:30px;margin:10px;clear:inherit; font-family:sans-serif;width:195%;margin-top:20px;margin-right:80px;height:245px;">
                             <h2>Hi <?php echo $_SESSION["first_name"]; ?>,</h2>

@@ -73,13 +73,13 @@
                 }
                 //print_r($costume_name);
                 for($i = 0;$i<count($costume_name);$i++){
-                    $sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.customer_id,  e2.first_name fd_first_name, e2.last_name fd_last_name, cu.first_name AS customer_first_name, cu.last_name AS customer_last_name
+                    $sql_costume = "(SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.customer_id,  e2.first_name fd_first_name, e2.last_name fd_last_name, cu.first_name AS customer_first_name, cu.last_name AS customer_last_name, customized_design_approval
                     FROM costume_design c 
                     JOIN employee e2 ON c.fashion_designer_id = e2.employee_id
                     JOIN customer cu ON c.customer_id = cu.customer_id
                     WHERE `name` LIKE '$costume_name[$i]-_' OR name LIKE '$costume_name[$i]-__' OR name LIKE '$costume_name[$i]-___' LIMIT 1)
                     UNION
-                    (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.customer_id, '' AS fd_first_name, '' AS fd_last_name, cu.first_name AS customer_first_name, cu.last_name AS customer_last_name
+                    (SELECT c.design_id, c.name, c.fashion_designer_id, c.merchandiser_id, c.front_view, c.customer_id, '' AS fd_first_name, '' AS fd_last_name, cu.first_name AS customer_first_name, cu.last_name AS customer_last_name, customized_design_approval
                     FROM costume_design c  
                     JOIN customer cu ON c.customer_id = cu.customer_id
                     AND `fashion_designer_id` IS NULL
@@ -88,14 +88,15 @@
                     if ($result_costume_row->num_rows > 0) {
                         while ($costume_row = $result_costume_row->fetch_assoc()) { 
                             //$output.= $costume_name[$i]." - ".$costume_row["merchandiser_id"]." - ".$costume_row["merchandiser_first_name"]." ".$costume_row["merchandiser_last_name"]." - ".$costume_row["fashion_designer_id"]." - ".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]." - ".$costume_row["front_view"];
-                            //$output.= "<br />";   
+                            //$output.= "<br />";  
+                            $class = ($costume_row["customized_design_approval"]=="approve")?"green":(($costume_row["customized_design_approval"]=="reject")?"red":"grey");
                             $output.= "<div class='item-data-row'>";
                             $output.= "<form method='post' action='../RouteHandler.php'>";
                             $output.= "<input type='text' hidden='true' name='framework_controller' value='costume_design/manager_view_general_design' />";
                             $output.= "<input type='text' hidden='true' name='name' value='".$costume_name[$i]."' />";
                             $output.= "<span style='width:20%;'>".$costume_name[$i]."</span><span style='width:20%;'>".$costume_row["customer_id"]." - ".$costume_row["customer_first_name"]." ".$costume_row["customer_last_name"]."</span><span style='width:30%;'>".$costume_row["fd_first_name"]." ".$costume_row["fd_last_name"]."</span>";
                             $output.= "<table align='right' style='margin-right:24px;' class='two-button-table'><tr>";
-                            $output.= "<td><input type='submit' class='grey' value='View' /></td>";
+                            $output.= "<td><input type='submit' class='".$class."' value='View' /></td>";
                             $output.= "</tr></table>";
                             $output.= "<hr class='manager-long-hr' />";
                             $output.= "</form>";
@@ -123,7 +124,7 @@
                     <a href="home.php">Manager</a> > Customized costume designs
                 </div>
                 
-                <div id="list-box">
+                <div id="list-box-ultra-small">
                     <center>
                         <h2>Customized costume designs</h2>
                     </center>
